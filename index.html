@@ -56,7 +56,7 @@ canvas{display:block;width:100%;height:100%;border-radius:4px;touch-action:none}
 .eyebrow{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .draft{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
 .side>*{flex-shrink:0}
-.upg{--rc:#b8c0d8;display:flex;flex-direction:column;gap:6px;text-align:left;background:linear-gradient(180deg,#1c2135,#10131d);border:2px solid var(--rc);border-radius:10px;padding:10px;color:var(--ink);cursor:pointer;font:inherit;transition:transform .12s,box-shadow .12s}
+.upg{--rc:#b8c0d8;display:flex;flex-direction:column;gap:6px;text-align:left;background:linear-gradient(180deg,#1c2135,#10131d);border:4px solid var(--rc);border-radius:10px;padding:10px;color:var(--ink);cursor:pointer;font:inherit;transition:transform .12s,box-shadow .12s}
 .upg:hover,.upg:focus-visible{transform:translateY(-3px);box-shadow:0 10px 26px -8px var(--rc);outline:none}
 .upg .tag{display:flex;flex-direction:column;gap:1px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--rc)}
 .upg .nm{font:400 20px/1 Bangers,Impact,sans-serif;letter-spacing:.03em;color:#fff;text-wrap:balance}
@@ -125,6 +125,38 @@ em.tg{font:600 11px/1.3 "Barlow Condensed",sans-serif;font-style:normal;letter-s
 .rules{margin:8px 0 0;font-size:14px;line-height:1.3;color:var(--muted);text-transform:none;letter-spacing:0}
 .rules b{color:var(--gold);font-weight:600;margin-right:4px}.rules i{font-style:normal;color:var(--ink)}
 .fanote{margin:0;font-size:12px;line-height:1.3;color:#5b627a}
+.upg .paint{--pa:var(--fa,var(--rc));--pb:var(--fb,var(--rc));display:flex;flex-direction:column;gap:6px;flex:1;margin:2px -10px -10px;padding:8px 10px 10px;border-radius:0 0 6px 6px;border-top:2px solid var(--pa);background:linear-gradient(180deg,color-mix(in srgb,var(--pa) 30%,#151a28) 0%,color-mix(in srgb,var(--pb) 18%,#10131d) 100%);box-shadow:inset 0 10px 18px -12px color-mix(in srgb,var(--pa) 70%,transparent)}
+.atk{border-left:3px solid var(--red);padding-left:10px;font-size:15px;line-height:1.35}.atk b{color:#ff8a8a;font-weight:600}.atk small{color:var(--muted)}
+.keyhint{font-size:13px;color:var(--muted);letter-spacing:.04em}
+@media (max-width:780px){.keyhint{display:none}}
+.slotlab{align-self:flex-start;font:600 10px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;padding:3px 6px;border-radius:3px;background:#2c3140;color:#e9ecf5}
+.slotlab.s-build{background:#1f5f3a;color:#bff5d0}.slotlab.s-bridge{background:#5a3f10;color:#ffe1a0}.slotlab.s-wildcard{background:#4a1f5f;color:#efc6ff}.slotlab.s-evolution{background:#5f2a10;color:#ffc9a0}
+.fchips{display:flex;flex-wrap:wrap;gap:3px}
+.fchips em{font:600 11px/1.3 "Barlow Condensed",sans-serif;font-style:normal;color:var(--tc);border:1px solid color-mix(in srgb,var(--tc) 45%,transparent);border-radius:3px;padding:0 4px}
+.pv{display:flex;flex-direction:column;gap:1px;font-size:12px;line-height:1.25;border-top:1px dashed #3a4052;padding-top:4px}
+.pv .unl{color:#ffe08a}.pv .syn{color:#9fe6ff}
+.prem{font-size:11px;color:#ff8a8a;letter-spacing:.04em}
+.affsum{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.affsum:empty{display:none}
+.affsum .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.arow{display:grid;grid-template-columns:1fr auto 44px;gap:8px;align-items:center;font-size:14px}
+.arow span{color:var(--fc)}.arow em{font-style:normal;font-size:12px;color:var(--muted);text-align:right}
+.arow i{display:flex;gap:3px}.arow b{width:11px;height:8px;border-radius:2px;background:#1a1d26}
+.arow b.tier{outline:1px solid color-mix(in srgb,var(--fc) 45%,transparent)}.arow b.on{background:var(--fc);box-shadow:0 0 6px color-mix(in srgb,var(--fc) 60%,transparent)}
+.inv li .fi{font-style:normal;font-size:11px;margin-left:4px}
+.inv li.ksline{background:linear-gradient(90deg,rgba(46,230,200,.12),transparent)}
+.inv li.synl.k-family{--rc:#9fe6ff}.inv li.synl.k-capstone{--rc:#ffb52e}.inv li.synl.k-hybrid{--rc:#ff9a2e}
+.inv-head .mini{margin-left:6px;padding:2px 6px;font-size:11px;vertical-align:1px}
+.cxgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.cxf{border:1px solid color-mix(in srgb,var(--fc) 35%,#3a4052);border-radius:8px;padding:8px 10px;background:#12151f}
+.cxf h3{margin:0 0 4px;font:400 20px/1.1 Bangers,Impact,sans-serif;letter-spacing:.04em;color:var(--fc);display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.cxf h3 small{font:500 12px "Barlow Condensed",sans-serif;color:var(--muted);letter-spacing:.04em}.cxf h3 b{margin-left:auto;color:var(--ink);font-size:18px}
+.cxtiers{display:flex;flex-direction:column;font-size:12px;color:#5b627a;margin-bottom:4px}.cxtiers .on{color:var(--gold)}
+.cxf ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.cxf li{border-left:3px solid var(--rc);padding-left:6px;font-size:13px;display:flex;gap:6px;align-items:baseline}
+.cxf li i{font-style:normal;font-size:10px;color:var(--rc);min-width:58px;letter-spacing:.06em;text-transform:uppercase}.cxf li small{margin-left:auto;color:#5b627a;font-size:11px}
+.cxh{margin:6px 0 0;font:400 22px Bangers,Impact,sans-serif;color:var(--gold);letter-spacing:.04em}
+.cxhy{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px;font-size:14px;color:#5b627a}.cxhy .on{color:#c9cde0}.cxhy b{color:#ff9a2e}
 .codex{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 .draft-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .ghost.gold{color:var(--gold);border-color:#6b5520}
@@ -210,8 +242,9 @@ em.tg{font:600 11px/1.3 "Barlow Condensed",sans-serif;font-style:normal;letter-s
       <button class="btn snap" id="snapBtn" type="button" hidden>Snap (G)</button>
     </section>
     <section class="plaque inv" aria-live="polite">
-      <div class="inv-head"><span>Your build</span><b id="credits">0 credits</b></div>
+      <div class="inv-head"><span>Your build <button class="mini" id="codexBtn" type="button">Codex</button></span><b id="credits">0 credits</b></div>
       <div class="odds" id="odds"></div>
+      <div class="affsum" id="affSum"></div>
       <div class="tagsum" id="tagSum"></div>
       <ul id="invList"><li class="empty">No upgrades yet. Clear a level to draft one.</li></ul>
     </section>
@@ -250,11 +283,17 @@ em.tg{font:600 11px/1.3 "Barlow Condensed",sans-serif;font-style:normal;letter-s
 const W = 560, H = 940, GRAV = 1250, MAXV = 2000;
 let R = 10; // current ball radius (balls can grow or shrink)
 const STEP = 1 / 120, SUB = 5;
+// substeps adapt to speed: each substep moves a ball at most ~6 px (2 when calm, up to 5 for fast balls and swinging flippers)
+function subSteps() { let v = 0; for (const b of balls) if (!b.captured) { const s2 = b.vx * b.vx + b.vy * b.vy; if (s2 > v) v = s2; } v = Math.sqrt(v); for (const f of flippers) if (f.w > 1 || f.w < -1) v = Math.max(v, 900 + Math.abs(f.w) * f.L); return clamp(Math.ceil(v * STEP / 6), 2, SUB); }
 const $ = id => document.getElementById(id);
-const cv = $('c'), ctx = cv.getContext('2d');
+const cv = $('c'); let ctx = cv.getContext('2d'); const mainCtx = ctx;
+const Q = { low: false, slow: 0, fast: 0 };
+{ const d = Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype, 'shadowBlur');
+  if (d && d.set) Object.defineProperty(mainCtx, 'shadowBlur', { get() { return d.get.call(this); }, set(v) { d.set.call(this, Q.low ? 0 : Math.min(v, 18)); }, configurable: true }); }
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
-const fmt = n => Math.round(n).toLocaleString('en-US');
+const NF = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }), fmt = n => NF.format(Math.round(n));
 const TAU = Math.PI * 2;
+const hyp = (x, y) => Math.sqrt(x * x + y * y); // Math.hypot is slow in hot loops
 
 // ================= hooks for upgrades / bosses =================
 // Bus events: 'hit' {kind,obj,ball,impact,generated}, 'score' {pts,kind,generated}, 'shot' {name}, 'drain', 'levelStart', 'levelClear'
@@ -283,7 +322,7 @@ seg(20, 285, 20, 980, { r: 0, e: .15 });
 seg(550, 285, 550, 980, { r: 0, e: .15 });
 // top-right pocket carved deep into the outer wall: the bumper sits behind the wall line, so a ball riding the wall
 // (every launch) slides past the narrow mouth untouched, while a ball shot straight into the mouth gets kicked back
-const POCK = (() => { const TH = Math.PI * 1.75, D = 294, r = 56, x = ARC.cx + D * Math.cos(TH), y = ARC.cy + D * Math.sin(TH);
+const POCK = (() => { const TH = Math.PI * 1.75, D = 294, r = 64, x = ARC.cx + D * Math.cos(TH), y = ARC.cy + D * Math.sin(TH);
   const dl = Math.acos((ARC.r ** 2 + D ** 2 - r * r) / (2 * ARC.r * D)), t1 = TH - dl, t2 = TH + dl;
   const p1 = [ARC.cx + ARC.r * Math.cos(t1), ARC.cy + ARC.r * Math.sin(t1)], p2 = [ARC.cx + ARC.r * Math.cos(t2), ARC.cy + ARC.r * Math.sin(t2)];
   const a1 = Math.atan2(p1[1] - y, p1[0] - x); let a2 = Math.atan2(p2[1] - y, p2[0] - x); if (a2 < a1) a2 += TAU; // go round the outer side
@@ -312,12 +351,12 @@ wall(warpWall);
 const warpPoly = [...warpWall, 520, 575, 520, 236];
 wall(bez(520, 568, 518, 610, 454, 620, 12));
 // inlane / outlane guides
-wall([48, 670, 48, 754.5, 168, 816.7]); // inlane guide lines up with the flipper's top so a rolling ball doesn't bump the pivot
+wall([48, 615, 48, 754.5, 168, 816.7]); // left divider reaches higher (a longer safety bar beside the left slingshot) // inlane guide lines up with the flipper's top so a rolling ball doesn't bump the pivot
 wall([492, 670, 492, 754.5, 372, 816.7]);
 // drain channels: a ball that drops into an outlane rolls down a groove under the guide and the flipper,
 // into the void at the bottom centre (own level, so it can't touch the flippers on the way)
 // straight, parallel to the flipper guides: drop down the outlane, run under the guide line, then fall into the void
-const subdiv = (pts, step = 12) => { const o = [pts[0], pts[1]]; for (let i = 0; i + 3 < pts.length; i += 2) { const n = Math.max(1, Math.round(Math.hypot(pts[i + 2] - pts[i], pts[i + 3] - pts[i + 1]) / step)); for (let k = 1; k <= n; k++) o.push(pts[i] + (pts[i + 2] - pts[i]) * k / n, pts[i + 1] + (pts[i + 3] - pts[i + 1]) * k / n); } return o; };
+const subdiv = (pts, step = 12) => { const o = [pts[0], pts[1]]; for (let i = 0; i + 3 < pts.length; i += 2) { const n = Math.max(1, Math.round(hyp(pts[i + 2] - pts[i], pts[i + 3] - pts[i + 1]) / step)); for (let k = 1; k <= n; k++) o.push(pts[i] + (pts[i + 2] - pts[i]) * k / n, pts[i + 1] + (pts[i + 3] - pts[i + 1]) * k / n); } return o; };
 const drainL = subdiv([34, 700, 34, 790, 250, 902, 250, 985]);
 const drainR = drainL.map((v, i) => i % 2 ? v : 540 - v);
 const drainWalls = [];
@@ -334,7 +373,7 @@ function offsetLine(pts, side, w0 = 18, flare = 6, pw = 3) {
   const out = [], n = pts.length / 2;
   for (let i = 0; i < n; i++) {
     const a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1);
-    let tx = pts[b * 2] - pts[a * 2], ty = pts[b * 2 + 1] - pts[a * 2 + 1]; const l = Math.hypot(tx, ty); tx /= l; ty /= l;
+    let tx = pts[b * 2] - pts[a * 2], ty = pts[b * 2 + 1] - pts[a * 2 + 1]; const l = hyp(tx, ty); tx /= l; ty /= l;
     const t = i / (n - 1), w = w0 + flare * (1 - t) ** pw;
     out.push(pts[i * 2] - ty * w * side, pts[i * 2 + 1] + tx * w * side);
   }
@@ -360,8 +399,8 @@ const tunL = offsetLine(tunCenter, 1, 16, 5), tunR = offsetLine(tunCenter, -1, 1
 wall(tunL, { layer: 2, e: .3, r: 2, draw: false }); wall(tunR, { layer: 2, e: .3, r: 2, draw: false });
 const tunnelPoly = [...tunL, ...(a => { const o = []; for (let i = a.length - 2; i >= 0; i -= 2) o.push(a[i], a[i + 1]); return o; })(tunR)];
 // tunnel spinner: a blade across the lane near the exit, where the tunnel is out from under the ramp
-const tunSpinI = (() => { let best = 0, bd = 1e9; for (let i = 0; i < tunCenter.length; i += 2) { const d = Math.hypot(tunCenter[i] - 238, tunCenter[i + 1] - 364); if (d < bd) { bd = d; best = i; } } return best; })();
-const tunSpin = (() => { const i = tunSpinI, x = tunCenter[i], y = tunCenter[i + 1]; let tx = tunCenter[i + 2] - tunCenter[i - 2], ty = tunCenter[i + 3] - tunCenter[i - 1]; const l = Math.hypot(tx, ty); tx /= l; ty /= l;
+const tunSpinI = (() => { let best = 0, bd = 1e9; for (let i = 0; i < tunCenter.length; i += 2) { const d = hyp(tunCenter[i] - 238, tunCenter[i + 1] - 364); if (d < bd) { bd = d; best = i; } } return best; })();
+const tunSpin = (() => { const i = tunSpinI, x = tunCenter[i], y = tunCenter[i + 1]; let tx = tunCenter[i + 2] - tunCenter[i - 2], ty = tunCenter[i + 3] - tunCenter[i - 1]; const l = hyp(tx, ty); tx /= l; ty /= l;
   return { x, y, tx, ty, nx: -ty, ny: tx, half: 0, a: 0, w: 0, hl: 15 }; })();
 
 
@@ -394,13 +433,13 @@ placePlate(enemy, 0);
 const stars = [[378, 440], [370, 352], [280, 222], [228, 398], [332, 398]].map(([x, y]) => ({ x, y, lit: false, flash: 0 }));
 // big purple bumper sunk into a carved crater at the top right
 const BIG = { x: POCK.x, y: POCK.y };
-bumpers.push({ x: BIG.x, y: BIG.y, r: 24, kick: 600, kind: 'bumper', pts: 150, flash: 0, big: true });
+bumpers.push({ x: BIG.x, y: BIG.y, r: 24, kick: 600, kind: 'bumper', pts: 1000, flash: 0, big: true }); // the purple jackpot bumper in the wall pocket
 // clear zig-zag hugging the walls; a hidden sloped filler above each wall gap rolls the ball off instead of letting it wedge
 for (const [x, y, side] of [[39, 348, -1], [72, 408, 1], [39, 468, -1]]) {
   const wx = side > 0 ? 90 : 20;
   seg(wx, y - 28, x + side * 8.5, y - 8.5, { r: 2, e: .3 });
 }
-for (const [x, y] of [[39, 348], [72, 408], [39, 468]]) bumpers.push({ x, y, r: 12, kick: 110, e: .95, kind: 'bumper', pts: 40, flash: 0, pit: true });
+for (const [x, y] of [[39, 348], [72, 408], [39, 468]]) bumpers.push({ x, y, r: 12, kick: 110, e: .95, kind: 'bumper', pts: 150, flash: 0, pit: true });
 const topLanes = [220, 280, 340].map(x => ({ x, lit: false }));
 const lowLanes = [[20, 48, 34, true], [48, 105, 76], [435, 492, 464], [492, 520, 506, true]].map(([x1, x2, x, out]) => ({ x1, x2, x, out, lit: false }));
 const spinner = { x1: 472, x2: 520, y: 400, a: 0, w: 0, half: 0 };
@@ -409,7 +448,7 @@ const holes = [
   { name: 'worm', x: 280, y: 590, lit: 0, ball: null, hold: 0, ej: () => [(Math.random() < .5 ? -1 : 1) * (150 + Math.random() * 150), -700] },
 ];
 const [saucer, worm] = holes;
-const posts = [[48, 670], [492, 670], [90, 316], [108, 520], [442, 242], [450, 560], [flapL.at(-2), flapL.at(-1)], [flapR.at(-2), flapR.at(-1)], ...lanePostX.flatMap(x => [[x, 112], [x, 152]])];
+const posts = [[48, 615], [492, 670], [90, 316], [108, 520], [442, 242], [450, 560], [flapL.at(-2), flapL.at(-1)], [flapR.at(-2), flapR.at(-1)], ...lanePostX.flatMap(x => [[x, 112], [x, 152]])];
 
 // hot-shot arrows (one shot is lit at a time for a bonus)
 const SHOTS = {
@@ -453,10 +492,10 @@ const UPGRADES = [
   { id: 'guard', r: 'rare', cat: 'Machine Part', name: 'Vibranium Drain Guard', desc: 'The first ball that drains between the flippers each level bounces back.' },
   { id: 'panther', r: 'rare', cat: 'Trinket', name: "Black Panther's Necklace", desc: 'Every 5th bumper hit pays 5×.' },
   { id: 'fury', r: 'rare', cat: 'Trinket', name: "Nick Fury's Backup Plan", desc: 'Start every level with one extra ball.' },
-  { id: 'loki', r: 'rare', cat: 'Trinket', name: "Loki's Illusion", desc: 'Every 12th hit spawns a ghost ball for 12 seconds. Ghosts score half and drain for free.' },
+  { id: 'loki', r: 'rare', cat: 'Trinket', name: "Loki's Illusion", desc: 'Every 25th hit spawns a ghost ball for 8 seconds. Ghosts score half and drain for free.' },
   { id: 'mjolnir', r: 'epic', cat: 'Machine Part', name: 'Mjolnir Bumpers', desc: 'Bumper hits charge lightning. At 5 charges it chains to 3 targets for 300 each.' },
   { id: 'hex', r: 'epic', cat: 'Trinket', name: "Scarlet Witch's Hex", desc: 'Every 15th hit hexes a random scoring source: 2× or 3× for the rest of the level.' },
-  { id: 'instab', r: 'epic', cat: 'Mutation', name: 'Multiverse Instability', desc: 'Every 20 hits the ball splits in two. Copies have a 20% chance to vanish on each bumper hit.' },
+  { id: 'instab', r: 'epic', cat: 'Mutation', name: 'Multiverse Instability', desc: 'Every 35 hits the ball splits in two. Copies have a 20% chance to vanish on each bumper hit.' },
   { id: 'space', r: 'legendary', cat: 'Infinity Stone', name: 'Space Stone', desc: 'Every 15th hit folds space: the ball jumps to the top of the table for 500.' },
   { id: 'mind', r: 'legendary', cat: 'Infinity Stone', name: 'Mind Stone', desc: 'Hot shots pay 3× and every hot shot also deals 1 damage to the enemy or boss.' },
   { id: 'reality', r: 'legendary', cat: 'Infinity Stone', name: 'Reality Stone', desc: 'Every 30th hit rewrites the bumpers into gold for 10 seconds: they score 3×.' },
@@ -464,7 +503,7 @@ const UPGRADES = [
   { id: 'time', r: 'legendary', cat: 'Infinity Stone', name: 'Time Stone', desc: 'Once per level, a drained ball is rewound to where it was 2 seconds earlier.' },
   { id: 'soul', r: 'legendary', cat: 'Infinity Stone', name: 'Soul Stone', desc: 'Once per level, the first ball you lose is a sacrifice: +100% to all scoring for the rest of the level.' },
   { id: 'phoenix', r: 'legendary', cat: 'Mutation', name: 'Phoenix Force', desc: 'Your last ball scores 3×, other balls score 25% less. The last ball rises again once per level.' },
-  { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: "Loki's Scepter", desc: "Every 8th hit spawns a ghost ball that scores full points. Stacks with Loki's Illusion." },
+  { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: "Loki's Scepter", desc: "Every 18th hit spawns a ghost ball (8 s) that scores full points. Stacks with Loki's Illusion." },
   { id: 'tesseract', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: 'Tesseract Shard', desc: 'Every ramp shot also counts as an orbit and adds one more wormhole light.' },
   { id: 'dagger', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: "Trickster's Dagger", desc: 'Every 4th hit on the enemy or a boss is a critical: double damage and +1,000.' },
   { id: 'ucore', r: 'artifact', boss: 'ultron', cat: 'Artifact · Ultron', name: "Ultron's Core", desc: 'A red bumper hit 8 times in a level overclocks: it scores 3× for the rest of the level.' },
@@ -497,54 +536,40 @@ const HEXABLE = [...new Set(Object.values(HEXMAP))];
 function rarityWeights(lv) {
   if (lv <= 2) return { common: 85, uncommon: 15, rare: 0, epic: 0, legendary: 0 };
   if (lv <= 4) return { common: 70, uncommon: 26, rare: 4, epic: 0, legendary: 0 };
-  if (lv <= 9) return { common: 55, uncommon: 30, rare: 12, epic: 3, legendary: 0 };
-  if (lv <= 14) return { common: 44, uncommon: 31, rare: 17, epic: 6, legendary: 2 };
-  return { common: 34, uncommon: 30, rare: 21, epic: 10, legendary: 5 };
+  if (lv <= 9) return { common: 52, uncommon: 30, rare: 12, epic: 3, keystone: 3, legendary: 0 };
+  if (lv <= 14) return { common: 40, uncommon: 31, rare: 17, epic: 6, keystone: 4, legendary: 2 };
+  return { common: 29, uncommon: 30, rare: 21, epic: 10, keystone: 5, legendary: 5 };
 }
 function rollRarity() { const w = rarityWeights(S.level); let t = Math.random() * 100; for (const k in w) { t -= w[k]; if (t <= 0) return k; } return 'common'; }
-function rollDraft() {
-  const pool = UPGRADES.filter(u => u.r !== 'artifact' && u.pool !== false && canGain(u)), picks = [];
-  for (let i = 0; i < 3; i++) {
-    let r = rollRarity();
-    if (i === 0 && S.level >= 5 && S.sinceRare >= 3 && RANK[r] < 2) r = 'rare';
-    if (i === 0 && S.lens && RANK[r] < 2) r = 'rare'; // pity (from level 5): a Rare or better at least every 4 drafts
-    let rank = RANK[r], c = pool.filter(u => u.r === r && !picks.includes(u));
-    while (!c.length && rank > 0) { rank--; c = pool.filter(u => RANK[u.r] === rank && !picks.includes(u)); }
-    if (!c.length) c = pool.filter(u => !picks.includes(u) && RANK[u.r] <= RANK[r]);
-    if (c.length) picks.push(c[Math.random() * c.length | 0]);
-  }
-  { const maxR = Math.max(...Object.entries(rarityWeights(S.level)).filter(([, v]) => v > 0).map(([k]) => RANK[k]));
-    for (const E of EVOS) { const miss = E.need.filter(id => !has(id)); if (miss.length !== 1) continue; const u = UPGRADES.find(q => q.id === miss[0]);
-      if (!picks.includes(u) && RANK[u.r] <= maxR && Math.random() < .4) { picks[picks.length - 1] = u; break; } } }
-  S.lens = false;
-  S.sinceRare = picks.some(u => RANK[u.r] >= 2) ? 0 : S.sinceRare + 1;
-  return picks.sort((a, b) => RANK[a.r] - RANK[b.r]);
-}
 function renderOdds() {
   const lv = S.phase === 'clear' ? S.level : S.level, w = rarityWeights(lv), ks = Object.keys(w).filter(k => w[k] > 0);
   $('odds').innerHTML = `<span class="lbl">Upgrade odds · level ${lv}</span>
     <div class="bar">${ks.map(k => `<i style="width:${w[k]}%;background:${RAR[k].c}" title="${RAR[k].n} ${w[k]}%"></i>`).join('')}</div>
     <div class="keys2">${ks.map(k => `<span style="--rc:${RAR[k].c}">${RAR[k].n} ${w[k]}%</span>`).join('')}</div>`;
 }
-function renderInv() {
+let invDirty = false, invT = 0;
+function renderInv() { if (activePlay()) invDirty = true; else renderInv0(); }
+function renderInv0() {
   renderOdds();
   $('credits').textContent = S.credits + ' credits' + (S.debt ? ' · debt ' + S.debt : '');
   const list = UPGRADES.filter(u => has(u.id)), synl = SYNERGIES.filter(sy => syn(sy.id));
-  if (!list.length) { $('invList').innerHTML = '<li class="empty">No upgrades yet. Clear a level to draft one.</li>'; $('tagSum').innerHTML = ''; return; }
+  if (!list.length) { $('invList').innerHTML = '<li class="empty">No upgrades yet. Clear a level to draft one.</li>'; $('tagSum').innerHTML = ''; $('affSum').innerHTML = ''; return; }
   $('invList').innerHTML = `<li class="slots">Build slots ${slotsUsed()}/${SLOTS}</li>` + list.map(u => {
     let extra = '';
     if (u.id === 'hex') extra = Object.entries(S.hexed).map(([k, v]) => k + ' ×' + v).join(', ');
     const nm = nameFor(u) + (u.stack && has(u.id) > 1 ? ' ×' + has(u.id) : ''), ds = descFor(u);
-    return `<li tabindex="0" title="${ds.replace(/"/g, '&quot;')}" class="${extra ? 'hexline' : ''}" style="--rc:${RAR[u.r].c}"><b>${nm}</b>${tierPips(u)}<span>${extra || ds}</span></li>`;
+    return `<li tabindex="0" title="${ds.replace(/"/g, '&quot;')}" class="${extra ? 'hexline' : ''}${u.r === 'keystone' ? ' ksline' : ''}" style="--rc:${RAR[u.r].c}"><b>${u.r === 'keystone' ? '◆ ' : ''}${nm}</b>${tierPips(u)}${famsOf(u).map(f => `<i class="fi" title="${FAMS[f].name}">${FAMS[f].ico}</i>`).join('')}<span>${extra || ds}</span></li>`;
   }).join('') + synl.map(sy => `<li class="synl k-${sy.kind}" tabindex="0" title="${sy.desc}"><b>✦ ${sy.name}</b><span>${SYNKIND[sy.kind]} · ${sy.req}. ${sy.desc}</span></li>`).join('') + evoLines() + `<li class="codex">Synergies discovered ${codex.size}/${SYNERGIES.length}</li>`;
   recountTags();
+  const A = S.aff || {}, fams = Object.keys(FAMS).filter(f => A[f]).sort((a, b) => A[b] - A[a]);
+  $('affSum').innerHTML = fams.length ? '<span class="lbl">Build affinity</span>' + fams.map(f => { const n = A[f], next = n < 3 ? 'III' : n < 5 ? 'V' : ''; return `<div class="arow" style="--fc:${FAMS[f].c}" title="${FAMS[f].name}: ${FAMS[f].core}"><span>${FAMS[f].ico} ${FAMS[f].name}</span><i>${[1, 2, 3, 4, 5].map(k => `<b class="${k <= n ? 'on' : ''}${k === 3 || k === 5 ? ' tier' : ''}"></b>`).join('')}</i><em>${n}${next ? '' : ' · MAX'}</em></div>`; }).join('') : '';
   $('tagSum').innerHTML = Object.entries(S.tg).sort((a, b) => b[1] - a[1]).map(([t, n]) => `<em style="--tc:${TAGC[t]}" title="${t}: ${n} card${n > 1 ? 's' : ''}">${t} ${n}</em>`).join('');
 }
 function applyParts() { for (const s of slings) s.k.kick = (has('web') ? 560 : 450) * (S.meltT > 0 ? 1.3 : 1); }
 // ================= synergies (Step 5): pairs that unlock a new effect =================
 const SYNERGIES = [
   { id: 'thunder', need: ['mjolnir', 'storm'], name: 'God of Thunder', desc: 'Chain lightning keeps jumping to every target it has not hit yet, and each jump is worth 300 more than the last.' },
-  { id: 'mirror', need: ['loki', 'portals'], name: 'Mirror Dimension', desc: 'Ghost balls that pass through a portal split into two ghosts.' },
+  { id: 'mirror', need: ['loki', 'portals'], name: 'Mirror Dimension', desc: 'Ghost balls that pass through a portal have a 35% chance to split into two ghosts.' },
   { id: 'stark', need: ['arc', 'repulsor'], name: 'Stark Protocol', desc: 'Every 10th bumper hit fires a missile barrage at 5 targets for 200 each.' },
   { id: 'immortal', need: ['phoenix', 'guard'], name: 'Immortal Ball', desc: 'Your last ball scores 4×, and the Drain Guard recharges every time the Phoenix rises.' },
   { id: 'collapse', need: ['power', 'hex'], name: 'Reality Collapse', desc: 'Every Power Stone blast hexes the bumpers: their points double again, for the rest of the level.' },
@@ -552,7 +577,7 @@ const SYNERGIES = [
   { id: 'wakanda', need: ['panther', 'reserve'], name: 'Wakanda Forever', desc: 'Panther strikes pay 7× instead of 5× and each one earns 1 credit.' },
   { id: 'guardians', need: ['rocket', 'groot'], name: 'We Are Groot', desc: 'Every Rocket boost relights the outlane save.' },
   { id: 'realpower', need: ['power', 'reality'], name: 'Reality Overload', desc: 'Power Stone blasts also turn the bumpers gold for 5 seconds.' },
-  { id: 'trickster', need: ['loki', 'scepter'], name: 'Trickster King', desc: 'Ghost balls never fade and score 2×.' },
+  { id: 'trickster', need: ['loki', 'scepter'], name: 'Trickster King', desc: 'Ghost balls last 20 seconds and score 2×.' },
 ];
 const syn = id => S.syn && S.syn.has(id);
 let codex = new Set(); try { codex = new Set(JSON.parse(localStorage.getItem('mp-codex') || '[]')); } catch (e) {}
@@ -636,7 +661,7 @@ UPGRADES.push(
   { id: 'extremis', r: U_, cat: TR, up: true, tags: ['TECH'], hero: 'ironman', name: 'Extremis Chip', desc: 'Every {25|20|15} collisions, your next scoring hit is worth 3×.' },
   { id: 'winter', r: U_, cat: TR, up: true, tags: ['FLIPPER', 'ARMOR'], name: "Winter Soldier's Arm", desc: 'Hard flipper shots give +{40|60|90}% to the targets they hit.' },
   { id: 'weave', r: U_, cat: TR, up: true, tags: ['SURVIVAL', 'COMBO'], hero: 'panther', name: 'Vibranium Weave', desc: 'Saved balls keep their combo: it freezes for {4|6|8} s after a rescue.' },
-  { id: 'qbattery', r: U_, cat: TR, up: true, tags: ['PORTAL', 'QUANTUM', 'MULTIBALL'], hero: 'antman', name: 'Quantum Battery', desc: 'Every teleport adds a Quantum charge. At {5|4|3} charges a temporary ball spawns.' },
+  { id: 'qbattery', r: U_, cat: TR, up: true, tags: ['PORTAL', 'QUANTUM', 'MULTIBALL'], hero: 'antman', name: 'Quantum Battery', desc: 'Every teleport adds a Quantum charge. At {8|7|6} charges a temporary ball spawns.' },
   { id: 'claw', r: U_, cat: TR, up: true, tags: ['MUTANT', 'COMBO'], hero: 'wolverine', name: "Wolverine's Claw", desc: 'Hitting the same target again and again adds +{15|20|30}% each time.' },
   { id: 'visor', r: U_, cat: TR, up: true, tags: ['MUTANT', 'RAMP'], name: "Cyclops' Visor", desc: 'Every ramp shot fires an optic beam through {3|4|5} targets for 300 each.' },
   { id: 'mysthelm', r: U_, cat: TR, up: true, tags: ['CHAOS'], hero: 'mysterio', name: "Mysterio's Helmet", desc: 'Every 20 s a fake jackpot appears. Hitting it reveals a real target that scores 2× for {10|15|20} s.' },
@@ -666,14 +691,14 @@ UPGRADES.push(
   { id: 'ghostrider', r: R_, cat: TR, tags: ['MYSTIC', 'COMBO'], name: "Ghost Rider's Chain", desc: 'Targets you hit during a combo get chained. Hitting a chained target scores every other chained target at 30%.' },
   { id: 'mhelm', r: R_, cat: TR, tags: ['MAGNETIC', 'MUTANT'], name: "Magneto's Helmet", desc: 'Your magnetic effects pull 50% harder and pay points whenever they bend the ball. The ball feels a light pull toward live targets.' },
   { id: 'venom', r: R_, cat: TR, tags: ['SYMBIOTE'], hero: 'venom', name: 'Venom Symbiote', desc: 'The ball takes a power from the last target it hit: bumpers make it bouncy, slingshots sticky, standups heavy, drop targets explosive.' },
-  { id: 'qtunnel', r: R_, cat: TR, tags: ['QUANTUM', 'MULTIBALL', 'RAMP'], hero: 'antman', name: 'Quantum Tunnel', desc: 'Ramp shots have a 25% chance to copy the ball for 8 s. Small balls always copy.' },
+  { id: 'qtunnel', r: R_, cat: TR, tags: ['QUANTUM', 'MULTIBALL', 'RAMP'], hero: 'antman', name: 'Quantum Tunnel', desc: 'Ramp shots have a 12% chance to copy the ball for 8 s (40% for small balls).' },
   { id: 'taskmaster', r: R_, cat: TR, tags: ['COMBO'], name: "Taskmaster's Memory", desc: 'Your most-triggered card effect on the last ball triggers 25% faster on the next one.' },
   { id: 'ock', r: R_, cat: MPART, tags: ['TECH', 'SURVIVAL', 'FLIPPER'], name: 'Doctor Octopus Arms', desc: 'Every 30 hits, two mechanical arms guard the center drain for 10 s and bat balls back up.' },
   { id: 'torch', r: R_, cat: TR, tags: ['SPEED'], name: "Human Torch's Flame", desc: 'Fast collisions in a row build Heat. At full Heat everything scores 2× until the ball slows down.' },
   { id: 'surfer', r: R_, cat: TR, tags: ['SPEED', 'COSMIC'], name: "Silver Surfer's Board", desc: 'While the ball moves at extreme speed a Cosmic multiplier keeps climbing (up to +3×). It drains away when the ball slows.' },
   { id: 'magik', r: R_, cat: TR, tags: ['PORTAL', 'MYSTIC', 'MUTANT'], name: "Magik's Soulsword", desc: 'Portal exits slash every nearby target for 300, and each jump adds +100 to portal points for the level.' },
   { id: 'ubump', r: R_, cat: MPART, tags: ['TECH', 'BUMPER'], name: 'Ultron Bumper Core', desc: 'Every 50 hits an automated bumper rises in the middle of the table for 15 s.' },
-  { id: 'illusion', r: R_, cat: TR, tags: ['MULTIBALL', 'CHAOS'], hero: 'mysterio', name: "Mysterio's Illusion Tech", desc: 'Every 20 hits a fake ball appears for 10 s. Fake balls score 25% and drain for free.' },
+  { id: 'illusion', r: R_, cat: TR, tags: ['MULTIBALL', 'CHAOS'], hero: 'mysterio', name: "Mysterio's Illusion Tech", desc: 'Every 35 hits a fake ball appears for 10 s. Fake balls score 25% and drain for free.' },
   { id: 'ace', r: R_, cat: TR, tags: ['EXPLOSIVE', 'MUTANT'], hero: 'gambit', name: "Gambit's Ace", desc: 'Explosions charge your other explosive cards and can set off further explosions (normally they cannot).' },
   { id: 'tva', r: R_, cat: TR, tags: ['ECONOMY'], name: 'TVA Procurement License', desc: 'Once per shop, reroll a single item for free.' },
   { id: 'kingpin', r: R_, cat: TR, tags: ['ECONOMY'], name: "Kingpin's Black Card", desc: 'Buy things you cannot afford. The difference becomes Debt: −10% score per 50 Debt, repaid from future credits.' },
@@ -703,11 +728,11 @@ const tierPips = u => u.up && has(u.id) ? '<i class="pips">' + '●'.repeat(has(
 const tagChips = (u, cls = 'chips') => { const r = S.runes && has(u.id) && S.runes[u.id]; return u.tags ? `<span class="${cls}">${u.tags.map(t => `<em style="--tc:${TAGC[t]}">${t}</em>`).join('')}${r ? `<em class="rune" style="--tc:${TAGC[r]}" title="Rune">✦ ${r}</em>` : ''}</span>` : ''; };
 // build bookkeeping: tag counts and hero counts
 const tagN = t => (S.tg && S.tg[t]) || 0, heroN = h => (S.hr && S.hr[h]) || 0;
-function recountTags() { const tg = {}, hr = {}; for (const u of UPGRADES) if (has(u.id)) { for (const t of new Set([...(u.tags || []), ...(S.runes && S.runes[u.id] ? [S.runes[u.id]] : [])])) tg[t] = (tg[t] || 0) + 1; for (const h of [].concat(u.hero || [])) hr[h] = (hr[h] || 0) + 1; } S.tg = tg; S.hr = hr; }
+function recountTags() { const tg = {}, hr = {}; for (const u of UPGRADES) if (has(u.id)) { for (const t of new Set([...(u.tags || []), ...(S.runes && S.runes[u.id] ? [S.runes[u.id]] : [])])) tg[t] = (tg[t] || 0) + 1; for (const h of [].concat(u.hero || [])) hr[h] = (hr[h] || 0) + 1; } S.tg = tg; S.hr = hr; S.aff = computeAff(); }
 function refreshBuild() { recountTags(); checkSynergies(); checkEvos(); applyParts(); renderInv(); renderStones(); }
 // build slots: trinkets and machine parts (stones and villain artifacts are free)
-const SLOTS = 15;
-const slotCard = u => u.cat !== 'Infinity Stone' && u.r !== 'artifact';
+const SLOTS = 20;
+const slotCard = u => u.cat !== 'Infinity Stone' && u.r !== 'artifact' && u.r !== 'keystone';
 const slotsUsed = () => UPGRADES.filter(u => has(u.id) && slotCard(u)).length;
 const needsSlot = u => slotCard(u) && !has(u.id);
 function removeCard(id) { delete owned[id]; if (S.runes) delete S.runes[id]; if (id === 'pym') S.pymForm = null; refreshBuild(); }
@@ -725,14 +750,14 @@ SYNERGIES.push(
   { id: 'lightspeed', kind: 'tag', test: G('SPEED', 3), req: '3 SPEED', name: 'Lightspeed', desc: 'At high speed all scoring is 2×, at extreme speed 3×. The ball also moves faster and gets harder to control.' },
   { id: 'chainreaction', kind: 'tag', test: G('EXPLOSIVE', 3), req: '3 EXPLOSIVE', name: 'Chain Reaction', desc: 'Targets caught in an explosion can explode themselves at 30% strength.' },
   { id: 'eventhorizon', kind: 'tag', test: () => tagN('PORTAL') >= 3 && tagN('COSMIC') >= 1, req: '3 PORTAL + 1 COSMIC', name: 'Event Horizon', desc: 'Each portal jump adds +0.25× to that ball until it drains.' },
-  { id: 'clonesaga', kind: 'tag', test: () => tagN('MULTIBALL') >= 3 && tagN('WEB') >= 1, req: '3 MULTIBALL + 1 WEB', name: 'Clone Saga', desc: 'Temporary balls can split into more temporary balls. Each generation scores less: 100% → 50% → 25% → 10%.' },
+  { id: 'clonesaga', kind: 'tag', test: () => tagN('MULTIBALL') >= 3 && tagN('WEB') >= 1, req: '3 MULTIBALL + 1 WEB', name: 'Clone Saga', desc: 'Temporary balls occasionally split into another temporary ball (up to 2 generations). Each generation scores less: 100% → 50% → 25%.' },
   { id: 'undying', kind: 'tag', test: G('SURVIVAL', 4), req: '4 SURVIVAL', name: 'Immortal', desc: 'Every ball rescue adds +0.25× to all scoring for the rest of the level.' },
   { id: 'nuclear', kind: 'tag', test: () => tagN('TECH') >= 3 && tagN('GAMMA') >= 2, req: '3 TECH + 2 GAMMA', name: 'Nuclear Reactor', desc: 'Machine-part triggers build Radiation. At 100: MELTDOWN for 10 s. Part effects fire twice, everything scores 2×, the ball hits 50% harder, and drain protection is off.' },
   { id: 'arcoverload', kind: 'cross', test: () => tagN('LIGHTNING') >= 2 && tagN('TECH') >= 2, req: '2 LIGHTNING + 2 TECH', name: 'Arc Overload', desc: 'Every lightning chain counts as a machine-part trigger.' },
   { id: 'hulksmash', kind: 'cross', test: () => tagN('GAMMA') >= 2 && tagN('BUMPER') >= 2, req: '2 GAMMA + 2 BUMPER', name: 'Hulk Smash', desc: 'Every 5th bumper hit grows the ball and makes bumpers kick it 10% harder, until it drains.' },
   { id: 'webbomb', kind: 'cross', test: () => tagN('WEB') >= 2 && tagN('EXPLOSIVE') >= 2, req: '2 WEB + 2 EXPLOSIVE', name: 'Web Bomb', desc: 'Webbed targets explode when they are knocked down or destroyed.' },
   { id: 'wormhole', kind: 'cross', test: () => tagN('PORTAL') >= 2 && tagN('SPEED') >= 2, req: '2 PORTAL + 2 SPEED', name: 'Wormhole', desc: 'Portal exits keep the ball’s speed and multiply it by 1.2×.' },
-  { id: 'astral', kind: 'cross', test: () => tagN('MYSTIC') >= 2 && tagN('MULTIBALL') >= 2, req: '2 MYSTIC + 2 MULTIBALL', name: 'Astral Projection', desc: 'Extra balls have a 25% chance to bring a spectral ball that cannot drain for 10 s.' },
+  { id: 'astral', kind: 'cross', test: () => tagN('MYSTIC') >= 2 && tagN('MULTIBALL') >= 2, req: '2 MYSTIC + 2 MULTIBALL', name: 'Astral Projection', desc: 'Extra balls have a 12% chance to bring a spectral ball that cannot drain for 10 s.' },
   { id: 'ftl', kind: 'cross', test: () => tagN('COSMIC') >= 2 && tagN('SPEED') >= 2, req: '2 COSMIC + 2 SPEED', name: 'Faster Than Light', desc: 'Collisions at extreme speed build Cosmic Energy. At 20, a cosmic burst hits every target for 400.' },
   { id: 'swarm', kind: 'cross', test: () => tagN('TECH') >= 2 && tagN('MULTIBALL') >= 2, req: '2 TECH + 2 MULTIBALL', name: 'House Party', desc: 'Extra balls become Stark energy balls: every 1.5 s one of them zaps the nearest target for 150.' },
   { id: 'rage', kind: 'cross', test: () => tagN('GAMMA') >= 2 && tagN('SURVIVAL') >= 2, req: '2 GAMMA + 2 SURVIVAL', name: 'Rage', desc: 'Every close save right above the drain adds +20% to collision scoring until the ball drains.' },
@@ -744,7 +769,7 @@ SYNERGIES.push(
   { id: 'fastball', kind: 'hero', test: () => (heroN('hulk') >= 1 || S.pymForm === 'giant') && heroN('wolverine') >= 1, req: 'Hulk (or Giant-Man) + Wolverine', name: 'Fastball Special', desc: 'After a rescue the ball turns enormous for 5 s and scores 3× as it smashes through targets.' },
   { id: 'ironspider', kind: 'hero', test: () => heroN('ironman') >= 1 && heroN('spiderman') >= 1 && UPGRADES.some(u => has(u.id) && [].concat(u.hero || []).includes('ironman') && u.id !== 'spiderleg'), req: 'Iron Man + Spider-Man', name: 'Iron Spider', desc: 'Stark weapons (drones, missiles, repulsor beams, suits, legs) aim for webbed targets first and score 2× on them.' },
   { id: 'madness', kind: 'hero', test: () => heroN('wanda') >= 1 && heroN('strange') >= 1, req: 'Scarlet Witch + Doctor Strange', name: 'Multiverse of Madness', desc: 'Every portal jump has a 30% chance to warp the table for 8 s: drifting bumpers, low gravity or triple-value bumpers.' },
-  { id: 'qpartners', kind: 'hero', test: () => tagN('QUANTUM') >= 2 && heroN('antman') >= 1, req: 'Ant-Man + 2 QUANTUM', name: 'Quantum Partners', desc: 'While your ball is small, every ramp shot spawns a miniature copy of it for 8 s.' },
+  { id: 'qpartners', kind: 'hero', test: () => tagN('QUANTUM') >= 2 && heroN('antman') >= 1, req: 'Ant-Man + 2 QUANTUM', name: 'Quantum Partners', desc: 'While your ball is small, ramp shots have a 40% chance to spawn a miniature copy of it for 8 s.' },
   { id: 'adamantium', kind: 'hero', test: () => tagN('MAGNETIC') >= 1 && heroN('wolverine') >= 1, req: 'a MAGNETIC card + Wolverine', name: 'Adamantium Problem', desc: 'Magnetic effects pull twice as hard, and the Claw bonus never resets.' },
   { id: 'symspider', kind: 'hero', test: () => heroN('spiderman') >= 1 && has('venom'), req: 'Spider-Man + Venom', name: 'Symbiote Spider', desc: 'Hitting a webbed target infects the two nearest targets (+50%). Hitting an infected target webs it. It spreads across the machine.' },
   { id: 'worthybrick', kind: 'legend', test: () => has('brick') && (has('mjolnir') || has('mjolR')), req: 'Brick + Mjolnir', name: 'Worthy Brick', desc: 'The Brick is worthy: +25% to all scoring and lightning chains hit +2 targets.' },
@@ -753,6 +778,188 @@ SYNERGIES.push(
 );
 const SYNKIND = { pair: 'Card pair', tag: 'Tag synergy', cross: 'Cross-tag', hero: 'Character set', legend: 'Legendary' };
 const synOK = sy => sy.test ? sy.test() : sy.need.every(has);
+// ================= Step 11: card families, affinity, unlocks, keystones =================
+const FAMS = {
+  THUNDER: { ico: '⚡', name: 'Thunder', c: '#9fd8ff', core: 'Bumpers, lightning, chains' },
+  WEB: { ico: '🕷', name: 'Web', c: '#e6e9f2', core: 'Control, combos, precision' },
+  TECH: { ico: '🤖', name: 'Stark Tech', c: '#7fe7ff', core: 'Machine automation' },
+  GAMMA: { ico: '🟢', name: 'Gamma', c: '#6cff5a', core: 'Ball size, impact' },
+  MYSTIC: { ico: '🔮', name: 'Mystic', c: '#ff9a2e', core: 'Portals, manipulation' },
+  MAGNET: { ico: '🧲', name: 'Magnetism', c: '#e25bff', core: 'Ball trajectory' },
+  EXPLOSIVE: { ico: '💥', name: 'Explosive', c: '#ff6b3d', core: 'Area damage, chain reactions' },
+  QUANTUM: { ico: '⚛', name: 'Quantum', c: '#5ad1ff', core: 'Small balls, duplication' },
+  HELLFIRE: { ico: '🔥', name: 'Hellfire', c: '#ff4a4a', core: 'Risk, heat, sacrifice' },
+  VIBRANIUM: { ico: '🛡', name: 'Vibranium', c: '#b58cff', core: 'Defense, stored energy' },
+  SPEED: { ico: '💨', name: 'Speed', c: '#ffe08a', core: 'Velocity, momentum' },
+  ILLUSION: { ico: '👻', name: 'Illusion', c: '#7dffb0', core: 'Ghost balls, copies' },
+};
+const FAMOF = {
+  stark: 'TECH', camera: 'WEB', reserve: 'VIBRANIUM', arc: 'TECH', quiver: 'WEB', web: 'WEB', rocket: 'SPEED', groot: 'VIBRANIUM', repulsor: 'TECH', guard: 'VIBRANIUM', panther: 'VIBRANIUM', fury: 'VIBRANIUM',
+  loki: 'ILLUSION', mjolnir: 'THUNDER', hex: 'MYSTIC', instab: 'QUANTUM ILLUSION', phoenix: 'HELLFIRE', darkhold: 'HELLFIRE MYSTIC',
+  scepter: 'ILLUSION', tesseract: 'QUANTUM MYSTIC', dagger: 'ILLUSION', ucore: 'TECH', vbody: 'VIBRANIUM', drones: 'TECH', magflip: 'MAGNET', polarity: 'MAGNET', helmet: 'MAGNET', gauntlet: 'HELLFIRE', ebony: 'HELLFIRE', titan: 'GAMMA',
+  shield: 'VIBRANIUM', storm: 'THUNDER', portals: 'MYSTIC', smart: 'TECH', vibrail: 'VIBRANIUM SPEED', slingring: 'MYSTIC', bifrost: 'THUNDER SPEED',
+  capacitor: 'THUNDER TECH', arrowhead: 'WEB', tracer: 'WEB', vfrag: 'VIBRANIUM', badge: 'VIBRANIUM', bugle: 'WEB', pym: 'QUANTUM', gamma: 'GAMMA', gyro: 'TECH SPEED', cartridge: 'WEB', mead: 'THUNDER', alloy: 'VIBRANIUM TECH', baton: 'WEB', crescent: 'MYSTIC', spare: 'TECH', gambit: 'EXPLOSIVE', anthelm: 'QUANTUM', shard: 'THUNDER', spiderleg: 'WEB TECH', bullet: 'EXPLOSIVE HELLFIRE', gburst: 'GAMMA SPEED',
+  stormbreaker: 'THUNDER', sense: 'WEB', extremis: 'TECH HELLFIRE', winter: 'TECH', weave: 'VIBRANIUM', qbattery: 'QUANTUM', claw: 'GAMMA', visor: 'EXPLOSIVE', mysthelm: 'ILLUSION', shuri: 'TECH VIBRANIUM', korg: 'GAMMA', nova: 'SPEED', widow: 'THUNDER WEB', falcon: 'SPEED', khonshu: 'MYSTIC', deck: 'EXPLOSIVE', chi: 'MYSTIC', wongring: 'MYSTIC', magnet: 'MAGNET', punisher: 'EXPLOSIVE', hulkfist: 'GAMMA', counterfeit: 'ILLUSION',
+  nano: 'TECH', agamotto: 'MYSTIC', mjolR: 'THUNDER', healing: 'VIBRANIUM GAMMA', bpsuit: 'VIBRANIUM', cloak: 'MYSTIC', chaos: 'MYSTIC HELLFIRE', arc2: 'TECH', ghostrider: 'HELLFIRE SPEED', mhelm: 'MAGNET', venom: 'WEB HELLFIRE', qtunnel: 'QUANTUM', taskmaster: 'ILLUSION', ock: 'TECH', torch: 'HELLFIRE SPEED', surfer: 'SPEED QUANTUM', magik: 'MYSTIC HELLFIRE', ubump: 'TECH', illusion: 'ILLUSION', ace: 'EXPLOSIVE', kingpin: 'HELLFIRE',
+};
+// new foundation commons for thin families, rule-breaking epics, and one keystone per family
+const K_ = 'keystone';
+RAR.keystone = { w: 0, c: '#2ee6c8', n: 'Keystone' }; RANK.keystone = 3;
+const ROLE = { common: 'Foundation', uncommon: 'Specialization', rare: 'Transformation', epic: 'Rule-breaker', legendary: 'Capstone', keystone: 'Identity · only one', artifact: 'Villain wildcard' };
+UPGRADES.push(
+  { id: 'lodestone', r: C_, cat: MPART, up: true, fam: 'MAGNET', tags: ['MAGNETIC', 'FLIPPER'], name: 'Lodestone Flippers', desc: 'A weak magnet on each raised flipper pulls nearby balls onto it ({50|70|90}% of Magnetic Flippers).' },
+  { id: 'ferro', r: C_, cat: TR, up: true, fam: 'MAGNET', tags: ['MAGNETIC'], name: 'Ferro Fluid', desc: 'While any magnet bends the ball it pays +{80|130|200} every 0.4 s.' },
+  { id: 'attractor', r: U_, cat: MPART, up: true, fam: 'MAGNET', tags: ['MAGNETIC', 'BUMPER'], name: 'Attractor Coil', desc: 'Every {20|16|12} hits a 3 s magnetic pulse drags every ball toward the red bumpers.' },
+  { id: 'brimstone', r: C_, cat: TR, up: true, fam: 'HELLFIRE', tags: ['SURVIVAL'], name: 'Brimstone', desc: '+{25|40|60}% Bonus while you are on your last ball.' },
+  { id: 'ember', r: C_, cat: TR, up: true, fam: 'HELLFIRE', tags: ['COMBO'], name: 'Hellfire Ember', desc: 'Each ball you drain this level adds +{10|15|25}% Bonus.' },
+  { id: 'mirrorshard', r: C_, cat: TR, up: true, fam: 'ILLUSION', tags: ['MULTIBALL'], name: 'Mirror Shard', desc: 'Extra balls (ghosts, copies, splits) get +{25|40|60}% Bonus.' },
+  { id: 'decoy', r: C_, cat: TR, up: true, fam: 'ILLUSION', tags: ['MULTIBALL', 'CHAOS'], name: 'Holographic Decoy', desc: 'Every {30|25|20} hits a ghost ball appears for 6 s.' },
+  { id: 'runes', r: C_, cat: TR, up: true, fam: 'MYSTIC', tags: ['PORTAL'], name: 'Eldritch Runes', desc: 'Portal jumps and spinner spins score +{50|75|100}%.' },
+  { id: 'radiation', r: C_, cat: TR, up: true, fam: 'GAMMA', tags: ['GAMMA', 'SPEED'], name: 'Gamma Radiation', desc: 'Collisions by a fast ball get +{20|35|50}% Bonus.' },
+  { id: 'fuse', r: C_, cat: TR, up: true, fam: 'EXPLOSIVE', tags: ['EXPLOSIVE'], name: 'Short Fuse', desc: 'Explosions are {20|35|50}% stronger.' },
+  { id: 'quantumdrift', r: C_, cat: TR, up: true, fam: 'QUANTUM', tags: ['QUANTUM'], name: 'Quantum Drift', desc: 'Small balls (below normal size) get +{20|35|50}% Bonus.' },
+  { id: 'tailwind', r: C_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED'], name: 'Tailwind', desc: 'Orbit and ramp shots add +{1|2|3} combo steps.' },
+  // Epics: each breaks one of the game's rules
+  { id: 'godthunder', r: 'epic', cat: TR, fam: 'THUNDER', req: { THUNDER: 4 }, tags: ['LIGHTNING', 'BUMPER'], name: 'God of Thunder', desc: 'RULE BREAK: lightning that strikes a bumper counts as a real hit 25% of the time, so it can trigger your card counters.' },
+  { id: 'webmaster', r: 'epic', cat: TR, fam: 'WEB', req: { WEB: 4 }, tags: ['COMBO'], name: 'Web of Fate', desc: 'RULE BREAK: your combo never times out while a ball is in play, and it can reach 30 steps instead of 20.' },
+  { id: 'overclock', r: 'epic', cat: MPART, fam: 'TECH', req: { TECH: 4 }, tags: ['TECH'], name: 'Overclock Protocol', desc: 'RULE BREAK: points made by card effects trigger a machine-part activation 20% of the time.' },
+  { id: 'gammaform', r: 'epic', cat: TR, fam: 'GAMMA', req: { GAMMA: 4 }, tags: ['GAMMA', 'BUMPER'], name: 'Immortal Hulk', desc: 'RULE BREAK: glancing hits and quick re-hits count as clean hits, and the ball is permanently huge.' },
+  // Keystones: one identity per build
+  { id: 'ks_odin', r: K_, cat: 'Keystone', fam: 'THUNDER', req: { THUNDER: 3 }, name: 'Son of Odin', desc: 'Lightning scores 2× and chains hit +1 target. Bumpers score 30% less.' },
+  { id: 'ks_storm', r: K_, cat: 'Keystone', fam: 'THUNDER', req: { THUNDER: 3 }, name: 'Stormbringer', desc: 'Lightning triggers twice as often (Mjolnir charges faster, Storm strikes every 4th hit), but chains hit 1 target fewer.' },
+  { id: 'ks_web', r: K_, cat: 'Keystone', fam: 'WEB', req: { WEB: 3 }, name: 'Friendly Neighborhood', desc: 'Targets hit straight off a flipper score 2×. Bumpers score 40% less.' },
+  { id: 'ks_auto', r: K_, cat: 'Keystone', fam: 'TECH', req: { TECH: 3 }, name: 'Full Automation', desc: 'Every machine-part trigger fires twice. Your flippers swing 15% slower.' },
+  { id: 'ks_jugg', r: K_, cat: 'Keystone', fam: 'GAMMA', req: { GAMMA: 3 }, name: 'Unstoppable', desc: 'The ball is permanently large and collisions get +80% Bonus. You start each level with one fewer ball.' },
+  { id: 'ks_supreme', r: K_, cat: 'Keystone', fam: 'MYSTIC', req: { MYSTIC: 3 }, name: 'Sorcerer Supreme', desc: 'The ×2 window after a portal jump becomes ×4. The table multiplier from the top lanes stops at 3×.' },
+  { id: 'ks_magneto', r: K_, cat: 'Keystone', fam: 'MAGNET', req: { MAGNET: 3 }, name: 'Master of Magnetism', desc: 'All your magnets pull twice as hard and the ball curves toward unlit targets. Flippers swing 10% slower.' },
+  { id: 'ks_demo', r: K_, cat: 'Keystone', fam: 'EXPLOSIVE', req: { EXPLOSIVE: 3 }, name: 'Demolition Expert', desc: 'Explosions are 2× stronger and reach 50% further. Clean target hits score 30% less.' },
+  { id: 'ks_quantum', r: K_, cat: 'Keystone', fam: 'QUANTUM', req: { QUANTUM: 3 }, name: 'Quantum Realm', desc: 'The ball is tiny and temporary balls last twice as long. Bumpers score 25% less.' },
+  { id: 'ks_mephisto', r: K_, cat: 'Keystone', fam: 'HELLFIRE', req: { HELLFIRE: 3 }, name: 'Deal with Mephisto', desc: 'Everything scores 2×. You get no rescues at all: no drain guard, outlane saves, rewinds or ball saves.' },
+  { id: 'ks_bank', r: K_, cat: 'Keystone', fam: 'VIBRANIUM', req: { VIBRANIUM: 3 }, name: 'Kinetic Bank', desc: '25% of every score goes into a vibranium bank. When a ball drains, the bank pays out 2×.' },
+  { id: 'ks_speed', r: K_, cat: 'Keystone', fam: 'SPEED', req: { SPEED: 3 }, name: 'Momentum', desc: 'Collision points scale with ball speed: from ×0.5 when slow up to ×2.5 at full speed.' },
+  { id: 'ks_illusion', r: K_, cat: 'Keystone', fam: 'ILLUSION', req: { ILLUSION: 3 }, name: 'Master of Illusion', desc: 'Up to 4 extra balls may be on the table and they score full points. Your real ball scores 30% less.' },
+);
+for (const u of UPGRADES) { u.fams = (u.fam || FAMOF[u.id] || '').split(' ').filter(Boolean); CARD[u.id] = u; }
+const famsOf = u => u.fams || [];
+// unlock requirements come from the card's role: Foundation is open, deeper roles need family affinity
+function reqOf(u) {
+  if (u.req) return u.req;
+  const f = famsOf(u); if (!f.length || u.r === 'common' || u.r === 'artifact' || u.cat === 'Infinity Stone') return null;
+  const need = { uncommon: 1, rare: 2, epic: 3, legendary: 3 }[u.r] || 0; if (!need) return null;
+  if (f.length > 1 && u.r === 'rare') return { [f[0]]: 1, [f[1]]: 1, _max: 2 }; // hybrid rares: a foot in each family
+  return { _any: f, _n: need };
+}
+function unlocked(u, A = S.aff) {
+  const q = reqOf(u); if (!q) return true; A = A || {};
+  if (q._any) return q._any.some(f => (A[f] || 0) >= q._n);
+  for (const f in q) if (f[0] !== '_' && (A[f] || 0) < q[f]) return false;
+  if (q._max && !famsOf(u).some(f => (A[f] || 0) >= q._max)) return false;
+  return true;
+}
+function reqText(u) {
+  const q = reqOf(u); if (!q) return '';
+  if (q._any) return q._any.map(f => FAMS[f].ico + ' ' + q._n).join(' or ');
+  return Object.keys(q).filter(k => k[0] !== '_').map(f => FAMS[f].ico + ' ' + q[f]).join(' + ') + (q._max ? ' (one of them ' + q._max + ')' : '');
+}
+// affinity: each owned card adds 1 to each of its families; a tier-3 card counts double
+function computeAff() { const A = {}; for (const u of UPGRADES) { const n = has(u.id); if (!n) continue; const w = u.up && n >= 3 ? 2 : 1; for (const f of famsOf(u)) A[f] = (A[f] || 0) + w; } return A; }
+const aff = f => (S.aff && S.aff[f]) || 0;
+const FT = (f, n) => () => aff(f) >= n;
+// family tiers (III and the V capstone) and hybrids (III + III): the old tag synergies move here
+const famSyn = (id, f, n, name, desc) => { let sy = SYNERGIES.find(s => s.id === id); if (!sy) { sy = { id }; SYNERGIES.push(sy); } Object.assign(sy, { kind: n >= 5 ? 'capstone' : 'family', fam: [f], tier: n, test: FT(f, n), req: FAMS[f].ico + ' ' + FAMS[f].name + ' ' + (n >= 5 ? 'V' : 'III') }, name ? { name } : {}, desc ? { desc } : {}); };
+const hybSyn = (id, a, b, name, desc) => { let sy = SYNERGIES.find(s => s.id === id); if (!sy) { sy = { id }; SYNERGIES.push(sy); } Object.assign(sy, { kind: 'hybrid', fam: [a, b], test: () => aff(a) >= 3 && aff(b) >= 3, req: FAMS[a].ico + ' III + ' + FAMS[b].ico + ' III' }, name ? { name } : {}, desc ? { desc } : {}); };
+famSyn('overcharge', 'THUNDER', 3); famSyn('livingstorm', 'THUNDER', 5);
+famSyn('reflexes', 'WEB', 3); famSyn('weboflife', 'WEB', 5, 'Web of Life', 'Every clean target hit webs the target, and webbed targets give +50% instead of +20%.');
+famSyn('hpp', 'TECH', 3); famSyn('starklegacy', 'TECH', 5, 'Stark Legacy', 'Every machine-part trigger also pays 200 points, and the Arc Reactor Mk II charges twice as fast.');
+famSyn('hulksmash', 'GAMMA', 3); famSyn('worldbreaker', 'GAMMA', 5, 'Worldbreaker', 'Collisions get +100% Bonus and bumpers kick the ball 20% harder.');
+famSyn('eventhorizon', 'MYSTIC', 3); famSyn('sanctum5', 'MYSTIC', 5, "Sorcerer's Sanctum", 'Portals are always open, even without Sanctum Portals, and portal jumps pay 3× points.');
+famSyn('fieldmaster', 'MAGNET', 3, 'Field Master', 'Magnetic pulls are 50% stronger and pay 80 points every 0.4 s while they bend the ball.'); famSyn('magnetar', 'MAGNET', 5, 'Magnetar', 'The ball constantly curves toward unlit targets, and magnet payouts are tripled.');
+famSyn('chainreaction', 'EXPLOSIVE', 3); famSyn('bigbang', 'EXPLOSIVE', 5, 'Big Bang', 'Explosions reach 50% further and can chain one step deeper.');
+famSyn('qpartners', 'QUANTUM', 3, 'Quantum Partners'); famSyn('clonesaga', 'QUANTUM', 5);
+famSyn('rage', 'HELLFIRE', 3); famSyn('penance', 'HELLFIRE', 5, 'Penance Stare', 'Your last ball scores 2× Mult, and every drained ball adds +50% Bonus for the level.');
+famSyn('undying', 'VIBRANIUM', 3); famSyn('vibcore', 'VIBRANIUM', 5, 'Vibranium Core', 'Once per ball, the drain itself bounces the ball back into play.');
+famSyn('lightspeed', 'SPEED', 3); famSyn('ftl', 'SPEED', 5);
+famSyn('astral', 'ILLUSION', 3); famSyn('masterill', 'ILLUSION', 5, 'Grand Illusion', 'Extra balls score full points, and one more extra ball may be on the table.');
+hybSyn('arcoverload', 'THUNDER', 'TECH', 'Arc Storm'); hybSyn('webbomb', 'WEB', 'EXPLOSIVE'); hybSyn('chaosboom', 'MYSTIC', 'EXPLOSIVE');
+hybSyn('wormhole', 'MYSTIC', 'SPEED'); hybSyn('swarm', 'TECH', 'ILLUSION', 'House Party'); hybSyn('nuclear', 'TECH', 'GAMMA', 'Hulkbuster Reactor');
+hybSyn('ironspider', 'WEB', 'TECH', 'Iron Spider'); hybSyn('tempest', 'THUNDER', 'MYSTIC', 'Mystic Tempest', 'Every portal jump calls down a 2-target lightning chain.');
+hybSyn('spiderverse', 'WEB', 'QUANTUM', 'Spider-Verse', 'Temporary balls score full points and web every target they hit.');
+Object.assign(SYNKIND, { family: 'Family tier', capstone: 'Family capstone', hybrid: 'Hybrid' });
+// ---- keystones: one at a time ----
+const keystone = () => UPGRADES.find(u => u.r === K_ && has(u.id));
+const ks = id => has(id) > 0;
+// ---- previews: what taking a card changes ----
+function withCard(u, fn) { const o = owned[u.id], ksOld = u.r === K_ ? keystone() : null; if (ksOld && ksOld !== u) delete owned[ksOld.id]; owned[u.id] = (o || 0) + 1; const tg0 = S.tg, hr0 = S.hr, a0 = S.aff; recountTags(); try { return fn(); } finally { if (o) owned[u.id] = o; else delete owned[u.id]; if (ksOld && ksOld !== u) owned[ksOld.id] = 1; S.tg = tg0; S.hr = hr0; S.aff = a0; } }
+function preview(u) {
+  const A0 = S.aff || {}, before = new Set(UPGRADES.filter(q => unlocked(q, A0)).map(q => q.id));
+  return withCard(u, () => {
+    const A1 = S.aff, fam = Object.keys(FAMS).filter(f => (A1[f] || 0) !== (A0[f] || 0)).map(f => ({ f, a: A0[f] || 0, b: A1[f] || 0 }));
+    const unl = UPGRADES.filter(q => q.id !== u.id && q.pool !== false && q.r !== 'artifact' && !before.has(q.id) && unlocked(q, A1));
+    return { fam, unl };
+  });
+}
+function previewHtml(u) {
+  if (!famsOf(u).length) return '';
+  const syn = completesSynergy(u);
+  return syn.length ? `<span class="syn">✦ Activates ${syn.map(x => x.name).join(', ')}</span>` : '';
+}
+const famPaint = u => { const f = famsOf(u); return f.length ? `--fa:${FAMS[f[0]].c};--fb:${FAMS[f[1] || f[0]].c}` : ''; };
+const famChips = u => famsOf(u).length ? `<span class="fchips">${famsOf(u).map(f => `<em style="--tc:${FAMS[f].c}">${FAMS[f].ico} ${FAMS[f].name}</em>`).join('')}</span>` : '';
+// ---- codex: cards you have taken (ever) and synergies you have discovered ----
+let seen = new Set(); try { seen = new Set(JSON.parse(localStorage.getItem('mp-seen') || '[]')); } catch (e) {}
+const seenCard = id => seen.has(id);
+function markSeen(id) { if (seen.has(id)) return; seen.add(id); try { localStorage.setItem('mp-seen', JSON.stringify([...seen])); } catch (e) {} }
+// ---- build-aware draft: BUILD (deepen), BRIDGE (hybridise), WILDCARD (pivot) ----
+function rollDraft() {
+  const A = S.aff || {}, top = Object.keys(A).filter(f => A[f] > 0).sort((a, b) => A[b] - A[a]), topSet = new Set(top.slice(0, 2)), any = top.length > 0;
+  const pool = UPGRADES.filter(u => u.r !== 'artifact' && u.pool !== false && canGain(u) && unlocked(u) && !(u.r === K_ && has(u.id)));
+  const SLOTS3 = [
+    ['BUILD', u => !any || famsOf(u).some(f => topSet.has(f))],
+    ['BRIDGE', u => !any || (famsOf(u).some(f => A[f] > 0) && (famsOf(u).some(f => !A[f]) || famsOf(u).some(f => A[f] > 0 && !topSet.has(f))))],
+    ['WILDCARD', u => !any || (famsOf(u).length > 0 && famsOf(u).every(f => !A[f])) || (!famsOf(u).length && Math.random() < .25)],
+  ];
+  const picks = []; let rareSeen = false;
+  SLOTS3.forEach(([label, fits], i) => {
+    let r = rollRarity();
+    if (i === 0 && S.level >= 5 && S.sinceRare >= 3 && RANK[r] < 2) r = 'rare';
+    if (i === 0 && S.lens && RANK[r] < 2) r = 'rare';
+    const free = u => !picks.includes(u);
+    let rank = RANK[r], c = [];
+    for (; rank >= 0 && !c.length; rank--) c = pool.filter(u => RANK[u.r] === rank && free(u) && fits(u));
+    if (!c.length) c = pool.filter(u => free(u) && fits(u) && RANK[u.r] <= RANK[r]);
+    if (!c.length) c = pool.filter(u => free(u) && RANK[u.r] <= Math.max(RANK[r], 0));
+    if (!c.length) c = pool.filter(free);
+    if (!c.length) return;
+    const w = c.map(u => 1 + (u.up && has(u.id) ? 1.2 : 0) + (label === 'BUILD' ? famsOf(u).reduce((n, f) => n + Math.min(3, A[f] || 0) * .4, 0) : 0));
+    let t = Math.random() * w.reduce((a, b) => a + b, 0), k = 0; while (k < c.length - 1 && (t -= w[k]) > 0) k++;
+    const u = c[k]; u.slotLabel = any ? label : null; picks.push(u); if (RANK[u.r] >= 2) rareSeen = true;
+  });
+  // keep the evolution nudge from Step 7
+  { const maxR = Math.max(...Object.entries(rarityWeights(S.level)).filter(([, v]) => v > 0).map(([k]) => RANK[k]));
+    for (const E of EVOS) { const miss = E.need.filter(id => !has(id)); if (miss.length !== 1) continue; const u = CARD[miss[0]];
+      if (!picks.includes(u) && RANK[u.r] <= maxR && unlocked(u) && Math.random() < .4) { u.slotLabel = 'EVOLUTION'; picks[picks.length - 1] = u; break; } } }
+  S.lens = false; S.sinceRare = rareSeen ? 0 : S.sinceRare + 1;
+  return picks;
+}
+// ---- codex screen ----
+function showCodex(back) {
+  const wasPlay = S.phase === 'play'; if (wasPlay) S.phase = 'paused';
+  const fams = Object.keys(FAMS).map(f => {
+    const F = FAMS[f], cards = UPGRADES.filter(u => famsOf(u)[0] === f && u.pool !== false).sort((a, b) => RANK[a.r] - RANK[b.r]);
+    const tiers = SYNERGIES.filter(s => (s.kind === 'family' || s.kind === 'capstone') && s.fam[0] === f).sort((a, b) => a.tier - b.tier);
+    return `<section class="cxf" style="--fc:${F.c}"><h3>${F.ico} ${F.name} <small>${F.core}</small>${S.aff && S.aff[f] ? `<b>${S.aff[f]}</b>` : ''}</h3>
+      <div class="cxtiers">${tiers.map(s => `<span class="${codex.has(s.id) ? 'on' : ''}">${s.tier >= 5 ? 'V' : 'III'} · ${codex.has(s.id) ? s.name : '???'}</span>`).join('')}</div>
+      <ul>${cards.map(u => `<li style="--rc:${RAR[u.r].c}" title="${seenCard(u.id) ? descFor(u, 1).replace(/"/g, '&quot;') : 'Not discovered yet'}"><i>${RAR[u.r].n}</i>${seenCard(u.id) ? u.name : '???'}${reqText(u) ? `<small>${reqText(u)}</small>` : ''}</li>`).join('')}</ul></section>`;
+  }).join('');
+  const hy = SYNERGIES.filter(s => s.kind === 'hybrid').map(s => `<li class="${codex.has(s.id) ? 'on' : ''}">${s.fam.map(f => FAMS[f].ico).join(' + ')} ${codex.has(s.id) ? '<b>' + s.name + '</b> · ' + s.desc : '???'}</li>`).join('');
+  const nCards = UPGRADES.filter(u => u.pool !== false && u.r !== 'artifact').length;
+  card.classList.add('wide', 'shop'); ov.classList.add('full'); ov.hidden = false;
+  card.innerHTML = `<div class="shop-top"><div><p class="eyebrow">Codex · ${[...seen].filter(id => CARD[id]).length}/${nCards} cards · ${codex.size}/${SYNERGIES.length} synergies</p><h2>Families &amp; discoveries</h2></div><button class="btn" type="button" id="cxBack">Back</button></div>
+    <p class="keeper">Take a card once to reveal it forever. Deeper cards need family affinity: Uncommon 1, Rare 2, Epic and Keystone 3–4. Reaching III and V in a family unlocks its tiers; III + III in two families makes a hybrid.</p>
+    <div class="cxgrid">${fams}</div><h3 class="cxh">Hybrids</h3><ul class="cxhy">${hy}</ul>`;
+  $('cxBack').onclick = () => { card.classList.remove('shop'); ov.classList.remove('full'); if (back) back(); else { ov.hidden = true; if (wasPlay) S.phase = 'play'; } };
+}
+
 
 // ================= machine evolution (Step 7): three matching parts rebuild the table =================
 const EVOS = [
@@ -793,12 +1000,12 @@ function evoHit(kind) {
 function evoBumper(c, b) {
   if (evo('wakanda')) kinetic(b);
   if (evo('asgard') && !c.pit) {
-    let best = null, bd = 1e9; for (const q of bumpers) if (q !== c && !q.pit) { const d = Math.hypot(q.x - c.x, q.y - c.y); if (d < bd) { bd = d; best = q; } }
+    let best = null, bd = 1e9; for (const q of bumpers) if (q !== c && !q.pit) { const d = hyp(q.x - c.x, q.y - c.y); if (d < bd) { bd = d; best = q; } }
     if (best && budget('asgard', 6)) { const q = best; setTimeout(() => { fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: q.x, y2: q.y, t: 0, life: .3, seed: Math.random() * 1e6 | 0 }); q.flash = 1; award(150, 'lightning', q, q.x, q.y - 30, true); }, 60); }
   }
 }
 function kinetic(b) {
-  const sp = b ? Math.hypot(b.vx, b.vy) : 800; S.kin = Math.min(1, (S.kin || 0) + .035 + sp / 40000);
+  const sp = b ? hyp(b.vx, b.vy) : 800; S.kin = Math.min(1, (S.kin || 0) + .035 + sp / 40000);
   if (S.kin < 1) return;
   S.kin = 0; msg('KINETIC RELEASE!', 2.5); S.shake = 1; noise(.5, .09, 200, 60, 'lowpass'); tone(110, .5, 'sawtooth', .07, 55);
   fx.push({ type: 'ring', x: 270, y: 905, t: 0, life: .9, c: '180,110,255', big: true });
@@ -886,10 +1093,11 @@ bumpers.forEach(c => { c.bx = c.x; c.by = c.y; });
 stars.forEach(t => { t.kind = 'star'; t.pts = 10; });
 const rnd = a => a[Math.random() * a.length | 0];
 const isReal = b => !b.ghost && !b.dup && !b.temp && !b.spectral;
-const prot = () => !(S.meltT > 0); // meltdown switches off drain protection
-const tempDur = () => 1 + T('anthelm', .2, .35, .5);
+const prot = () => !(S.meltT > 0) && !ks('ks_mephisto'); // meltdown (and Mephisto) switch off drain protection
+const tempDur = () => (1 + T('anthelm', .2, .35, .5)) * (ks('ks_quantum') ? 2 : 1);
 const isTarget = o => o && typeof o === 'object' && (o.kind === 'bumper' || o.kind === 'standup' || o.kind === 'drop' || o.kind === 'enemy' || o.kind === 'star');
-function allTargets() { return [...bumpers, ...standups, ...drops.filter(d => !d.down), ...stars, enemy]; }
+let TGC = null; // live target list, rebuilt at most once per tick (or when a target appears/disappears)
+function allTargets() { return TGC || (TGC = [...bumpers, ...standups, ...drops.filter(d => !d.down), ...stars, enemy]); }
 function objPos(o) {
   if (o === enemy) { const p = plateXY(enemy); return [p[0], p[1] - 2]; }
   if (o.kind === 'standup') return [462, (o.y1 + o.y2) / 2];
@@ -915,6 +1123,7 @@ function baseRad() {
   let r = 10;
   if (has('pym')) r *= has('pym') >= 2 ? (S.pymForm === 'giant' ? 1.2 : .78) : .95;
   if (has('gamma')) r *= 1.05;
+  if (has('gammaform')) r = 12.5; else if (ks('ks_jugg')) r = Math.max(r, 12); if (ks('ks_quantum')) r = 7.5;
   return clamp(r, 7.5, 12.5);
 }
 // ---- scoring factors (Step 9) ----
@@ -929,12 +1138,16 @@ function globalBonus() {
   if (has('catalogue')) a += .02 * S.bought.size;
   if (has('doom')) a += .1 * Math.floor(S.credits / 100);
   a += .01 * has('brick') + (syn('worthybrick') ? .25 : 0);
+  if (S.balls <= 1) a += T('brimstone', .25, .4, .6);
+  a += S.lost * (T('ember', .1, .15, .25) + (syn('penance') ? .5 : 0));
   return a;
 }
 function globalMult() {
   let m = S.mult;
   if (S.odT > 0) m *= 2; if (S.bifT > 0) m *= 3; if (S.snapT > 0) m *= 5; if (S.heatOn) m *= 2; if (S.meltT > 0) m *= 2;
-  if (S.portalT > 0) m *= has('pym') >= 2 && S.pymForm !== 'giant' ? 3 : 2;
+  if (S.portalT > 0) m *= ks('ks_supreme') ? 4 : has('pym') >= 2 && S.pymForm !== 'giant' ? 3 : 2;
+  if (ks('ks_mephisto')) m *= 2;
+  if (syn('penance') && S.balls <= 1) m *= 2;
   if (has('phoenix')) m *= S.balls <= 1 ? (syn('immortal') ? 4 : 3) : .75;
   if (S.debt > 0) m *= Math.max(.1, 1 - .1 * Math.floor(S.debt / 50));
   return m;
@@ -947,10 +1160,15 @@ function scoreFactor(kind, obj, cls) {
     src *= 1 + .25 * has('stark') + T('gamma', .15, .25, .4);
     if (has('ucore') && obj && obj.hitsL >= 8) src *= 3;
     if (S.realityT > 0) src *= 3;
-    if (has('hulkfist') && b && Math.hypot(b.vx, b.vy) > 1100) src *= T('hulkfist', 2, 2.5, 3);
+    if (has('hulkfist') && b && hyp(b.vx, b.vy) > 1100) src *= T('hulkfist', 2, 2.5, 3);
     if (syn('bumpercar')) src *= 1 + Math.min(1, .1 * Math.max(0, S.bumpStreak));
     if (S.mad === 'triple') src *= 3;
+    if (ks('ks_odin')) src *= .7; if (ks('ks_web')) src *= .6; if (ks('ks_quantum')) src *= .75;
   }
+  if (kind === 'lightning' && ks('ks_odin')) src *= 2;
+  if ((kind === 'portal' || kind === 'spinner') && has('runes')) src *= 1 + T('runes', .5, .75, 1);
+  if (kind === 'portal' && syn('sanctum5')) src *= 3;
+  if (cls === 'hit' && tgt && ks('ks_demo')) src *= .7;
   if (kind === 'sling' && has('web')) src *= T('web', 5, 7, 10);
   if ((kind === 'standup' || kind === 'drop') && has('smart')) src *= T('smart', 3, 4, 5);
   if ((kind === 'ramp' || kind === 'orbit' || kind === 'tunnel') && has('vibrail')) src *= T('vibrail', 2, 3, 4);
@@ -967,18 +1185,27 @@ function scoreFactor(kind, obj, cls) {
   let add = globalBonus();
   if (phys) {
     add += T('korg', .3, .4, .55) + (has('pym') >= 2 && S.pymForm === 'giant' ? .75 : 0) + (syn('brickhouse') ? .5 * has('brick') : 0);
-    if (b) { add += (b.rage || 0) + (b.venom === 'heavy' ? .3 : 0); if (has('mead') && (b.col || 0) < T('mead', 15, 20, 25)) add += T('mead', .2, .25, .3); }
+    if (b) { add += (b.rage || 0) + (b.venom === 'heavy' ? .3 : 0); if (has('mead') && (b.col || 0) < T('mead', 15, 20, 25)) add += T('mead', .2, .25, .3);
+      if (has('radiation') && b.vx * b.vx + b.vy * b.vy > 1100 * 1100) add += T('radiation', .2, .35, .5);
+      if (has('quantumdrift') && (b.rad || 10) < 9.9) add += T('quantumdrift', .2, .35, .5); }
+    if (syn('worldbreaker')) add += 1; if (ks('ks_jugg')) add += .8;
   }
+  if (b && !isReal(b) && has('mirrorshard')) add += T('mirrorshard', .25, .4, .6);
   if (b) add += (b.eh || 0) + (b.wiz || 0);
-  if (tgt) { if (obj.web) add += has('tracer') ? T('tracer', .3, .45, .6) : .2; if (obj.sym) add += .5; }
+  if (tgt) { if (obj.web) add += Math.max(has('tracer') ? T('tracer', .3, .45, .6) : .2, syn('weboflife') ? .5 : 0); if (obj.sym) add += .5; }
   // Mult (×)
   let m = globalMult();
   if (tgt) { if (obj.x2T > 0) m *= 2; if (obj.mod && obj.mod.t > 0) m *= obj.mod.m; }
-  if (syn('lightspeed') && b) { const sp = Math.hypot(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
-  if (b) { if (b.giantT > 0 && phys) m *= 3; if (b.ghost && !b.full) m *= .5; if (b.tk) m *= 2; if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= .25; if (b.spectral) m *= .5; }
+  if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
+  if (b) { const full = syn('masterill') || ks('ks_illusion') || (b.temp && syn('spiderverse'));
+    if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2;
+    if (!full) { if (b.ghost && !b.full) m *= .5; if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= .25; if (b.spectral) m *= .5; }
+    if (ks('ks_illusion') && isReal(b)) m *= .7;
+    if (ks('ks_speed') && phys) m *= clamp(hyp(b.vx, b.vy) / 1000, .5, 2.5); }
   if (hit && tgt) { // one-shot, per-hit effects are consumed only by clean hits
     if (S.punish) { add += S.punish; S.punish = 0; }
     if (b && b.direct && has('arrowhead')) add += T('arrowhead', .2, .35, .5);
+    if (b && b.direct && ks('ks_web')) m *= 2;
     if (b && b.hardT > 0 && has('winter')) add += T('winter', .4, .6, .9);
     if (b && b.steerT > 0 && has('falcon')) { add += T('falcon', .25, .5, 1); b.steerT = 0; }
     if (has('claw')) { if (S.clawObj === obj) S.claw = Math.min(10, S.claw + 1); else { if (!syn('adamantium')) S.claw = 0; S.clawObj = obj; } add += S.claw * T('claw', .15, .2, .3); }
@@ -996,10 +1223,11 @@ function budget(id, perSec, cap = Math.max(1, perSec)) { const now = performance
 // ---- machine-part triggers ----
 function part(id, fn) {
   S.partN = (S.partN || 0) + 1;
-  if ((S.meltT > 0 || (has('shuri') && S.partN % T('shuri', 3, 3, 2) === 0)) && budget('echo', 4)) {
+  if (syn('starklegacy') && budget('legacy', 6)) award(200, 'legacy', null, null, null, true);
+  if ((S.meltT > 0 || ks('ks_auto') || (has('shuri') && S.partN % T('shuri', 3, 3, 2) === 0)) && budget('echo', 4)) {
     if (fn) setTimeout(fn, 140); else if (S.lastPts) { const b = curBall; bonus(S.lastPts, b ? b.x : 280, b ? b.y - 46 : 400, 'ECHO'); }
   }
-  if (has('arc2')) { S.arc2 = Math.min(100, (S.arc2 || 0) + 5); if (S.arc2 >= 100) { S.arc2 = 0; setTimeout(arcBurst, 200); } }
+  if (has('arc2')) { S.arc2 = Math.min(100, (S.arc2 || 0) + (syn('starklegacy') ? 10 : 5)); if (S.arc2 >= 100) { S.arc2 = 0; setTimeout(arcBurst, 200); } }
   if (syn('nuclear') && !(S.meltT > 0)) { S.rad = Math.min(100, (S.rad || 0) + 4); if (S.rad >= 100) { S.rad = 0; meltdown(); } }
   if (syn('hpp') && S.partN % 20 === 0) { S.suitT = 8; S.suitFire = 0; msg('HOUSE PARTY PROTOCOL', 2.5); tone(300, .4, 'sawtooth', .06, 900); }
 }
@@ -1016,9 +1244,10 @@ function explode(x, y, pow, depth = 0, src = null) {
   if (!budget('boom', 3)) return;
   fx.push({ type: 'boom', x, y, t: 0, life: .45 }); noise(.35, .12, 700, 80, 'lowpass'); S.shake = Math.max(S.shake || 0, .35);
   const hits = [];
-  const near = allTargets().map(o => [o, Math.hypot(objPos(o)[0] - x, objPos(o)[1] - y)]).filter(([, d]) => d <= 95).sort((a, b) => a[1] - b[1]).slice(0, 5);
-  for (const [o, d] of near) { const [ox, oy] = objPos(o); o.flash = 1; award(pow * (1 - d / 190), 'explosion', o, ox, oy - 20, true); hits.push([o, d]); if (syn('chaosboom')) o.mod = { m: rnd([.5, 1.5, 2, 2.5]), t: 6 }; }
-  const maxD = has('ace') ? 2 : syn('chainreaction') ? 1 : 0;
+  const RR = 95 * (syn('bigbang') ? 1.5 : 1) * (ks('ks_demo') ? 1.5 : 1); if (!depth) pow *= (1 + T('fuse', .2, .35, .5)) * (ks('ks_demo') ? 2 : 1);
+  const near = allTargets().map(o => [o, hyp(objPos(o)[0] - x, objPos(o)[1] - y)]).filter(([, d]) => d <= RR).sort((a, b) => a[1] - b[1]).slice(0, 5);
+  for (const [o, d] of near) { const [ox, oy] = objPos(o); o.flash = 1; award(pow * (1 - d / (RR * 2)), 'explosion', o, ox, oy - 20, true); hits.push([o, d]); if (syn('chaosboom')) o.mod = { m: rnd([.5, 1.5, 2, 2.5]), t: 6 }; }
+  const maxD = (has('ace') ? 2 : syn('chainreaction') ? 1 : 0) + (syn('bigbang') && syn('chainreaction') ? 1 : 0);
   if (depth < maxD) hits.filter(([o]) => o !== src).sort((a, b) => a[1] - b[1]).slice(0, 2).forEach(([o]) => { if (has('ace') || Math.random() < .3) setTimeout(() => explode(...objPos(o), pow * .3, depth + 1, o), 180); });
   if (has('ace') && depth === 0) { S.cnt.gambit = (S.cnt.gambit || 0) + 2; S.deckSet && hits.slice(0, 2).forEach(([o]) => S.deckSet.add(o)); }
 }
@@ -1029,10 +1258,10 @@ function destroyed(o) { // a drop target knocked down, or the enemy plate defeat
 // ---- lightning ----
 function chain(from, n, pts, src, depth = 0) {
   if (!budget('chain', 1.5)) return [];
-  n += (syn('overcharge') ? 1 : 0) + T('stormbreaker', 1, 1, 2) + (syn('worthybrick') ? 2 : 0);
+  n += (syn('overcharge') ? 1 : 0) + T('stormbreaker', 1, 1, 2) + (syn('worthybrick') ? 2 : 0) + (ks('ks_odin') ? 1 : 0); if (ks('ks_storm')) n = Math.max(1, n - 1);
   const pool = allTargets().filter(o => o !== src).sort(() => Math.random() - .5).slice(0, n);
   let [x0, y0] = from;
-  pool.forEach((o, i) => setTimeout(() => { if (!activePlay()) return; const [x, y] = objPos(o); fx.push({ type: 'bolt', x1: x0, y1: y0, x2: x, y2: y, t: 0, life: .4, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(pts, 'lightning', o, x, y - 26, true); if (o.kind === 'bumper' && syn('bringthanos')) o.elec = 8; x0 = x; y0 = y; }, i * 90));
+  pool.forEach((o, i) => setTimeout(() => { if (!activePlay()) return; const [x, y] = objPos(o); fx.push({ type: 'bolt', x1: x0, y1: y0, x2: x, y2: y, t: 0, life: .4, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(pts, 'lightning', o, x, y - 26, true); if (o.kind === 'bumper' && syn('bringthanos')) o.elec = 8; if (o.kind === 'bumper' && has('godthunder') && Math.random() < .25) countHit('bumper', o); x0 = x; y0 = y; }, i * 90));
   tone(1200, .2, 'sawtooth', .05, 150);
   if (syn('arcoverload')) part('arcoverload');
   if (syn('livingstorm') && depth < 2 && Math.random() < .2) setTimeout(() => { const o = pool.at(-1); if (o) { msg('LIVING STORM'); chain(objPos(o), 1, pts, o, depth + 1); } }, pool.length * 90 + 150);
@@ -1041,7 +1270,7 @@ function chain(from, n, pts, src, depth = 0) {
 function mjolnirStrike() {
   if (!budget('strike', 2)) return;
   const val = o => (o.pts || 100) * (o.web ? 1.3 : 1) * (o.x2T > 0 ? 2 : 1) * (o.sym ? 1.5 : 1) * (o.mod ? o.mod.m : 1);
-  const o = allTargets().sort((a, b) => val(b) - val(a))[0]; if (!o) return; const [x, y] = objPos(o);
+  const o = allTargets().slice().sort((a, b) => val(b) - val(a))[0]; if (!o) return; const [x, y] = objPos(o);
   fx.push({ type: 'bolt', x1: x + (Math.random() - .5) * 60, y1: 10, x2: x, y2: y, t: 0, life: .5, seed: Math.random() * 1e6 | 0 }); o.flash = 1;
   award(1000, 'lightning', o, x, y - 30, true); msg('MJOLNIR STRIKES'); tone(160, .4, 'sawtooth', .07, 60); noise(.4, .1, 3000, 300);
   if (o.kind === 'bumper' && syn('bringthanos')) o.elec = 8;
@@ -1050,9 +1279,9 @@ function mjolnirStrike() {
 }
 // ---- temporary balls ----
 function tempBall(src, o = {}) {
-  if (!src || balls.filter(q => q.temp).length >= 3 || !budget('temp', .5)) return;
+  if (!src || balls.filter(q => q.temp).length >= 2 || !budget('temp', .25)) return;
   spawnBall(src, { temp: true, life: (o.life || 8) * tempDur(), rad: o.rad || src.rad || baseRad(), gen: o.gen || 0, illu: o.illu, msg: o.msg || 'TEMPORARY BALL' });
-  if (syn('astral') && Math.random() < .25 && !o.noAstral) setTimeout(() => spawnBall(src, { spectral: true, life: 10, rad: src.rad || 10, msg: 'ASTRAL PROJECTION' }), 150);
+  if (syn('astral') && Math.random() < .12 && !o.noAstral) setTimeout(() => spawnBall(src, { spectral: true, life: 10, rad: src.rad || 10, msg: 'ASTRAL PROJECTION' }), 150);
 }
 // ---- rescues and close saves ----
 function rescue(src, b) {
@@ -1075,17 +1304,18 @@ function restoreRescue() {
 // ---- hooks called from the core game ----
 function cardsLevel() {
   S.rigId = S.rigNext || null; S.rigNext = null; if (S.rigId) setTimeout(() => msg('JURY-RIG: ' + CARD[S.rigId].name.toUpperCase() + ' AT MAX', 3), 2800);
-  Object.assign(S, { cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, nova: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, extremis: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, magik: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0 });
+  Object.assign(S, { bankPts: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, nova: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, extremis: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, magik: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0 });
   for (const o of [...bumpers, ...standups, ...drops, ...stars, enemy]) { o.web = false; o.sym = false; o.x2T = 0; o.mod = null; o.elec = 0; o.hitN = 0; }
-  for (let i = bumpers.length - 1; i >= 0; i--) if (bumpers[i].temp) bumpers.splice(i, 1);
+  for (let i = bumpers.length - 1; i >= 0; i--) if (bumpers[i].temp) bumpers.splice(i, 1); TGC = null;
   bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } });
 }
 function cardsBall(b) {
   b.rad = b.baseR = baseRad(); b.col = 0;
-  S.senseUsed = false; S.cloakUsed = false; S.healN = 0; S.chaosMods = {}; S.chain = []; S.clawObj = null; S.claw = 0;
+  S.senseUsed = false; S.cloakUsed = false; S.vibUsed = false; S.healN = 0; S.chaosMods = {}; S.chain = []; S.clawObj = null; S.claw = 0;
   if (S.fastPending) { b.giantT = 5; S.fastPending = false; }
 }
 function cardsDrain() {
+  if (S.bankPts > 0) { const v = S.bankPts * 2; S.bankPts = 0; bonus(v, 270, 820, 'KINETIC BANK'); msg('KINETIC BANK PAYS ' + fmt(v), 2.5); }
   if (has('taskmaster')) { let best = null, n = 0; for (const k in S.fires) if (S.fires[k] > n) { n = S.fires[k]; best = k; } S.taskId = best; if (best) setTimeout(() => msg('TASKMASTER LEARNED: ' + best.toUpperCase()), 1200); }
   S.fires = {}; S.heat = 0; S.heatOn = false;
 }
@@ -1097,8 +1327,9 @@ function cardsHit(kind, obj) {
     obj.hitN = (obj.hitN || 0) + 1;
     if (b && b.webT > 0 && !obj.web) { obj.web = true; b.webT = 0; pop(...objPos(obj), 'WEBBED', '#ffffff'); }
     if (has('tracer') && !obj.web && obj.hitN >= T('tracer', 3, 3, 2)) { obj.web = true; pop(...objPos(obj), 'TRACED', '#ffffff'); }
+    if (!obj.web && (syn('weboflife') || (b && b.temp && syn('spiderverse')))) obj.web = true;
     if (obj.web && syn('reflexes')) S.comboT = Math.max(S.comboT, 4);
-    if (syn('symspider')) { if (obj.web) { allTargets().filter(o => o !== obj && !o.sym).map(o => [o, Math.hypot(objPos(o)[0] - objPos(obj)[0], objPos(o)[1] - objPos(obj)[1])]).sort((a, c) => a[1] - c[1]).slice(0, 2).forEach(([o]) => o.sym = true); } else if (obj.sym) obj.web = true; }
+    if (syn('symspider')) { if (obj.web) { allTargets().filter(o => o !== obj && !o.sym).map(o => [o, hyp(objPos(o)[0] - objPos(obj)[0], objPos(o)[1] - objPos(obj)[1])]).sort((a, c) => a[1] - c[1]).slice(0, 2).forEach(([o]) => o.sym = true); } else if (obj.sym) obj.web = true; }
     if (has('gambit') && every('gambit', T('gambit', 12, 10, 8))) { const [x, y] = objPos(obj); explode(x, y, T('gambit', 500, 700, 1000), 0, obj); msg("GAMBIT'S CARD"); }
     if (has('deck')) { S.deckSet.add(obj); if (S.deckSet.size >= 4) { S.deckSet.clear(); const [x, y] = objPos(obj); explode(x, y, T('deck', 400, 600, 900), 0, obj); msg('CHARGED DECK'); } }
     if (syn('streetlevel') && b && b.direct && !S.focusN) { S.focus += 25; if (S.focus >= 100) { S.focus = 0; S.focusN = 5; msg('FULL FOCUS · NEXT 5 HITS 3×', 2.5); tone(900, .3, 'triangle', .06, 1800); } }
@@ -1111,7 +1342,7 @@ function cardsHit(kind, obj) {
   }
   if (b && b.venom === 'sticky') { S.combo = Math.min(20, S.combo + 1); S.comboT = Math.max(S.comboT, 2); }
   if (b && b.venom === 'explosive' && every('venomboom', 6)) explode(b.x, b.y, 300, 0);
-  if (has('spiderleg') && every('spiderleg', T('spiderleg', 20, 16, 12)) && b) { const list = allTargets().sort((p, q) => Math.hypot(objPos(p)[0] - b.x, objPos(p)[1] - b.y) - Math.hypot(objPos(q)[0] - b.x, objPos(q)[1] - b.y)).slice(0, 3); const o = pickStark(list), [x, y] = objPos(o); fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: x, y2: y, t: 0, life: .25, c: '255,90,90' }); o.flash = 1; award(300, 'spiderleg', o, x, y - 24, true); part('spiderleg'); }
+  if (has('spiderleg') && every('spiderleg', T('spiderleg', 20, 16, 12)) && b) { const list = allTargets().slice().sort((p, q) => hyp(objPos(p)[0] - b.x, objPos(p)[1] - b.y) - hyp(objPos(q)[0] - b.x, objPos(q)[1] - b.y)).slice(0, 3); const o = pickStark(list), [x, y] = objPos(o); fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: x, y2: y, t: 0, life: .25, c: '255,90,90' }); o.flash = 1; award(300, 'spiderleg', o, x, y - 24, true); part('spiderleg'); }
   if (has('extremis') && every('extremis', T('extremis', 25, 20, 15))) { S.extremis = true; msg('EXTREMIS PRIMED · NEXT HIT 3×'); }
   if (has('healing') && ++S.healN >= 40) { S.healN = 0; restoreRescue(); }
   if (has('khonshu') && every('khonshu', T('khonshu', 30, 25, 20))) { S.khon = S.khon === 'score' ? 'force' : 'score'; msg(S.khon === 'score' ? 'KHONSHU · +25% SCORING' : 'KHONSHU · +25% FORCE'); }
@@ -1119,22 +1350,22 @@ function cardsHit(kind, obj) {
     const opts = [['bumper', 'BUMPERS', 2], ['sling', 'SLINGSHOTS', 4], ['standup', 'STANDUPS', 3], ['drop', 'DROP TARGETS', 3], ['spinner', 'SPINNERS', 5], ['ramp', 'RAMP', 3], ['orbit', 'WARP', 3], ['star', 'STARS', 5]];
     const [k, nm, m] = rnd(opts); S.chaosMods[k] = (S.chaosMods[k] || 1) * m; msg('CHAOS MAGIC: ' + nm + ' ×' + S.chaosMods[k], 2.5); fx.push({ type: 'ring', x: 280, y: 400, t: 0, life: .6, c: '255,90,209', big: true });
   }
-  if (has('illusion') && b && every('illusion', 20)) tempBall(b, { life: 10 / tempDur(), illu: true, msg: 'ILLUSION BALL' });
-  if (has('ubump') && every('ubump', 50)) { if (!bumpers.some(c => c.temp)) { bumpers.push({ x: 280, y: 515, bx: 280, by: 515, r: 15, kick: 470, kind: 'bumper', pts: 150, flash: 1, temp: true, life: 15 }); msg('ULTRON BUMPER ONLINE'); sfx.clang(); part('ubump'); } }
+  if (has('illusion') && b && every('illusion', 35)) tempBall(b, { life: 10 / tempDur(), illu: true, msg: 'ILLUSION BALL' });
+  if (has('ubump') && every('ubump', 50)) { if (!bumpers.some(c => c.temp)) { bumpers.push({ x: 280, y: 515, bx: 280, by: 515, r: 15, kick: 470, kind: 'bumper', pts: 150, flash: 1, temp: true, life: 15 }); TGC = null; msg('ULTRON BUMPER ONLINE'); sfx.clang(); part('ubump'); } }
   if (has('ock') && every('ock', 30)) { S.ockT = 10; msg('DOC OCK ARMS DEPLOYED'); tone(140, .4, 'square', .05, 280); part('ock'); }
   if (b) {
-    const sp = Math.hypot(b.vx, b.vy);
+    const sp = hyp(b.vx, b.vy);
     if (syn('ftl') && sp > 1500 && ++S.ftl >= 20) { S.ftl = 0; msg('FASTER THAN LIGHT · COSMIC BURST', 2.5); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .7, c: '180,140,255', big: true }); allTargets().forEach((o, i) => setTimeout(() => { o.flash = 1; award(400, 'cosmic', o, null, null, true); }, i * 30)); }
     if (has('torch')) { if (sp > 850) S.heat = Math.min(100, S.heat + 12); else S.heat = Math.max(0, S.heat - 20); if (S.heat >= 100 && !S.heatOn) { S.heatOn = true; msg('FLAME ON! 2×', 2.5); tone(300, .5, 'sawtooth', .06, 900); } }
-    if (b.temp && syn('clonesaga') && (b.gen || 0) < 3 && Math.random() < .12) tempBall(b, { gen: (b.gen || 0) + 1, rad: b.rad, msg: 'CLONE SAGA', noAstral: true });
+    if (b.temp && syn('clonesaga') && (b.gen || 0) < 2 && Math.random() < .05) tempBall(b, { gen: (b.gen || 0) + 1, rad: b.rad, msg: 'CLONE SAGA', noAstral: true });
   }
 }
 function cardsBumper(c, b) {
   if (has('capacitor') && every('capacitor', T('capacitor', 10, 8, 8))) { award(T('capacitor', 250, 400, 500), 'capacitor', c, c.x, c.y - 44, true); part('capacitor'); if (T('capacitor', 0, 0, 1)) { const o = pickStark(allTargets()), [x, y] = objPos(o); fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: x, y2: y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); award(500, 'lightning', o, x, y - 24, true); } }
-  if (has('gburst') && b && every('gburst', T('gburst', 15, 12, 10))) { const sp = Math.hypot(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.15) / sp; b.vx *= k; b.vy *= k; award(300, 'gamma', c, c.x, c.y - 44, true); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .35, c: '108,255,90' }); }
+  if (has('gburst') && b && every('gburst', T('gburst', 15, 12, 10))) { const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.15) / sp; b.vx *= k; b.vy *= k; award(300, 'gamma', c, c.x, c.y - 44, true); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .35, c: '108,255,90' }); }
   if (syn('hulksmash') && b && every('hulksmash', 5)) { b.rad = Math.min(12.5, (b.rad || 10) + .5); b.baseR = b.rad; b.smash = Math.min(1.5, (b.smash || 1) + .1); pop(b.x, b.y - 30, 'HULK SMASH', '#6cff5a', true); }
   if (has('mjolR') && every('mjolR', 8)) mjolnirStrike();
-  if (has('widow') && S.slingT > 0) { S.slingT = 0; const r = 170; allTargets().forEach(o => { const [x, y] = objPos(o); if (o !== c && Math.hypot(x - c.x, y - c.y) < r) { fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: x, y2: y, t: 0, life: .3, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(T('widow', 200, 300, 450), 'lightning', o, x, y - 20, true); } }); msg("WIDOW'S BITE"); }
+  if (has('widow') && S.slingT > 0) { S.slingT = 0; const r = 170; allTargets().forEach(o => { const [x, y] = objPos(o); if (o !== c && hyp(x - c.x, y - c.y) < r) { fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: x, y2: y, t: 0, life: .3, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(T('widow', 200, 300, 450), 'lightning', o, x, y - 20, true); } }); msg("WIDOW'S BITE"); }
   if (c.elec > 0 && syn('bringthanos')) chain([c.x, c.y], 1, 200, c, 3);
   if (b && b.venom === 'bouncy') b.kickM = 1.2;
 }
@@ -1146,7 +1377,7 @@ function cardsSling(s, b) {
 function cardsFlip(b, f, impact, t, vy0 = 0) {
   const i = flippers.indexOf(f);
   b.direct = true; b.directT = .9;
-  if (has('winter') && Math.abs(f.w) > 12 && Math.hypot(b.vx, b.vy) > 1300) b.hardT = 1.2;
+  if (has('winter') && Math.abs(f.w) > 12 && hyp(b.vx, b.vy) > 1300) b.hardT = 1.2;
   if (has('crescent')) { if (S.lastFlip >= 0 && S.lastFlip !== i) S.cres = Math.min(1, S.cres + T('crescent', .05, .08, .12)); else if (S.lastFlip === i) S.cres = 0; }
   S.lastFlip = i;
   if (has('chi')) { S.chiN++; S.chi = Math.min(T('chi', 4, 5, 6), 1 + S.chiN * .75); }
@@ -1166,39 +1397,41 @@ function cardsShot(name) {
   }
 }
 function cardsRamp(b) {
-  if (has('visor')) { const tg = allTargets().sort(() => Math.random() - .5).slice(0, T('visor', 3, 4, 5)); let x0 = 60, y0 = 330; tg.forEach((o, i) => setTimeout(() => { const [x, y] = objPos(o); fx.push({ type: 'beam', x1: x0, y1: y0, x2: x, y2: y, t: 0, life: .3, c: '255,60,60' }); o.flash = 1; award(300, 'visor', o, x, y - 24, true); x0 = x; y0 = y; }, i * 70)); msg('OPTIC BLAST'); tone(1400, .3, 'sine', .05, 700); }
+  if (has('visor')) { const tg = allTargets().slice().sort(() => Math.random() - .5).slice(0, T('visor', 3, 4, 5)); let x0 = 60, y0 = 330; tg.forEach((o, i) => setTimeout(() => { const [x, y] = objPos(o); fx.push({ type: 'beam', x1: x0, y1: y0, x2: x, y2: y, t: 0, life: .3, c: '255,60,60' }); o.flash = 1; award(300, 'visor', o, x, y - 24, true); x0 = x; y0 = y; }, i * 70)); msg('OPTIC BLAST'); tone(1400, .3, 'sine', .05, 700); }
   if (has('bpsuit') && S.bpKin > 0) { bonus(S.bpKin, 60, 300, 'KINETIC'); msg('PANTHER SUIT RELEASE'); fx.push({ type: 'ring', x: 60, y: 330, t: 0, life: .6, c: '180,110,255', big: true }); S.bpKin = 0; }
   const small = b && (b.rad || 10) < 9.6;
-  if (has('qtunnel') && b && (small || Math.random() < .25)) tempBall(b, { rad: b.rad, msg: 'QUANTUM COPY' });
-  if (syn('qpartners') && b && small) setTimeout(() => tempBall(b, { rad: 7, msg: 'QUANTUM PARTNER' }), 200);
+  if (has('qtunnel') && b && Math.random() < (small ? .4 : .12)) tempBall(b, { rad: b.rad, msg: 'QUANTUM COPY' });
+  if (syn('qpartners') && b && small && Math.random() < .4) setTimeout(() => tempBall(b, { rad: 7, msg: 'QUANTUM PARTNER' }), 200);
 }
 function cardsPortal(b, Q) {
   const [x, y] = Q, sub = has('pym') >= 2 && S.pymForm !== 'giant';
   award((100 + (S.magik || 0)) * (sub ? 1.5 : 1), 'portal', null, x, y - 26, true);
-  if (has('magik')) { S.magik += 100; allTargets().forEach(o => { const [ox, oy] = objPos(o); if (Math.hypot(ox - x, oy - y) < 110) { fx.push({ type: 'beam', x1: x, y1: y, x2: ox, y2: oy, t: 0, life: .2, c: '255,220,120' }); o.flash = 1; award(300, 'soulsword', o, ox, oy - 20, true); } }); }
+  if (has('magik')) { S.magik += 100; allTargets().forEach(o => { const [ox, oy] = objPos(o); if (hyp(ox - x, oy - y) < 110) { fx.push({ type: 'beam', x1: x, y1: y, x2: ox, y2: oy, t: 0, life: .2, c: '255,220,120' }); o.flash = 1; award(300, 'soulsword', o, ox, oy - 20, true); } }); }
+  if (syn('tempest')) setTimeout(() => chain([x, y], 2, 300, null), 120);
   if (syn('eventhorizon')) { b.eh = (b.eh || 0) + .25; pop(x, y - 44, 'EVENT HORIZON +' + b.eh.toFixed(2) + '×', '#b58cff', true); }
-  if (syn('wormhole')) { const sp = Math.hypot(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.2) / sp; b.vx *= k; b.vy *= k; }
+  if (syn('wormhole')) { const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.2) / sp; b.vx *= k; b.vy *= k; }
   if (syn('madness') && Math.random() < .3 && !S.madT) { S.mad = rnd(['drift', 'lowgrav', 'triple']); S.madT = 8; msg({ drift: 'MADNESS: THE BUMPERS DRIFT', lowgrav: 'MADNESS: LOW GRAVITY', triple: 'MADNESS: BUMPERS 3×' }[S.mad], 2.5); fx.push({ type: 'flash', t: 0, life: .3 }); }
   qcharge(b);
 }
-function qcharge(b) { if (has('qbattery') && ++S.qch >= T('qbattery', 5, 4, 3)) { S.qch = 0; tempBall(b, { msg: 'QUANTUM BATTERY' }); } }
+function qcharge(b) { if (has('qbattery') && ++S.qch >= T('qbattery', 8, 7, 6)) { S.qch = 0; tempBall(b, { msg: 'QUANTUM BATTERY' }); } }
 function falcon(b) {
   if (!has('falcon')) return;
   const live = [...standups.filter(s => !s.lit), ...drops.filter(d => !d.down), enemy]; const o = rnd(live); if (!o) return;
-  const [x, y] = objPos(o), dx = x - b.x, dy = y - b.y, d = Math.hypot(dx, dy) || 1, sp = Math.max(900, Math.hypot(b.vx, b.vy));
+  const [x, y] = objPos(o), dx = x - b.x, dy = y - b.y, d = hyp(dx, dy) || 1, sp = Math.max(900, hyp(b.vx, b.vy));
   b.vx = b.vx * .4 + dx / d * sp * .6; b.vy = b.vy * .4 + dy / d * sp * .6; b.steerT = 1.5; pop(b.x, b.y - 30, 'FALCON', '#ffe08a');
 }
+const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['webT', 'hardT', 'steerT', 'clutchCd', 'directT'];
 function cardsTick(dt) {
   const t = performance.now() / 1000;
   // global modifiers read by physics
-  S.gmul = (has('korg') ? 1.08 : 1) * (S.mad === 'lowgrav' ? .6 : 1);
+  S.gmul = (has('korg') ? 1.08 : 1) * (S.mad === 'lowgrav' ? .6 : 1) * (S.bfx && S.bfx.gravity > 0 ? -.55 : 1);
   S.maxv = S.meltT > 0 ? 2400 : syn('lightspeed') ? 2300 : MAXV;
-  S.kickMul = (1 + T('vfrag', .1, .15, .2)) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1);
-  for (const k of ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT']) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
+  S.kickMul = (1 + T('vfrag', .1, .15, .2)) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
+  for (const k of TIMERS_S) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
   if (!S.madT && S.mad) { S.mad = null; bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } }); }
   if (S.mad === 'drift') mainBumpers().forEach((c, i) => { c.x = c.bx + 24 * Math.sin(t * 1.3 + i * 2); c.y = c.by + 16 * Math.cos(t * 1.1 + i); });
   for (const o of allTargets()) { if (o.x2T > 0) o.x2T -= dt; if (o.elec > 0) o.elec -= dt; if (o.mod && (o.mod.t -= dt) <= 0) o.mod = null; }
-  for (let i = bumpers.length - 1; i >= 0; i--) { const c = bumpers[i]; if (c.temp && (c.life -= dt) <= 0) { bumpers.splice(i, 1); fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .4, c: '255,74,74' }); } }
+  for (let i = bumpers.length - 1; i >= 0; i--) { const c = bumpers[i]; if (c.temp && (c.life -= dt) <= 0) { bumpers.splice(i, 1); TGC = null; fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .4, c: '255,74,74' }); } }
   // nanotech: the weakest upgradeable card runs at tier 3 for a while
   if (has('nano') && (S.nanoCd -= dt) <= 0) { S.nanoCd = 10; const c = UPGRADES.filter(u => u.up && has(u.id) && has(u.id) < maxT(u) && u.id !== 'pym').sort((a, b) => has(a.id) - has(b.id)); if (c.length) { S.nanoId = c[0].id; S.nanoT = 5; msg('NANOTECH: ' + c[0].name.toUpperCase() + ' AT FULL POWER'); } }
   // Mysterio's fake jackpot
@@ -1210,15 +1443,15 @@ function cardsTick(dt) {
   // automated suit
   if (S.suitT > 0) { const s = S.suit || (S.suit = {}); s.x = 280 + 170 * Math.sin(t * .8 + 2); s.y = 380 + 120 * Math.cos(t * 1.2); if ((S.suitFire += dt) >= 1) { S.suitFire = 0; const o = pickStark(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: s.x, y1: s.y, x2: x, y2: y, t: 0, life: .3, c: '220,230,255' }); o.flash = 1; award(300, 'suit', o, x, y - 24, true); tone(1000, .08, 'square', .04, 500); } }
   // energy swarm: extra balls zap targets
-  if (syn('swarm') && (S.swarmT = (S.swarmT || 0) + dt) >= 1.5) { S.swarmT = 0; for (const b of balls.filter(q => !isReal(q) && !q.captured).slice(0, 1)) { const o = allTargets().sort((p, q) => Math.hypot(objPos(p)[0] - b.x, objPos(p)[1] - b.y) - Math.hypot(objPos(q)[0] - b.x, objPos(q)[1] - b.y))[0]; const [x, y] = objPos(o); fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: x, y2: y, t: 0, life: .2, c: '127,231,255' }); o.flash = 1; award(150, 'drone', o, x, y - 20, true); } }
+  if (syn('swarm') && (S.swarmT = (S.swarmT || 0) + dt) >= 1.5) { S.swarmT = 0; for (const b of balls.filter(q => !isReal(q) && !q.captured).slice(0, 1)) { const o = allTargets().slice().sort((p, q) => hyp(objPos(p)[0] - b.x, objPos(p)[1] - b.y) - hyp(objPos(q)[0] - b.x, objPos(q)[1] - b.y))[0]; const [x, y] = objPos(o); fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: x, y2: y, t: 0, life: .2, c: '127,231,255' }); o.flash = 1; award(150, 'drone', o, x, y - 20, true); } }
   // combo freeze and the Daily Bugle
   if (S.comboHold > 0 && S.combo > 0) S.comboT = Math.max(S.comboT, .5);
   if (has('bugle') && S.combo >= 5 && S.comboT > 0 && S.comboT <= dt + 1e-6) { award(T('bugle', 500, 800, 1200), 'bugle', null, 270, 640, true); msg('DAILY BUGLE: COMBO ×' + S.combo); }
   if (S.comboT <= 0 && S.chain.length) S.chain = [];
   for (const b of balls) {
     if (b.captured) continue;
-    const sp = Math.hypot(b.vx, b.vy), real = isReal(b);
-    for (const k of ['webT', 'hardT', 'steerT', 'clutchCd', 'directT']) if (b[k] > 0) b[k] -= dt;
+    const sp = hyp(b.vx, b.vy), real = isReal(b);
+    for (const k of TIMERS_B) if (b[k] > 0) b[k] -= dt;
     if (b.direct && !(b.directT > 0)) b.direct = false;
     if (b.giantT > 0 && !inLane(b)) { b.giantT -= dt; b.rad = 12.5; if (b.giantT <= 0) b.rad = b.baseR || baseRad(); }
     if (b.temp || b.spectral) { b.life -= dt; if (b.life <= 0) b.vanish = true; }
@@ -1228,6 +1461,8 @@ function cardsTick(dt) {
     if (has('sense') && !S.senseUsed && prot() && b.y > 790 && b.x > 190 && b.x < 350 && b.vy > 250) { S.senseUsed = true; S.slowT = T('sense', 1, 1.5, 2); msg('SPIDER-SENSE!'); tone(1800, .25, 'sine', .05, 2400); }
     // Doc Ock arms bat the ball back up
     if (S.ockT > 0 && b.y > 846 && b.y < 876 && b.x > 212 && b.x < 328 && b.vy > 0) { b.vy = -1150; b.vx = (270 - b.x) * 3 + (Math.random() - .5) * 200; clutch(b); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .3, c: '200,200,120' }); tone(200, .12, 'square', .05, 500); }
+    // Vibranium Core (Vibranium V): the drain bounces the ball back once per ball
+    if (syn('vibcore') && !S.vibUsed && prot() && b.y > 890 && b.y < 910 && b.x > 190 && b.x < 350 && b.vy > 0) { S.vibUsed = true; b.y = 886; b.vy = -1250; b.vx = (270 - b.x) * 3; msg('VIBRANIUM CORE'); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '181,140,255' }); rescue('vibcore', b); }
     // Cloak of Levitation
     if (has('cloak') && !S.cloakUsed && prot() && b.y > 884 && b.y < 905 && b.x > 200 && b.x < 340 && b.vy > 0) { S.cloakUsed = true; b.y = 880; b.vy = -1200; b.vx = (270 - b.x) * 3; msg('CLOAK OF LEVITATION'); tone(500, .4, 'sine', .06, 1000); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '255,80,80' }); rescue('cloak', b); }
     // speed builds
@@ -1235,13 +1470,13 @@ function cardsTick(dt) {
     if (has('surfer')) S.cosmic = sp > 1450 ? Math.min(3, S.cosmic + .25 * dt) : sp < 700 ? Math.max(0, S.cosmic - .5 * dt) : S.cosmic;
     if (S.heatOn) { if (sp < 420) { if ((S.heatLow += dt) > .6) { S.heatOn = false; S.heat = 0; S.heatLow = 0; msg('FLAME OUT'); } } else S.heatLow = 0; }
     // floating pickups
-    if (S.fake && Math.hypot(b.x - S.fake.x, b.y - S.fake.y) < 18) { pop(S.fake.x, S.fake.y, 'ILLUSION!', '#7dffb0', true); S.fake = null; S.mystT = 20; const o = rnd([...mainBumpers(), ...standups, ...drops.filter(d => !d.down)]); o.x2T = T('mysthelm', 10, 15, 20); msg("MYSTERIO'S TRICK · REAL TARGET 2×"); tone(300, .3, 'triangle', .05, 900); }
-    if (S.coin) { const d = Math.hypot(b.x - S.coin.x, b.y - S.coin.y), mr = has('magnet') ? T('magnet', 90, 130, 180) : 0; if (mr && d < mr) { S.coin.x += (b.x - S.coin.x) * Math.min(1, dt * 6); S.coin.y += (b.y - S.coin.y) * Math.min(1, dt * 6); } if (d < 18) { const v = Math.ceil(5 * (1 + T('magnet', .1, .2, .3))); S.credits += v; pop(S.coin.x, S.coin.y, '+' + v + ' CREDITS', '#f5c542', true); tone(1600, .08, 'square', .05, 2400); S.coin = null; S.coinT = 30 + Math.random() * 15; renderInv(); } }
+    if (S.fake && hyp(b.x - S.fake.x, b.y - S.fake.y) < 18) { pop(S.fake.x, S.fake.y, 'ILLUSION!', '#7dffb0', true); S.fake = null; S.mystT = 20; const o = rnd([...mainBumpers(), ...standups, ...drops.filter(d => !d.down)]); o.x2T = T('mysthelm', 10, 15, 20); msg("MYSTERIO'S TRICK · REAL TARGET 2×"); tone(300, .3, 'triangle', .05, 900); }
+    if (S.coin) { const d = hyp(b.x - S.coin.x, b.y - S.coin.y), mr = has('magnet') ? T('magnet', 90, 130, 180) : 0; if (mr && d < mr) { S.coin.x += (b.x - S.coin.x) * Math.min(1, dt * 6); S.coin.y += (b.y - S.coin.y) * Math.min(1, dt * 6); } if (d < 18) { const v = Math.ceil(5 * (1 + T('magnet', .1, .2, .3))); S.credits += v; pop(S.coin.x, S.coin.y, '+' + v + ' CREDITS', '#f5c542', true); tone(1600, .08, 'square', .05, 2400); S.coin = null; S.coinT = 30 + Math.random() * 15; renderInv(); } }
   }
 }
 // magnetic effects: pull strength and payout (called from physics while a magnet bends the ball)
-const magMul = () => (has('mhelm') ? 1.5 : 1) * (syn('adamantium') ? 2 : 1);
-function magPaid(b, dt) { if (!has('mhelm')) return; if ((S.magAcc += dt) >= .4) { S.magAcc = 0; award(80, 'magnet', null, b.x, b.y - 22, true); } }
+const magMul = () => (has('mhelm') ? 1.5 : 1) * (syn('adamantium') ? 2 : 1) * (syn('fieldmaster') ? 1.5 : 1) * (ks('ks_magneto') ? 2 : 1);
+function magPaid(b, dt) { const v = ((has('mhelm') ? 80 : 0) + T('ferro', 80, 130, 200) + (syn('fieldmaster') ? 80 : 0)) * (syn('magnetar') ? 3 : 1); if (!v) return; if ((S.magAcc += dt) >= .4) { S.magAcc = 0; award(v, 'magnet', null, b.x, b.y - 22, true); } }
 
 // ---- card visuals on the table ----
 function drawCardsMid(dt) {
@@ -1297,12 +1532,13 @@ function pickW(w) { let t = Math.random() * Object.values(w).reduce((a, b) => a 
 function shopWeights(any) {
   const lv = S.level;
   if (!any) return lv < 5 ? { common: 62, uncommon: 33, rare: 5 } : lv < 10 ? { common: 50, uncommon: 35, rare: 15 } : { common: 40, uncommon: 38, rare: 22 };
-  return lv < 5 ? { common: 45, uncommon: 35, rare: 14, epic: 5, legendary: 1 } : lv < 10 ? { common: 35, uncommon: 32, rare: 20, epic: 9, legendary: 4 } : { common: 25, uncommon: 30, rare: 25, epic: 13, legendary: 7 };
+  return lv < 5 ? { common: 45, uncommon: 35, rare: 14, epic: 5, legendary: 1 } : lv < 10 ? { common: 33, uncommon: 32, rare: 20, epic: 8, keystone: 4, legendary: 3 } : { common: 23, uncommon: 30, rare: 24, epic: 12, keystone: 5, legendary: 6 };
 }
 const RBYRANK = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
+let IGNORE_LOCKS = false;
 function rollCard(w, exclude = [], f = () => true) {
   let rank = RANK[pickW(w)];
-  const pool = r => UPGRADES.filter(u => u.r === r && u.pool !== false && canGain(u) && !exclude.includes(u.id) && f(u));
+  const pool = r => UPGRADES.filter(u => u.r === r && u.pool !== false && canGain(u) && !exclude.includes(u.id) && f(u) && (IGNORE_LOCKS || unlocked(u)) && !(u.r === 'keystone' && has(u.id)));
   let c = pool(RBYRANK[rank]); while (!c.length && rank > 0) c = pool(RBYRANK[--rank]);
   return c.length ? rnd(c) : null;
 }
@@ -1313,7 +1549,6 @@ const UTILS = [
   { id: 'token', name: 'Reroll Token', desc: 'Your next draft reroll is free.', p: [20, 25], go() { S.freeReroll = (S.freeReroll || 0) + 1; } },
   { id: 'jammer', name: 'Target Jammer', desc: "The next level's target is 15% lower.", p: [45, 55], go() { S.jam = (S.jam || 1) * .85; } },
   { id: 'lens', name: 'Rarity Lens', desc: 'Your next draft shows at least one Rare or better card.', p: [55, 70], go() { S.lens = true; } },
-  { id: 'purge', name: 'Purge', desc: 'Remove any one card from your build, any rarity.', p: [25, 35], pick: 'purge' },
   { id: 'polish', name: 'Polish Kit', desc: 'A random upgradeable card in your build goes up one tier.', p: [65, 80], go() { const c = UPGRADES.filter(u => u.up && has(u.id) && canGain(u) && u.id !== 'pym'); if (c.length) { const u = rnd(c); owned[u.id]++; SH.note = u.name + ' is now tier ' + has(u.id) + '.'; refreshBuild(); } else SH.note = 'Nothing to polish, so the kit is refunded.', S.credits += 60; } },
 ];
 const RIVALS = ['The Grandmaster', 'Kingpin', 'Madame Masque', 'A suspicious Skrull', 'Taneleer’s cousin'];
@@ -1358,14 +1593,14 @@ function keeperSlot(k, i, ex) {
     const stones = UPGRADES.filter(u => u.cat === 'Infinity Stone' && !has(u.id));
     if (i === 2 && stones.length && Math.random() < .22) { const u = rnd(stones); return { slot: 'Relic III', kind: 'card', u, base: rr([230, 260]) }; }
     if (i < 3) return shopCard(i === 2, ['Relic I', 'Relic II', 'Relic III'][i], ex, MYSTICF);
-    if (i === 3) { const util = rnd(UTILS.filter(u => ['lens', 'jammer', 'purge', 'token'].includes(u.id))); return { slot: 'Scroll', kind: 'util', util, base: rr(util.p) }; }
+    if (i === 3) { const util = rnd(UTILS.filter(u => ['lens', 'jammer', 'token'].includes(u.id))); return { slot: 'Scroll', kind: 'util', util, base: rr(util.p) }; }
     return { slot: 'Sealed relic', kind: 'relic', base: rr([35, 70]), hidden: true };
   }
-  if (k === 'deadpool') {
+  if (k === 'deadpool') { IGNORE_LOCKS = true; try {
     if (i < 3) { const used = SH.items.filter(q => q && q.dp).map(q => q.dp[0]), dp = rnd(DP.filter(d => !used.includes(d[0]))) || rnd(DP); return { slot: 'Item ' + (i + 1), kind: 'deadpool', dp, real: Math.random() < .3 ? CARD.brick : (rollCard({ common: 30, uncommon: 30, rare: 25, epic: 12, legendary: 3 }, ex) || CARD.brick), base: rr([25, 70]) }; }
     if (i === 3) { const u = rollCard({ rare: 50, epic: 38, legendary: 12 }, ex) || rollCard(shopWeights(true), ex); const curse = rnd([{ id: 'ball', text: 'Curse: −1 ball next level' }, { id: 'target', text: 'Curse: next target +30%' }]); return { slot: 'Risky deal', kind: 'card', u, curse, base: r5(cardPrice(u) * .45) }; }
     return { slot: 'Mystery', kind: 'mystery', base: rr([20, 50]), hidden: true };
-  }
+  } finally { IGNORE_LOCKS = false; } }
   return i < 3 ? shopCard(i === 2, ['Card I', 'Card II', 'Card III'][i], ex) : i === 3 ? shopUtil() : { slot: 'Mystery', kind: 'mystery', base: rr([25, 60]), hidden: true };
 }
 function stockKeeper(k) {
@@ -1378,9 +1613,9 @@ let SH = null;
 function openShop() {
   const sur = S.counterfeit > 0 ? 1.2 : 1;
   if (S.counterfeit > 0 && --S.counterfeit <= 0 && has('counterfeit')) removeCard('counterfeit');
-  const ev = (S.shopsSeen || 0) >= 1 && Math.random() < .25 ? rnd(['auction', 'junkyard', 'exchange', 'tva']) : null;
+  const ev = null;
   S.shopsSeen = (S.shopsSeen || 0) + 1;
-  const keeper = ev ? null : pickKeeper(); if (keeper) S.lastKeeper = keeper;
+  const keeper = 'collector'; S.lastKeeper = keeper;
   SH = { ev, keeper, sur, reroll: Math.max(5, 15 - T('membership', 5, 8, 10)), tvaUsed: false, first: has('rcoupon') > 0, mode: null, sel: [], items: [], note: '', line: keeper ? rnd(KEEPERS[keeper].lines) : '' };
   if (ev) stockEvent(ev); else stockKeeper(keeper);
   sfx.synergy(); renderShop();
@@ -1398,15 +1633,17 @@ function stockEvent(ev) {
   if (ev === 'auction') SH.lots = Array.from({ length: 3 }, (_, i) => { const u = rollCard({ rare: 60, epic: 30, legendary: 10 }, []) || rollCard(shopWeights(true)); const p = cardPrice(u); return { u, bid: r5(p * .5), lead: 'rival', rival: rnd(RIVALS), max: r5(p * (.8 + Math.random() * .6)), done: false, winner: null, say: 'opens the bidding' }; });
   if (ev === 'junkyard') { const ex = []; SH.items = Array.from({ length: 5 }, (_, i) => { const u = rollCard(shopWeights(true), ex); if (!u) return shopUtil(); ex.push(u.id); return { slot: 'Crate ' + (i + 1), kind: 'card', u, base: r5(cardPrice(u) * .5), hidden: true }; }); }
   if (ev === 'exchange') { const ex = []; SH.items = ['uncommon', 'rare', 'rare', 'epic'].map((r, i) => { const u = rollCard({ [r]: 1 }, ex); if (!u || RANK[u.r] < 1) return null; ex.push(u.id); return { slot: 'Relic ' + (i + 1), kind: 'card', u, trade: RBYRANK[RANK[u.r] - 1] }; }).filter(Boolean); }
-  if (ev === 'tva') { const ex = []; SH.items = Array.from({ length: 3 }, (_, i) => { const u = rollCard({ rare: 50, epic: 35, legendary: 15 }, ex) || rollCard(shopWeights(true), ex); ex.push(u.id); const v = u.up && has(u.id) < maxT(u); return { slot: 'Variant ' + (i + 1), kind: 'card', u, contraband: true, variant: v, base: r5(cardPrice(u) * (v ? 1.1 : .6)) }; }); }
+  if (ev === 'tva') { IGNORE_LOCKS = true; setTimeout(() => IGNORE_LOCKS = false); const ex = []; SH.items = Array.from({ length: 3 }, (_, i) => { const u = rollCard({ rare: 50, epic: 35, legendary: 15 }, ex) || rollCard(shopWeights(true), ex); ex.push(u.id); const v = u.up && has(u.id) < maxT(u); return { slot: 'Variant ' + (i + 1), kind: 'card', u, contraband: true, variant: v, base: r5(cardPrice(u) * (v ? 1.1 : .6)) }; }); }
   if (ev === 'deadpool') { const names = [...DP].sort(() => Math.random() - .5); SH.items = Array.from({ length: 5 }, (_, i) => ({ slot: 'Item ' + (i + 1), kind: 'deadpool', dp: names[i], real: Math.random() < .5 ? CARD.brick : (rollCard(shopWeights(true)) || CARD.brick), base: rr([25, 60]) })); }
 }
-const priceOf = it => r5((it.base || 0) * SH.sur * (SH.first ? .75 : 1));
+const premium = it => it.kind === 'card' && !it.sold && !it.hidden && !it.trade && it.u && (it.prem ?? (it.prem = completesSynergy(it.u).length > 0));
+const priceOf = it => r5((it.base || 0) * SH.sur * (SH.first ? .75 : 1) * (premium(it) ? 1.25 : 1));
 const canPay = c => S.credits >= c || (has('kingpin') && (S.debt || 0) + c - S.credits <= 300);
 function pay(c) { if (S.credits >= c) { S.credits -= c; return true; } if (canPay(c)) { S.debt = (S.debt || 0) + c - S.credits; S.credits = 0; return true; } return false; }
 const buildFull = () => slotsUsed() >= SLOTS;
 function gain(u, src, cb = () => {}) {
-  owned[u.id] = has(u.id) + 1;
+  if (u.r === 'keystone') { const old = keystone(); if (old && old !== u) { delete owned[old.id]; setTimeout(() => msg('KEYSTONE SWAPPED: ' + old.name.toUpperCase()), 400); } }
+  owned[u.id] = has(u.id) + 1; markSeen(u.id);
   if (src === 'shop') (S.bought ||= new Set()).add(u.id);
   if (u.id === 'counterfeit') { S.credits += 50; S.counterfeit = 3; }
   refreshBuild();
@@ -1417,8 +1654,8 @@ function loseOne(id) { if (CARD[id].stack && has(id) > 1) { owned[id]--; refresh
 function pymChoice(cb) {
   card.classList.add('wide'); ov.hidden = false;
   card.innerHTML = `<p class="eyebrow">Branching evolution · Pym Particle Vial ×2</p><h2>Choose a formula</h2>
-    <div class="draft"><button class="upg" type="button" data-f="sub" style="--rc:#5ad1ff"><span class="tag"><span>Formula</span><span>QUANTUM</span></span><span class="nm">Subatomic Formula</span><span class="ds">${SUB_DESC}</span></button>
-    <button class="upg" type="button" data-f="giant" style="--rc:#6cff5a"><span class="tag"><span>Formula</span><span>QUANTUM</span></span><span class="nm">Giant-Man Formula</span><span class="ds">${GIANT_DESC}</span></button></div>`;
+    <div class="draft"><button class="upg" type="button" data-f="sub" style="--rc:#5ad1ff"><span class="tag"><span>Formula</span><span>QUANTUM</span></span><span class="paint"><span class="nm">Subatomic Formula</span><span class="ds">${SUB_DESC}</span></span></button>
+    <button class="upg" type="button" data-f="giant" style="--rc:#6cff5a"><span class="tag"><span>Formula</span><span>QUANTUM</span></span><span class="paint"><span class="nm">Giant-Man Formula</span><span class="ds">${GIANT_DESC}</span></span></button></div>`;
   card.querySelectorAll('.upg').forEach(el => el.onclick = () => { S.pymForm = el.dataset.f; msg(S.pymForm === 'giant' ? 'GIANT-MAN FORMULA' : 'SUBATOMIC FORMULA', 2.5); cb(); });
 }
 // ---- actions ----
@@ -1429,17 +1666,16 @@ const ACTS = () => [
   SH.keeper === 'deadpool' && { id: 'roulette', name: 'Chimichanga Roulette', cost: 30, special: true, desc: '50%: win 60 credits. 50%: Deadpool eats the chimichanga.' },
   !SH.ev && { id: 'reroll', name: 'Reroll', cost: SH.reroll, desc: 'Replace every unsold, unlocked item. +10 per reroll in this shop.' },
   { id: 'gamble', name: "Collector's Gamble", cost: SH.keeper === 'collector' ? 30 : 40, special: SH.keeper === 'collector', desc: 'An unidentified card. Mostly Common or Uncommon, small chance of Rare or better.' },
-  { id: 'scrap', name: 'Scrap', cost: 10, need: 1, desc: 'Destroy one Common or Uncommon card you own.', filter: u => isCU(u) && slotCard(u) },
+  { id: 'remove', name: 'Remove', cost: 25, need: 1, desc: 'Take one card out of your build, any rarity. The only way to free a slot.', filter: u => u.cat !== 'Infinity Stone' },
   { id: 'upgrade', name: 'Upgrade', cost: r5(60 * (1 - T('spare', .1, .2, .3)) * (SH.keeper === 'rocket' ? .7 : 1)), need: 1, desc: 'A Machine Part you own goes up one tier.' + (SH.keeper === 'rocket' ? ' Rocket does it 30% cheaper.' : ''), filter: u => u.up && u.cat === 'Machine Part' && canGain(u) },
   { id: 'dup', name: 'Duplicate', cost: 100, need: 1, desc: 'Copy a Common or Uncommon card you own (stacks, or goes up a tier).', filter: u => isCU(u) && canGain(u) && (u.stack || u.up) },
-  { id: 'transmute', name: 'Transmute', cost: 50, need: 2, desc: 'Sacrifice two cards of the same rarity for a random card one rarity higher.', filter: u => ['common', 'uncommon', 'rare', 'epic'].includes(u.r) && slotCard(u) },
 ].filter(Boolean);
 function doAct(id) {
   const A = ACTS().find(a => a.id === id); SH.note = '';
   if (!canPay(A.cost)) { SH.note = 'Not enough credits for ' + A.name + '.'; return renderShop(); }
   if (id === 'reroll') { pay(A.cost); SH.reroll += 10; const ex = []; SH.items.forEach((it, i) => { if (it.sold || it.locked) { if (it.u) ex.push(it.u.id); return; } SH.items[i] = keeperSlot(SH.keeper, i, ex); if (SH.items[i].u) ex.push(SH.items[i].u.id); }); tone(900, .08, 'square', .04, 1400); return renderShop(); }
   if (id === 'roulette') { pay(A.cost); if (Math.random() < .5) { S.credits += 60; SH.note = 'Chimichanga Roulette: you win 60 credits!'; sfx.synergy(); } else { SH.note = 'Deadpool ate the chimichanga. "Delicious. Thanks for playing!"'; tone(120, .3, 'sawtooth', .05, 60); } return renderShop(); }
-  if (id === 'gamble') { if (buildFull()) { SH.note = 'Your build is full. Scrap or Purge a card first.'; return renderShop(); } pay(A.cost); const u = gambleCard(); SH.note = 'The Gamble reveals: ' + u.name + '!'; return gain(u, 'shop', renderShop); }
+  if (id === 'gamble') { if (buildFull()) { SH.note = 'Your build is full. Use Remove (25) to free a slot first.'; return renderShop(); } pay(A.cost); const u = gambleCard(); SH.note = 'The Gamble reveals: ' + u.name + '!'; return gain(u, 'shop', renderShop); }
   const pool = UPGRADES.filter(u => has(u.id) && A.filter(u));
   if (!pool.length) { SH.note = 'Nothing in your build can be used for ' + A.name + '.'; return renderShop(); }
   SH.mode = { id, need: A.need, cost: A.cost, title: A.name, filter: A.filter }; SH.sel = []; renderShop();
@@ -1451,7 +1687,7 @@ function confirmPick() {
   if (!pay(M.cost)) { SH.note = 'Not enough credits.'; SH.mode = null; return renderShop(); }
   SH.mode = null;
   if (M.id === 'rig') { S.rigNext = sel[0].id; SH.note = 'Jury-rigged: ' + sel[0].name + ' runs at full tier-3 power next level.'; }
-  else if (M.id === 'scrap' || M.id === 'purge') { loseOne(sel[0].id); SH.note = sel[0].name + ' was destroyed.'; sfx.boom(); }
+  else if (M.id === 'remove') { removeCard(sel[0].id); SH.note = sel[0].name + ' was removed from your build.'; sfx.boom(); }
   else if (M.id === 'upgrade' || M.id === 'dup') { const u = sel[0]; return gain(u, 'upgrade', () => { SH.note = nameFor(u) + (u.stack ? ' ×' + has(u.id) : ' · tier ' + has(u.id)) + '.'; renderShop(); }); }
   else if (M.id === 'transmute') { const r = sel[0].r; sel.forEach(u => loseOne(u.id)); const u = rollCard({ [RBYRANK[RANK[r] + 1]]: 1 }) || gambleCard(); SH.note = 'Transmuted into ' + u.name + '!'; return gain(u, 'shop', renderShop); }
   renderShop();
@@ -1459,7 +1695,7 @@ function confirmPick() {
 function buy(i) {
   const it = SH.items[i]; SH.note = ''; if (it.sold) return;
   const card0 = it.kind !== 'util' && it.kind !== 'modkit';
-  if (card0 && buildFull() && (it.kind !== 'card' || needsSlot(it.u))) { SH.note = `Your build is full (${SLOTS}/${SLOTS}). Scrap or Purge a card first.`; return renderShop(); }
+  if (card0 && buildFull() && (it.kind !== 'card' || needsSlot(it.u))) { SH.note = `Your build is full (${SLOTS}/${SLOTS}). Use Remove (25) to free a slot first.`; return renderShop(); }
   if (it.trade) { const pool = UPGRADES.filter(u => has(u.id) && u.r === it.trade && slotCard(u)); if (pool.length < 2) { SH.note = 'You need two ' + RAR[it.trade].n + ' cards to trade for this.'; return renderShop(); } SH.mode = { id: 'trade', item: i, need: 2, cost: 0, title: 'Offer two ' + RAR[it.trade].n + ' cards', filter: u => u.r === it.trade && slotCard(u) }; SH.sel = []; return renderShop(); }
   const cost = priceOf(it); if (!pay(cost)) { SH.note = 'Not enough credits.'; return renderShop(); }
   it.sold = true; SH.first = false; tone(1200, .08, 'square', .05, 1800); if (SH.keeper) SH.line = rnd(KEEPERS[SH.keeper].buy);
@@ -1491,7 +1727,7 @@ function leaveShop() { if (SH && !SH.ev && SH.items) { const L = SH.items.findIn
 function upgCard(u, extra = '', opts = {}) {
   const t = has(u.id), next = opts.sold ? Math.max(1, t) : u.up && t ? Math.min(maxT(u), t + 1) : 1, hide = opts.hidden;
   const nm = hide ? '???' : t && u.up ? nameFor(u, next) : u.name, ds = hide ? 'Hidden until you buy it.' : descFor(u, next);
-  return `<span class="tag"><span>${hide ? 'Unknown' : RAR[u.r].n}</span><span>${hide ? '' : u.cat}</span></span><span class="nm">${nm}</span><span class="ds">${ds}</span>${hide ? '' : tagChips(u)}${extra}`;
+  return `<span class="tag"><span>${hide ? 'Unknown' : RAR[u.r].n}</span></span><span class="paint"><span class="nm">${nm}</span><span class="ds">${ds}</span>${hide ? '' : famChips(u)}${hide || opts.sold ? '' : previewHtml(u)}${extra}</span>`;
 }
 function renderShop() {
   if (!SH) return; card.classList.add('wide'); card.classList.add('shop'); ov.classList.add('full'); ov.hidden = false;
@@ -1503,13 +1739,13 @@ function renderShop() {
   else body = `<div class="shelf">${SH.items.map((it, i) => {
     let inner, rc = '#8e95ab';
     if (it.kind === 'card') { rc = it.hidden && !it.sold ? '#8e95ab' : RAR[it.u.r].c; inner = upgCard(it.u, (it.variant && !it.sold ? '<span class="evo">TVA variant: arrives at max tier</span>' : '') + (it.curse ? `<span class="curse">${it.curse.text}</span>` : ''), { hidden: it.hidden && !it.sold, sold: it.sold }); }
-    else if (it.kind === 'modkit') { rc = '#ff9a2e'; inner = `<span class="tag"><span>Mod kit</span><span>Machine Part</span></span><span class="nm">${it.u.name}: tier ${Math.min(maxT(it.u), has(it.u.id) + (it.sold ? 0 : 1))}</span><span class="ds">${it.sold ? descFor(it.u) : 'Rocket bolts on the next tier: ' + descFor(it.u, Math.min(maxT(it.u), has(it.u.id) + 1))}</span>`; }
-    else if (it.kind === 'relic') { rc = '#b58cff'; inner = it.revealed ? upgCard(it.revealed, '', { sold: true }) : `<span class="tag"><span>Sealed relic</span><span>Mystic</span></span><span class="nm">Sealed Relic</span><span class="ds">A mystic card, hidden until the seal is broken. Small chance of Epic or Legendary.</span>`; }
-    else if (it.kind === 'util') inner = `<span class="tag"><span>Utility</span><span>Service</span></span><span class="nm">${it.util.name}</span><span class="ds">${it.util.desc}</span>`;
-    else if (it.kind === 'mystery') inner = `<span class="tag"><span>Mystery</span><span>?</span></span><span class="nm">Mystery Item</span><span class="ds">Hidden until purchased. Usually Common or Uncommon.</span>`;
-    else { rc = '#e5383b'; inner = it.revealed ? upgCard(it.revealed, '', { sold: true }) : `<span class="tag"><span>Deadpool</span><span>Trust me</span></span><span class="nm">${it.dp[0]}</span><span class="ds">${it.dp[1]}</span>`; }
-    const price = it.trade ? `<span class="price small">2 ${RAR[it.trade].n}</span>` : `<span class="price">${priceOf(it)}${SH.first ? '<s>' + r5(it.base * SH.sur) + '</s>' : ''}</span>`;
-    return `<div class="slot"><span class="slotlbl">${it.slot}${it.locked ? ' · locked' : ''}</span><button class="upg ${it.sold ? 'sold' : ''}" type="button" data-buy="${i}" style="--rc:${rc}">${inner}${it.sold ? '<span class="own">Sold</span>' : ''}</button>
+    else if (it.kind === 'modkit') { rc = '#ff9a2e'; inner = `<span class="tag"><span>Mod kit</span></span><span class="paint"><span class="nm">${it.u.name}: tier ${Math.min(maxT(it.u), has(it.u.id) + (it.sold ? 0 : 1))}</span><span class="ds">${it.sold ? descFor(it.u) : 'Rocket bolts on the next tier: ' + descFor(it.u, Math.min(maxT(it.u), has(it.u.id) + 1))}</span></span>`; }
+    else if (it.kind === 'relic') { rc = '#b58cff'; inner = it.revealed ? upgCard(it.revealed, '', { sold: true }) : `<span class="tag"><span>Sealed relic</span></span><span class="paint"><span class="nm">Sealed Relic</span><span class="ds">A mystic card, hidden until the seal is broken. Small chance of Epic or Legendary.</span></span>`; }
+    else if (it.kind === 'util') inner = `<span class="tag"><span>Utility</span></span><span class="paint"><span class="nm">${it.util.name}</span><span class="ds">${it.util.desc}</span></span>`;
+    else if (it.kind === 'mystery') inner = `<span class="tag"><span>Mystery</span></span><span class="paint"><span class="nm">Mystery Item</span><span class="ds">Hidden until purchased. Usually Common or Uncommon.</span></span>`;
+    else { rc = '#e5383b'; inner = it.revealed ? upgCard(it.revealed, '', { sold: true }) : `<span class="tag"><span>Deadpool</span></span><span class="paint"><span class="nm">${it.dp[0]}</span><span class="ds">${it.dp[1]}</span></span>`; }
+    const price = it.trade ? `<span class="price small">2 ${RAR[it.trade].n}</span>` : `<span class="price">${priceOf(it)}${SH.first || premium(it) ? '<s>' + r5(it.base * SH.sur) + '</s>' : ''}</span>${premium(it) ? '<span class="prem" title="This purchase completes a synergy in your build. The shopkeeper knows.">Build premium +25%</span>' : ''}`;
+    return `<div class="slot"><span class="slotlbl">${it.slot}${it.locked ? ' · locked' : ''}</span><button class="upg ${it.sold ? 'sold' : ''}${(it.revealed || it.u) && !(it.hidden && !it.sold) && famsOf(it.revealed || it.u).length ? ' fam' : ''}" type="button" data-buy="${i}" style="--rc:${rc};${(it.revealed || it.u) && !(it.hidden && !it.sold) ? famPaint(it.revealed || it.u) : ''}">${inner}${it.sold ? '<span class="own">Sold</span>' : ''}</button>
       <span class="slot-foot">${price}${!SH.ev && !it.sold ? `<button class="mini ${it.locked ? 'on' : ''}" type="button" data-lock="${i}" title="Keep this item for the next shop">${it.locked ? 'Locked' : 'Lock'}</button>` : ''}${has('tva') && !SH.tvaUsed && !it.sold && !SH.ev && it.kind !== 'mystery' ? `<button class="mini" type="button" data-one="${i}" title="TVA license: free reroll of this item">Reroll 1</button>` : ''}</span></div>`;
   }).join('')}</div>`;
   const acts = ACTS();
@@ -1561,7 +1797,7 @@ function renderMeters(dt) {
   if (syn('nuclear')) M.push([S.meltT > 0 ? 'MELTDOWN' : 'Radiation', S.meltT > 0 ? S.meltT / 10 : S.rad / 100, S.meltT > 0 ? '#ff5a3d' : '#6cff5a']);
   if (has('torch')) M.push([S.heatOn ? 'FLAME ON 2×' : 'Heat', S.heatOn ? 1 : S.heat / 100, '#ff7a2e']);
   if (syn('streetlevel')) M.push([S.focusN ? 'Focus · ' + S.focusN + ' hits 3×' : 'Focus', S.focusN ? S.focusN / 5 : S.focus / 100, '#ffd23a']);
-  if (has('qbattery')) M.push(['Quantum ' + S.qch + '/' + T('qbattery', 5, 4, 3), S.qch / T('qbattery', 5, 4, 3), '#5ad1ff']);
+  if (has('qbattery')) M.push(['Quantum ' + S.qch + '/' + T('qbattery', 8, 7, 6), S.qch / T('qbattery', 8, 7, 6), '#5ad1ff']);
   if (syn('ftl')) M.push(['Cosmic energy', S.ftl / 20, '#b58cff']);
   if (has('surfer')) M.push(['Surfer +' + S.cosmic.toFixed(2) + '×', S.cosmic / 3, '#dfe6ff']);
   if (has('nova')) M.push(['Nova +' + S.nova.toFixed(2) + '×', S.nova / T('nova', 1, 1.5, 2), '#ffe08a']);
@@ -1603,7 +1839,7 @@ function playerSnap() { // 6 stones: once per level, press G (or the SNAP button
   if (stoneCount() < 6 || S.snapUsed || !(S.phase === 'play' || S.phase === 'clearing')) return;
   S.snapUsed = true; S.snapT = 10; S.shake = 1; S.pulse = 1; sfx.snap(); fx.push({ type: 'flash', t: 0, life: .6 }); msg('THE SNAP · EVERYTHING 5× FOR 10 S', 3);
   const B = S.boss && !S.boss.defeated ? S.boss : null;
-  if (B) { B.dusted && B.dusted.clear(); B.illusions.clear(); B.hacked.clear(); for (let i = 0; i < 3; i++) setTimeout(() => { if (!B.defeated) bossHit(enemy, null); }, 300 + i * 250); }
+  if (B) { clearBossAttacks(); B.dusted && B.dusted.clear(); B.illusions.clear(); B.hacked.clear(); for (let i = 0; i < 3; i++) setTimeout(() => { if (!B.defeated) bossHit(enemy, null); }, 300 + i * 250); }
   else { S.enemyHp = 1; setTimeout(() => onHit(Object.assign(enemy, { lastNy: 1, cd: 0 }), 999, balls[0] || { x: 280, y: 480 }), 300); }
   stars.forEach(t => t.lit = true); topLanes.forEach(l => l.lit = true); renderStones();
 }
@@ -1621,28 +1857,31 @@ function missiles(n, from) {
     fx.push({ type: 'beam', x1: from[0], y1: from[1], x2: x, y2: y, t: 0, life: .3, c: '255,170,80' }); t.flash = 1; award(200, 'missile', t, x, y - 24, true); tone(700, .08, 'square', .04, 1400);
   }, i * 90);
 }
+const maxExtra = () => ks('ks_illusion') ? 4 : 2 + (syn('masterill') ? 1 : 0); // extra balls (ghosts, splits, temporary, spectral) allowed on the table at once
 function spawnBall(src, o) {
-  if (balls.length >= 5 || (o.ghost && balls.filter(q => q.ghost).length >= 3)) return;
-  if (o.ghost && syn('trickster')) { o.life = 1e9; o.full = true; o.tk = true; }
+  if (balls.length >= 5 || balls.filter(q => !isReal(q)).length >= maxExtra() || (o.ghost && balls.filter(q => q.ghost).length >= 2)) return;
+  if (o.ghost && syn('trickster')) { o.life = 20; o.full = true; o.tk = true; }
   const b = { x: src.x, y: src.y, vx: -src.vx * .6 + (Math.random() - .5) * 300, vy: -Math.abs(src.vy) * .5 - 300, layer: src.layer, still: 0, launched: true, rad: src.rad || baseRad(), col: 99, ...o };
   balls.push(b); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: o.ghost ? '120,255,170' : o.temp ? '90,210,255' : '200,120,255' });
   msg(o.msg || (o.ghost ? "LOKI'S ILLUSION" : 'MULTIVERSE SPLIT'));
-  if ((o.ghost || o.dup) && syn('astral') && Math.random() < .25) setTimeout(() => { if (balls.length < 5) balls.push({ ...b, vx: -b.vx, spectral: true, ghost: false, dup: false, life: 10, msg: null }); }, 150); tone(o.ghost ? 700 : 400, .25, 'triangle', .07, o.ghost ? 1400 : 200);
+  if ((o.ghost || o.dup) && syn('astral') && Math.random() < .12) setTimeout(() => { if (balls.filter(q => !isReal(q)).length < maxExtra()) balls.push({ ...b, vx: -b.vx, spectral: true, ghost: false, dup: false, life: 10, msg: null }); }, 150); tone(o.ghost ? 700 : 400, .25, 'triangle', .07, o.ghost ? 1400 : 200);
 }
 function countHit(kind, obj) {
   S.hits++;
   const b = curBall;
   if (kind !== 'bumper') S.bumpStreak = 0;
   if (has('camera') && S.hits % 10 === 0) { award(500 * has('camera'), 'camera', null, b ? b.x : 270, b ? b.y - 40 : 400, true); msg('SNAP! FRONT PAGE'); tone(2000, .05, 'square', .05); fx.push({ type: 'flash', t: 0, life: .15 }); }
-  if (has('loki') && S.hits % 12 === 0 && b) spawnBall(b, { ghost: true, life: 12 });
-  if (has('scepter') && S.hits % 8 === 0 && b) spawnBall(b, { ghost: true, life: 12, full: true });
+  if (has('loki') && S.hits % 25 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
+  if (has('scepter') && S.hits % 18 === 0 && b) spawnBall(b, { ghost: true, life: 8, full: true });
   if (has('polarity') && S.hits % 10 === 0) { S.polT = 3; msg('POLARITY CORE'); sfx.hum(); }
-  if (has('instab') && S.hits % 20 === 0 && b) spawnBall(b, { dup: true });
+  if (has('instab') && S.hits % 35 === 0 && b) spawnBall(b, { dup: true });
   if (has('hex') && S.hits % 15 === 0) {
     const k = HEXABLE[Math.random() * HEXABLE.length | 0], m = Math.random() < .5 ? 2 : 3;
     S.hexed[k] = (S.hexed[k] || 1) * m; msg('HEX: ' + k.toUpperCase() + ' ×' + S.hexed[k], 2.5); tone(520, .3, 'sine', .06, 260); renderInv();
   }
-  if (has('storm') && S.hits % 8 === 0) {
+  if (has('attractor') && every('attractor', T('attractor', 20, 16, 12))) { S.polT = 3; msg('ATTRACTOR PULSE'); }
+  if (has('decoy') && b && every('decoy', T('decoy', 30, 25, 20))) spawnBall(b, { ghost: true, life: 6, msg: 'HOLOGRAPHIC DECOY' });
+  if (has('storm') && S.hits % (ks('ks_storm') ? 4 : 8) === 0) {
     const c = mainBumpers()[Math.random() * 3 | 0]; c.flash = 1; if (has('mjolnir')) S.bolt++; if (syn('bringthanos')) c.elec = 8;
     fx.push({ type: 'bolt', x1: c.x + (Math.random() - .5) * 80, y1: 20, x2: c.x, y2: c.y, t: 0, life: .45, seed: Math.random() * 1e6 | 0 });
     award(400, 'storm', c, c.x, c.y - 34, true); tone(1100, .3, 'sawtooth', .05, 90); noise(.3, .08, 3000, 400);
@@ -1656,12 +1895,12 @@ function bumperExtras(c, b) {
   if (syn('stark') && S.bumpHits % 10 === 0) { msg('STARK PROTOCOL: MISSILES'); missiles(5, [c.x, c.y]); }
   if (has('panther') && S.bumpHits % 5 === 0) { const w = syn('wakanda'); award(c.pts * (w ? 6 : 4), 'bumper', c, c.x, c.y - 56, true); if (w) { S.credits++; renderInv(); } msg(w ? 'WAKANDA FOREVER ×7 +1 CREDIT' : 'PANTHER STRIKE ×5'); fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .4, c: '190,120,255' }); }
   if (has('rocket') && S.bumpStreak % 3 === 0) {
-    const sp = Math.hypot(b.vx, b.vy) || 1, boost = Math.min(MAXV, sp * 1.3) / sp; b.vx *= boost; b.vy *= boost;
+    const sp = hyp(b.vx, b.vy) || 1, boost = Math.min(MAXV, sp * 1.3) / sp; b.vx *= boost; b.vy *= boost;
     award(300, 'rocket', null, b.x, b.y - 30, true); msg('ROCKET BOOST'); if (syn('guardians') && !S.outSave) { S.outSave = true; setTimeout(() => msg('WE ARE GROOT · SAVE LIT'), 700); } fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .3, c: '255,160,60' });
   }
   if (has('mjolnir') && !c.pit) {
     S.bolt++;
-    if (S.bolt >= T('mjolnir', 5, 4, 3)) {
+    if (S.bolt >= Math.max(2, T('mjolnir', 5, 4, 3) - (ks('ks_storm') ? 2 : 0))) {
       S.bolt = 0;
       const tg = [...bumpers.filter(q => q !== c && !q.pit).map(q => ({ x: q.x, y: q.y, o: q })), ...standups.map(q => ({ x: 466, y: q.y1 + 17, o: q })), { x: plateXY(enemy)[0], y: plateXY(enemy)[1] - 4, o: enemy }];
       if (syn('thunder')) { // God of Thunder: jump from target to target until every one has been hit, each jump worth more
@@ -1676,7 +1915,7 @@ function bumperExtras(c, b) {
   if (b.dup && Math.random() < .2) b.vanish = true;
 }
 // ================= bosses (Step 3) =================
-const mainBumpers = () => bumpers.filter(c => !c.pit && !c.big && c.r > 19);
+const MAINB = bumpers.filter(c => !c.pit && !c.big && c.r > 19), mainBumpers = () => MAINB; // the three big red bumpers never change
 const TAUNTS = {
   loki: ['LOKI: WHICH ONE IS REAL?', 'LOKI: MISSED ME', 'LOKI: TRY HARDER, MORTAL', 'LOKI: NOW YOU SEE ME'],
   magneto: ['MAGNETO: METAL BENDS TO ME', 'MAGNETO: YOUR BALL IS STEEL', 'MAGNETO: FEEL THE PULL', 'MAGNETO: I DECIDE WHERE IT GOES'],
@@ -1691,8 +1930,73 @@ function lokiShuffle(announce = true) {
   for (const sp of PLATES) fx.push({ type: 'ring', x: sp[0], y: sp[1] - 8, t: 0, life: .45, c: '70,224,138' });
   if (announce) { sfx.illusion(); taunt('loki'); }
 }
-function bossReset() { placePlate(enemy, 0); decoys.forEach(d => d.layer = 9); flippers.forEach(f => f.frozen = 0); }
+function bossReset() { clearBossAttacks(); placePlate(enemy, 0); decoys.forEach(d => d.layer = 9); flippers.forEach(f => f.frozen = 0); }
+// ---- boss attacks: telegraphed, table-changing abilities (hit the boss during the warning to interrupt) ----
+const ATTACKS = {
+  mirror: { boss: 'loki', name: 'MIRROR CURSE', desc: 'Flippers swapped', dur: 5, c: '#46e08a' },
+  fakeball: { boss: 'loki', name: 'DOPPELGANGER', desc: 'One ball is fake', dur: 12, c: '#46e08a' },
+  firewall: { boss: 'ultron', name: 'FIREWALL', desc: 'Ramp sealed', dur: 8, c: '#ff4a4a' },
+  laser: { boss: 'ultron', name: 'LASER SWEEP', desc: 'Dodge the beam', dur: 2.4, c: '#ff4a4a' },
+  gravity: { boss: 'magneto', name: 'GRAVITY INVERSION', desc: 'Gravity reversed', dur: 2.5, c: '#e25bff' },
+  outpull: { boss: 'magneto', name: 'OUTLANE PULL', desc: 'Pulled to the outlanes', dur: 3, c: '#e25bff' },
+  shrink: { boss: 'thanos', name: 'REALITY WARP', desc: 'Flippers shrunk', dur: 8, c: '#ffb52e' },
+  timeskip: { boss: 'thanos', name: 'TIME STONE', desc: 'Time runs 1.4× faster', dur: 6, c: '#ffb52e' },
+};
+const BFX = () => S.bfx || (S.bfx = {});
+let SEAL = null;
+function bossAttackTick(dt) {
+  const B = S.boss, F = BFX();
+  for (const k in ATTACKS) if (F[k] > 0) { F[k] -= dt; if (F[k] <= 0) { F[k] = 0; endAttack(k); } }
+  if (F.laser > 0) F.laserY = 260 + 560 * (1 - F.laser / ATTACKS.laser.dur);
+  if (!B || B.defeated) return;
+  if (B.warn) { // telegraph
+    B.warn.t -= dt; if (B.warn.t <= 0) { const id = B.warn.id; B.warn = null; startAttack(id); }
+    return;
+  }
+  const cyc = S.level > 20 ? Math.floor((S.level - 20) / 5) : 0, every = Math.max(7, (B.hp <= B.max / 2 ? 9.5 : 12.5) - cyc);
+  if ((B.atkT = (B.atkT || 0) + dt) >= every) {
+    B.atkT = Math.random() * 2; const opts = Object.keys(ATTACKS).filter(k => ATTACKS[k].boss === B.id && !(F[k] > 0));
+    if (opts.length) { const id = rnd(opts); B.warn = { id, t: 1.5 }; msg('⚠ ' + ATTACKS[id].name + ' INCOMING · HIT ' + B.name.toUpperCase() + '!', 1.6); sfx.empCharge(1.5); S.pulse = 1; }
+  }
+}
+function interruptAttack(obj, px, py) { const B = S.boss; if (!B || !B.warn) return false; const A = ATTACKS[B.warn.id]; B.warn = null; B.atkT = 0; award(600, 'enemy', obj, px, py - 40, true); msg(A.name + ' INTERRUPTED!'); tone(1200, .15, 'square', .06, 300); return true; }
+function startAttack(id) {
+  const A = ATTACKS[id], F = BFX(); F[id] = A.dur; msg(A.name + ': ' + A.desc.toUpperCase(), 2.5); S.shake = Math.max(S.shake || 0, .6); S.pulse = 1; sfx.boom();
+  if (id === 'mirror') flippers.forEach(f => f.on = false);
+  if (id === 'fakeball') { const src = balls.find(isReal); if (src && balls.length < 5) { const b = { ...src, hist: [], vx: -src.vx + (Math.random() - .5) * 300, vy: -Math.abs(src.vy) - 300, fakeReal: true, temp: true, life: A.dur, ghost: false, dup: false, spectral: false }; balls.push(b); } }
+  if (id === 'firewall') { if (!GRID) buildGrid(); SEAL = seg(rampMouth[0] - 4, 526, rampMouth[1] + 4, 526, { r: 3, e: .6, oneWay: true, nx: 0, ny: 1, kind: 'wall' }); segs.pop(); MOVING.push(SEAL); }
+  if (id === 'laser') F.laserY = 260;
+  if (id === 'shrink') flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * .65; });
+}
+function endAttack(id) {
+  if (id === 'firewall' && SEAL) { const i = MOVING.indexOf(SEAL); if (i >= 0) MOVING.splice(i, 1); SEAL = null; }
+  if (id === 'shrink') flippers.forEach(f => { if (f.L0) f.L = f.L0; });
+  if (id === 'fakeball') for (const b of balls) if (b.fakeReal) b.vanish = true;
+}
+function clearBossAttacks() { const F = BFX(); for (const k in ATTACKS) if (F[k] > 0) { F[k] = 0; endAttack(k); } if (S.boss) S.boss.warn = null; }
+// per-ball effects of active attacks (called from physics)
+function bossForces(b, dt) {
+  const F = S.bfx; if (!F) return;
+  if (F.outpull > 0 && b.y > 480 && b.layer === 0) { const tx = b.x < 270 ? 34 : 506, dx = tx - b.x, dy = 700 - b.y, d = hyp(dx, dy) || 1; b.vx += dx / d * 800 * dt; b.vy += dy / d * 500 * dt; }
+  if (F.laser > 0 && Math.abs(b.y - F.laserY) < 9 && !(b.zapCd > 0)) { b.zapCd = .6; b.vy = Math.abs(b.vy) + 700; b.vx += (Math.random() - .5) * 500; pop(b.x, b.y - 20, 'ZAPPED', '#ff4a4a', true); tone(180, .15, 'sawtooth', .06, 90); }
+}
+function drawBossAttacks() {
+  const B = S.boss, F = S.bfx || {}, t = performance.now() / 1000;
+  ctx.save();
+  if (B && B.warn) { const A = ATTACKS[B.warn.id], k = 1 - B.warn.t / 1.5; ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(110, 36, 340, 34); ctx.strokeStyle = A.c; ctx.lineWidth = 2; ctx.strokeRect(110, 36, 340, 34); ctx.fillStyle = A.c; ctx.fillRect(110, 66, 340 * k, 4);
+    ctx.font = '20px ' + FONT_D; ctx.textAlign = 'center'; ctx.fillStyle = Math.sin(t * 20) > 0 ? '#fff' : A.c; ctx.fillText('⚠ ' + A.name + ' ⚠', 280, 60); }
+  if (F.firewall > 0 && SEAL) { ctx.strokeStyle = `rgba(255,60,60,${.6 + .4 * Math.sin(t * 25)})`; ctx.shadowColor = '#ff2a2a'; ctx.shadowBlur = 16; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(SEAL.x1, SEAL.y1); ctx.lineTo(SEAL.x2, SEAL.y2); ctx.stroke(); ctx.shadowBlur = 0; }
+  if (F.laser > 0) { ctx.strokeStyle = 'rgba(255,40,40,.9)'; ctx.shadowColor = '#ff2a2a'; ctx.shadowBlur = 18; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(22, F.laserY); ctx.lineTo(548, F.laserY); ctx.stroke(); ctx.shadowBlur = 0; }
+  if (F.mirror > 0) for (const f of flippers) { ctx.fillStyle = 'rgba(70,224,138,.9)'; ctx.font = '14px ' + FONT_D; ctx.textAlign = 'center'; ctx.fillText('⇄', f.px + f.s * 40, f.py + 34); }
+  if (F.outpull > 0) for (const x of [34, 506]) { ctx.strokeStyle = 'rgba(226,91,255,.7)'; ctx.lineWidth = 2; for (let r = 0; r < 3; r++) { const rr = 14 + ((t * 40 + r * 14) % 42); ctx.beginPath(); ctx.arc(x, 700, 56 - rr, 0, TAU); ctx.stroke(); } }
+  if (F.gravity > 0) { ctx.fillStyle = 'rgba(226,91,255,.35)'; ctx.font = '26px ' + FONT_D; ctx.textAlign = 'center'; for (let i = 0; i < 4; i++) ctx.fillText('↑', 90 + i * 125, 560 - ((t * 120 + i * 40) % 200)); }
+  const act = Object.keys(ATTACKS).filter(k => F[k] > 0);
+  if (act.length) { ctx.font = '600 13px ' + FONT_B; ctx.textAlign = 'left'; act.forEach((k, i) => { ctx.fillStyle = ATTACKS[k].c; ctx.fillText(ATTACKS[k].name + ' ' + F[k].toFixed(1) + 's', 28, 250 + i * 16); }); }
+  ctx.restore();
+}
+
 function bossTick(dt) {
+  bossAttackTick(dt);
   const B = S.boss; if (!B || B.defeated) return;
   B.t += dt; B.t2 = (B.t2 || 0) + dt;
   if (B.id === 'loki') {
@@ -1743,10 +2047,11 @@ function bossHit(obj, b) {
   B.hp = Math.max(0, B.hp - dmg); S.shake = Math.max(S.shake, .5); S.pulse = 1;
   award(300 * dmg, 'enemy', obj, px, py - 20); sfx.augh(B.id);
   fx.push({ type: 'ring', x: px, y: py - 4, t: 0, life: .35, c: B.id === 'loki' ? '70,224,138' : '255,74,74' });
+  interruptAttack(obj, px, py);
   if (B.id === 'ultron' && B.charge > 0) { B.charge = 0; B.t2 = 0; award(500, 'enemy', obj, px, py - 40, true); msg('EMP DISRUPTED!'); tone(1200, .15, 'square', .06, 300); }
   if (B.id === 'thanos' && B.snapT > 0) { B.snapT = 0; B.t2 = 0; award(700, 'enemy', obj, px, py - 40, true); msg('SNAP DENIED!'); tone(1200, .15, 'square', .06, 300); }
   if (B.hp <= 0) {
-    B.defeated = true; B.illusions.clear(); B.hacked.clear(); B.dusted.clear(); bossReset(); stopMusic(.3); sfx.victory(); S.shake = 1; setTimeout(() => { if (S.phase === 'play' || S.phase === 'clearing') startMusic('normal', 7); }, 1800);
+    B.defeated = true; B.illusions.clear(); B.hacked.clear(); B.dusted.clear(); bossReset(); clearBossAttacks(); stopMusic(.3); sfx.victory(); S.shake = 1; setTimeout(() => { if (S.phase === 'play' || S.phase === 'clearing') startMusic('normal', 7); }, 1800);
     award({ loki: 5000, ultron: 6000, magneto: 8000, thanos: 12000 }[B.id], 'enemyDown', obj, 280, 380); msg(B.name.toUpperCase() + ' DEFEATED!', 3.5); shot('enemy', 280, 400);
     fx.push({ type: 'ring', x: 280, y: 428, t: 0, life: .8, c: '255,220,120', big: true });
   } else { msg(B.name.toUpperCase() + ' ' + B.hp + '/' + B.max + (dmg > 1 ? '  CRITICAL!' : '')); if (Math.random() < .35) setTimeout(() => S.boss && !S.boss.defeated && taunt(B.id), 900); }
@@ -1784,7 +2089,7 @@ function resetBoard() {
 }
 function serveBall(launched = false) { const b = { x: 535, y: 894, vx: 0, vy: 0, still: 0, layer: 0, launched }; cardsBall(b); balls.push(b); if (has('groot')) S.outSave = true; }
 function startLevel() {
-  S.score = 0; S.balls = S.maxBalls = Math.max(1, 3 + has('fury') + has('vbody') + has('titan') - has('darkhold') + (S.nextBalls || 0)); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; S.sc = {}; S.realityT = 0; S.soulUsed = false; S.soulBonus = 0; S.snapUsed = false; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
+  S.score = 0; S.balls = S.maxBalls = clamp(3 + has('fury') + has('vbody') + has('titan') - has('darkhold') + (S.nextBalls || 0) - (ks('ks_jugg') ? 1 : 0), 1, 5); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; S.sc = {}; S.realityT = 0; S.soulUsed = false; S.soulBonus = 0; S.snapUsed = false; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
   Object.assign(S, { odT: 0, bifT: 0, mystic: 0, kin: 0, spins: 0, evoN: {}, droneT: 0 });
   Object.assign(S, { hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardN: 0, timeUsed: false, phoenixUsed: false });
   const bd = bossFor(S.level), bhp = bd ? Math.max(3, bd.hp - 2 * has('helmet') + 2 * (S.tva || 0)) : 0; if (bd) S.tva = 0;
@@ -1834,7 +2139,10 @@ function award(base, kind, obj, x, y, generated = false) {
     else if (S.impact != null && S.impact < 120 && obj.kind !== 'star') cls = 'glance';
     obj.lastBall = curBall; obj.lastT = now;
   }
-  if (cls === 'hit') { if (S.lastHit && S.lastHit !== obj && S.comboT > 0) S.combo = Math.min(S.combo + 1, 20); S.lastHit = obj; S.comboT = 2; }
+  if (!generated && has('gammaform') && (cls === 'glance' || cls === 'rattle')) cls = 'hit'; // Immortal Hulk breaks the collision rules
+  if (cls === 'hit') { if (S.lastHit && S.lastHit !== obj && S.comboT > 0) S.combo = Math.min(S.combo + 1, has('webmaster') ? 30 : 20); S.lastHit = obj; S.comboT = 2; }
+  if (cls === 'hit' && has('tailwind') && (kind === 'ramp' || kind === 'orbit')) { S.combo = Math.min(S.combo + T('tailwind', 1, 2, 3), has('webmaster') ? 30 : 20); S.comboT = 2; }
+  if (curBall && curBall.fakeReal && !generated) { if (x != null && Math.random() < .5) popups.push({ x, y, text: 'fake!', t: 0, small: true, c: '#7dffb0' }); return; }
   const B = S.boss && !S.boss.defeated ? S.boss : null;
   if (B && !generated && obj && B.illusions.has(obj)) { // Loki: illusions score nothing and break your streak
     B.streak = 0; if (x != null) popups.push({ x, y, text: 'missed me!', t: 0, small: true, c: '#7dffb0' }); tone(150, .08, 'sine', .04, 90); return;
@@ -1853,7 +2161,9 @@ function award(base, kind, obj, x, y, generated = false) {
   let pts = base * scoreFactor(kind, obj, cls) * (cls === 'glance' ? .5 : cls === 'rattle' ? .25 : 1);
   for (const m of Mods) pts = m(pts, { kind, obj, generated, S });
   pts = Math.round(pts);
+  if (ks('ks_bank') && pts > 0) { const k = Math.round(pts * .25); S.bankPts = (S.bankPts || 0) + k; pts -= k; }
   S.score += pts; S.lastPts = pts;
+  if (generated && has('overclock') && Math.random() < .2 && budget('oc', 3)) part('overclock');
   if (has('bpsuit') && PHYS.has(kind) && !generated) S.bpKin = (S.bpKin || 0) + pts * .1;
   if (x != null) popups.push({ x, y, text: fmt(pts), t: 0, big: pts >= 1000, c: cls === 'glance' || cls === 'rattle' ? '#9aa0b8' : undefined });
   Bus.emit('score', { pts, kind, generated, cls });
@@ -1887,10 +2197,10 @@ function onHit0(obj, impact, b) {
     case 'sling': { const now = performance.now(); if (impact < 140 || obj.cd > now) break; obj.cd = now + 150; obj.flash = 1; award(obj.pts, 'sling', obj, b.x, b.y - 18); cardsSling(obj, b);
       if (has('shield')) { S.combo = Math.min(20, S.combo + 2); S.comboT = 2; }
       if (evo('wakanda')) kinetic(b);
-      if (syn('ricochet')) { const tg = [enemy, ...mainBumpers()][Math.random() * 4 | 0], tx = tg === enemy ? plateXY(enemy)[0] : tg.x, ty = tg === enemy ? plateXY(enemy)[1] + 12 : tg.y, dx = tx - b.x, dy = ty - b.y, d = Math.hypot(dx, dy) || 1, sp = Math.max(1350, Math.hypot(b.vx, b.vy)); b.vx = dx / d * sp; b.vy = dy / d * sp; fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: tx, y2: ty, t: 0, life: .2, c: '120,180,255' }); } tone(280, .05, 'square', .05, 460); break; }
+      if (syn('ricochet')) { const tg = [enemy, ...mainBumpers()][Math.random() * 4 | 0], tx = tg === enemy ? plateXY(enemy)[0] : tg.x, ty = tg === enemy ? plateXY(enemy)[1] + 12 : tg.y, dx = tx - b.x, dy = ty - b.y, d = hyp(dx, dy) || 1, sp = Math.max(1350, hyp(b.vx, b.vy)); b.vx = dx / d * sp; b.vy = dy / d * sp; fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: tx, y2: ty, t: 0, life: .2, c: '120,180,255' }); } tone(280, .05, 'square', .05, 460); break; }
     case 'drop':
-      obj.down = true; award(obj.pts, 'drop', obj, 110, obj.y1 + 18); destroyed(obj); tone(220, .08, 'triangle', .09, 150);
-      if (drops.every(d => d.down)) { award(2000, 'bank', drops, 130, 430); msg('DROP BANK CLEARED'); addWorm(3); shot('drops', 110, 440); setTimeout(() => drops.forEach(d => d.down = false), 900); }
+      obj.down = true; TGC = null; award(obj.pts, 'drop', obj, 110, obj.y1 + 18); destroyed(obj); tone(220, .08, 'triangle', .09, 150);
+      if (drops.every(d => d.down)) { award(2000, 'bank', drops, 130, 430); msg('DROP BANK CLEARED'); addWorm(3); shot('drops', 110, 440); setTimeout(() => { drops.forEach(d => d.down = false); TGC = null; }, 900); }
       break;
     case 'enemy':
       if (obj.lastNy < .5) { tone(140, .04, 'square', .04); break; } // hit from behind: no damage
@@ -1923,7 +2233,7 @@ topLanes.forEach(l => line(l.x - 14, l.x + 14, 135, () => {
   if (!l.lit) { l.lit = true; award(150, 'lane', l, l.x, 200); tone(880, .06, 'sine', .06); } else award(50, 'lane', l, l.x, 200);
   if (topLanes.every(q => q.lit)) {
     award(1500, 'lanes', topLanes, 280, 220);
-    if (S.mult < 5) { S.mult++; msg('MULTIPLIER ' + S.mult + 'X'); }
+    if (S.mult < (ks('ks_supreme') ? 3 : 5)) { S.mult++; msg('MULTIPLIER ' + S.mult + 'X'); }
     setTimeout(() => topLanes.forEach(q => q.lit = false), 500);
   }
 }));
@@ -1939,9 +2249,9 @@ line(492, 520, 704, (b, dir) => { if (dir > 0 && b.layer === 0) b.layer = 3; }, 
 line(472, 520, 330, b => { S.rGlow = 1; award(300, 'orbit', 'rorbit', 490, 360); tone(620, .08, 'triangle', .06, 930); shot('rorbit', 480, 360); });
 line(472, 520, spinner.y, b => { spinner.w = Math.max(spinner.w, Math.abs(b.vy) / 30); });
 line(rampMouth[0], rampMouth[1], 520, (b, dir) => { if (dir < 0 && b.layer === 0) b.layer = 1; else if (dir > 0 && b.layer === 1) b.layer = 0; }, 'any');
-{ const tx0 = tunCenter[2] - tunCenter[0], ty0 = tunCenter[3] - tunCenter[1], l0 = Math.hypot(tx0, ty0);
+{ const tx0 = tunCenter[2] - tunCenter[0], ty0 = tunCenter[3] - tunCenter[1], l0 = hyp(tx0, ty0);
   gate(tunL[0], tunL[1], tunR[0], tunR[1], tx0 / l0, ty0 / l0, (b, dir) => { if (dir > 0 && b.layer === 0) { b.layer = 2; S.tGlow = 1; tone(560, .1, 'triangle', .06, 300); } else if (dir < 0 && b.layer === 2) b.layer = 0; }, 'any'); }
-gate(tunSpin.x - tunSpin.nx * 15, tunSpin.y - tunSpin.ny * 15, tunSpin.x + tunSpin.nx * 15, tunSpin.y + tunSpin.ny * 15, tunSpin.tx, tunSpin.ty, b => { tunSpin.w = Math.max(tunSpin.w, Math.hypot(b.vx, b.vy) / 30); tone(1200, .03, 'square', .03); }, 2);
+gate(tunSpin.x - tunSpin.nx * 15, tunSpin.y - tunSpin.ny * 15, tunSpin.x + tunSpin.nx * 15, tunSpin.y + tunSpin.ny * 15, tunSpin.tx, tunSpin.ty, b => { tunSpin.w = Math.max(tunSpin.w, hyp(b.vx, b.vy) / 30); tone(1200, .03, 'square', .03); }, 2);
 line(234, 288, 382, (b, dir) => { if (dir > 0) { b.layer = 0; S.tGlow = 1; award(400, 'tunnel', 'tunnel', 262, 372); msg('TUNNEL'); falcon(b); tone(840, .1, 'triangle', .06, 1260); shot('tunnel', 262, 372); } }, 2);
 line(35, 71, 325, (b, dir) => {
   if (dir < 0) return;
@@ -1955,12 +2265,12 @@ function collideSeg(b, s) {
   const dx = s.x2 - s.x1, dy = s.y2 - s.y1, l2 = dx * dx + dy * dy;
   const t = clamp(((b.x - s.x1) * dx + (b.y - s.y1) * dy) / l2, 0, 1);
   const px = s.x1 + t * dx, py = s.y1 + t * dy;
-  let nx = b.x - px, ny = b.y - py; const d = Math.hypot(nx, ny), m = R + s.r;
-  if (d >= m || d === 0) return;
+  let nx = b.x - px, ny = b.y - py; const m = R + s.r, d2 = nx * nx + ny * ny;
+  if (d2 >= m * m || d2 === 0) return; const d = Math.sqrt(d2);
   nx /= d; ny /= d;
   const vn = b.vx * nx + b.vy * ny;
   if (s.oneWay && (nx * s.nx + ny * s.ny <= 0 || vn > 0)) return;
-  if (s.graze && Math.abs(vn) > .3 * Math.hypot(b.vx, b.vy)) return;
+  if (s.graze && Math.abs(vn) > .3 * hyp(b.vx, b.vy)) return;
   b.x = px + nx * m; b.y = py + ny * m;
   if (vn < 0) {
     b.vx -= (1 + s.e) * vn * nx; b.vy -= (1 + s.e) * vn * ny;
@@ -1969,18 +2279,19 @@ function collideSeg(b, s) {
   }
 }
 function collideBumper(b, c) {
-  let nx = b.x - c.x, ny = b.y - c.y; const d = Math.hypot(nx, ny), m = R + c.r;
-  if (d >= m || d === 0) return;
+  let nx = b.x - c.x, ny = b.y - c.y; const m = R + c.r;
+  if (nx > m || nx < -m || ny > m || ny < -m) return; const d2 = nx * nx + ny * ny; if (d2 >= m * m || d2 === 0) return; const d = Math.sqrt(d2);
   nx /= d; ny /= d; b.x = c.x + nx * m; b.y = c.y + ny * m;
   const vn = b.vx * nx + b.vy * ny;
   if (vn < 0) { const e = c.e || 1.4, kk = c.kind === 'bumper' ? c.kick * (S.kickMul || 1) * (b.kickM || 1) * (b.smash || 1) : c.kick; b.vx -= e * vn * nx; b.vy -= e * vn * ny; b.vx += nx * kk; b.vy += ny * kk; onHit(c, -vn, b); }
 }
 function collideFlipper(b, f) {
+  if (Math.abs(b.x - f.px) > f.L + 30 || Math.abs(b.y - f.py) > f.L + 30) return;
   const ux = f.s * Math.cos(f.a), uy = Math.sin(f.a);
   const t = clamp(((b.x - f.px) * ux + (b.y - f.py) * uy) / f.L, 0, 1);
   const cx = f.px + ux * t * f.L, cy = f.py + uy * t * f.L, rad = 13 - 6 * t;
-  let nx = b.x - cx, ny = b.y - cy; const d = Math.hypot(nx, ny), m = R + rad;
-  if (d >= m || d === 0) return;
+  let nx = b.x - cx, ny = b.y - cy; const m = R + rad, d2 = nx * nx + ny * ny;
+  if (d2 >= m * m || d2 === 0) return; const d = Math.sqrt(d2);
   nx /= d; ny /= d; b.x = cx + nx * m; b.y = cy + ny * m;
   const sx = -f.s * Math.sin(f.a) * t * f.L * f.w, sy = Math.cos(f.a) * t * f.L * f.w;
   let rx = b.vx - sx, ry = b.vy - sy; const vn = rx * nx + ry * ny, vy0 = b.vy;
@@ -1991,34 +2302,45 @@ function collideFlipper(b, f) {
 }
 function collideBalls(a, b) {
   R = ((a.rad || 10) + (b.rad || 10)) / 2;
-  let nx = b.x - a.x, ny = b.y - a.y; const d = Math.hypot(nx, ny);
-  if (d >= 2 * R || d === 0) return;
+  let nx = b.x - a.x, ny = b.y - a.y; const d2 = nx * nx + ny * ny;
+  if (d2 >= 4 * R * R || d2 === 0) return; const d = Math.sqrt(d2);
   nx /= d; ny /= d; const o = (2 * R - d) / 2;
   a.x -= nx * o; a.y -= ny * o; b.x += nx * o; b.y += ny * o;
   const rv = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
   if (rv < 0) { const j = -rv * .95; a.vx -= j * nx; a.vy -= j * ny; b.vx += j * nx; b.vy += j * ny; }
 }
 
+// broad phase: static segments are bucketed into a 32 px grid (per layer); moving plates are checked separately
+const GCELL = 32; let GRID = null, MOVING = [];
+function buildGrid() {
+  GRID = new Map(); MOVING = segs.filter(s => s.kind === 'enemy' || s.kind === 'decoy');
+  for (const s of segs) { if (MOVING.includes(s)) continue; const pad = s.r + 16;
+    const x0 = Math.floor((Math.min(s.x1, s.x2) - pad) / GCELL), x1 = Math.floor((Math.max(s.x1, s.x2) + pad) / GCELL), y0 = Math.floor((Math.min(s.y1, s.y2) - pad) / GCELL), y1 = Math.floor((Math.max(s.y1, s.y2) + pad) / GCELL);
+    for (let gy = y0; gy <= y1; gy++) for (let gx = x0; gx <= x1; gx++) { const key = gy * 1000 + gx; let a = GRID.get(key); if (!a) GRID.set(key, a = []); a.push(s); } }
+}
+const NONE = [];
+function segsNear(b) { if (!GRID) buildGrid(); return GRID.get(Math.floor(b.y / GCELL) * 1000 + Math.floor(b.x / GCELL)) || NONE; }
 function physics(dt) {
   for (const f of flippers) {
-    const target = f.on && !(f.frozen > 0) ? f.up : f.rest, sp = f.on && !(f.frozen > 0) ? (has('repulsor') ? 23 : 20) + (S.odT > 0 ? 3 : 0) : 13, old = f.a;
+    const target = f.on && !(f.frozen > 0) ? f.up : f.rest, sp = f.on && !(f.frozen > 0) ? ((has('repulsor') ? 23 : 20) + (S.odT > 0 ? 3 : 0)) * (ks('ks_auto') ? .85 : 1) * (ks('ks_magneto') ? .9 : 1) : 13, old = f.a;
     f.a = f.a > target ? Math.max(target, f.a - sp * dt) : Math.min(target, f.a + sp * dt);
     f.w = (f.a - old) / dt;
   }
   for (const b of balls) {
     if (b.captured) continue;
-    curBall = b; R = b.rad || 10;
+    curBall = b; R = b.rad || 10; if (S.bfx) { bossForces(b, dt); if (b.zapCd > 0) b.zapCd -= dt; }
     b.vy += GRAV * (S.gmul || 1) * dt;
-    const sp = Math.hypot(b.vx, b.vy), mv = S.maxv || MAXV; if (sp > mv) { b.vx *= mv / sp; b.vy *= mv / sp; }
+    const sp = hyp(b.vx, b.vy), mv = S.maxv || MAXV; if (sp > mv) { b.vx *= mv / sp; b.vy *= mv / sp; }
     const py = b.y, px = b.x;
     b.x += b.vx * dt; b.y += b.vy * dt;
     if (b.x < 20 + R) { b.x = 20 + R; b.vx = Math.abs(b.vx) * .3; } else if (b.x > 550 - R) { b.x = 550 - R; b.vx = -Math.abs(b.vx) * .3; }
-    for (const s of segs) { if (s.layer !== b.layer || (s.kind === 'drop' && s.down)) continue; collideSeg(b, s); }
+    for (const s of segsNear(b)) { if (s.layer !== b.layer || (s.kind === 'drop' && s.down)) continue; collideSeg(b, s); }
+    for (const s of MOVING) if (s.layer === b.layer) collideSeg(b, s);
     if (b.layer === 0) {
       for (const c of bumpers) collideBumper(b, c);
-      if (S.polT > 0) for (const c of mainBumpers()) { const dx = c.x - b.x, dy = c.y - b.y, d = Math.hypot(dx, dy) || 1; if (d < 260) { b.vx += dx / d * 900 * magMul() * dt; b.vy += dy / d * 900 * magMul() * dt; magPaid(b, dt); } }
-      if (has('magflip')) for (const f of flippers) if (f.on && !(f.frozen > 0)) { const tx = f.px + f.s * Math.cos(f.a) * f.L * .55, ty = f.py + Math.sin(f.a) * f.L * .55 - 14, dx = tx - b.x, dy = ty - b.y, d = Math.hypot(dx, dy) || 1; if (d < 70) { b.vx += dx / d * 1100 * magMul() * dt; b.vy += dy / d * 1100 * magMul() * dt; magPaid(b, dt); } }
-      if (has('mhelm') && b.y < 760) for (const o of standups) if (!o.lit) { const dx = 462 - b.x, dy = (o.y1 + o.y2) / 2 - b.y, d = Math.hypot(dx, dy) || 1; if (d < 130) { b.vx += dx / d * 260 * magMul() * dt; b.vy += dy / d * 260 * magMul() * dt; magPaid(b, dt); } }
+      if (S.polT > 0) for (const c of mainBumpers()) { const dx = c.x - b.x, dy = c.y - b.y, d = hyp(dx, dy) || 1; if (d < 260) { b.vx += dx / d * 900 * magMul() * dt; b.vy += dy / d * 900 * magMul() * dt; magPaid(b, dt); } }
+      if (has('magflip') || has('lodestone')) for (const f of flippers) if (f.on && !(f.frozen > 0)) { const mf = has('magflip') ? 1 : T('lodestone', .5, .7, .9); const tx = f.px + f.s * Math.cos(f.a) * f.L * .55, ty = f.py + Math.sin(f.a) * f.L * .55 - 14, dx = tx - b.x, dy = ty - b.y, d = hyp(dx, dy) || 1; if (d < 70) { b.vx += dx / d * 1100 * mf * magMul() * dt; b.vy += dy / d * 1100 * mf * magMul() * dt; magPaid(b, dt); } }
+      if ((has('mhelm') || syn('magnetar') || ks('ks_magneto')) && b.y < 760) for (const o of standups) if (!o.lit) { const dx = 462 - b.x, dy = (o.y1 + o.y2) / 2 - b.y, d = hyp(dx, dy) || 1; if (d < 130) { b.vx += dx / d * 260 * magMul() * dt; b.vy += dy / d * 260 * magMul() * dt; magPaid(b, dt); } }
       if (gensOn()) for (const g of gens) {
         if (g.down > 0) continue;
         collideBumper(b, g);
@@ -2027,26 +2349,26 @@ function physics(dt) {
         if (d2 < 240 * 240 && d2 > 1) { const d = Math.sqrt(d2), a = Math.min(2200, 6e6 / (d2 + 2500)) * S.boss.pol; b.vx += dx / d * a * dt; b.vy += dy / d * a * dt; }
       }
       for (const t of stars) {
-        const d = Math.hypot(b.x - t.x, b.y - t.y), key = 'st' + t.x + '_' + t.y;
+        const d = hyp(b.x - t.x, b.y - t.y), key = 'st' + t.x + '_' + t.y;
         if (d < 11 && !b[key]) {
           b[key] = true; t.flash = 1; t.lit = true; award(10, 'star', t, null); tone(1800, .03, 'sine', .04);
           if (stars.every(q => q.lit)) { award(1000, 'stars', stars, 280, 330); msg('ALL STARS LIT'); setTimeout(() => stars.forEach(q => q.lit = false), 500); }
         } else if (d > 16) b[key] = false;
       }
       for (const f of flippers) collideFlipper(b, f);
-      if ((has('portals') || S.tempPortalT > 0) && !(b.portCd > 0)) for (let pi = 0; pi < 2; pi++) {
+      if ((has('portals') || S.tempPortalT > 0 || syn('sanctum5')) && !(b.portCd > 0)) for (let pi = 0; pi < 2; pi++) {
         const P = PORTALS[pi], Q = PORTALS[1 - pi];
-        if (Math.hypot(b.x - P[0], b.y - P[1]) < 14) {
+        if (hyp(b.x - P[0], b.y - P[1]) < 14) {
           b.x = Q[0] + Math.sign(b.vx || 1) * 2; b.y = Q[1]; b.portCd = .7; S.portalT = T('portals', 3, 4, 5) || 3; cardsPortal(b, Q);
           if (evo('sanctum') && S.mystic < 3) { S.mystic = Math.min(3, (S.mystic || 0) + .25); msg('MYSTIC ×' + (1 + S.mystic).toFixed(2)); }
           fx.push({ type: 'ring', x: P[0], y: P[1], t: 0, life: .4, c: '255,150,40' }, { type: 'ring', x: Q[0], y: Q[1], t: 0, life: .5, c: '255,150,40' });
-          tone(500, .25, 'sine', .06, 1500); if (b.ghost && syn('mirror')) spawnBall(b, { ghost: true, life: 12 });
+          tone(500, .25, 'sine', .06, 1500); if (b.ghost && syn('mirror') && Math.random() < .35) spawnBall(b, { ghost: true, life: 8 });
           break;
         }
       }
       for (const h of holes) {
         if (h.ball || b.cool > 0) continue;
-        if (Math.hypot(b.x - h.x, b.y - h.y) < 12 && Math.hypot(b.vx, b.vy) < 1000) capture(h, b);
+        if (hyp(b.x - h.x, b.y - h.y) < 12 && hyp(b.vx, b.vy) < 1000) capture(h, b);
       }
     }
     for (const L of lines) {
@@ -2076,7 +2398,7 @@ const inLane = b => b.x > 521 && b.y > 700;
 const PBASE = [[150, 604], [410, 498]], PORTALS = PBASE.map(p => [...p]);
 
 function tick(dt) {
-  curBall = null; cardsTick(dt);
+  curBall = null; TGC = null; cardsTick(dt);
   if (S.realityT > 0) S.realityT -= dt;
   if (S.portalT > 0) S.portalT -= dt;
   for (const b of balls) if (b.portCd > 0) b.portCd -= dt;
@@ -2099,7 +2421,7 @@ function tick(dt) {
     }
     if (b.ghost) { b.life -= dt; if (b.life <= 0) { if (balls.some(q => q !== b && !q.ghost)) b.vanish = true; else { b.ghost = false; } } }
   }
-  if (S.comboT > 0) { S.comboT -= dt; if (S.comboT <= 0) { S.combo = 0; S.lastHit = null; } }
+  if (S.comboT > 0 && !(has('webmaster') && balls.length)) { S.comboT -= dt; if (S.comboT <= 0) { S.combo = 0; S.lastHit = null; } }
   if (S.charging) S.charge = Math.min(1, S.charge + dt * 1.1);
   if (S.saveT > 0 && !balls.some(inLane)) S.saveT -= dt;
   for (const sp of [spinner, tunSpin]) {
@@ -2115,12 +2437,12 @@ function tick(dt) {
   }
   for (const b of balls) {
     if (b.cool > 0) b.cool -= dt;
-    if (!b.captured && !inLane(b) && Math.hypot(b.vx, b.vy) < 12 && !flippers.some(f => Math.hypot(b.x - f.px, b.y - f.py) < 110)) {
+    if (!b.captured && !inLane(b) && hyp(b.vx, b.vy) < 12 && !flippers.some(f => hyp(b.x - f.px, b.y - f.py) < 110)) {
       b.still += dt; if (b.still > 3) { b.vy = -450; b.vx = (Math.random() - .5) * 400; b.still = 0; }
     } else b.still = 0;
     // anti-jam: a ball rattling in one small spot for too long gets a gentle nudge
-    if (!b.captured && !inLane(b) && !flippers.some(f => Math.hypot(b.x - f.px, b.y - f.py) < 110)) {
-      if (!b.anc || Math.hypot(b.x - b.anc.x, b.y - b.anc.y) > 16) b.anc = { x: b.x, y: b.y, t: 0 };
+    if (!b.captured && !inLane(b) && !flippers.some(f => hyp(b.x - f.px, b.y - f.py) < 110)) {
+      if (!b.anc || hyp(b.x - b.anc.x, b.y - b.anc.y) > 16) b.anc = { x: b.x, y: b.y, t: 0 };
       else if ((b.anc.t += dt) > 2.5) { b.vx = (Math.random() - .5) * 300; b.vy = 300; b.anc = null; }
     }
   }
@@ -2136,7 +2458,9 @@ function tick(dt) {
       if (b.saved) savedServe = true;
     }
     balls = balls.filter(b => !gone.includes(b) || b.keep); balls.forEach(b => b.keep = false);
-    if (balls.length && !balls.some(isReal)) { const b = balls[0]; b.ghost = b.dup = b.temp = b.spectral = b.illu = false; b.gen = 0; }
+    if (balls.length && !balls.some(isReal)) { // no real ball left: Loki's fake vanishes, any other extra ball becomes the real one
+      const keep = balls.filter(b => !b.fakeReal); for (const b of balls) if (b.fakeReal) fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .4, c: '120,255,170' });
+      balls = keep; if (balls.length) { const b = balls[0]; b.ghost = b.dup = b.temp = b.spectral = b.illu = false; b.gen = 0; } }
     if (savedServe && S.phase === 'play') { setTimeout(() => { if (S.phase === 'play') serveBall(true); }, 600); if (!balls.length) return; }
     else if (!balls.length) ballLost();
   }
@@ -2170,8 +2494,10 @@ function launchEnd() {
 // ================= audio =================
 let AC = null, muted = false;
 function audioInit() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } } if (AC && AC.state === 'suspended') AC.resume(); }
+let sndT = 0, sndN = 0;
+const sndOK = () => { const t = AC.currentTime; if (t - sndT > .05) { sndT = t; sndN = 0; } return ++sndN <= 4; };
 function tone(f, dur, type = 'square', vol = .05, slide) {
-  if (!AC || muted) return;
+  if (!AC || muted || !sndOK()) return;
   const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime;
   o.type = type; o.frequency.setValueAtTime(f, t); if (slide) o.frequency.exponentialRampToValueAtTime(slide, t + dur);
   g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
@@ -2180,7 +2506,7 @@ function tone(f, dur, type = 'square', vol = .05, slide) {
 
 let NOISE = null;
 function noise(dur, vol, f0 = 3000, f1, type = 'bandpass', t0 = 0) {
-  if (!AC || muted) return;
+  if (!AC || muted || !sndOK()) return;
   if (!NOISE) { NOISE = AC.createBuffer(1, AC.sampleRate, AC.sampleRate); const d = NOISE.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
   const src = AC.createBufferSource(), fl = AC.createBiquadFilter(), g = AC.createGain(), t = AC.currentTime + t0;
   src.buffer = NOISE; fl.type = type; fl.frequency.setValueAtTime(f0, t); if (f1) fl.frequency.exponentialRampToValueAtTime(f1, t + dur);
@@ -2270,6 +2596,14 @@ function stopMusic(fade = .5) {
 
 // ================= rendering =================
 let k = 1, dpr = 1, table = null, rampLayer = null, tunLayer = null, glass = null;
+const TL = { a: null, b: null, cur: null, prev: null, key: '', fade: 1 };
+function paintTint(L, T) {
+  const g = L.g, a = Math.min(.95, T[3]); g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, L.c.width, L.c.height); g.restore();
+  g.drawImage(table, 0, 0, W, H); g.save(); playfieldPath(g); g.clip();
+  g.globalCompositeOperation = 'color'; g.fillStyle = `rgba(${T[0] | 0},${T[1] | 0},${T[2] | 0},${a})`; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over';
+  const vg = g.createRadialGradient(W / 2, H / 2, H * .25, W / 2, H / 2, H * .7); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, `rgba(${T[0] | 0},${T[1] | 0},${T[2] | 0},${a * .35})`);
+  g.fillStyle = vg; g.fillRect(0, 0, W, H); g.restore();
+}
 const FONT_D = 'Bangers, Impact, sans-serif', FONT_B = '"Barlow Condensed", sans-serif';
 
 function layer() { const c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height; const g = c.getContext('2d'); g.setTransform(k * dpr, 0, 0, k * dpr, 0, 0); return [c, g]; }
@@ -2298,6 +2632,7 @@ function lightning(g, rnd, x, y, ang, len, w) {
 }
 
 function buildTable() {
+  SPR.clear(); TL.a = TL.b = null; TL.key = '';
   let g, gr; [table, g] = layer();
   g.fillStyle = '#0d0f16'; g.fillRect(0, 0, W, H);
   g.save(); playfieldPath(g); g.clip();
@@ -2407,7 +2742,7 @@ function buildTable() {
   gr = g.createLinearGradient(40, 250, 230, 430); gr.addColorStop(0, 'rgba(120,30,140,.8)'); gr.addColorStop(1, 'rgba(90,20,120,.72)');
   g.save(); g.shadowColor = 'rgba(255,77,240,.6)'; g.shadowBlur = 20; g.fillStyle = gr; g.fill(); g.restore();
   { let acc = 0; for (let i = 0; i + 3 < tunCenter.length; i += 2) {
-      const x0 = tunCenter[i], y0 = tunCenter[i + 1], x1 = tunCenter[i + 2], y1 = tunCenter[i + 3], L = Math.hypot(x1 - x0, y1 - y0), ang = Math.atan2(y1 - y0, x1 - x0);
+      const x0 = tunCenter[i], y0 = tunCenter[i + 1], x1 = tunCenter[i + 2], y1 = tunCenter[i + 3], L = hyp(x1 - x0, y1 - y0), ang = Math.atan2(y1 - y0, x1 - x0);
       for (let d = (22 - acc % 22) % 22; d < L; d += 22) {
         g.save(); g.translate(x0 + (x1 - x0) * d / L, y0 + (y1 - y0) * d / L); g.rotate(ang);
         g.beginPath(); g.moveTo(-4, -7); g.lineTo(4, 0); g.lineTo(-4, 7); g.strokeStyle = '#ffb3f8'; g.shadowColor = '#ff4df0'; g.shadowBlur = 8; g.lineWidth = 2.5; g.stroke(); g.restore();
@@ -2438,7 +2773,7 @@ function buildTable() {
   polyPath(g, visC); g.strokeStyle = 'rgba(220,190,255,.22)'; g.lineWidth = 12; g.stroke();
   // chevrons along the ramp, pointing the way the ball travels
   { let acc = 0; for (let i = 0; i + 3 < visC.length; i += 2) {
-      const x0 = visC[i], y0 = visC[i + 1], x1 = visC[i + 2], y1 = visC[i + 3], L = Math.hypot(x1 - x0, y1 - y0), ang = Math.atan2(y1 - y0, x1 - x0);
+      const x0 = visC[i], y0 = visC[i + 1], x1 = visC[i + 2], y1 = visC[i + 3], L = hyp(x1 - x0, y1 - y0), ang = Math.atan2(y1 - y0, x1 - x0);
       for (let d = (30 - acc % 30) % 30; d < L; d += 30) {
         g.save(); g.translate(x0 + (x1 - x0) * d / L, y0 + (y1 - y0) * d / L); g.rotate(ang);
         g.beginPath(); g.moveTo(-4, -9); g.lineTo(4, 0); g.lineTo(-4, 9); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 3; g.lineCap = 'round'; g.stroke(); g.restore();
@@ -2471,7 +2806,20 @@ function buildTable() {
   g.fillStyle = vg; g.fillRect(0, 0, W, H);
 }
 
+// ---- sprite cache: static-looking pieces are painted once into small offscreen canvases and blitted each frame ----
+const SPR = new Map();
+function sprite(key, w, h, draw) {
+  let sp = SPR.get(key); if (sp) return sp;
+  const c = document.createElement('canvas'); c.width = Math.max(1, Math.ceil(w * k * dpr)); c.height = Math.max(1, Math.ceil(h * k * dpr));
+  const g = c.getContext('2d'); g.setTransform(k * dpr, 0, 0, k * dpr, 0, 0);
+  const real = ctx; ctx = g; try { draw(); } finally { ctx = real; }
+  sp = { c, w, h }; SPR.set(key, sp); if (SPR.size > 400) SPR.delete(SPR.keys().next().value); return sp;
+}
 function insert(x, y, shape, color, on, size = 9, rot = 0) {
+  const p = size * 1.5 + 22, sp = sprite('in' + shape + color + (on ? 1 : 0) + size + '_' + rot.toFixed(2), p * 2, p * 2, () => insert0(p, p, shape, color, on, size, rot));
+  ctx.drawImage(sp.c, x - p, y - p, p * 2, p * 2);
+}
+function insert0(x, y, shape, color, on, size = 9, rot = 0) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
   ctx.beginPath();
   if (shape === 'circle') ctx.arc(0, 0, size, 0, TAU);
@@ -2488,7 +2836,15 @@ function insert(x, y, shape, color, on, size = 9, rot = 0) {
 const blink = (ms = 250) => (performance.now() / ms | 0) % 2 === 0;
 
 function drawSling(s) {
-  const f = s.k.flash, tri = (dx = 0, dy = 0, k2 = 0) => {
+  if (s.k.flash <= .1) {
+    const x0 = Math.min(s.ax, s.bx, s.cx) - 26, y0 = Math.min(s.ay, s.by, s.cy) - 26, w = Math.max(s.ax, s.bx, s.cx) + 30 - x0, h = Math.max(s.ay, s.by, s.cy) + 32 - y0;
+    const sp = sprite('sl' + slings.indexOf(s) + (has('web') ? 'w' : ''), w, h, () => { ctx.translate(-x0, -y0); drawSling0(s, 0); });
+    ctx.drawImage(sp.c, x0, y0, w, h); return;
+  }
+  drawSling0(s, s.k.flash);
+}
+function drawSling0(s, f) {
+  const tri = (dx = 0, dy = 0, k2 = 0) => {
     const ix = (s.ax + s.bx + s.cx) / 3, iy = (s.ay + s.by + s.cy) / 3, p = (x, y) => [x + (ix - x) * k2 + dx, y + (iy - y) * k2 + dy];
     const a = p(s.ax, s.ay), b = p(s.bx, s.by), c = p(s.cx, s.cy);
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(c[0], c[1]); ctx.closePath();
@@ -2504,7 +2860,7 @@ function drawSling(s) {
   ctx.strokeStyle = '#0d0d0f'; ctx.lineWidth = 13; ctx.stroke();
   ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 2; tri(-1, -2); ctx.stroke();
   // kicker rubber bulges when fired
-  const mx = (s.ax + s.cx) / 2, my = (s.ay + s.cy) / 2, nx = (s.cy - s.ay), ny = -(s.cx - s.ax), nl = Math.hypot(nx, ny), dir = s.ax < 270 ? 1 : -1;
+  const mx = (s.ax + s.cx) / 2, my = (s.ay + s.cy) / 2, nx = (s.cy - s.ay), ny = -(s.cx - s.ax), nl = hyp(nx, ny), dir = s.ax < 270 ? 1 : -1;
   ctx.beginPath(); ctx.moveTo(s.ax, s.ay); ctx.quadraticCurveTo(mx + dir * nx / nl * 10 * f, my + dir * ny / nl * 10 * f, s.cx, s.cy);
   ctx.strokeStyle = '#141416'; ctx.lineWidth = 13; ctx.stroke();
   // thick translucent blue plastic with bevel
@@ -2538,6 +2894,11 @@ function drawBumper(c) {
     ctx.save(); ctx.strokeStyle = `rgba(150,230,255,${.35 + .5 * charge})`; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 10 + 10 * charge; ctx.lineWidth = 1.6;
     ctx.beginPath(); for (let i = 0; i <= 24; i++) { const a = i / 24 * TAU, j = ((i * 7919 + t * 31) % 17) / 17; ctx.lineTo(c.x + Math.cos(a) * (r + 9 + j * 6), c.y + Math.sin(a) * (r + 9 + j * 6)); } ctx.stroke(); ctx.restore();
   }
+  if (!(f > .01)) { const p = r + 24, sp = sprite('bu' + (c.big ? 'B' : c.pit ? 'P' : c.temp ? 'T' : 'N') + r, p * 2, p * 2, () => drawBumperBody({ ...c, x: p, y: p, flash: 0 })); ctx.drawImage(sp.c, c.x - p, c.y - p, p * 2, p * 2); return; }
+  drawBumperBody(c);
+}
+function drawBumperBody(c) {
+  const f = c.flash, r = c.r;
   let g = ctx.createRadialGradient(c.x + 7, c.y + 10, r * .4, c.x + 7, c.y + 10, r + 10);
   g.addColorStop(0, 'rgba(0,0,0,.6)'); g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c.x + 7, c.y + 10, r + 10, 0, TAU); ctx.fill();
@@ -2579,7 +2940,7 @@ function drawBall(b) {
   if (b.illu || b.spectral) ctx.globalAlpha = .5;
   if (b.giantT > 0 || (S.heatOn && isReal(b))) { ctx.save(); ctx.shadowColor = b.giantT > 0 ? '#6cff5a' : '#ff7a2e'; ctx.shadowBlur = 22; ctx.fillStyle = b.giantT > 0 ? 'rgba(108,255,90,.35)' : 'rgba(255,120,40,.4)'; ctx.beginPath(); ctx.arc(b.x, b.y, R + 5, 0, TAU); ctx.fill(); ctx.restore(); }
   drawBall0(b);
-  if (b.temp || b.spectral || b.venom) { ctx.save(); ctx.globalAlpha = b.spectral ? .45 : 1; ctx.fillStyle = b.spectral ? 'rgba(210,235,255,.6)' : b.venom ? 'rgba(10,10,20,.45)' : b.illu ? 'rgba(255,120,220,.4)' : 'rgba(90,210,255,.38)'; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill(); ctx.restore(); }
+  if ((b.temp && !b.fakeReal) || b.spectral || b.venom) { ctx.save(); ctx.globalAlpha = b.spectral ? .45 : 1; ctx.fillStyle = b.spectral ? 'rgba(210,235,255,.6)' : b.venom ? 'rgba(10,10,20,.45)' : b.illu ? 'rgba(255,120,220,.4)' : 'rgba(90,210,255,.38)'; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill(); ctx.restore(); }
   ctx.globalAlpha = 1; R = R0;
 }
 function drawBall0(b) {
@@ -2600,21 +2961,25 @@ function render(dt) {
   // boss mood: the playfield takes the villain's colour, the page background follows, hits shake the cabinet
   { const B = S.boss && !S.boss.defeated ? S.boss : null;
     const E = evoTheme(), tgt = !B ? (E ? [...E.c, S.odT > 0 || S.bifT > 0 ? .5 : .32] : [0, 0, 0, 0]) : B.id === 'magneto' ? (B.pol > 0 ? [230, 70, 255, .55] : [120, 80, 255, .55]) : B.id === 'thanos' ? (B.snapT > 0 ? [255, 190, 60, .75] : [150, 80, 220, .55]) : B.id === 'loki' ? (B.exposedT > 0 ? [255, 205, 70, .5] : [40, 235, 120, .55]) : (B.charge > 0 ? [255, 30, 30, .75] : [255, 40, 50, .5]);
-    const T = S.tint ||= [0, 0, 0, 0]; for (let i = 0; i < 4; i++) T[i] += (tgt[i] - T[i]) * Math.min(1, dt * 3);
+    S.tintTgt = tgt; const T = S.tint ||= [0, 0, 0, 0]; for (let i = 0; i < 4; i++) T[i] += (tgt[i] - T[i]) * Math.min(1, dt * 3);
     S.pulse = Math.max(0, (S.pulse || 0) - dt * 2); S.shake = Math.max(0, (S.shake || 0) - dt * 3);
-    const bg = `rgb(${T[0] * .12 | 0},${T[1] * .12 | 0},${(T[2] * .12 + 20) | 0})`;
+    const q = v => Math.round(v / 16) * 16, bg = `rgb(${q(T[0]) * .12 | 0},${q(T[1]) * .12 | 0},${(q(T[2]) * .12 + 20) | 0})`; // quantised so the page background is not rewritten every frame
     if (cache.bodyBg !== bg) { document.body.style.background = T[3] > .02 ? `radial-gradient(ellipse at 50% 0%, rgba(${T[0] | 0},${T[1] | 0},${T[2] | 0},.28) 0%, ${bg} 70%) fixed` : ''; document.body.style.backgroundColor = T[3] > .02 ? bg : ''; cache.bodyBg = bg; }
   }
   const shk = (S.shake || 0) * 5;
   ctx.setTransform(k * dpr, 0, 0, k * dpr, (Math.random() - .5) * shk * k * dpr, (Math.random() - .5) * shk * k * dpr);
-  if (table) ctx.drawImage(table, 0, 0, W, H);
-  if (S.tint && S.tint[3] > .01) {
-    const T = S.tint, a = Math.min(.95, T[3] + (S.pulse || 0) * .25 + (S.boss && S.boss.charge > 0 ? Math.sin(performance.now() / 70) * .12 : 0));
-    ctx.save(); playfieldPath(ctx); ctx.clip();
-    ctx.globalCompositeOperation = 'color'; ctx.fillStyle = `rgba(${T[0] | 0},${T[1] | 0},${T[2] | 0},${a})`; ctx.fillRect(0, 0, W, H);
-    ctx.globalCompositeOperation = 'source-over';
-    const vg = ctx.createRadialGradient(W / 2, H / 2, H * .25, W / 2, H / 2, H * .7); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, `rgba(${T[0] | 0},${T[1] | 0},${T[2] | 0},${a * .35})`);
-    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H); ctx.restore();
+  if (table) { // the tinted table is painted once per target colour; changes crossfade between the old and new layer
+    const tg = S.tintTgt || [0, 0, 0, 0], key = tg[3] > .01 ? tg.map(v => Math.round(v * 100)).join() : '';
+    if (key !== TL.key) {
+      TL.prev = TL.cur; TL.key = key; TL.fade = 0;
+      if (key) { const slot = TL.prev === TL.a ? 'b' : 'a'; if (!TL[slot]) { const [c, g] = layer(); TL[slot] = { c, g }; } paintTint(TL[slot], tg); TL.cur = TL[slot]; } else TL.cur = null;
+    }
+    TL.fade = Math.min(1, TL.fade + dt * 3);
+    ctx.drawImage(TL.prev && TL.fade < 1 ? TL.prev.c : table, 0, 0, W, H);
+    const top = TL.cur ? TL.cur.c : table;
+    if (TL.fade < 1 || TL.cur) { ctx.globalAlpha = TL.fade; ctx.drawImage(top, 0, 0, W, H); ctx.globalAlpha = 1; }
+    const T = S.tint;
+    if (T && T[3] > .01 && (S.pulse > .02 || (S.boss && S.boss.charge > 0))) { ctx.fillStyle = `rgba(${T[0] | 0},${T[1] | 0},${T[2] | 0},${(S.pulse || 0) * .14 + (S.boss && S.boss.charge > 0 ? .06 + .06 * Math.sin(performance.now() / 70) : 0)})`; ctx.fillRect(0, 0, W, H); }
   }
 
   drawEvoUnder(dt);
@@ -2678,12 +3043,13 @@ function render(dt) {
   for (const s of slings) { s.k.flash = Math.max(0, s.k.flash - dt * 6); drawSling(s); }
   for (const t of stars) {
     t.flash = Math.max(0, t.flash - dt * 4);
-    ctx.beginPath(); ctx.arc(t.x + 2, t.y + 3, 9, 0, TAU); ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fill();
-    const g = ctx.createRadialGradient(t.x - 2, t.y - 2, 1, t.x, t.y, 9); g.addColorStop(0, '#ffffff'); g.addColorStop(1, '#6e7486');
-    ctx.beginPath(); ctx.arc(t.x, t.y, 8.5, 0, TAU); ctx.fillStyle = g; ctx.fill();
-    star(ctx, t.x, t.y, 6, 2.6);
-    if (t.lit || t.flash > 0) { ctx.shadowColor = '#ffcf3a'; ctx.shadowBlur = 12; ctx.fillStyle = t.flash > .3 ? '#fff' : '#ffcf3a'; } else ctx.fillStyle = '#3a3f52';
-    ctx.fill(); ctx.shadowBlur = 0;
+    const st = t.flash > .3 ? 2 : t.lit || t.flash > 0 ? 1 : 0, sp = sprite('star' + st, 44, 44, () => {
+      const x = 22, y = 22; ctx.beginPath(); ctx.arc(x + 2, y + 3, 9, 0, TAU); ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fill();
+      const g = ctx.createRadialGradient(x - 2, y - 2, 1, x, y, 9); g.addColorStop(0, '#ffffff'); g.addColorStop(1, '#6e7486');
+      ctx.beginPath(); ctx.arc(x, y, 8.5, 0, TAU); ctx.fillStyle = g; ctx.fill(); star(ctx, x, y, 6, 2.6);
+      if (st) { ctx.shadowColor = '#ffcf3a'; ctx.shadowBlur = 12; ctx.fillStyle = st === 2 ? '#fff' : '#ffcf3a'; } else ctx.fillStyle = '#3a3f52';
+      ctx.fill(); ctx.shadowBlur = 0; });
+    ctx.drawImage(sp.c, t.x - 22, t.y - 22, 44, 44);
   }
   // enemy / boss plate, plus Loki's decoys (identical on purpose, only the eyes give the real one away)
   const drawPlate = (sg, real) => {
@@ -2789,15 +3155,15 @@ function render(dt) {
   for (const b of balls) if (b.layer === 1) drawBall(b);
 
   // Sanctum portals: rotating orange rings
-  if (has('portals') || S.tempPortalT > 0) for (const [x, y] of PORTALS) {
+  if (has('portals') || S.tempPortalT > 0 || syn('sanctum5')) for (const [x, y] of PORTALS) {
     const t = performance.now() / 1000; ctx.save(); ctx.translate(x, y); ctx.shadowColor = '#ff9a2e'; ctx.shadowBlur = 16;
     const g = ctx.createRadialGradient(0, 0, 2, 0, 0, 18); g.addColorStop(0, 'rgba(10,4,0,.95)'); g.addColorStop(1, 'rgba(255,140,30,.15)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 18, 0, TAU); ctx.fill();
     for (const [r, sp, dash] of [[18, 1.6, [5, 4]], [13, -2.4, [3, 3]], [22, .9, [2, 6]]]) { ctx.save(); ctx.rotate(t * sp); ctx.setLineDash(dash); ctx.strokeStyle = S.portalT > 0 ? '#ffe0a0' : '#ff9a2e'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.stroke(); ctx.restore(); }
     ctx.restore();
   }
-  drawEvoOver(dt); drawCardsOver(dt);
+  drawEvoOver(dt); drawCardsOver(dt); if (S.boss || S.bfx) drawBossAttacks();
   // upgrade effects
-  fx = fx.filter(e => (e.t += dt) < e.life);
+  fx = fx.filter(e => (e.t += dt) < e.life); if (fx.length > 60) fx = fx.slice(-60);
   for (const e of fx) {
     const a = 1 - e.t / e.life;
     ctx.save();
@@ -2806,18 +3172,18 @@ function render(dt) {
     else if (e.type === 'bolt') {
       let sd = e.seed + (e.t * 30 | 0); const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
       ctx.strokeStyle = `rgba(210,245,255,${a})`; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 16; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(e.x1, e.y1);
-      for (let i = 1; i < 8; i++) { const t = i / 8, nx = -(e.y2 - e.y1), ny = e.x2 - e.x1, l = Math.hypot(nx, ny) || 1, o = (rnd() - .5) * 26; ctx.lineTo(e.x1 + (e.x2 - e.x1) * t + nx / l * o, e.y1 + (e.y2 - e.y1) * t + ny / l * o); }
+      for (let i = 1; i < 8; i++) { const t = i / 8, nx = -(e.y2 - e.y1), ny = e.x2 - e.x1, l = hyp(nx, ny) || 1, o = (rnd() - .5) * 26; ctx.lineTo(e.x1 + (e.x2 - e.x1) * t + nx / l * o, e.y1 + (e.y2 - e.y1) * t + ny / l * o); }
       ctx.lineTo(e.x2, e.y2); ctx.stroke();
     }
     else if (e.type === 'boom') { const k = e.t / e.life, r = 18 + 80 * k, g = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, r); g.addColorStop(0, `rgba(255,240,180,${a})`); g.addColorStop(.5, `rgba(255,120,40,${a * .8})`); g.addColorStop(1, 'rgba(255,60,20,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(e.x, e.y, r, 0, TAU); ctx.fill(); }
     else if (e.type === 'flash') { ctx.fillStyle = `rgba(255,255,255,${.35 * a})`; ctx.fillRect(0, 0, W, H); }
     ctx.restore();
   }
-  popups = popups.filter(p => (p.t += dt) < .8);
+  popups = popups.filter(p => (p.t += dt) < .8); if (popups.length > 28) popups = popups.slice(-28);
   ctx.textAlign = 'center'; ctx.lineJoin = 'round';
   for (const p of popups) {
     ctx.globalAlpha = 1 - p.t / .8; ctx.font = p.small ? `italic 600 13px ${FONT_B}` : `600 ${p.big ? 22 : 16}px ${FONT_B}`;
-    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.8)'; ctx.strokeText(p.text, p.x, p.y - p.t * 30);
+    if (!Q.low || p.big) { ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.8)'; ctx.strokeText(p.text, p.x, p.y - p.t * 30); }
     ctx.fillStyle = p.c || (p.big ? '#9fe6ff' : '#ffe08a'); ctx.fillText(p.text, p.x, p.y - p.t * 30);
   }
   ctx.globalAlpha = 1;
@@ -2844,14 +3210,17 @@ function render(dt) {
 // ================= HUD (dot-matrix display) =================
 const meter = $('meter'); meter.innerHTML = '<i></i>'.repeat(20); const cells = [...meter.children];
 let msgT = 0, cache = {};
-function msg(t, secs = 2.2) { const el = $('dMsg'); el.textContent = t; cache.dMsg = t; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); msgT = secs; }
+let msgQ = null;
+function msg(t, secs = 2.2) { msgQ = t; msgT = secs; }
+function flushMsg() { if (msgQ == null) return; const el = $('dMsg'); el.textContent = msgQ; cache.dMsg = msgQ; msgQ = null; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
 function set(id, v) { if (cache[id] !== v) { $(id).textContent = v; cache[id] = v; } }
 function updateHud(dt) {
+  flushMsg(); if (invDirty && (invT -= dt) <= 0) { invT = .25; invDirty = false; renderInv0(); }
   renderMeters(dt);
   set('dBall', 'BALL ' + Math.min(S.ballNo, S.maxBalls));
   set('dLvl', 'LEVEL ' + S.level);
-  set('dScore', fmt(S.score));
-  set('dTarget', fmt(S.target));
+  if (cache.sc !== S.score) { cache.sc = S.score; set('dScore', fmt(S.score)); }
+  if (cache.tg !== S.target) { cache.tg = S.target; set('dTarget', fmt(S.target)); }
   const n = Math.min(20, Math.floor(S.score / S.target * 20));
   if (cache.meter !== n) { cells.forEach((c, i) => c.classList.toggle('on', i < n)); cache.meter = n; }
   { const m = damp(globalMult()), a = Math.round(globalBonus() * 100); set('mult', '×' + (m % 1 ? m.toFixed(1) : m)); set('combo', a ? '+' + a + '%' : '—'); }
@@ -2873,7 +3242,7 @@ function hideOverlay() { ov.hidden = true; }
 function showStart() {
   showCard(`<h2>Multiverse Pinball</h2>
     <p>Reach the target score before your 3 balls drain. After each level, draft 1 of 3 superhero upgrades and build a machine that breaks the multiverse. Knock out the enemy plate in the middle, shoot the purple ramp and the wormhole to fill the 12-light ring for a jackpot. Loop the orbits, clear the drop bank and standups, spell MULTIVERSE with shots, and chase the blinking pink hot-shot arrow for bonus points. Every few levels the Collector’s shop opens.</p>
-    <p class="fanote" style="display:block">On a phone, use the Flip and Launch buttons under the table (or tap either half of the table). Unofficial, non-commercial fan project, not affiliated with Marvel.</p>
+    <p class="fanote" style="display:block">Cards belong to 12 families. Taking cards raises your family affinity, which unlocks deeper cards, family tiers and hybrids (see the Codex). On a phone, use the Flip and Launch buttons under the table (or tap either half of the table). Unofficial, non-commercial fan project, not affiliated with Marvel.</p>
     <div class="stat"><span>Level 1 target</span><span>${fmt(S.target)}</span></div>`, 'Start run', newRun);
 }
 let draft = [], lastEarned = 0;
@@ -2882,13 +3251,15 @@ function showClear(earned = lastEarned) {
   card.classList.add('wide'); ov.hidden = false;
   card.innerHTML = `<h2>Level ${S.level} cleared</h2>
     <div class="stat"><span>Score ${fmt(S.score)} · balls left ${S.balls}</span><span>+${earned} credits</span></div>${S.interest || S.repaid ? `<p class="eyebrow" style="text-transform:none;letter-spacing:.02em">${S.interest ? 'Includes +' + S.interest + ' interest (1 per 10 held, max 5). ' : ''}${S.repaid ? S.repaid + ' went to paying off debt.' : ''}</p>` : ''}${shopAfter(S.level) ? '<p class="eyebrow" style="color:#ffcf7a">The Collector\'s Emporium opens after this pick</p>' : ''}
-    <p class="eyebrow">${S.artifactDraft ? (S.bossWon ? 'Villain defeated (+20 credits) · claim one of their artifacts' : 'You survived the villain · claim one of their artifacts') : 'Choose one upgrade'} · next target ${fmt(nextTarget())}${bossFor(S.level + 1) ? ' · boss next!' : ''}</p>
-    <div class="draft">${draft.map((u, i) => `<button class="upg" type="button" data-i="${i}" style="--rc:${RAR[u.r].c}">
-      <span class="tag"><span>${RAR[u.r].n}</span><span>${u.cat}</span></span>
-      <span class="nm">${has(u.id) && u.up ? nameFor(u, has(u.id) + 1) : u.name}</span><span class="ds">${descFor(u, u.up ? has(u.id) + 1 : 1)}</span>${tagChips(u)}${(() => { const c = completesSynergy(u); return c.length ? `<span class="syn">✦ Unlocks ${c.map(x => x.name).join(', ')}</span>` : ''; })()}${evoHint(u)}${has(u.id) ? `<span class="own">${u.up ? 'Upgrade: tier ' + has(u.id) + ' → ' + (has(u.id) + 1) : 'Owned ×' + has(u.id) + ' · stacks'}</span>` : ''}${needsSlot(u) && slotsUsed() >= SLOTS ? '<span class="own" style="color:#ff8a8a">Build full: replace a card</span>' : ''}</button>`).join('')}</div>
+    ${S.artifactDraft ? `<p class="eyebrow">${S.bossWon ? 'Villain defeated (+20 credits) · claim one of their artifacts' : 'You survived the villain · claim one of their artifacts'}</p>` : ''}
+    <div class="draft">${draft.map((u, i) => `<button class="upg${famsOf(u).length ? ' fam' : ''}" type="button" data-i="${i}" style="--rc:${RAR[u.r].c};${famPaint(u)}">
+      ${u.slotLabel && !S.artifactDraft ? `<span class="slotlab s-${u.slotLabel.toLowerCase()}">${u.slotLabel}</span>` : ''}<span class="tag"><span>${RAR[u.r].n}</span></span>
+      <span class="paint"><span class="nm">${has(u.id) && u.up ? nameFor(u, has(u.id) + 1) : u.name}</span><span class="ds">${descFor(u, u.up ? has(u.id) + 1 : 1)}</span>${famChips(u)}${previewHtml(u)}${u.r === 'keystone' && keystone() && keystone() !== u ? `<span class="own" style="color:#2ee6c8">Replaces your keystone: ${keystone().name}</span>` : ''}${evoHint(u)}${has(u.id) ? `<span class="own">${u.up ? 'Upgrade: tier ' + has(u.id) + ' → ' + (has(u.id) + 1) : 'Owned ×' + has(u.id) + ' · stacks'}</span>` : ''}${needsSlot(u) && slotsUsed() >= SLOTS ? '<span class="own" style="color:#ff8a8a">Build full: remove a card in the shop first</span>' : ''}</span></button>`).join('')}</div>
     <p class="eyebrow" style="text-transform:none;letter-spacing:.02em">Odds this level: ${Object.entries(rarityWeights(S.level)).filter(([, v]) => v > 0).map(([k, v]) => `<span style="color:${RAR[k].c}">${RAR[k].n} ${v}%</span>`).join(' · ')}</p>
-    <div class="draft-foot"><button class="ghost gold" id="reroll" type="button" ${S.credits < S.reroll && !S.freeReroll ? 'disabled' : ''}>${S.freeReroll ? 'Reroll (token: free)' : 'Reroll (costs ' + S.reroll + ')'}</button><span class="wallet">Credits <b>${S.credits}</b></span></div>`;
+    <div class="draft-foot"><button class="ghost" id="codexBtn2" type="button">Codex</button>${slotsUsed() >= SLOTS ? '<button class="ghost" id="skipDraft" type="button">Skip reward</button>' : ''}<span class="keyhint">← → choose · Space take · R reroll</span><button class="ghost gold" id="reroll" type="button" ${S.credits < S.reroll && !S.freeReroll ? 'disabled' : ''}>${S.freeReroll ? 'Reroll (token: free)' : 'Reroll (costs ' + S.reroll + ')'}</button><span class="wallet">Credits <b>${S.credits}</b></span></div>`;
   card.querySelectorAll('.upg').forEach(el => el.onclick = () => { audioInit(); take(draft[+el.dataset.i]); });
+  $('codexBtn2').onclick = () => showCodex(() => showClear());
+  if ($('skipDraft')) $('skipDraft').onclick = () => afterDraft();
   $('reroll').onclick = () => { if (S.freeReroll) S.freeReroll--; else { if (S.credits < S.reroll) return; S.credits -= S.reroll; S.reroll += 5; } draft = S.artifactDraft ? UPGRADES.filter(u => u.boss === S.boss.id && !has(u.id)).sort(() => Math.random() - .5) : rollDraft(); if (!draft.length) { draft = rollDraft(); S.artifactDraft = false; } renderInv(); showClear(); };
   const first = card.querySelector('.upg'); if (first) first.focus({ preventScroll: true });
   renderInv();
@@ -2896,7 +3267,7 @@ function showClear(earned = lastEarned) {
 function showBossIntro() {
   const B = bossFor(S.level);
   showCard(`<p class="eyebrow">Level ${S.level} · end of ${actName(S.level).toLowerCase()}</p><h2 style="color:${B.color}">Boss: ${B.name}</h2>
-    <p>${B.blurb}</p><p>The enemy plate becomes ${B.name} with ${B.hp} health. Reach the target to survive; knock ${B.name} out to claim one of three villain artifacts.</p>
+    <p>${B.blurb}</p><p class="atk">${Object.values(ATTACKS).filter(a => a.boss === B.id).map(a => `<b>${a.name}</b> · ${a.desc}`).join('<br>')}<br><small>Every attack is announced first. Hit ${B.name} during the warning to interrupt it.</small></p><p>The enemy plate becomes ${B.name} with ${B.hp} health. Reach the target to survive; knock ${B.name} out to claim one of three villain artifacts.</p>
     <div class="stat"><span>Target</span><span>${fmt(S.target)}</span></div>`, 'Fight', startLevel);
 }
 function showVictory() {
@@ -2914,7 +3285,7 @@ function showVictory() {
 }
 function take(u) {
   const go = () => gain(u, 'draft', () => { if (u.r === 'legendary' && STONES.some(([id]) => id === u.id) && stoneCount() >= 2) setTimeout(() => msg('INFINITY STONES ' + stoneCount() + '/6', 3), 2600); msg('GOT ' + nameFor(u).toUpperCase(), 2.5); afterDraft(); });
-  if (needsSlot(u) && slotsUsed() >= SLOTS) return showReplace(u, go, afterDraft);
+  if (needsSlot(u) && slotsUsed() >= SLOTS) { msg('BUILD FULL · REMOVE CARDS IN THE SHOP', 2.5); tone(150, .15, 'square', .05); return; }
   go();
 }
 function showOver() {
@@ -2929,11 +3300,41 @@ function showOver() {
 const LEFT = ['KeyZ', 'ArrowLeft', 'ShiftLeft'], RIGHT = ['Slash', 'ArrowRight', 'ShiftRight'], LAUNCH = ['Space', 'ArrowDown', 'Enter'];
 const activePlay = () => S.phase === 'play' || S.phase === 'clearing';
 function flip(i, on) {
-  const f = flippers[i]; if (f.on === on) return;
+  if (on && S.bfx && S.bfx.mirror > 0) i = 1 - i;
+  if (!on) { flippers.forEach(g => { if (g.onBy === i) { g.on = false; g.onBy = null; } }); return; }
+  const f = flippers[i]; f.onBy = i; if (f.on === on) return;
   if (on && activePlay()) { const d = i === 0 ? -1 : 1; rotate(topLanes, d); rotate(lowLanes, d); tone(90, .05, 'square', .04); }
   f.on = on;
 }
+const DIRS = { ArrowLeft: [-1, 0], KeyA: [-1, 0], ArrowRight: [1, 0], KeyD: [1, 0], ArrowUp: [0, -1], KeyW: [0, -1], ArrowDown: [0, 1], KeyS: [0, 1] };
+function overlayKeys(e) {
+  if (ov.hidden) return false;
+  const k = e.code, items = [...card.querySelectorAll('button:not([disabled])')].filter(el => el.offsetParent && !el.classList.contains('sold') && !el.classList.contains('static'));
+  const cur = items.includes(document.activeElement) ? document.activeElement : null;
+  if (DIRS[k] && items.length) {
+    e.preventDefault();
+    if (!cur) { (card.querySelector('.upg:not(.sold)') || items[0]).focus(); return true; }
+    const [dx, dy] = DIRS[k], rc = cur.getBoundingClientRect(), cx = rc.left + rc.width / 2, cy = rc.top + rc.height / 2;
+    let best = null, bd = 1e9, loose = null, ld = 1e9;
+    for (const el of items) { if (el === cur) continue; const r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2, px = (x - cx) * dx + (y - cy) * dy, sx = Math.abs(dx ? y - cy : x - cx);
+      if (px <= 4) continue; const sc = px + sx * 2.2;
+      if (sx <= px * 1.1) { if (sc < bd) { bd = sc; best = el; } } else if (sc < ld) { ld = sc; loose = el; } } // prefer buttons inside a 45° cone
+    if (!best && dy) best = loose;
+    if (!best && dx) { // wrap around within the same row
+      const row = items.filter(el => el.className.split(' ')[0] === cur.className.split(' ')[0] && Math.abs(el.getBoundingClientRect().top - rc.top) < rc.height / 2);
+      best = row.sort((a, b) => (a.getBoundingClientRect().left - b.getBoundingClientRect().left) * dx)[0];
+    }
+    if (best && best !== cur) best.focus(); best && best.scrollIntoView({ block: 'nearest' }); return true;
+  }
+  if (k === 'Space' || k === 'Enter') {
+    const el = cur || $('ovbtn');
+    if (el && !e.repeat) { el.click(); e.preventDefault(); return true; }
+  }
+  if (k === 'KeyR' && !e.repeat) { const r = $('reroll') || card.querySelector('[data-act="reroll"]'); if (r && !r.disabled) { r.click(); e.preventDefault(); const f = card.querySelector('.upg:not(.sold)'); if (f) f.focus(); } return true; }
+  return false;
+}
 addEventListener('keydown', e => {
+  if (overlayKeys(e)) return;
   if (e.code === 'KeyG') { playerSnap(); return; }
   if (e.code === 'KeyP' || e.code === 'Escape') { if (S.phase === 'play') S.phase = 'paused'; else if (S.phase === 'paused') S.phase = 'play'; return; }
   if (!activePlay()) return;
@@ -2966,6 +3367,7 @@ document.querySelectorAll('.tb[data-f]').forEach(el => {
 { const tl = $('tlaunch'); tl.addEventListener('pointerdown', e => { e.preventDefault(); audioInit(); try { tl.setPointerCapture(e.pointerId); } catch (err) {} tl.classList.add('on'); launchStart(); });
   const up = () => { tl.classList.remove('on'); launchEnd(); }; tl.addEventListener('pointerup', up); tl.addEventListener('pointercancel', up); tl.addEventListener('contextmenu', e => e.preventDefault()); }
 $('snapBtn').addEventListener('click', () => { audioInit(); playerSnap(); });
+$('codexBtn').addEventListener('click', () => { if (!ov.hidden && S.phase !== 'paused') return; showCodex(); });
 $('mute').addEventListener('click', e => { muted = !muted; e.currentTarget.textContent = 'Sound: ' + (muted ? 'off' : 'on'); if (music && AC) music.out.gain.setValueAtTime(muted ? .0001 : 1, AC.currentTime); });
 
 // ================= sizing =================
@@ -2982,16 +3384,19 @@ function resize() {
 addEventListener('resize', resize);
 
 // ================= loop =================
-let prev = performance.now(), acc = 0;
+let prev = performance.now(), acc = 0; const PERF = { sim: 0, draw: 0, hud: 0, n: 0 }; window.MP.perf = PERF;
 function frame(t) {
-  const dt = Math.min(.05, (t - prev) / 1000); prev = t;
+  const raw = (t - prev) / 1000, dt = Math.min(.05, raw); prev = t;
+  if (activePlay()) { // adaptive quality with hysteresis: < 45 fps for 1 s → low, > 55 fps for 4 s → high
+    if (raw > 1 / 45) { Q.slow += raw; Q.fast = 0; if (!Q.low && Q.slow > 1) Q.low = true; } else if (raw < 1 / 55) { Q.slow = Math.max(0, Q.slow - raw * .5); Q.fast += raw; if (Q.fast > 4) { Q.slow = 0; if (Q.low) Q.low = false; } }
+  }
   if (activePlay()) {
-    const sdt = dt * (S.slowT > 0 ? .35 : 1); if (S.slowT > 0) S.slowT -= dt;
+    const sdt = dt * (S.slowT > 0 ? .35 : 1) * (S.bfx && S.bfx.timeskip > 0 ? 1.4 : 1); if (S.slowT > 0) S.slowT -= dt;
     acc += sdt;
-    while (acc >= STEP) { for (let i = 0; i < SUB; i++) physics(STEP / SUB); tick(STEP); acc -= STEP; }
+    const p0 = performance.now(); while (acc >= STEP) { const n = subSteps(); for (let i = 0; i < n; i++) physics(STEP / n); tick(STEP); acc -= STEP; } PERF.sim += performance.now() - p0;
   } else acc = 0;
-  render(S.phase === 'paused' ? 0 : dt);
-  updateHud(dt);
+  const p1 = performance.now(); render(S.phase === 'paused' ? 0 : dt); const p2 = performance.now(); PERF.draw += p2 - p1;
+  updateHud(dt); PERF.hud += performance.now() - p2; PERF.n++;
   requestAnimationFrame(frame);
 }
 // ---- balance lab: fast headless autoplay with a simple flipper bot (debug only) ----
@@ -3004,18 +3409,18 @@ function simulate(sec, o = {}) {
       if (!activePlay()) break;
       for (let i = 0; i < 2; i++) { const f = flippers[i];
         if (hold[i] <= 0 && !(cd[i] > 0)) for (const b of balls) { if (b.captured || b.layer !== 0 || b.vy < 60) continue;
-          const ux = f.s * Math.cos(f.rest), uy = Math.sin(f.rest), t = clamp(((b.x - f.px) * ux + (b.y - f.py) * uy) / f.L, 0, 1), d = Math.hypot(b.x - f.px - ux * t * f.L, b.y - f.py - uy * t * f.L);
+          const ux = f.s * Math.cos(f.rest), uy = Math.sin(f.rest), t = clamp(((b.x - f.px) * ux + (b.y - f.py) * uy) / f.L, 0, 1), d = hyp(b.x - f.px - ux * t * f.L, b.y - f.py - uy * t * f.L);
           if (d < 30 && t > .15) { if (Math.random() < skill) hold[i] = .16 + Math.random() * .06; cd[i] = .45; } }
         if (cd[i] > 0) cd[i] -= STEP;
         if (hold[i] > 0) { hold[i] -= STEP; if (!f.on) flip(i, true); } else if (f.on) flip(i, false); }
       for (const b of balls) if (inLane(b) && b.y > 880 && Math.abs(b.vy) < 20) { b.vy = -(850 + 1100 * (.55 + Math.random() * .45)); b.launched = true; }
-      for (let i = 0; i < SUB; i++) physics(STEP / SUB); tick(STEP); vt += STEP * 1000;
+      { const ns = subSteps(); for (let i = 0; i < ns; i++) physics(STEP / ns); } tick(STEP); vt += STEP * 1000;
       if (q.length) { const due = q.filter(e => e.t <= vt); if (due.length) { for (const e of due) q.splice(q.indexOf(e), 1); for (const e of due) try { e.fn(); } catch (err) { console.error(err); } } }
     }
   } finally { performance.now = realNow; window.setTimeout = realST; muted = wasMuted; flippers.forEach(f => f.on = false); }
   return { t: +(n * STEP).toFixed(1), pts: S.score - s0, ballsUsed: b0 - S.balls + (activePlay() ? 0 : 0), phase: S.phase, hits: S.hits };
 }
-window.MP.debug = { S, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones };
+window.MP.debug = { S, bossHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones };
 resize();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTable);
 renderInv(); renderStones();
