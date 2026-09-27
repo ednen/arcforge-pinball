@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
 <title>Multiverse Pinball</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -211,7 +210,6 @@ em.tg{font:600 11px/1.3 "Barlow Condensed",sans-serif;font-style:normal;letter-s
 }
 @media (prefers-reduced-motion:reduce){.dmd .msg.flash{animation:none}}
 </style>
-</head><body>
 
 <div class="app">
   <aside class="side">
@@ -406,7 +404,9 @@ const tunSpin = (() => { const i = tunSpinI, x = tunCenter[i], y = tunCenter[i +
 
 // slingshots
 const slings = [];
-function sling(ax, ay, bx, by, cx, cy) {
+function sling(ax, ay, bx, by, cx, cy, z = .85) { // z shrinks the triangle about its centre
+  const mx = (ax + bx + cx) / 3, my = (ay + by + cy) / 3, sc = (x, m) => m + (x - m) * z;
+  ax = sc(ax, mx); bx = sc(bx, mx); cx = sc(cx, mx); ay = sc(ay, my); by = sc(by, my); cy = sc(cy, my);
   seg(ax, ay, bx, by, { r: 6 }); seg(bx, by, cx, cy, { r: 6 });
   const k = seg(ax, ay, cx, cy, { kind: 'sling', kick: 450, e: .2, r: 6, flash: 0, pts: 30 });
   slings.push({ ax, ay, bx, by, cx, cy, k });
@@ -481,7 +481,7 @@ const RAR = {
 const RANK = { common: 0, uncommon: 1, rare: 2, epic: 3, legendary: 4, artifact: 5 };
 const UPGRADES = [
   { id: 'stark', r: 'common', cat: 'Trinket', stack: true, name: 'Stark Industries Stock', desc: '+25% points from bumpers.' },
-  { id: 'camera', r: 'common', cat: 'Trinket', stack: true, name: "J. Jonah's Camera", desc: 'Every 10th hit snaps a front-page photo worth 500.' },
+  { id: 'camera', r: 'common', cat: 'Trinket', up: true, tags: ['RAMP'], name: "J. Jonah's Camera", desc: 'Every purple RAMP shot snaps a front-page photo for +{600|900|1400}, 10% more for each ramp this ball.' },
   { id: 'reserve', r: 'common', cat: 'Trinket', stack: true, name: 'Vibranium Reserve', desc: '+4 credits after every cleared level.' },
   { id: 'arc', r: 'common', cat: 'Machine Part', stack: true, name: 'Arc Reactor', desc: '+15% points from everything.' },
   { id: 'quiver', r: 'uncommon', cat: 'Trinket', name: "Hawkeye's Quiver", desc: 'Combo builds twice as fast: +20% per step instead of +10%.' },
@@ -515,6 +515,12 @@ const UPGRADES = [
   { id: 'gauntlet', r: 'artifact', boss: 'thanos', cat: 'Artifact · Thanos', name: 'Nidavellir Forge', desc: 'When you reach half the target, the forge flares: everything scores 5× for 10 seconds.' },
   { id: 'ebony', r: 'artifact', boss: 'thanos', cat: 'Artifact · Thanos', name: 'Ebony Blade', desc: 'Every hit on the enemy or a boss deals +1 damage.' },
   { id: 'titan', r: 'artifact', boss: 'thanos', cat: 'Artifact · Thanos', name: "Titan's Resolve", desc: '+1 ball every level and +20% points from everything.' },
+  { id: 'controlrod', r: 'artifact', boss: 'annihilus', cat: 'Artifact · Annihilus', name: 'Cosmic Control Rod', desc: 'Every 20 hits the rod pulses: everything scores 1.5× for 5 seconds.' },
+  { id: 'carapace', r: 'artifact', boss: 'annihilus', cat: 'Artifact · Annihilus', name: "Annihilus' Carapace", desc: 'Once per level, the first ball that drains is thrown back into play.' },
+  { id: 'nzgate', r: 'artifact', boss: 'annihilus', cat: 'Artifact · Annihilus', name: 'Negative Zone Gate', desc: 'Portals are always open and every portal jump pays 1,000.' },
+  { id: 'doommask', r: 'artifact', boss: 'doom', cat: 'Artifact · Doom', name: "Doom's Faceplate", desc: '+30% Bonus to all scoring, and every boss starts with 2 less health.' },
+  { id: 'doombots', r: 'artifact', boss: 'doom', cat: 'Artifact · Doom', name: 'Doombot Legion', desc: 'Every 12 seconds a Doombot fires at the enemy or boss plate and deals 1 damage.' },
+  { id: 'latverian', r: 'artifact', boss: 'doom', cat: 'Artifact · Doom', name: 'Latverian Treasury', desc: '+25 credits after every level and 15% off everything in the shop.' },
   { id: 'shield', r: 'uncommon', cat: 'Trinket', name: "Captain's Shield", desc: 'Every slingshot hit adds 2 steps to your combo.' },
   { id: 'storm', r: 'rare', cat: 'Trinket', name: "Storm's Blessing", desc: 'Every 8th hit calls lightning down on a red bumper for 400.' },
   { id: 'portals', r: 'epic', cat: 'Machine Part', name: 'Sanctum Portals', desc: 'Two portals open on the table. A ball entering one flies out of the other at full speed, and everything scores 2× for 3 seconds after.' },
@@ -605,7 +611,7 @@ function showSynergyBanner() {
 const TAGC = { TECH: '#7fe7ff', COSMIC: '#b58cff', MYSTIC: '#ff9a2e', GAMMA: '#6cff5a', MUTANT: '#ffd23a', WEB: '#dfe3ee', LIGHTNING: '#9fd8ff', EXPLOSIVE: '#ff6b3d', MULTIBALL: '#c77dff', SPEED: '#ffe08a', PORTAL: '#ffb347', BUMPER: '#ff6b6b', RAMP: '#b98cff', SURVIVAL: '#5ee07a', COMBO: '#4fa3ff', FLIPPER: '#f5c542', QUANTUM: '#5ad1ff', CHAOS: '#ff5ad1', SYMBIOTE: '#a0a4c0', ARMOR: '#d9a441', MAGNETIC: '#e25bff', ECONOMY: '#f5d77a', BRICK: '#c07a52' };
 // tags, heroes and tiers for the cards that already existed
 const META = {
-  stark: { tags: ['TECH', 'BUMPER', 'ECONOMY'], hero: 'ironman' }, camera: { tags: ['WEB', 'COMBO'], hero: 'spiderman' }, reserve: { tags: ['ECONOMY'], desc: '+6 credits after every cleared level.' },
+  stark: { tags: ['TECH', 'BUMPER', 'ECONOMY'], hero: 'ironman' }, camera: { tags: ['WEB', 'RAMP'], hero: 'spiderman' }, reserve: { tags: ['ECONOMY'], desc: '+6 credits after every cleared level.' },
   arc: { tags: ['TECH', 'ARMOR'], hero: 'ironman' }, quiver: { tags: ['COMBO'] },
   web: { tags: ['WEB'], hero: 'spiderman', up: true, desc: 'Slingshots turn to webbing: {5|7|10}× points and a 25% stronger kick. A slung ball webs the next target it hits.' },
   rocket: { tags: ['SPEED', 'BUMPER'], hero: 'rocket' }, groot: { tags: ['SURVIVAL'], hero: 'groot' },
@@ -631,15 +637,15 @@ for (const u of UPGRADES) Object.assign(u, META[u.id] || {});
 const C_ = 'common', U_ = 'uncommon', R_ = 'rare', MPART = 'Machine Part', TR = 'Trinket';
 UPGRADES.push(
   // ---- COMMON: one sentence, one job ----
-  { id: 'capacitor', r: C_, cat: MPART, up: true, tags: ['TECH', 'LIGHTNING', 'BUMPER'], hero: 'ironman', name: 'Stark Capacitor', n3: 'Overcharged Stark Capacitor', desc: 'Every {10|8|8} bumper hits grants +{250|400|500}.', d3: 'Also fires an Arc Bolt at a target.' },
+  { id: 'capacitor', r: C_, cat: MPART, up: true, tags: ['TECH', 'LIGHTNING', 'RAMP'], hero: 'ironman', name: 'Stark Capacitor', desc: 'Every channel shot (pink tunnel, purple ramp, green warp) stores a charge. At {4|3|3} charges it discharges into all three red bumpers for {300|450|600} each.' },
   { id: 'arrowhead', r: C_, cat: TR, up: true, tags: ['FLIPPER', 'COMBO'], hero: 'hawkeye', name: "Hawkeye's Arrowhead", desc: 'Targets hit straight off a flipper give +{20|35|50}% points.' },
   { id: 'tracer', r: C_, cat: TR, up: true, tags: ['WEB', 'COMBO'], hero: 'spiderman', name: 'Spider-Tracer', desc: 'Hitting the same target {3|3|2} times webs it. Webbed targets give +{30|45|60}%.' },
   { id: 'vfrag', r: C_, cat: MPART, up: true, tags: ['BUMPER'], hero: 'panther', name: 'Vibranium Fragment', desc: 'Bumper collision force +{10|15|20}%.' },
-  { id: 'badge', r: C_, cat: TR, up: true, tags: ['COMBO'], name: 'S.H.I.E.L.D. Badge', desc: 'The first {10|12|15} hits of each ball give +{50|80|120} points.' },
+  { id: 'badge', r: C_, cat: TR, up: true, tags: ['SURVIVAL'], name: 'S.H.I.E.L.D. Badge', desc: 'Every green WARP shot pays +{300|450|700}. Every 3rd warp relights the outlane save.' },
   { id: 'bugle', r: C_, cat: TR, up: true, tags: ['COMBO'], hero: 'spiderman', name: 'Daily Bugle', desc: 'Completing a combo of 5 or more steps awards +{500|800|1,200}.' },
   { id: 'pym', r: C_, cat: TR, up: true, max: 2, tags: ['QUANTUM'], hero: 'antman', name: 'Pym Particle Vial', desc: 'The ball is 5% smaller. A second vial lets you choose a formula: Subatomic or Giant-Man.' },
   { id: 'gamma', r: C_, cat: TR, up: true, tags: ['GAMMA', 'BUMPER'], hero: 'hulk', name: 'Gamma Sample', desc: 'The ball is 5% larger. Bumpers score +{15|25|40}%.' },
-  { id: 'gyro', r: C_, cat: MPART, up: true, tags: ['TECH', 'RAMP', 'SPEED'], hero: 'ironman', name: 'Stark Gyroscope', desc: 'Ramp, orbit and tunnel shots speed the ball up by {5|10|15}%.' },
+  { id: 'gyro', r: C_, cat: MPART, up: true, tags: ['TECH', 'RAMP', 'SPEED'], hero: 'ironman', name: 'Stark Gyroscope', desc: 'Hit all three channels (pink tunnel, purple ramp, green warp) within 15 s: +{1500|2200|3500} and the ball speeds up 15%.' },
   { id: 'cartridge', r: C_, cat: TR, up: true, tags: ['WEB'], hero: 'spiderman', name: 'Web Cartridge', desc: 'Slingshots slow the ball slightly, give +{100|160|250} and web the next target it hits.' },
   { id: 'mead', r: C_, cat: TR, up: true, tags: ['COSMIC'], hero: 'thor', name: 'Asgardian Mead', desc: 'The first {15|20|25} collisions of each ball score +{20|25|30}%.' },
   { id: 'alloy', r: C_, cat: TR, up: true, tags: ['TECH'], hero: 'panther', name: 'Wakandan Alloy', desc: 'Points from Machine Parts are +{10|18|25}% stronger.' },
@@ -731,7 +737,7 @@ const tagN = t => (S.tg && S.tg[t]) || 0, heroN = h => (S.hr && S.hr[h]) || 0;
 function recountTags() { const tg = {}, hr = {}; for (const u of UPGRADES) if (has(u.id)) { for (const t of new Set([...(u.tags || []), ...(S.runes && S.runes[u.id] ? [S.runes[u.id]] : [])])) tg[t] = (tg[t] || 0) + 1; for (const h of [].concat(u.hero || [])) hr[h] = (hr[h] || 0) + 1; } S.tg = tg; S.hr = hr; S.aff = computeAff(); }
 function refreshBuild() { recountTags(); checkSynergies(); checkEvos(); applyParts(); renderInv(); renderStones(); }
 // build slots: trinkets and machine parts (stones and villain artifacts are free)
-const SLOTS = 20;
+const SLOTS = 25, PASS_CR = 10; // passing on a stage reward pays a little
 const slotCard = u => u.cat !== 'Infinity Stone' && u.r !== 'artifact' && u.r !== 'keystone';
 const slotsUsed = () => UPGRADES.filter(u => has(u.id) && slotCard(u)).length;
 const needsSlot = u => slotCard(u) && !has(u.id);
@@ -796,7 +802,7 @@ const FAMS = {
 const FAMOF = {
   stark: 'TECH', camera: 'WEB', reserve: 'VIBRANIUM', arc: 'TECH', quiver: 'WEB', web: 'WEB', rocket: 'SPEED', groot: 'VIBRANIUM', repulsor: 'TECH', guard: 'VIBRANIUM', panther: 'VIBRANIUM', fury: 'VIBRANIUM',
   loki: 'ILLUSION', mjolnir: 'THUNDER', hex: 'MYSTIC', instab: 'QUANTUM ILLUSION', phoenix: 'HELLFIRE', darkhold: 'HELLFIRE MYSTIC',
-  scepter: 'ILLUSION', tesseract: 'QUANTUM MYSTIC', dagger: 'ILLUSION', ucore: 'TECH', vbody: 'VIBRANIUM', drones: 'TECH', magflip: 'MAGNET', polarity: 'MAGNET', helmet: 'MAGNET', gauntlet: 'HELLFIRE', ebony: 'HELLFIRE', titan: 'GAMMA',
+  scepter: 'ILLUSION', tesseract: 'QUANTUM MYSTIC', dagger: 'ILLUSION', ucore: 'TECH', vbody: 'VIBRANIUM', drones: 'TECH', magflip: 'MAGNET', polarity: 'MAGNET', helmet: 'MAGNET', gauntlet: 'HELLFIRE', ebony: 'HELLFIRE', titan: 'GAMMA', controlrod: 'QUANTUM', carapace: 'VIBRANIUM', nzgate: 'MYSTIC', doommask: 'MYSTIC TECH', doombots: 'TECH',
   shield: 'VIBRANIUM', storm: 'THUNDER', portals: 'MYSTIC', smart: 'TECH', vibrail: 'VIBRANIUM SPEED', slingring: 'MYSTIC', bifrost: 'THUNDER SPEED',
   capacitor: 'THUNDER TECH', arrowhead: 'WEB', tracer: 'WEB', vfrag: 'VIBRANIUM', badge: 'VIBRANIUM', bugle: 'WEB', pym: 'QUANTUM', gamma: 'GAMMA', gyro: 'TECH SPEED', cartridge: 'WEB', mead: 'THUNDER', alloy: 'VIBRANIUM TECH', baton: 'WEB', crescent: 'MYSTIC', spare: 'TECH', gambit: 'EXPLOSIVE', anthelm: 'QUANTUM', shard: 'THUNDER', spiderleg: 'WEB TECH', bullet: 'EXPLOSIVE HELLFIRE', gburst: 'GAMMA SPEED',
   stormbreaker: 'THUNDER', sense: 'WEB', extremis: 'TECH HELLFIRE', winter: 'TECH', weave: 'VIBRANIUM', qbattery: 'QUANTUM', claw: 'GAMMA', visor: 'EXPLOSIVE', mysthelm: 'ILLUSION', shuri: 'TECH VIBRANIUM', korg: 'GAMMA', nova: 'SPEED', widow: 'THUNDER WEB', falcon: 'SPEED', khonshu: 'MYSTIC', deck: 'EXPLOSIVE', chi: 'MYSTIC', wongring: 'MYSTIC', magnet: 'MAGNET', punisher: 'EXPLOSIVE', hulkfist: 'GAMMA', counterfeit: 'ILLUSION',
@@ -813,12 +819,24 @@ UPGRADES.push(
   { id: 'brimstone', r: C_, cat: TR, up: true, fam: 'HELLFIRE', tags: ['SURVIVAL'], name: 'Brimstone', desc: '+{25|40|60}% Bonus while you are on your last ball.' },
   { id: 'ember', r: C_, cat: TR, up: true, fam: 'HELLFIRE', tags: ['COMBO'], name: 'Hellfire Ember', desc: 'Each ball you drain this level adds +{10|15|25}% Bonus.' },
   { id: 'mirrorshard', r: C_, cat: TR, up: true, fam: 'ILLUSION', tags: ['MULTIBALL'], name: 'Mirror Shard', desc: 'Extra balls (ghosts, copies, splits) get +{25|40|60}% Bonus.' },
-  { id: 'decoy', r: C_, cat: TR, up: true, fam: 'ILLUSION', tags: ['MULTIBALL', 'CHAOS'], name: 'Holographic Decoy', desc: 'Every {30|25|20} hits a ghost ball appears for 6 s.' },
+  { id: 'decoy', r: C_, cat: TR, up: true, fam: 'ILLUSION', tags: ['MULTIBALL', 'CHAOS'], name: 'Holographic Decoy', desc: '{Every 3rd|Every 2nd|Every} green WARP shot projects a ghost ball for 6 s.' },
   { id: 'runes', r: C_, cat: TR, up: true, fam: 'MYSTIC', tags: ['PORTAL'], name: 'Eldritch Runes', desc: 'Portal jumps and spinner spins score +{50|75|100}%.' },
-  { id: 'radiation', r: C_, cat: TR, up: true, fam: 'GAMMA', tags: ['GAMMA', 'SPEED'], name: 'Gamma Radiation', desc: 'Collisions by a fast ball get +{20|35|50}% Bonus.' },
+  { id: 'radiation', r: C_, cat: TR, up: true, fam: 'GAMMA', tags: ['GAMMA', 'RAMP'], name: 'Gamma Radiation', desc: 'A purple RAMP shot irradiates the ball for 5 s: its collisions get +{30|50|75}% Bonus.' },
   { id: 'fuse', r: C_, cat: TR, up: true, fam: 'EXPLOSIVE', tags: ['EXPLOSIVE'], name: 'Short Fuse', desc: 'Explosions are {20|35|50}% stronger.' },
   { id: 'quantumdrift', r: C_, cat: TR, up: true, fam: 'QUANTUM', tags: ['QUANTUM'], name: 'Quantum Drift', desc: 'Small balls (below normal size) get +{20|35|50}% Bonus.' },
-  { id: 'tailwind', r: C_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED'], name: 'Tailwind', desc: 'Orbit and ramp shots add +{1|2|3} combo steps.' },
+  { id: 'tailwind', r: C_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED'], name: 'Tailwind', desc: 'A pink TUNNEL shot pays +{300|450|700} and fires the ball out 20% faster.' },
+  // table-piece cards: reward HOW you hit a piece
+  { id: 'webtension', r: C_, cat: TR, up: true, fam: 'WEB', tags: ['WEB', 'COMBO'], name: 'Web Tension', desc: 'Hitting one slingshot and then the other within 1.5 s pays +{300|450|700}.' },
+  { id: 'outlaw', r: C_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED'], name: 'Outlaw Lanes', desc: 'A fast ball through any lower lane pays +{400|600|900}.' },
+  { id: 'cradle', r: C_, cat: TR, up: true, fam: 'WEB', tags: ['FLIPPER'], name: 'Cradle Master', desc: 'Hold the ball still on a raised flipper for 1 s: +{300|450|700}.' },
+  { id: 'thunderclap', r: U_, cat: TR, up: true, fam: 'THUNDER', tags: ['BUMPER', 'LIGHTNING'], name: 'Thunderclap', desc: 'Each bumper hit in a row adds +{40|60|90} to every bumper hit after it. A flipper or slingshot hit resets the count.' },
+  { id: 'volley', r: U_, cat: TR, up: true, fam: 'WEB', tags: ['COMBO'], name: 'Trick Arrow Volley', desc: 'Knocking down the whole drop bank within {6|8|10} s of the first target pays +{2000|3000|4500}.' },
+  { id: 'trickarrow', r: U_, cat: TR, up: true, fam: 'WEB TECH', tags: ['TECH'], name: 'Marked Target', desc: 'A standup hit marks a standing drop target. Knocking the marked one down pays {5|7|10}×.' },
+  { id: 'antshort', r: U_, cat: TR, up: true, fam: 'QUANTUM', tags: ['QUANTUM', 'BUMPER'], name: "Ant-Man's Shortcut", desc: 'A tunnel shot pays +{100|150|250} for every bumper hit since your last tunnel shot (up to 30).' },
+  { id: 'spellcaster', r: U_, cat: TR, up: true, fam: 'MYSTIC', tags: ['PORTAL'], name: 'Spell Caster', desc: 'Each MULTIVERSE letter pays +{60|90|150} times its place in the word (M = 1 … E = 10).' },
+  { id: 'fourthwall', r: U_, cat: TR, up: true, fam: 'HELLFIRE ILLUSION', tags: ['CHAOS'], name: "Deadpool's Fourth Wall", desc: 'Interrupting a boss attack pays +{3000|4500|7000}. "Did you just read the warning? Cheater."' },
+  { id: 'loopdeloop', r: R_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED', 'RAMP'], name: "Rocket's Loop-de-Loop", desc: 'Making the same shot (ramp, warp or tunnel) again within 6 s pays it {3|4|5}×. Keep repeating to keep the chain.' },
+  { id: 'constellation', r: R_, cat: TR, up: true, fam: 'MYSTIC THUNDER', tags: ['LIGHTNING'], name: 'Constellation', desc: 'Roll over 3 different stars within {4|5|6} s: every bumper and standup fires for {300|450|700}.' },
   // Epics: each breaks one of the game's rules
   { id: 'godthunder', r: 'epic', cat: TR, fam: 'THUNDER', req: { THUNDER: 4 }, tags: ['LIGHTNING', 'BUMPER'], name: 'God of Thunder', desc: 'RULE BREAK: lightning that strikes a bumper counts as a real hit 25% of the time, so it can trigger your card counters.' },
   { id: 'webmaster', r: 'epic', cat: TR, fam: 'WEB', req: { WEB: 4 }, tags: ['COMBO'], name: 'Web of Fate', desc: 'RULE BREAK: your combo never times out while a ball is in play, and it can reach 30 steps instead of 20.' },
@@ -1139,6 +1157,7 @@ function globalBonus() {
   if (has('doom')) a += .1 * Math.floor(S.credits / 100);
   a += .01 * has('brick') + (syn('worthybrick') ? .25 : 0);
   if (S.balls <= 1) a += T('brimstone', .25, .4, .6);
+  if (has('doommask')) a += .3;
   a += S.lost * (T('ember', .1, .15, .25) + (syn('penance') ? .5 : 0));
   return a;
 }
@@ -1150,6 +1169,7 @@ function globalMult() {
   if (syn('penance') && S.balls <= 1) m *= 2;
   if (has('phoenix')) m *= S.balls <= 1 ? (syn('immortal') ? 4 : 3) : .75;
   if (S.debt > 0) m *= Math.max(.1, 1 - .1 * Math.floor(S.debt / 50));
+  if (S.rodT > 0) m *= 1.5;
   return m;
 }
 function scoreFactor(kind, obj, cls) {
@@ -1186,7 +1206,7 @@ function scoreFactor(kind, obj, cls) {
   if (phys) {
     add += T('korg', .3, .4, .55) + (has('pym') >= 2 && S.pymForm === 'giant' ? .75 : 0) + (syn('brickhouse') ? .5 * has('brick') : 0);
     if (b) { add += (b.rage || 0) + (b.venom === 'heavy' ? .3 : 0); if (has('mead') && (b.col || 0) < T('mead', 15, 20, 25)) add += T('mead', .2, .25, .3);
-      if (has('radiation') && b.vx * b.vx + b.vy * b.vy > 1100 * 1100) add += T('radiation', .2, .35, .5);
+      if (has('radiation') && b.radT > 0) add += T('radiation', .3, .5, .75);
       if (has('quantumdrift') && (b.rad || 10) < 9.9) add += T('quantumdrift', .2, .35, .5); }
     if (syn('worldbreaker')) add += 1; if (ks('ks_jugg')) add += .8;
   }
@@ -1304,7 +1324,7 @@ function restoreRescue() {
 // ---- hooks called from the core game ----
 function cardsLevel() {
   S.rigId = S.rigNext || null; S.rigNext = null; if (S.rigId) setTimeout(() => msg('JURY-RIG: ' + CARD[S.rigId].name.toUpperCase() + ' AT MAX', 3), 2800);
-  Object.assign(S, { bankPts: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, nova: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, extremis: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, magik: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0 });
+  Object.assign(S, { bankPts: 0, carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, nova: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, extremis: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, magik: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {} });
   for (const o of [...bumpers, ...standups, ...drops, ...stars, enemy]) { o.web = false; o.sym = false; o.x2T = 0; o.mod = null; o.elec = 0; o.hitN = 0; }
   for (let i = bumpers.length - 1; i >= 0; i--) if (bumpers[i].temp) bumpers.splice(i, 1); TGC = null;
   bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } });
@@ -1322,7 +1342,6 @@ function cardsDrain() {
 function cardsHit(kind, obj) {
   const b = curBall;
   if (b) b.col = (b.col || 0) + 1;
-  if (b && has('badge') && b.col <= T('badge', 10, 12, 15)) award(T('badge', 50, 80, 120), 'badge', null, null, null, true);
   if (isTarget(obj)) {
     obj.hitN = (obj.hitN || 0) + 1;
     if (b && b.webT > 0 && !obj.web) { obj.web = true; b.webT = 0; pop(...objPos(obj), 'WEBBED', '#ffffff'); }
@@ -1361,13 +1380,70 @@ function cardsHit(kind, obj) {
   }
 }
 function cardsBumper(c, b) {
-  if (has('capacitor') && every('capacitor', T('capacitor', 10, 8, 8))) { award(T('capacitor', 250, 400, 500), 'capacitor', c, c.x, c.y - 44, true); part('capacitor'); if (T('capacitor', 0, 0, 1)) { const o = pickStark(allTargets()), [x, y] = objPos(o); fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: x, y2: y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); award(500, 'lightning', o, x, y - 24, true); } }
   if (has('gburst') && b && every('gburst', T('gburst', 15, 12, 10))) { const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.15) / sp; b.vx *= k; b.vy *= k; award(300, 'gamma', c, c.x, c.y - 44, true); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .35, c: '108,255,90' }); }
   if (syn('hulksmash') && b && every('hulksmash', 5)) { b.rad = Math.min(12.5, (b.rad || 10) + .5); b.baseR = b.rad; b.smash = Math.min(1.5, (b.smash || 1) + .1); pop(b.x, b.y - 30, 'HULK SMASH', '#6cff5a', true); }
   if (has('mjolR') && every('mjolR', 8)) mjolnirStrike();
   if (has('widow') && S.slingT > 0) { S.slingT = 0; const r = 170; allTargets().forEach(o => { const [x, y] = objPos(o); if (o !== c && hyp(x - c.x, y - c.y) < r) { fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: x, y2: y, t: 0, life: .3, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(T('widow', 200, 300, 450), 'lightning', o, x, y - 20, true); } }); msg("WIDOW'S BITE"); }
   if (c.elec > 0 && syn('bringthanos')) chain([c.x, c.y], 1, 200, c, 3);
   if (b && b.venom === 'bouncy') b.kickM = 1.2;
+}
+// ---- table-piece cards ----
+function pieceHit(o, b) {
+  const now = performance.now(), k = o.kind;
+  if (k === 'bumper') {
+    if (has('thunderclap')) { const n = S.tcN || 0; if (n) award(n * T('thunderclap', 40, 60, 90), 'thunderclap', o, o.x + 20, o.y - 56, true); S.tcN = Math.min(20, n + 1); }
+    if (has('antshort')) S.antN = Math.min(30, (S.antN || 0) + 1);
+  } else if (k === 'sling') {
+    S.tcN = 0;
+    if (has('webtension')) { if (S.wtS && S.wtS !== o && now - S.wtT < 1500) { award(T('webtension', 300, 450, 700), 'webtension', o, b.x, b.y - 44, true); pop(b.x, b.y - 64, 'WEB TENSION', '#e6e9f2'); S.wtS = null; } else { S.wtS = o; S.wtT = now; } }
+  } else if (k === 'drop') {
+    if (drops.filter(d => d.down).length === 1) S.volT = now;
+    if (has('volley') && drops.every(d => d.down) && now - (S.volT || 0) <= T('volley', 6, 8, 10) * 1000) { award(T('volley', 2000, 3000, 4500), 'volley', drops, 150, 470, true); msg('TRICK ARROW VOLLEY!'); tone(1100, .15, 'square', .06, 1650); }
+    if (has('trickarrow') && S.trick === o) { S.trick = null; award(o.pts * (T('trickarrow', 5, 7, 10) - 1), 'trickarrow', o, 150, o.y1 + 10, true); pop(150, o.y1 - 12, 'BULLSEYE', '#7fe7ff', true); }
+  } else if (k === 'standup') {
+    if (has('trickarrow') && !(S.trick && !S.trick.down)) { const c = drops.filter(d => !d.down); if (c.length) { S.trick = rnd(c); pop(150, S.trick.y1 + 10, 'MARKED', '#7fe7ff'); } }
+  }
+}
+Bus.on('hit', e => { if (e.kind === 'flipper') S.tcN = 0; });
+const LOOPS = { ramp: 500, rorbit: 300, tunnel: 400 };
+function pieceShot(name) {
+  const now = performance.now(), [x, y] = SHOTS[name] ? [SHOTS[name].x, SHOTS[name].y] : name === 'tunnel' ? [262, 372] : [280, 600];
+  if (has('spellcaster')) { const pos = S.letters; award(pos * T('spellcaster', 60, 90, 150), 'spell', null, x, y - 40, true); pop(x, y - 62, WORD[pos - 1] + ' ×' + pos, '#ff9a2e'); }
+  if (has('antshort') && name === 'tunnel' && S.antN) { award(S.antN * T('antshort', 100, 150, 250), 'antshort', null, 262, 340, true); pop(262, 318, 'SHORTCUT ×' + S.antN, '#5ad1ff'); S.antN = 0; }
+  if (LOOPS[name]) channelCards(name, x, y);
+  if (has('loopdeloop') && LOOPS[name]) { if (S.loopN === name && now - S.loopT < 6000) { award(LOOPS[name] * (T('loopdeloop', 3, 4, 5) - 1), 'loop', null, x, y - 40, true); msg('LOOP-DE-LOOP!'); tone(900, .12, 'square', .06, 1400); } S.loopN = name; S.loopT = now; }
+}
+// ---- channel cards: pink TUNNEL, purple RAMP, green WARP ----
+const CHAN = { tunnel: '#ff5ad2', ramp: '#b58cff', rorbit: '#3ee0a0' };
+function channelCards(name, x, y) {
+  const b = curBall && balls.includes(curBall) ? curBall : balls.find(isReal), now = performance.now(), c = CHAN[name];
+  const boost = k => { if (!b) return; const sp = hyp(b.vx, b.vy) || 1, v = Math.min(S.maxv || MAXV, sp * k) / sp; b.vx *= v; b.vy *= v; };
+  if (name === 'ramp') {
+    if (has('camera')) { const n = b ? (b.rampN = (b.rampN || 0) + 1) : 1; award(T('camera', 600, 900, 1400) * (1 + .1 * (n - 1)), 'camera', null, x, y - 40, true); msg('SNAP! FRONT PAGE'); tone(2000, .05, 'square', .05); fx.push({ type: 'flash', t: 0, life: .15 }); }
+    if (has('radiation') && b) { b.radT = 5; pop(x, y - 64, 'IRRADIATED', '#6cff5a'); }
+  } else if (name === 'tunnel') {
+    if (has('tailwind')) { award(T('tailwind', 300, 450, 700), 'tailwind', null, 262, 330, true); setTimeout(() => boost(1.2), 60); pop(262, 306, 'TAILWIND', c); }
+  } else if (name === 'rorbit') {
+    if (has('badge')) { award(T('badge', 300, 450, 700), 'badge', null, x, y - 40, true); if ((S.warpN = (S.warpN || 0) + 1) % 3 === 0 && !ks('ks_mephisto')) { S.outSave = true; msg('S.H.I.E.L.D. · OUTLANE SAVE LIT'); } }
+    if (has('decoy') && b && (S.decoyN = (S.decoyN || 0) + 1) % T('decoy', 3, 2, 1) === 0) spawnBall(b, { ghost: true, life: 6, msg: 'HOLOGRAPHIC DECOY' });
+  }
+  if (has('capacitor') && (S.capN = (S.capN || 0) + 1) >= T('capacitor', 4, 3, 3)) {
+    S.capN = 0; part('capacitor'); msg('CAPACITOR DISCHARGE'); tone(1500, .2, 'sawtooth', .05, 300);
+    mainBumpers().forEach((q, i) => { fx.push({ type: 'bolt', x1: x, y1: y, x2: q.x, y2: q.y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); q.flash = 1; award(T('capacitor', 300, 450, 600), 'capacitor', q, q.x, q.y - 40, true); });
+  }
+  if (has('gyro')) {
+    const seen = S.chanSeen ||= {}; seen[name] = now;
+    if (Object.keys(CHAN).every(k => now - (seen[k] || -1e9) < 15000)) { S.chanSeen = {}; award(T('gyro', 1500, 2200, 3500), 'gyro', null, 280, 520, true); boost(1.15); part('gyro'); msg('TRI-CHANNEL! PINK · PURPLE · GREEN', 2.5); tone(880, .3, 'square', .06, 1760); fx.push({ type: 'ring', x: 280, y: 520, t: 0, life: .6, c: '255,90,210', big: true }); }
+  }
+}
+function starCard(t) {
+  if (!has('constellation')) return;
+  const now = performance.now(), win = T('constellation', 4, 5, 6) * 1000;
+  S.cst = (S.cst || []).filter(e => now - e.t < win && e.s !== t); S.cst.push({ s: t, t: now });
+  if (S.cst.length < 3) return;
+  const pts = S.cst.map(e => e.s); S.cst = [];
+  fx.push({ type: 'constel', pts: pts.map(q => [q.x, q.y]), t: 0, life: .8 }); msg('CONSTELLATION!'); tone(1500, .3, 'sine', .06, 2400);
+  [...mainBumpers(), ...standups].forEach((o, i) => setTimeout(() => { o.flash = 1; const [px, py] = objPos(o); award(T('constellation', 300, 450, 700), 'constellation', o, px, py - 30, true); }, 60 + i * 40));
 }
 function cardsSling(s, b) {
   S.slingT = 2;
@@ -1387,7 +1463,6 @@ function cardsFlip(b, f, impact, t, vy0 = 0) {
 function cardsShot(name) {
   const b = curBall && balls.includes(curBall) ? curBall : balls.find(isReal);
   if (LANESHOT.has(name)) {
-    if (has('gyro') && b) { const k = 1 + T('gyro', .05, .1, .15); b.vx *= k; b.vy *= k; part('gyro'); }
     if (has('wongring') && every('wong', T('wongring', 15, 10, 6))) { S.tempPortalT = 10; msg("WONG'S SLING RING · PORTALS OPEN"); tone(500, .4, 'sine', .06, 1500); }
   }
   if (has('agamotto')) {
@@ -1405,7 +1480,7 @@ function cardsRamp(b) {
 }
 function cardsPortal(b, Q) {
   const [x, y] = Q, sub = has('pym') >= 2 && S.pymForm !== 'giant';
-  award((100 + (S.magik || 0)) * (sub ? 1.5 : 1), 'portal', null, x, y - 26, true);
+  award((100 + (S.magik || 0) + (has('nzgate') ? 1000 : 0)) * (sub ? 1.5 : 1), 'portal', null, x, y - 26, true);
   if (has('magik')) { S.magik += 100; allTargets().forEach(o => { const [ox, oy] = objPos(o); if (hyp(ox - x, oy - y) < 110) { fx.push({ type: 'beam', x1: x, y1: y, x2: ox, y2: oy, t: 0, life: .2, c: '255,220,120' }); o.flash = 1; award(300, 'soulsword', o, ox, oy - 20, true); } }); }
   if (syn('tempest')) setTimeout(() => chain([x, y], 2, 300, null), 120);
   if (syn('eventhorizon')) { b.eh = (b.eh || 0) + .25; pop(x, y - 44, 'EVENT HORIZON +' + b.eh.toFixed(2) + '×', '#b58cff', true); }
@@ -1420,7 +1495,7 @@ function falcon(b) {
   const [x, y] = objPos(o), dx = x - b.x, dy = y - b.y, d = hyp(dx, dy) || 1, sp = Math.max(900, hyp(b.vx, b.vy));
   b.vx = b.vx * .4 + dx / d * sp * .6; b.vy = b.vy * .4 + dy / d * sp * .6; b.steerT = 1.5; pop(b.x, b.y - 30, 'FALCON', '#ffe08a');
 }
-const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['webT', 'hardT', 'steerT', 'clutchCd', 'directT'];
+const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['radT', 'webT', 'hardT', 'steerT', 'clutchCd', 'directT'];
 function cardsTick(dt) {
   const t = performance.now() / 1000;
   // global modifiers read by physics
@@ -1428,6 +1503,8 @@ function cardsTick(dt) {
   S.maxv = S.meltT > 0 ? 2400 : syn('lightspeed') ? 2300 : MAXV;
   S.kickMul = (1 + T('vfrag', .1, .15, .2)) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
   for (const k of TIMERS_S) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
+  if (S.rodT > 0) S.rodT -= dt;
+  if (has('doombots') && (S.dbT = (S.dbT || 0) + dt) >= 12 && S.phase === 'play') { S.dbT = 0; const [px, py] = plateXY(enemy); fx.push({ type: 'beam', x1: 540, y1: 60, x2: px, y2: py, t: 0, life: .4, c: '120,255,170' }); msg('DOOMBOT STRIKE'); if (S.boss && !S.boss.defeated) bossHit(enemy, null); else { S.enemyHp = Math.max(0, S.enemyHp - 1); award(400, 'drone', enemy, px, py - 30, true); if (!S.enemyHp) { S.enemyHp = S.enemyMax; award(2500, 'enemyDown', enemy, 280, 390, true); } } }
   if (!S.madT && S.mad) { S.mad = null; bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } }); }
   if (S.mad === 'drift') mainBumpers().forEach((c, i) => { c.x = c.bx + 24 * Math.sin(t * 1.3 + i * 2); c.y = c.by + 16 * Math.cos(t * 1.1 + i); });
   for (const o of allTargets()) { if (o.x2T > 0) o.x2T -= dt; if (o.elec > 0) o.elec -= dt; if (o.mod && (o.mod.t -= dt) <= 0) o.mod = null; }
@@ -1455,6 +1532,7 @@ function cardsTick(dt) {
     if (b.direct && !(b.directT > 0)) b.direct = false;
     if (b.giantT > 0 && !inLane(b)) { b.giantT -= dt; b.rad = 12.5; if (b.giantT <= 0) b.rad = b.baseR || baseRad(); }
     if (b.temp || b.spectral) { b.life -= dt; if (b.life <= 0) b.vanish = true; }
+    if (has('cradle') && real && b.layer === 0) { const f = flippers.find(f => f.on && Math.abs(b.x - (f.px + f.s * 50)) < 55 && b.y > 740 && b.y < 830); if (f && sp < 60) { b.cradle = (b.cradle || 0) + dt; if (b.cradle >= 1 && !b.cradled) { b.cradled = true; award(T('cradle', 300, 450, 700), 'cradle', null, b.x, b.y - 30, true); pop(b.x, b.y - 50, 'CRADLED', '#e6e9f2'); tone(1320, .08, 'sine', .05, 1760); } } else { b.cradle = 0; if (sp > 300) b.cradled = false; } }
     if (b.spectral && b.y > 895 && b.vy > 0) { b.vy = -1300; b.vx = (270 - b.x) * 2; fx.push({ type: 'ring', x: b.x, y: 900, t: 0, life: .3, c: '200,230,255' }); }
     if (!real || b.layer !== 0) continue;
     // Spider-Sense: time slows as the ball heads down the middle
@@ -1463,6 +1541,8 @@ function cardsTick(dt) {
     if (S.ockT > 0 && b.y > 846 && b.y < 876 && b.x > 212 && b.x < 328 && b.vy > 0) { b.vy = -1150; b.vx = (270 - b.x) * 3 + (Math.random() - .5) * 200; clutch(b); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .3, c: '200,200,120' }); tone(200, .12, 'square', .05, 500); }
     // Vibranium Core (Vibranium V): the drain bounces the ball back once per ball
     if (syn('vibcore') && !S.vibUsed && prot() && b.y > 890 && b.y < 910 && b.x > 190 && b.x < 350 && b.vy > 0) { S.vibUsed = true; b.y = 886; b.vy = -1250; b.vx = (270 - b.x) * 3; msg('VIBRANIUM CORE'); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '181,140,255' }); rescue('vibcore', b); }
+    // Annihilus' Carapace: once per level
+    if (has('carapace') && !S.carUsed && prot() && b.y > 892 && b.y < 912 && b.x > 190 && b.x < 350 && b.vy > 0) { S.carUsed = true; b.y = 886; b.vy = -1250; b.vx = (270 - b.x) * 3; msg("ANNIHILUS' CARAPACE"); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '255,106,31' }); rescue('carapace', b); }
     // Cloak of Levitation
     if (has('cloak') && !S.cloakUsed && prot() && b.y > 884 && b.y < 905 && b.x > 200 && b.x < 340 && b.vy > 0) { S.cloakUsed = true; b.y = 880; b.vy = -1200; b.vx = (270 - b.x) * 3; msg('CLOAK OF LEVITATION'); tone(500, .4, 'sine', .06, 1000); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '255,80,80' }); rescue('cloak', b); }
     // speed builds
@@ -1497,6 +1577,7 @@ function drawCardsMid(dt) {
     if (md) { ctx.font = '600 12px ' + FONT_B; ctx.fillStyle = o.mod.m >= 1 ? '#ff7ae0' : '#9aa0b8'; ctx.textAlign = 'center'; ctx.fillText(o.mod.m + '×', x + r, y - r + 4); }
     if (o.elec > 0) { const k = performance.now() / 50 | 0; ctx.strokeStyle = 'rgba(170,235,255,.85)'; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 10; ctx.lineWidth = 1.5; ctx.beginPath(); for (let i = 0; i <= 18; i++) { const a = i / 18 * TAU, j = ((i * 7919 + k * 31) % 13) / 13; ctx.lineTo(x + Math.cos(a) * (r + 2 + j * 7), y + Math.sin(a) * (r + 2 + j * 7)); } ctx.stroke(); ctx.shadowBlur = 0; }
   }
+  if (S.trick && !S.trick.down && has('trickarrow')) { const o = S.trick, cy = (o.y1 + o.y2) / 2, pl = .6 + .4 * Math.sin(t * 8); ctx.strokeStyle = `rgba(127,231,255,${pl})`; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 10; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(o.x1 + 12, cy, 13, 0, TAU); ctx.moveTo(o.x1 + 12, cy - 18); ctx.lineTo(o.x1 + 12, cy - 8); ctx.moveTo(o.x1 + 12, cy + 8); ctx.lineTo(o.x1 + 12, cy + 18); ctx.moveTo(o.x1 - 6, cy); ctx.lineTo(o.x1 + 4, cy); ctx.moveTo(o.x1 + 20, cy); ctx.lineTo(o.x1 + 30, cy); ctx.stroke(); ctx.shadowBlur = 0; }
   if (S.coin) { const c = S.coin, bob = Math.sin(t * 4) * 2, a = c.t < 3 && Math.sin(t * 20) > 0 ? .4 : 1; ctx.globalAlpha = a; ctx.shadowColor = '#f5c542'; ctx.shadowBlur = 16; const g = ctx.createRadialGradient(c.x - 3, c.y - 3 + bob, 1, c.x, c.y + bob, 10); g.addColorStop(0, '#fff6c8'); g.addColorStop(.5, '#f5c542'); g.addColorStop(1, '#8a6410'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c.x, c.y + bob, 9, 0, TAU); ctx.fill(); ctx.shadowBlur = 0; ctx.fillStyle = '#5a3d05'; ctx.font = '12px ' + FONT_D; ctx.textAlign = 'center'; ctx.fillText('C', c.x, c.y + 4 + bob); ctx.globalAlpha = 1; }
   if (S.fake) { const f = S.fake, a = .6 + .4 * Math.sin(t * 9); ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(t * 2); ctx.strokeStyle = `rgba(125,255,176,${a})`; ctx.shadowColor = '#7dffb0'; ctx.shadowBlur = 14; ctx.lineWidth = 2; for (let i = 0; i < 3; i++) { ctx.rotate(TAU / 3); ctx.beginPath(); ctx.arc(6, 0, 8, 0, Math.PI); ctx.stroke(); } ctx.restore(); ctx.font = '12px ' + FONT_D; ctx.textAlign = 'center'; ctx.fillStyle = `rgba(255,240,150,${a})`; ctx.fillText('JACKPOT?', f.x, f.y - 20); }
   if (S.ockT > 0) { // Doc Ock arms around the center drain
@@ -1525,7 +1606,7 @@ function drawCardsOver(dt) {
 
 // ================= Step 8: The Collector's Emporium =================
 const SHOP_PRICE = { common: [30, 40], uncommon: [55, 70], rare: [90, 110], epic: [140, 170], legendary: [220, 250] };
-const shopAfter = lv => lv > 20 ? lv % 2 === 0 : [2, 4, 7, 9, 12, 14, 17, 19].includes(lv);
+const shopAfter = lv => lv > 30 ? lv % 2 === 0 : [2, 4, 7, 9, 12, 14, 17, 19, 22, 24, 27, 29].includes(lv);
 const r5 = v => Math.max(5, Math.round(v / 5) * 5);
 const rr = ([a, b]) => r5(a + Math.random() * (b - a));
 function pickW(w) { let t = Math.random() * Object.values(w).reduce((a, b) => a + b, 0); for (const k in w) { t -= w[k]; if (t <= 0) return k; } return 'common'; }
@@ -1637,7 +1718,7 @@ function stockEvent(ev) {
   if (ev === 'deadpool') { const names = [...DP].sort(() => Math.random() - .5); SH.items = Array.from({ length: 5 }, (_, i) => ({ slot: 'Item ' + (i + 1), kind: 'deadpool', dp: names[i], real: Math.random() < .5 ? CARD.brick : (rollCard(shopWeights(true)) || CARD.brick), base: rr([25, 60]) })); }
 }
 const premium = it => it.kind === 'card' && !it.sold && !it.hidden && !it.trade && it.u && (it.prem ?? (it.prem = completesSynergy(it.u).length > 0));
-const priceOf = it => r5((it.base || 0) * SH.sur * (SH.first ? .75 : 1) * (premium(it) ? 1.25 : 1));
+const priceOf = it => r5((it.base || 0) * SH.sur * (SH.first ? .75 : 1) * (premium(it) ? 1.25 : 1) * (has('latverian') ? .85 : 1));
 const canPay = c => S.credits >= c || (has('kingpin') && (S.debt || 0) + c - S.credits <= 300);
 function pay(c) { if (S.credits >= c) { S.credits -= c; return true; } if (canPay(c)) { S.debt = (S.debt || 0) + c - S.credits; S.credits = 0; return true; } return false; }
 const buildFull = () => slotsUsed() >= SLOTS;
@@ -1870,7 +1951,6 @@ function countHit(kind, obj) {
   S.hits++;
   const b = curBall;
   if (kind !== 'bumper') S.bumpStreak = 0;
-  if (has('camera') && S.hits % 10 === 0) { award(500 * has('camera'), 'camera', null, b ? b.x : 270, b ? b.y - 40 : 400, true); msg('SNAP! FRONT PAGE'); tone(2000, .05, 'square', .05); fx.push({ type: 'flash', t: 0, life: .15 }); }
   if (has('loki') && S.hits % 25 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
   if (has('scepter') && S.hits % 18 === 0 && b) spawnBall(b, { ghost: true, life: 8, full: true });
   if (has('polarity') && S.hits % 10 === 0) { S.polT = 3; msg('POLARITY CORE'); sfx.hum(); }
@@ -1879,8 +1959,8 @@ function countHit(kind, obj) {
     const k = HEXABLE[Math.random() * HEXABLE.length | 0], m = Math.random() < .5 ? 2 : 3;
     S.hexed[k] = (S.hexed[k] || 1) * m; msg('HEX: ' + k.toUpperCase() + ' ×' + S.hexed[k], 2.5); tone(520, .3, 'sine', .06, 260); renderInv();
   }
+  if (has('controlrod') && every('controlrod', 20)) { S.rodT = 5; msg('COSMIC CONTROL ROD · 1.5×'); fx.push({ type: 'ring', x: 280, y: 430, t: 0, life: .6, c: '255,106,31', big: true }); }
   if (has('attractor') && every('attractor', T('attractor', 20, 16, 12))) { S.polT = 3; msg('ATTRACTOR PULSE'); }
-  if (has('decoy') && b && every('decoy', T('decoy', 30, 25, 20))) spawnBall(b, { ghost: true, life: 6, msg: 'HOLOGRAPHIC DECOY' });
   if (has('storm') && S.hits % (ks('ks_storm') ? 4 : 8) === 0) {
     const c = mainBumpers()[Math.random() * 3 | 0]; c.flash = 1; if (has('mjolnir')) S.bolt++; if (syn('bringthanos')) c.elec = 8;
     fx.push({ type: 'bolt', x1: c.x + (Math.random() - .5) * 80, y1: 20, x2: c.x, y2: c.y, t: 0, life: .45, seed: Math.random() * 1e6 | 0 });
@@ -1917,9 +1997,11 @@ function bumperExtras(c, b) {
 // ================= bosses (Step 3) =================
 const MAINB = bumpers.filter(c => !c.pit && !c.big && c.r > 19), mainBumpers = () => MAINB; // the three big red bumpers never change
 const TAUNTS = {
-  loki: ['LOKI: WHICH ONE IS REAL?', 'LOKI: MISSED ME', 'LOKI: TRY HARDER, MORTAL', 'LOKI: NOW YOU SEE ME'],
+  loki: ['LOKI: KNEEL, MORTAL', 'LOKI: MISSED ME', 'LOKI: TRY HARDER, MORTAL', 'LOKI: NOW YOU SEE ME'],
   magneto: ['MAGNETO: METAL BENDS TO ME', 'MAGNETO: YOUR BALL IS STEEL', 'MAGNETO: FEEL THE PULL', 'MAGNETO: I DECIDE WHERE IT GOES'],
   thanos: ['THANOS: BALANCE MUST BE KEPT', 'THANOS: IT IS INEVITABLE', 'THANOS: YOU ARE OUTMATCHED', 'THANOS: HALF IS ENOUGH'],
+  annihilus: ['ANNIHILUS: I AM THE END', 'ANNIHILUS: THE ZONE HUNGERS', 'ANNIHILUS: ENTROPY TAKES ALL', 'ANNIHILUS: YOU WILL BE CONSUMED'],
+  doom: ['DOOM: DOOM IS INEVITABLE', 'DOOM: KNEEL BEFORE DOOM', 'DOOM: YOU DARE?', 'DOOM: LATVERIA WILL RULE'],
   ultron: ['ULTRON: UPGRADING...', 'ULTRON: YOUR MACHINE IS MINE', 'ULTRON: RESISTANCE IS INEFFICIENT', 'ULTRON: REROUTING POWER'],
 };
 const taunt = id => msg(TAUNTS[id][Math.random() * TAUNTS[id].length | 0], 2.4);
@@ -1939,6 +2021,7 @@ const ATTACKS = {
   laser: { boss: 'ultron', name: 'LASER SWEEP', desc: 'Dodge the beam', dur: 2.4, c: '#ff4a4a' },
   gravity: { boss: 'magneto', name: 'GRAVITY INVERSION', desc: 'Gravity reversed', dur: 2.5, c: '#e25bff' },
   outpull: { boss: 'magneto', name: 'OUTLANE PULL', desc: 'Pulled to the outlanes', dur: 3, c: '#e25bff' },
+  magshrink: { boss: 'magneto', name: 'MAGNETIC CRUSH', desc: 'Flippers crushed to 2/3 size', dur: 5, c: '#e25bff' },
   shrink: { boss: 'thanos', name: 'REALITY WARP', desc: 'Flippers shrunk', dur: 8, c: '#ffb52e' },
   timeskip: { boss: 'thanos', name: 'TIME STONE', desc: 'Time runs 1.4× faster', dur: 6, c: '#ffb52e' },
 };
@@ -1953,37 +2036,57 @@ function bossAttackTick(dt) {
     B.warn.t -= dt; if (B.warn.t <= 0) { const id = B.warn.id; B.warn = null; startAttack(id); }
     return;
   }
-  const cyc = S.level > 20 ? Math.floor((S.level - 20) / 5) : 0, every = Math.max(7, (B.hp <= B.max / 2 ? 9.5 : 12.5) - cyc);
+  const tier = Math.min(8, Math.floor(S.level / 5) - 1), every = Math.max(5.5, (B.hp <= B.max / 2 ? 9.5 : 12.5) - tier * .9), warnT = Math.max(1, 1.5 - tier * .1);
   if ((B.atkT = (B.atkT || 0) + dt) >= every) {
-    B.atkT = Math.random() * 2; const opts = Object.keys(ATTACKS).filter(k => ATTACKS[k].boss === B.id && !(F[k] > 0));
-    if (opts.length) { const id = rnd(opts); B.warn = { id, t: 1.5 }; msg('⚠ ' + ATTACKS[id].name + ' INCOMING · HIT ' + B.name.toUpperCase() + '!', 1.6); sfx.empCharge(1.5); S.pulse = 1; }
+    B.atkT = Math.random() * 2; let opts = Object.keys(ATTACKS).filter(k => ATTACKS[k].boss === B.id && !(F[k] > 0));
+    if (B.id === 'doom' && Math.random() < .35) opts = Object.keys(ATTACKS).filter(k => ATTACKS[k].boss !== 'doom' && !(F[k] > 0)); // Doom has studied every villain
+    if (opts.length) { const id = rnd(opts), wt = id === 'mirror' ? Math.max(warnT, 1.8) : warnT; B.warn = { id, t: wt, t0: wt }; msg('⚠ ' + ATTACKS[id].name + ' INCOMING · HIT ' + B.name.toUpperCase() + '!', 1.6); sfx.empCharge(1.5); S.pulse = 1; }
   }
 }
-function interruptAttack(obj, px, py) { const B = S.boss; if (!B || !B.warn) return false; const A = ATTACKS[B.warn.id]; B.warn = null; B.atkT = 0; award(600, 'enemy', obj, px, py - 40, true); msg(A.name + ' INTERRUPTED!'); tone(1200, .15, 'square', .06, 300); return true; }
+function interruptAttack(obj, px, py) { const B = S.boss; if (!B || !B.warn) return false; const A = ATTACKS[B.warn.id]; B.warn = null; B.atkT = 0; award(600, 'enemy', obj, px, py - 40, true); msg(A.name + ' INTERRUPTED!'); if (has('fourthwall')) { award(T('fourthwall', 3000, 4500, 7000), 'fourthwall', obj, px, py - 70, true); pop(px, py - 95, 'FOURTH WALL BREAK', '#e5383b', true); } tone(1200, .15, 'square', .06, 300); return true; }
 function startAttack(id) {
   const A = ATTACKS[id], F = BFX(); F[id] = A.dur; msg(A.name + ': ' + A.desc.toUpperCase(), 2.5); S.shake = Math.max(S.shake || 0, .6); S.pulse = 1; sfx.boom();
   if (id === 'mirror') flippers.forEach(f => f.on = false);
   if (id === 'fakeball') { const src = balls.find(isReal); if (src && balls.length < 5) { const b = { ...src, hist: [], vx: -src.vx + (Math.random() - .5) * 300, vy: -Math.abs(src.vy) - 300, fakeReal: true, temp: true, life: A.dur, ghost: false, dup: false, spectral: false }; balls.push(b); } }
   if (id === 'firewall') { if (!GRID) buildGrid(); SEAL = seg(rampMouth[0] - 4, 526, rampMouth[1] + 4, 526, { r: 3, e: .6, oneWay: true, nx: 0, ny: 1, kind: 'wall' }); segs.pop(); MOVING.push(SEAL); }
   if (id === 'laser') F.laserY = 260;
-  if (id === 'shrink') flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * .65; });
+  if (id === 'shrink' || id === 'magshrink') flipScale();
+  startAttack2(id);
 }
 function endAttack(id) {
   if (id === 'firewall' && SEAL) { const i = MOVING.indexOf(SEAL); if (i >= 0) MOVING.splice(i, 1); SEAL = null; }
-  if (id === 'shrink') flippers.forEach(f => { if (f.L0) f.L = f.L0; });
+  if (id === 'shrink' || id === 'magshrink') flipScale();
   if (id === 'fakeball') for (const b of balls) if (b.fakeReal) b.vanish = true;
+  endAttack2(id);
 }
+// flipper length follows the strongest shrink currently active (Thanos 65%, Magneto 2/3)
+function flipScale() { const F = BFX(), k = Math.min(F.shrink > 0 ? .65 : 1, F.magshrink > 0 ? 2 / 3 : 1); flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * k; }); }
 function clearBossAttacks() { const F = BFX(); for (const k in ATTACKS) if (F[k] > 0) { F[k] = 0; endAttack(k); } if (S.boss) S.boss.warn = null; }
 // per-ball effects of active attacks (called from physics)
 function bossForces(b, dt) {
-  const F = S.bfx; if (!F) return;
+  const F = S.bfx; if (!F) return; bossForces2(b, dt);
   if (F.outpull > 0 && b.y > 480 && b.layer === 0) { const tx = b.x < 270 ? 34 : 506, dx = tx - b.x, dy = 700 - b.y, d = hyp(dx, dy) || 1; b.vx += dx / d * 800 * dt; b.vy += dy / d * 500 * dt; }
   if (F.laser > 0 && Math.abs(b.y - F.laserY) < 9 && !(b.zapCd > 0)) { b.zapCd = .6; b.vy = Math.abs(b.vy) + 700; b.vx += (Math.random() - .5) * 500; pop(b.x, b.y - 20, 'ZAPPED', '#ff4a4a', true); tone(180, .15, 'sawtooth', .06, 90); }
+}
+// an original grinning trickster mask that flips side to side: the warning for the Mirror Curse
+function drawTricksterMask(k, t) {
+  const a = Math.min(1, k * 4, (1 - k) * 6 + .3), flip = Math.cos(t * 7), sc = .9 + .12 * Math.sin(k * Math.PI);
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(280, 330); ctx.scale(flip * sc, sc);
+  const g = ctx.createRadialGradient(0, -10, 10, 0, 0, 95); g.addColorStop(0, 'rgba(70,224,138,.35)'); g.addColorStop(1, 'rgba(70,224,138,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 110, 0, TAU); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(0, -78); ctx.bezierCurveTo(62, -78, 70, -20, 58, 18); ctx.bezierCurveTo(46, 60, 22, 80, 0, 82); ctx.bezierCurveTo(-22, 80, -46, 60, -58, 18); ctx.bezierCurveTo(-70, -20, -62, -78, 0, -78); ctx.closePath();
+  const mg = ctx.createLinearGradient(-60, -80, 60, 80); mg.addColorStop(0, '#9dffc6'); mg.addColorStop(.5, '#2fae66'); mg.addColorStop(1, '#0d4a2a'); ctx.fillStyle = mg; ctx.fill(); ctx.strokeStyle = '#ffd24a'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.fillStyle = '#062414'; for (const s of [-1, 1]) { ctx.beginPath(); ctx.moveTo(s * 14, -20); ctx.quadraticCurveTo(s * 30, -38, s * 46, -20); ctx.quadraticCurveTo(s * 30, -28, s * 14, -20); ctx.fill(); }
+  ctx.beginPath(); ctx.moveTo(-40, 18); ctx.quadraticCurveTo(0, 70, 40, 18); ctx.quadraticCurveTo(0, 44, -40, 18); ctx.fillStyle = '#062414'; ctx.fill();
+  ctx.strokeStyle = '#e9fff1'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(-32, 26); ctx.quadraticCurveTo(0, 50, 32, 26); ctx.stroke(); for (let i = -3; i <= 3; i++) { ctx.beginPath(); ctx.moveTo(i * 9, 30 + (9 - Math.abs(i) * 2)); ctx.lineTo(i * 9, 44 - Math.abs(i) * 3); ctx.stroke(); }
+  ctx.restore();
+  ctx.save(); ctx.globalAlpha = a; ctx.font = '26px ' + FONT_D; ctx.textAlign = 'center'; ctx.fillStyle = '#9dffc6'; ctx.shadowColor = '#46e08a'; ctx.shadowBlur = 14;
+  ctx.fillText('⇄  FLIPPERS WILL SWAP  ⇄', 280, 450); ctx.restore();
 }
 function drawBossAttacks() {
   const B = S.boss, F = S.bfx || {}, t = performance.now() / 1000;
   ctx.save();
-  if (B && B.warn) { const A = ATTACKS[B.warn.id], k = 1 - B.warn.t / 1.5; ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(110, 36, 340, 34); ctx.strokeStyle = A.c; ctx.lineWidth = 2; ctx.strokeRect(110, 36, 340, 34); ctx.fillStyle = A.c; ctx.fillRect(110, 66, 340 * k, 4);
+  if (B && B.warn && B.warn.id === 'mirror') drawTricksterMask(1 - B.warn.t / (B.warn.t0 || 1.5), t);
+  if (B && B.warn) { const A = ATTACKS[B.warn.id], k = 1 - B.warn.t / (B.warn.t0 || 1.5); ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(110, 36, 340, 34); ctx.strokeStyle = A.c; ctx.lineWidth = 2; ctx.strokeRect(110, 36, 340, 34); ctx.fillStyle = A.c; ctx.fillRect(110, 66, 340 * k, 4);
     ctx.font = '20px ' + FONT_D; ctx.textAlign = 'center'; ctx.fillStyle = Math.sin(t * 20) > 0 ? '#fff' : A.c; ctx.fillText('⚠ ' + A.name + ' ⚠', 280, 60); }
   if (F.firewall > 0 && SEAL) { ctx.strokeStyle = `rgba(255,60,60,${.6 + .4 * Math.sin(t * 25)})`; ctx.shadowColor = '#ff2a2a'; ctx.shadowBlur = 16; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(SEAL.x1, SEAL.y1); ctx.lineTo(SEAL.x2, SEAL.y2); ctx.stroke(); ctx.shadowBlur = 0; }
   if (F.laser > 0) { ctx.strokeStyle = 'rgba(255,40,40,.9)'; ctx.shadowColor = '#ff2a2a'; ctx.shadowBlur = 18; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(22, F.laserY); ctx.lineTo(548, F.laserY); ctx.stroke(); ctx.shadowBlur = 0; }
@@ -1995,13 +2098,62 @@ function drawBossAttacks() {
   ctx.restore();
 }
 
+// ---- Act V & VI bosses: Annihilus (25) and Doctor Doom (30) ----
+Object.assign(ATTACKS, {
+  blackhole: { boss: 'annihilus', name: 'NEGATIVE ZONE RIFT', desc: 'A rift drags every ball in and spits it at the drain', dur: 6, c: '#ff6a1f' },
+  swarm: { boss: 'annihilus', name: 'INSECTOID SWARM', desc: 'Bugs roam the table and eat your combo', dur: 9, c: '#ff6a1f' },
+  blackout: { boss: 'annihilus', name: 'ENTROPY BLACKOUT', desc: 'The table goes dark', dur: 5, c: '#ff6a1f' },
+  barrage: { boss: 'doom', name: 'DOOMBOT BARRAGE', desc: 'Energy bolts rain down on the ball', dur: 6, c: '#35c46b' },
+  bind: { boss: 'doom', name: "DOOM'S DECREE", desc: 'Both flippers are bound', dur: 2, c: '#35c46b' },
+  mirrorview: { boss: 'doom', name: "SORCERER'S MIRROR", desc: 'The whole table is mirrored', dur: 7, c: '#35c46b' },
+});
+const BUGS = [], BOLTS = [];
+function startAttack2(id) {
+  const F = BFX();
+  if (id === 'swarm') { BUGS.length = 0; for (let i = 0; i < 6; i++) BUGS.push({ x: 100 + Math.random() * 340, y: 160 + Math.random() * 420, vx: (Math.random() - .5) * 260, vy: (Math.random() - .5) * 260 }); }
+  if (id === 'barrage') { BOLTS.length = 0; F.barT = 0; }
+  if (id === 'bind') flippers.forEach(f => { f.frozen = ATTACKS.bind.dur; f.on = false; });
+}
+function endAttack2(id) { if (id === 'swarm') BUGS.length = 0; if (id === 'barrage') BOLTS.length = 0; }
+function bossTick2(dt) {
+  const F = S.bfx || {}, B = S.boss;
+  if (F.swarm > 0) for (const g of BUGS) { g.x += g.vx * dt; g.y += g.vy * dt; if (g.x < 70 || g.x > 470) g.vx *= -1; if (g.y < 150 || g.y > 640) g.vy *= -1; if (Math.random() < dt * .8) { g.vx += (Math.random() - .5) * 200; g.vy += (Math.random() - .5) * 200; } }
+  if (F.barrage > 0) { if ((F.barT = (F.barT || 0) + dt) > .45) { F.barT = 0; const tgt = balls.find(isReal); BOLTS.push({ x: tgt ? clamp(tgt.x + (Math.random() - .5) * 120, 40, 520) : 60 + Math.random() * 440, y: 30 }); } for (const o of BOLTS) o.y += 760 * dt; for (let i = BOLTS.length - 1; i >= 0; i--) if (BOLTS[i].y > 960) BOLTS.splice(i, 1); }
+  if (!B || B.defeated) return;
+  if (B.id === 'annihilus' && (B.entT = (B.entT || 0) + dt) >= 14) { B.entT = 0; if (S.mult > 1) { S.mult--; msg('ENTROPY: MULTIPLIER DRAINED TO ' + S.mult + 'X', 2); } else msg('ANNIHILUS: ALL THINGS END', 2); S.pulse = 1; }
+}
+function bossForces2(b, dt) {
+  const F = S.bfx;
+  if (F.blackhole > 0 && b.layer === 0) { const dx = 280 - b.x, dy = 430 - b.y, d = hyp(dx, dy) || 1; if (d < 22) { b.x = 280 + (Math.random() - .5) * 40; b.y = 470; b.vx = (Math.random() - .5) * 400; b.vy = 1300; pop(280, 450, 'CONSUMED', '#ff6a1f', true); tone(80, .3, 'sawtooth', .07, 40); } else { const a = Math.min(2600, 9e6 / (d * d + 4000)); b.vx += dx / d * a * dt; b.vy += dy / d * a * dt; } }
+  if (F.swarm > 0 && b.layer === 0) for (const g of BUGS) { const dx = b.x - g.x, dy = b.y - g.y, d = hyp(dx, dy); if (d < R + 9 && d > 0) { const nx = dx / d, ny = dy / d, vn = b.vx * nx + b.vy * ny; if (vn < 0) { b.vx -= 1.6 * vn * nx; b.vy -= 1.6 * vn * ny; } b.x = g.x + nx * (R + 9); b.y = g.y + ny * (R + 9); if (!(g.cd > performance.now())) { g.cd = performance.now() + 400; S.combo = 0; S.comboT = 0; pop(g.x, g.y - 16, 'CHOMP', '#ff6a1f'); tone(120, .08, 'square', .05, 60); } } }
+  if (F.barrage > 0) for (const o of BOLTS) if (Math.abs(o.x - b.x) < R + 6 && Math.abs(o.y - b.y) < R + 12) { o.y = 2000; b.vy = Math.abs(b.vy) + 1000; b.vx += (Math.random() - .5) * 600; pop(b.x, b.y - 20, 'BLASTED', '#35c46b', true); sfx.boom(); S.shake = .5; }
+}
+function drawBossAttacks2() {
+  const F = S.bfx || {}, t = performance.now() / 1000;
+  ctx.save();
+  if (F.blackhole > 0) { const r = 26 + Math.sin(t * 10) * 3; const g = ctx.createRadialGradient(280, 430, 2, 280, 430, 110); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(.25, 'rgba(20,0,10,.95)'); g.addColorStop(.5, 'rgba(255,90,20,.35)'); g.addColorStop(1, 'rgba(255,90,20,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(280, 430, 110, 0, TAU); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,140,40,.8)'; ctx.lineWidth = 2; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(280, 430, r + i * 14, t * (2 + i) , t * (2 + i) + 4); ctx.stroke(); } }
+  if (F.swarm > 0) for (const g of BUGS) { ctx.save(); ctx.translate(g.x, g.y); ctx.rotate(Math.atan2(g.vy, g.vx)); ctx.fillStyle = '#3a2a0a'; ctx.strokeStyle = '#ff8a2a'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.ellipse(0, 0, 10, 6, 0, 0, TAU); ctx.fill(); ctx.stroke();
+    for (const s of [-1, 1]) for (const k of [-4, 0, 4]) { ctx.beginPath(); ctx.moveTo(k, s * 5); ctx.lineTo(k + 3, s * (9 + Math.sin(t * 30 + k) * 2)); ctx.stroke(); } ctx.fillStyle = '#ffcf3a'; ctx.beginPath(); ctx.arc(7, -2, 1.5, 0, TAU); ctx.arc(7, 2, 1.5, 0, TAU); ctx.fill(); ctx.restore(); }
+  if (F.barrage > 0) for (const o of BOLTS) { ctx.strokeStyle = '#7dffb0'; ctx.shadowColor = '#35c46b'; ctx.shadowBlur = 12; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(o.x, o.y - 26); ctx.lineTo(o.x, o.y); ctx.stroke(); ctx.shadowBlur = 0; }
+  if (F.bind > 0) for (const f of flippers) { ctx.strokeStyle = 'rgba(53,196,107,.9)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(f.px + f.s * 40, f.py + 8, 44, 0, TAU); ctx.stroke(); }
+  ctx.restore();
+}
+function drawBlackout() {
+  const F = S.bfx; if (!(F && F.blackout > 0)) return;
+  const a = Math.min(1, F.blackout * 2, (ATTACKS.blackout.dur - F.blackout) * 3) * .96;
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, H); for (const b of balls) { ctx.moveTo(b.x + 95, b.y); ctx.arc(b.x, b.y, 95, 0, TAU, true); }
+  ctx.fillStyle = `rgba(2,2,6,${a})`; ctx.fill('evenodd');
+  for (const b of balls) { const g = ctx.createRadialGradient(b.x, b.y, 55, b.x, b.y, 96); g.addColorStop(0, 'rgba(2,2,6,0)'); g.addColorStop(1, `rgba(2,2,6,${a})`); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(b.x, b.y, 96, 0, TAU); ctx.fill(); }
+  ctx.restore();
+}
+
 function bossTick(dt) {
-  bossAttackTick(dt);
+  bossAttackTick(dt); bossTick2(dt);
   const B = S.boss; if (!B || B.defeated) return;
   B.t += dt; B.t2 = (B.t2 || 0) + dt;
   if (B.id === 'loki') {
-    if (B.exposedT > 0) { B.exposedT -= dt; if (B.exposedT <= 0) { B.exposedT = 0; B.t = 5; B.t2 = 0; lokiShuffle(); msg('LOKI VANISHES'); } return; }
-    if (B.t2 >= 6) { B.t2 = 0; lokiShuffle(); }            // shell game: the plates swap every 6 s
+    if (B.exposedT > 0) { B.exposedT -= dt; if (B.exposedT <= 0) { B.exposedT = 0; B.t = 5; B.t2 = 0; msg('LOKI HIDES AGAIN'); } return; }
     if (B.t >= 9) {                                          // new illusions: 2 red bumpers + one whole target group
       B.t = 0; B.illusions.clear();
       mainBumpers().sort(() => Math.random() - .5).slice(0, 2).forEach(c => B.illusions.add(c));
@@ -2052,7 +2204,7 @@ function bossHit(obj, b) {
   if (B.id === 'thanos' && B.snapT > 0) { B.snapT = 0; B.t2 = 0; award(700, 'enemy', obj, px, py - 40, true); msg('SNAP DENIED!'); tone(1200, .15, 'square', .06, 300); }
   if (B.hp <= 0) {
     B.defeated = true; B.illusions.clear(); B.hacked.clear(); B.dusted.clear(); bossReset(); clearBossAttacks(); stopMusic(.3); sfx.victory(); S.shake = 1; setTimeout(() => { if (S.phase === 'play' || S.phase === 'clearing') startMusic('normal', 7); }, 1800);
-    award({ loki: 5000, ultron: 6000, magneto: 8000, thanos: 12000 }[B.id], 'enemyDown', obj, 280, 380); msg(B.name.toUpperCase() + ' DEFEATED!', 3.5); shot('enemy', 280, 400);
+    award({ loki: 5000, ultron: 6000, magneto: 8000, thanos: 12000, annihilus: 18000, doom: 30000 }[B.id], 'enemyDown', obj, 280, 380); msg(B.name.toUpperCase() + ' DEFEATED!', 3.5); shot('enemy', 280, 400);
     fx.push({ type: 'ring', x: 280, y: 428, t: 0, life: .8, c: '255,220,120', big: true });
   } else { msg(B.name.toUpperCase() + ' ' + B.hp + '/' + B.max + (dmg > 1 ? '  CRITICAL!' : '')); if (Math.random() < .35) setTimeout(() => S.boss && !S.boss.defeated && taunt(B.id), 900); }
 }
@@ -2092,35 +2244,39 @@ function startLevel() {
   S.score = 0; S.balls = S.maxBalls = clamp(3 + has('fury') + has('vbody') + has('titan') - has('darkhold') + (S.nextBalls || 0) - (ks('ks_jugg') ? 1 : 0), 1, 5); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; S.sc = {}; S.realityT = 0; S.soulUsed = false; S.soulBonus = 0; S.snapUsed = false; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
   Object.assign(S, { odT: 0, bifT: 0, mystic: 0, kin: 0, spins: 0, evoN: {}, droneT: 0 });
   Object.assign(S, { hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardN: 0, timeUsed: false, phoenixUsed: false });
-  const bd = bossFor(S.level), bhp = bd ? Math.max(3, bd.hp - 2 * has('helmet') + 2 * (S.tva || 0)) : 0; if (bd) S.tva = 0;
+  const bd = bossFor(S.level), bhp = bd ? Math.max(3, bd.hp - 2 * has('helmet') - 2 * has('doommask') + 2 * (S.tva || 0)) : 0; if (bd) S.tva = 0;
   S.boss = bd ? { ...bd, hp: bhp, max: bhp, t: 0, t2: 0, streak: 0, exposedT: 0, illusions: new Set(), hacked: new Set(), dusted: new Set(), pol: 1, rampNeed: 0, defeated: false } : null;
   gens.forEach(g => { g.hp = 3; g.down = 0; g.flash = 0; });
-  bossReset(); if (S.boss && S.boss.id === 'loki') lokiShuffle(false);
-  if (S.boss) { startMusic(S.boss.id); sfx.stinger(); } else startMusic('normal', [0, 5, 7, 3][Math.min(3, (S.level - 1) / 5 | 0)]);
+  bossReset();
+  if (S.boss) { startMusic(S.boss.id); sfx.stinger(); } else startMusic('normal', [0, 5, 7, 3, 8, 10][Math.min(5, (S.level - 1) / 5 | 0)]);
   resetBoard(); applyParts(); serveBall(); S.phase = 'play'; hideOverlay();
   msg(S.boss ? 'BOSS: ' + S.boss.name.toUpperCase() : 'LEVEL ' + S.level + ' · ' + actName(S.level), 2.6);
   Bus.emit('levelStart', { level: S.level }); renderInv(); renderStones();
   if (S.newSyn.length) setTimeout(showSynergyBanner, 900);
 }
 function newRun() { S.level = 1; S.target = targetFor(1); S.endless = false; S.syn = new Set(); S.evos = new Set(); S.newSyn = []; S.portalT = 0; for (const k in owned) delete owned[k]; Object.assign(S, { runes: {}, rigNext: null, rigId: null, lastKeeper: null, credits: 0, sinceRare: 0, debt: 0, bought: new Set(), pymForm: null, counterfeit: 0, tva: 0, jam: 0, lens: false, nextBalls: 0, freeReroll: 0, shopsSeen: 0, locked: null, taskId: null, fires: {} }); SH = null; card.classList.remove('shop'); refreshBuild(); startLevel(); }
-// target curve: ×1.22 per level to 20, ×1.33 in endless; bosses fight back, so their levels ask 25% less
-// early levels ask a lot more (×2.5 at level 1, fading into the normal curve by level 8)
-const targetFor = lv => Math.round(4000 * Math.pow(2.5, Math.max(0, 8 - lv) / 7) * Math.pow(1.22, Math.min(lv, 20) - 1) * Math.pow(1.33, Math.max(0, lv - 20)) * (bossFor(lv) ? .75 : 1) / 500) * 500;
+// target curve: level 1 asks 10,000; growth itself speeds up through the run (×1.23 → ×1.30 by level 20),
+// the last act climbs ×1.16 per level on top of that, endless ×1.4. Boss levels go from ×0.8 (Loki) to ×1.1 (Doom).
+const growth = i => i > 30 ? 1.4 : i > 20 ? 1.16 : 1.23 + .004 * (i - 2);
+const bossK = lv => lv <= 20 ? .8 + .2 * (lv - 5) / 15 : 1 + .1 * Math.min(10, lv - 20) / 10;
+const targetFor = lv => { let t = 4000 * Math.pow(2.5, Math.max(0, 8 - lv) / 7); for (let i = 2; i <= lv; i++) t *= growth(i); return Math.round(t * (bossFor(lv) ? 4 / 3 * bossK(lv) : 1) / 500) * 500; };
 const nextTarget = () => targetFor(S.level + 1);
 function nextLevel() { S.level++; S.target = Math.round(targetFor(S.level) * (S.jam || 1) * (bossFor(S.level) && S.tva ? 1 + .2 * S.tva : 1) / 500) * 500; S.jam = 0; if (bossFor(S.level)) showBossIntro(); else startLevel(); }
 // run structure: four acts, a boss closes each act
-const actName = lv => lv <= 5 ? 'NEW YORK' : lv <= 10 ? 'WAKANDA' : lv <= 15 ? 'QUANTUM REALM' : lv <= 20 ? 'MULTIVERSE' : 'ENDLESS';
+const actName = lv => lv <= 5 ? 'NEW YORK' : lv <= 10 ? 'WAKANDA' : lv <= 15 ? 'QUANTUM REALM' : lv <= 20 ? 'MULTIVERSE' : lv <= 25 ? 'NEGATIVE ZONE' : lv <= 30 ? 'LATVERIA' : 'ENDLESS';
 const BOSSES = {
-  5: { id: 'loki', name: 'Loki', color: '#46e08a', hp: 6, blurb: 'God of Mischief. He splits into three plates and swaps them every few seconds. Only the one with gold eyes is real; hitting a decoy makes him laugh. He also turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: the decoys vanish, ramp, warp and tunnel shots pay 3×, and hits on him do double damage.' },
+  5: { id: 'loki', name: 'Loki', color: '#46e08a', hp: 6, blurb: 'God of Mischief. He turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: ramp, warp and tunnel shots pay 3× and hits on him do double damage.' },
   15: { id: 'magneto', name: 'Magneto', color: '#e25bff', hp: 10, blurb: 'Magnetic Field. Two magnetic generators sit either side of the wormhole and bend the ball toward them or push it away (the field flips every 8 seconds; watch the rings). Hit a generator 3 times to knock it out for 15 seconds. With both generators down the field dies and Magneto takes double damage.' },
-  20: { id: 'thanos', name: 'Thanos', color: '#ffb52e', hp: 12, blurb: 'The Snap. Every so often he raises his fist (gold ring on his plate): hit him before it fills or he snaps, turning half your targets to dust so they score nothing. Two purple-ramp shots bring them back. Beat level 20 to save the multiverse.' },
+  20: { id: 'thanos', name: 'Thanos', color: '#ffb52e', hp: 12, blurb: 'The Snap. Every so often he raises his fist (gold ring on his plate): hit him before it fills or he snaps, turning half your targets to dust so they score nothing. Two purple-ramp shots bring them back. Beyond him lie the Negative Zone and Latveria.' },
+  25: { id: 'annihilus', name: 'Annihilus', color: '#ff6a1f', hp: 14, blurb: 'Lord of the Negative Zone. His Entropy drains your table multiplier every 14 seconds. He tears rifts that swallow the ball, floods the table with insectoid swarms that eat your combo, and plunges the machine into darkness.' },
+  30: { id: 'doom', name: 'Doctor Doom', color: '#35c46b', hp: 18, blurb: 'Sorcerer-king of Latveria. His force field shrugs off slow hits: only a fast ball damages him. He rains Doombot fire, binds both your flippers, mirrors the whole table, and steals the tricks of every villain you have beaten.' },
   10: { id: 'ultron', name: 'Ultron', color: '#ff4a4a', hp: 8, blurb: 'Machine Takeover. He hacks red bumpers: hitting a hacked one wipes your combo and drops your multiplier; hit a green target to restore them. Every few seconds he charges an EMP (red ring on his plate): hit him before it fills or one of your flippers goes offline. Below half health he gets faster.' },
 };
 
-// endless mode (after level 20): the villains return every 5 levels, tougher each time
+// endless mode (after level 30): the villains return every 5 levels, tougher each time
 function bossFor(lv) {
   if (BOSSES[lv]) return BOSSES[lv];
-  if (lv > 20 && lv % 5 === 0) { const cyc = (lv - 20) / 5, b = BOSSES[[5, 10, 15, 20][(cyc - 1) % 4]]; return { ...b, hp: b.hp + 2 * cyc, name: b.name }; }
+  if (lv > 30 && lv % 5 === 0) { const cyc = (lv - 30) / 5, b = BOSSES[[5, 10, 15, 20, 25, 30][(cyc - 1) % 6]]; return { ...b, hp: b.hp + 3 * cyc, name: b.name }; }
   return null;
 }
 
@@ -2141,7 +2297,6 @@ function award(base, kind, obj, x, y, generated = false) {
   }
   if (!generated && has('gammaform') && (cls === 'glance' || cls === 'rattle')) cls = 'hit'; // Immortal Hulk breaks the collision rules
   if (cls === 'hit') { if (S.lastHit && S.lastHit !== obj && S.comboT > 0) S.combo = Math.min(S.combo + 1, has('webmaster') ? 30 : 20); S.lastHit = obj; S.comboT = 2; }
-  if (cls === 'hit' && has('tailwind') && (kind === 'ramp' || kind === 'orbit')) { S.combo = Math.min(S.combo + T('tailwind', 1, 2, 3), has('webmaster') ? 30 : 20); S.comboT = 2; }
   if (curBall && curBall.fakeReal && !generated) { if (x != null && Math.random() < .5) popups.push({ x, y, text: 'fake!', t: 0, small: true, c: '#7dffb0' }); return; }
   const B = S.boss && !S.boss.defeated ? S.boss : null;
   if (B && !generated && obj && B.illusions.has(obj)) { // Loki: illusions score nothing and break your streak
@@ -2179,7 +2334,7 @@ function award(base, kind, obj, x, y, generated = false) {
 const WORD = 'MULTIVERSE';
 function shot(name, x, y) {
   Bus.emit('shot', { name }); cardsShot(name);
-  S.letters++;
+  S.letters++; pieceShot(name);
   if (S.letters >= WORD.length) { S.letters = 0; award(3000, 'word', WORD, 270, 700); msg('MULTIVERSE COMPLETE!', 3); S.saveT = Math.max(S.saveT, 10); tone(440, .4, 'square', .07, 1760); }
   if (name === S.hot && has('mind')) { const B = S.boss && !S.boss.defeated ? S.boss : null; setTimeout(() => { if (B && !B.defeated) bossHit(enemy, null); else if (!B) { S.enemyHp = Math.max(1, S.enemyHp - 1); } }, 200); }
   if (name === S.hot) { award(has('mind') ? 4500 : 1500, 'hotshot', SHOTS[name], x, y - 26); msg('HOT SHOT! ' + SHOTS[name].label); tone(990, .1, 'square', .07, 1480); pickHot(); }
@@ -2193,19 +2348,19 @@ function onHit(obj, impact, b) { S.impact = impact; try { onHit0(obj, impact, b)
 function onHit0(obj, impact, b) {
   Bus.emit('hit', { kind: obj.kind, obj, ball: b, impact, generated: false });
   switch (obj.kind) {
-    case 'bumper': obj.flash = 1; award(obj.pts, 'bumper', obj, obj.x, obj.y - 36); tone(480 + Math.random() * 60, .07, 'square', .06, 820); bumperExtras(obj, b); break;
-    case 'sling': { const now = performance.now(); if (impact < 140 || obj.cd > now) break; obj.cd = now + 150; obj.flash = 1; award(obj.pts, 'sling', obj, b.x, b.y - 18); cardsSling(obj, b);
+    case 'bumper': obj.flash = 1; award(obj.pts, 'bumper', obj, obj.x, obj.y - 36); tone(480 + Math.random() * 60, .07, 'square', .06, 820); bumperExtras(obj, b); pieceHit(obj, b); break;
+    case 'sling': { const now = performance.now(); if (impact < 140 || obj.cd > now) break; obj.cd = now + 150; obj.flash = 1; award(obj.pts, 'sling', obj, b.x, b.y - 18); cardsSling(obj, b); pieceHit(obj, b);
       if (has('shield')) { S.combo = Math.min(20, S.combo + 2); S.comboT = 2; }
       if (evo('wakanda')) kinetic(b);
       if (syn('ricochet')) { const tg = [enemy, ...mainBumpers()][Math.random() * 4 | 0], tx = tg === enemy ? plateXY(enemy)[0] : tg.x, ty = tg === enemy ? plateXY(enemy)[1] + 12 : tg.y, dx = tx - b.x, dy = ty - b.y, d = hyp(dx, dy) || 1, sp = Math.max(1350, hyp(b.vx, b.vy)); b.vx = dx / d * sp; b.vy = dy / d * sp; fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: tx, y2: ty, t: 0, life: .2, c: '120,180,255' }); } tone(280, .05, 'square', .05, 460); break; }
     case 'drop':
-      obj.down = true; TGC = null; award(obj.pts, 'drop', obj, 110, obj.y1 + 18); destroyed(obj); tone(220, .08, 'triangle', .09, 150);
+      obj.down = true; TGC = null; award(obj.pts, 'drop', obj, 110, obj.y1 + 18); destroyed(obj); pieceHit(obj, b); tone(220, .08, 'triangle', .09, 150);
       if (drops.every(d => d.down)) { award(2000, 'bank', drops, 130, 430); msg('DROP BANK CLEARED'); addWorm(3); shot('drops', 110, 440); setTimeout(() => { drops.forEach(d => d.down = false); TGC = null; }, 900); }
       break;
     case 'enemy':
       if (obj.lastNy < .5) { tone(140, .04, 'square', .04); break; } // hit from behind: no damage
       { const now = performance.now(); if (obj.cd > now) break; obj.cd = now + 150; }
-      if (S.boss && !S.boss.defeated) { bossHit(obj, b); break; }
+      if (S.boss && !S.boss.defeated) { if (S.boss.id === 'doom' && b && hyp(b.vx, b.vy) < 850 && !(S.snapT > 0)) { obj.flash = .5; popups.push({ x: 280, y: 400, text: 'DEFLECTED · HIT HARDER', t: 0, small: true, c: '#7dffb0' }); tone(260, .08, 'square', .04, 520); break; } bossHit(obj, b); break; }
       obj.flash = 1; S.enemyHp--; award(200, 'enemy', obj, 280, 412); tone(200, .12, 'sawtooth', .07, 90);
       if (S.enemyHp <= 0) {
         award(2500, 'enemyDown', obj, 280, 390); msg('ENEMY DEFEATED!', 2.5); destroyed(obj); shot('enemy', 280, 400);
@@ -2220,7 +2375,7 @@ function onHit0(obj, impact, b) {
       break;
     }
     case 'standup':
-      obj.flash = 1; obj.lit = true; award(obj.pts, 'standup', obj, 440, obj.y1 + 16); tone(700, .06, 'triangle', .07, 520);
+      obj.flash = 1; obj.lit = true; award(obj.pts, 'standup', obj, 440, obj.y1 + 16); tone(700, .06, 'triangle', .07, 520); pieceHit(obj, b);
       if (standups.every(s => s.lit)) { award(1500, 'standups', standups, 430, 380); S.saucer2x = true; msg('SAUCER 2X LIT'); shot('standups', 430, 400); setTimeout(() => standups.forEach(s => s.lit = false), 600); }
       break;
     default: if (impact > 380) tone(110, .03, 'sine', .03);
@@ -2239,6 +2394,7 @@ topLanes.forEach(l => line(l.x - 14, l.x + 14, 135, () => {
 }));
 lowLanes.forEach((l, i) => line(l.x1, l.x2, 700, (b, dir) => {
   if (dir < 0) return;
+  if (has('outlaw') && hyp(b.vx, b.vy) > 700 && isReal(b)) { award(T('outlaw', 400, 600, 900), 'outlaw', l, l.x, 650, true); pop(l.x, 630, 'OUTLAW', '#ffe08a'); }
   if (!l.lit) { l.lit = true; award(100, 'rollover', l, l.x, 680); tone(760, .05, 'sine', .05); }
   if (l.out && S.outSave && prot()) { b.saved = true; S.outSave = false; rescue('outlane', b); msg('OUTLANE SAVE · BALL SAVED', 2.5); popups.push({ x: l.x < 270 ? 80 : 460, y: 720, text: 'BALL SAVED', t: 0, big: true, c: '#ff8a8a' }); }
   if (lowLanes.every(q => q.lit)) { award(1000, 'rollovers', lowLanes, 270, 680); S.outSave = true; msg('OUTLANE SAVE LIT'); setTimeout(() => lowLanes.forEach(q => q.lit = false), 500); }
@@ -2351,12 +2507,12 @@ function physics(dt) {
       for (const t of stars) {
         const d = hyp(b.x - t.x, b.y - t.y), key = 'st' + t.x + '_' + t.y;
         if (d < 11 && !b[key]) {
-          b[key] = true; t.flash = 1; t.lit = true; award(10, 'star', t, null); tone(1800, .03, 'sine', .04);
+          b[key] = true; t.flash = 1; t.lit = true; award(10, 'star', t, null); starCard(t); tone(1800, .03, 'sine', .04);
           if (stars.every(q => q.lit)) { award(1000, 'stars', stars, 280, 330); msg('ALL STARS LIT'); setTimeout(() => stars.forEach(q => q.lit = false), 500); }
         } else if (d > 16) b[key] = false;
       }
       for (const f of flippers) collideFlipper(b, f);
-      if ((has('portals') || S.tempPortalT > 0 || syn('sanctum5')) && !(b.portCd > 0)) for (let pi = 0; pi < 2; pi++) {
+      if ((has('portals') || has('nzgate') || S.tempPortalT > 0 || syn('sanctum5')) && !(b.portCd > 0)) for (let pi = 0; pi < 2; pi++) {
         const P = PORTALS[pi], Q = PORTALS[1 - pi];
         if (hyp(b.x - P[0], b.y - P[1]) < 14) {
           b.x = Q[0] + Math.sign(b.vx || 1) * 2; b.y = Q[1]; b.portCd = .7; S.portalT = T('portals', 3, 4, 5) || 3; cardsPortal(b, Q);
@@ -2477,9 +2633,9 @@ function ballLost() {
   if (S.balls > 0) { S.ballNo++; msg('BALL ' + S.ballNo); setTimeout(() => { if (S.phase === 'play') serveBall(); }, 800); }
   else { S.phase = 'over'; msg('GAME OVER'); stopMusic(.5); showOver(); }
 }
-function levelClear() { stopMusic(.5); S.phase = 'clear'; balls = []; Bus.emit('levelClear', { level: S.level }); msg('LEVEL CLEARED'); const interest = Math.min(5, Math.floor(S.credits / 10)); let earned = 12 + S.balls * 6 + 6 * has('reserve') + interest; S.reroll = 5; const vb = S.boss ? S.boss.id : null; if (S.boss && S.boss.defeated) earned += 20;
+function levelClear() { stopMusic(.5); S.phase = 'clear'; balls = []; Bus.emit('levelClear', { level: S.level }); msg('LEVEL CLEARED'); const interest = Math.min(10, Math.floor(S.credits / 8)); let earned = 20 + S.balls * 8 + 6 * has('reserve') + 25 * has('latverian') + interest; S.reroll = 5; const vb = S.boss ? S.boss.id : null; if (S.boss && S.boss.defeated) earned += 35;
   earned = Math.ceil(earned * (1 + T('magnet', .1, .2, .3))); const repaid = Math.min(S.debt || 0, earned); S.debt = (S.debt || 0) - repaid; S.credits += earned - repaid; S.repaid = repaid; S.interest = interest; S.bossWon = !!(S.boss && S.boss.defeated);
-  if (S.boss && S.boss.id === 'thanos' && !S.endless) { lastEarned = earned; showVictory(); return; }
+  if (S.boss && S.boss.id === 'doom' && S.level === 30 && !S.endless) { lastEarned = earned; showVictory(); return; }
   draft = vb ? UPGRADES.filter(u => u.boss === vb && !has(u.id)) : rollDraft();
   if (vb) { const st = UPGRADES.filter(u => u.cat === 'Infinity Stone' && !has(u.id)); if (st.length) draft.push(st[Math.random() * st.length | 0]); } if (vb && !draft.length) draft = rollDraft(); S.artifactDraft = !!vb; showClear(earned); }
 
@@ -2532,7 +2688,7 @@ const sfx = {
   // a synthesized "augh!": buzzy vocal source through vowel formants gliding from "ah" to "uh", with a throaty tail
   augh(id) {
     if (!AC || muted) return;
-    const t = AC.currentTime, d = id === 'thanos' ? .7 : .5, robot = id === 'ultron', f0 = { loki: 175, ultron: 118, magneto: 140, thanos: 92 }[id] || 150;
+    const t = AC.currentTime, d = id === 'thanos' ? .7 : .5, robot = id === 'ultron', f0 = { loki: 175, ultron: 118, magneto: 140, thanos: 92, annihilus: 160, doom: 100 }[id] || 150;
     const o = AC.createOscillator(); o.type = robot ? 'square' : 'sawtooth';
     o.frequency.setValueAtTime(f0 * 1.3, t); o.frequency.exponentialRampToValueAtTime(f0, t + .07); o.frequency.exponentialRampToValueAtTime(f0 * .6, t + d);
     const out = AC.createGain(); out.gain.setValueAtTime(.0001, t); out.gain.exponentialRampToValueAtTime(.3, t + .03); out.gain.setValueAtTime(.26, t + d * .55); out.gain.exponentialRampToValueAtTime(.0001, t + d);
@@ -2561,6 +2717,8 @@ const MUSIC = {
   loki: { bpm: 132, root: 82.41, bass: [0, 0, 12, 0, 3, 0, 11, 7], lead: [24, 27, 31, 36, 35, 31, 27, 24, 24, 27, 31, 34, 35, 31, 27, 23], leadType: 'triangle', vib: 6 },
   magneto: { bpm: 112, root: 55, bass: [0, 0, 6, 0, 0, 0, 5, 7], lead: [24, 25, 30, 25, 24, 18, 19, 24, 24, 25, 30, 31, 30, 25, 24, 18], leadType: 'sawtooth', vib: 3 },
   thanos: { bpm: 88, root: 49, bass: [0, 0, 0, 3, 0, 0, 10, 8], lead: [19, 22, 24, 27, 26, 24, 22, 19, 17, 19, 22, 24, 22, 19, 17, 15], leadType: 'sawtooth', vib: 4, hats: true },
+  annihilus: { bpm: 140, root: 58.27, bass: [0, 0, 1, 0, 6, 0, 1, 11], lead: [24, 25, 30, 24, 25, 31, 30, 25, 24, 25, 30, 36, 35, 31, 30, 25], leadType: 'square', vib: 7, hats: true },
+  doom: { bpm: 96, root: 46.25, bass: [0, 0, 7, 0, 8, 0, 7, 3], lead: [24, 27, 31, 32, 31, 27, 26, 24, 24, 27, 31, 35, 36, 35, 31, 27], leadType: 'sawtooth', vib: 5, hats: true },
   ultron: { bpm: 150, root: 65.41, bass: [0, 0, 1, 0, 0, 12, -2, 0], lead: [12, 13, 12, 8, 12, 13, 15, 13, 12, 13, 12, 8, 7, 8, 10, 8], leadType: 'square', vib: 0, hats: true },
 };
 let music = null;
@@ -2938,8 +3096,15 @@ function drawFlipper(f) {
 function drawBall(b) {
   const R0 = R; R = b.giantT > 0 ? 15 : b.rad || 10;
   if (b.illu || b.spectral) ctx.globalAlpha = .5;
+  if (b.radT > 0) { ctx.save(); ctx.strokeStyle = `rgba(108,255,90,${.35 + .25 * Math.sin(performance.now() / 70)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(b.x, b.y, R + 4, 0, TAU); ctx.stroke(); ctx.restore(); }
   if (b.giantT > 0 || (S.heatOn && isReal(b))) { ctx.save(); ctx.shadowColor = b.giantT > 0 ? '#6cff5a' : '#ff7a2e'; ctx.shadowBlur = 22; ctx.fillStyle = b.giantT > 0 ? 'rgba(108,255,90,.35)' : 'rgba(255,120,40,.4)'; ctx.beginPath(); ctx.arc(b.x, b.y, R + 5, 0, TAU); ctx.fill(); ctx.restore(); }
+  { const v2 = b.vx * b.vx + b.vy * b.vy; if (v2 > 850 * 850 && !b.captured) { const v = Math.sqrt(v2), k = Math.min(1, (v - 850) / 900), L = .028 * v, ux = b.vx / v, uy = b.vy / v;
+    const g = ctx.createLinearGradient(b.x, b.y, b.x - ux * L, b.y - uy * L); g.addColorStop(0, `rgba(215,235,255,${.5 * k})`); g.addColorStop(1, 'rgba(215,235,255,0)');
+    ctx.save(); ctx.strokeStyle = g; ctx.lineCap = 'round'; ctx.lineWidth = R * 1.6; ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x - ux * L, b.y - uy * L); ctx.stroke(); ctx.restore(); } }
   drawBall0(b);
+  if (b.fakeReal) { // Loki's illusion: deep emerald with a flickering gold rim (the reward ghost balls are pale mint)
+    const k = .5 + .5 * Math.sin(performance.now() / 90); ctx.save(); ctx.fillStyle = 'rgba(12,110,48,.62)'; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill();
+    ctx.strokeStyle = `rgba(214,178,60,${.45 + .4 * k})`; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(b.x, b.y, R + 1.5, 0, TAU); ctx.stroke(); ctx.restore(); }
   if ((b.temp && !b.fakeReal) || b.spectral || b.venom) { ctx.save(); ctx.globalAlpha = b.spectral ? .45 : 1; ctx.fillStyle = b.spectral ? 'rgba(210,235,255,.6)' : b.venom ? 'rgba(10,10,20,.45)' : b.illu ? 'rgba(255,120,220,.4)' : 'rgba(90,210,255,.38)'; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill(); ctx.restore(); }
   ctx.globalAlpha = 1; R = R0;
 }
@@ -2960,7 +3125,7 @@ function drawBall0(b) {
 function render(dt) {
   // boss mood: the playfield takes the villain's colour, the page background follows, hits shake the cabinet
   { const B = S.boss && !S.boss.defeated ? S.boss : null;
-    const E = evoTheme(), tgt = !B ? (E ? [...E.c, S.odT > 0 || S.bifT > 0 ? .5 : .32] : [0, 0, 0, 0]) : B.id === 'magneto' ? (B.pol > 0 ? [230, 70, 255, .55] : [120, 80, 255, .55]) : B.id === 'thanos' ? (B.snapT > 0 ? [255, 190, 60, .75] : [150, 80, 220, .55]) : B.id === 'loki' ? (B.exposedT > 0 ? [255, 205, 70, .5] : [40, 235, 120, .55]) : (B.charge > 0 ? [255, 30, 30, .75] : [255, 40, 50, .5]);
+    const E = evoTheme(), tgt = !B ? (E ? [...E.c, S.odT > 0 || S.bifT > 0 ? .5 : .32] : [0, 0, 0, 0]) : B.id === 'magneto' ? (B.pol > 0 ? [230, 70, 255, .55] : [120, 80, 255, .55]) : B.id === 'thanos' ? (B.snapT > 0 ? [255, 190, 60, .75] : [150, 80, 220, .55]) : B.id === 'loki' ? (B.exposedT > 0 ? [255, 205, 70, .5] : [40, 235, 120, .55]) : B.id === 'annihilus' ? [255, 100, 25, .6] : B.id === 'doom' ? [50, 200, 110, .55] : (B.charge > 0 ? [255, 30, 30, .75] : [255, 40, 50, .5]);
     S.tintTgt = tgt; const T = S.tint ||= [0, 0, 0, 0]; for (let i = 0; i < 4; i++) T[i] += (tgt[i] - T[i]) * Math.min(1, dt * 3);
     S.pulse = Math.max(0, (S.pulse || 0) - dt * 2); S.shake = Math.max(0, (S.shake || 0) - dt * 3);
     const q = v => Math.round(v / 16) * 16, bg = `rgb(${q(T[0]) * .12 | 0},${q(T[1]) * .12 | 0},${(q(T[2]) * .12 + 20) | 0})`; // quantised so the page background is not rewritten every frame
@@ -2968,6 +3133,7 @@ function render(dt) {
   }
   const shk = (S.shake || 0) * 5;
   ctx.setTransform(k * dpr, 0, 0, k * dpr, (Math.random() - .5) * shk * k * dpr, (Math.random() - .5) * shk * k * dpr);
+  if (S.bfx && S.bfx.mirrorview > 0) { ctx.translate(W, 0); ctx.scale(-1, 1); }
   if (table) { // the tinted table is painted once per target colour; changes crossfade between the old and new layer
     const tg = S.tintTgt || [0, 0, 0, 0], key = tg[3] > .01 ? tg.map(v => Math.round(v * 100)).join() : '';
     if (key !== TL.key) {
@@ -3060,11 +3226,11 @@ function render(dt) {
     if (!real) ctx.globalAlpha = .82 + Math.sin(t * 9 + cx) * .12;
     ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(x0 + 5, y0 + 7, w, h);
     const g = ctx.createLinearGradient(0, y0, 0, y0 + h);
-    const LOOK = { loki: ['#1e6b3e', '#0b2a18'], ultron: ['#5a5f6e', '#1a1c24'], magneto: ['#7a1f86', '#2a0833'], thanos: ['#6b4a8c', '#241436'] }, lk = Bo ? LOOK[Bo.id] : ['#7a1a8c', '#2a0833'], top = lk[0], bot = lk[1];
+    const LOOK = { loki: ['#1e6b3e', '#0b2a18'], ultron: ['#5a5f6e', '#1a1c24'], magneto: ['#7a1f86', '#2a0833'], thanos: ['#6b4a8c', '#241436'], annihilus: ['#6b3410', '#1e0b02'], doom: ['#5d6472', '#1c3a24'] }, lk = Bo ? LOOK[Bo.id] : ['#7a1a8c', '#2a0833'], top = lk[0], bot = lk[1];
     g.addColorStop(0, sg.flash > .2 ? '#ffffff' : top); g.addColorStop(1, sg.flash > .2 ? '#ff9a9a' : bot);
     ctx.beginPath(); ctx.roundRect(x0, y0, w, h, 5); ctx.fillStyle = g; ctx.fill(); ctx.strokeStyle = '#c9ced9'; ctx.lineWidth = 1.5; ctx.stroke();
     // eyes: real Loki's eyes are gold, decoys' flicker green
-    const eye = !Bo ? '#ff3b3b' : Bo.id === 'loki' ? (real ? '#ffd24a' : (Math.sin(t * 14 + cx) > 0 ? '#46e08a' : '#2a8a55')) : Bo.id === 'magneto' ? '#ff7ae6' : Bo.id === 'thanos' ? '#ffb52e' : '#ff2a2a';
+    const eye = !Bo ? '#ff3b3b' : Bo.id === 'loki' ? (real ? '#ffd24a' : (Math.sin(t * 14 + cx) > 0 ? '#46e08a' : '#2a8a55')) : Bo.id === 'magneto' ? '#ff7ae6' : Bo.id === 'thanos' ? '#ffb52e' : Bo.id === 'annihilus' ? '#b8ff3a' : Bo.id === 'doom' ? '#7dffb0' : '#ff2a2a';
     ctx.fillStyle = eye; ctx.shadowColor = eye; ctx.shadowBlur = 9;
     ctx.beginPath(); ctx.moveTo(x0 + 16, y0 + 7); ctx.lineTo(x0 + 27, y0 + 10); ctx.lineTo(x0 + 17, y0 + 12); ctx.closePath(); ctx.fill();
     ctx.beginPath(); ctx.moveTo(x0 + 44, y0 + 7); ctx.lineTo(x0 + 33, y0 + 10); ctx.lineTo(x0 + 43, y0 + 12); ctx.closePath(); ctx.fill(); ctx.shadowBlur = 0;
@@ -3155,18 +3321,19 @@ function render(dt) {
   for (const b of balls) if (b.layer === 1) drawBall(b);
 
   // Sanctum portals: rotating orange rings
-  if (has('portals') || S.tempPortalT > 0 || syn('sanctum5')) for (const [x, y] of PORTALS) {
+  if (has('portals') || has('nzgate') || S.tempPortalT > 0 || syn('sanctum5')) for (const [x, y] of PORTALS) {
     const t = performance.now() / 1000; ctx.save(); ctx.translate(x, y); ctx.shadowColor = '#ff9a2e'; ctx.shadowBlur = 16;
     const g = ctx.createRadialGradient(0, 0, 2, 0, 0, 18); g.addColorStop(0, 'rgba(10,4,0,.95)'); g.addColorStop(1, 'rgba(255,140,30,.15)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 18, 0, TAU); ctx.fill();
     for (const [r, sp, dash] of [[18, 1.6, [5, 4]], [13, -2.4, [3, 3]], [22, .9, [2, 6]]]) { ctx.save(); ctx.rotate(t * sp); ctx.setLineDash(dash); ctx.strokeStyle = S.portalT > 0 ? '#ffe0a0' : '#ff9a2e'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.stroke(); ctx.restore(); }
     ctx.restore();
   }
-  drawEvoOver(dt); drawCardsOver(dt); if (S.boss || S.bfx) drawBossAttacks();
+  drawEvoOver(dt); drawCardsOver(dt); if (S.boss || S.bfx) { drawBossAttacks(); drawBossAttacks2(); drawBlackout(); }
   // upgrade effects
   fx = fx.filter(e => (e.t += dt) < e.life); if (fx.length > 60) fx = fx.slice(-60);
   for (const e of fx) {
     const a = 1 - e.t / e.life;
     ctx.save();
+    if (e.type === 'constel') { ctx.strokeStyle = `rgba(200,225,255,${a})`; ctx.lineWidth = 2.5; ctx.shadowColor = '#9fd8ff'; ctx.shadowBlur = 14; ctx.beginPath(); e.pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.stroke(); for (const [x, y] of e.pts) { ctx.beginPath(); ctx.arc(x, y, 6 + 10 * (1 - a), 0, TAU); ctx.stroke(); } }
     if (e.type === 'ring') { ctx.strokeStyle = `rgba(${e.c},${a})`; ctx.lineWidth = e.big ? 6 : 3; ctx.shadowColor = `rgba(${e.c},1)`; ctx.shadowBlur = 16; ctx.beginPath(); ctx.arc(e.x, e.y, (e.big ? 40 : 12) + (e.big ? 420 : 50) * (e.t / e.life), 0, TAU); ctx.stroke(); }
     else if (e.type === 'beam') { ctx.strokeStyle = e.c ? `rgba(${e.c},${a})` : `rgba(200,250,255,${a})`; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 18; ctx.lineWidth = 5 * a + 1; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(e.x1, e.y1); ctx.lineTo(e.x2, e.y2); ctx.stroke(); }
     else if (e.type === 'bolt') {
@@ -3190,12 +3357,12 @@ function render(dt) {
   if (S.banner) { // synergy discovered banner
     const B = S.banner; B.t += dt; const a = Math.min(1, B.t * 4, (B.life - B.t) * 2);
     if (B.t >= B.life) S.banner = null; else {
-      ctx.save(); ctx.globalAlpha = Math.max(0, a); const y = 300;
-      ctx.fillStyle = 'rgba(10,8,20,.88)'; ctx.fillRect(40, y - 60, 480, 128); ctx.strokeStyle = B.c || '#f5c542'; ctx.lineWidth = 3; ctx.strokeRect(40, y - 60, 480, 128);
-      ctx.textAlign = 'center'; ctx.fillStyle = '#9fe6ff'; ctx.font = '600 13px ' + FONT_B; ctx.fillText(B.tag, W / 2, y - 36);
-      ctx.fillStyle = '#f5c542'; ctx.font = '38px ' + FONT_D; ctx.shadowColor = '#e5383b'; ctx.shadowOffsetX = 3; ctx.shadowOffsetY = 3; ctx.fillText(B.title.toUpperCase(), W / 2, y + 4); ctx.shadowColor = 'transparent';
-      ctx.fillStyle = '#e9ecf5'; ctx.font = '15px ' + FONT_B;
-      const words = B.sub.split(' '); let line = '', ly = y + 30; for (const w of words) { if (ctx.measureText(line + w).width > 440) { ctx.fillText(line, W / 2, ly); line = ''; ly += 18; } line += w + ' '; } ctx.fillText(line, W / 2, ly);
+      ctx.save(); ctx.globalAlpha = Math.max(0, a); const x = 30, y = 44; // small, borderless, top-left
+      ctx.textAlign = 'left'; ctx.shadowColor = 'rgba(0,0,0,.95)'; ctx.shadowBlur = 4; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1;
+      ctx.fillStyle = '#9fe6ff'; ctx.font = '600 10px ' + FONT_B; ctx.fillText(B.tag, x, y);
+      ctx.fillStyle = B.c || '#f5c542'; ctx.font = '17px ' + FONT_D; ctx.fillText(B.title.toUpperCase(), x, y + 18);
+      ctx.fillStyle = '#e9ecf5'; ctx.font = '11px ' + FONT_B;
+      const words = B.sub.split(' '); let line = '', ly = y + 32; for (const w of words) { if (ctx.measureText(line + w).width > 230) { ctx.fillText(line, x, ly); line = ''; ly += 13; } line += w + ' '; } ctx.fillText(line, x, ly);
       ctx.restore();
     }
   }
@@ -3250,16 +3417,16 @@ function showClear(earned = lastEarned) {
   lastEarned = earned; card.classList.remove('shop'); ov.classList.remove('full');
   card.classList.add('wide'); ov.hidden = false;
   card.innerHTML = `<h2>Level ${S.level} cleared</h2>
-    <div class="stat"><span>Score ${fmt(S.score)} · balls left ${S.balls}</span><span>+${earned} credits</span></div>${S.interest || S.repaid ? `<p class="eyebrow" style="text-transform:none;letter-spacing:.02em">${S.interest ? 'Includes +' + S.interest + ' interest (1 per 10 held, max 5). ' : ''}${S.repaid ? S.repaid + ' went to paying off debt.' : ''}</p>` : ''}${shopAfter(S.level) ? '<p class="eyebrow" style="color:#ffcf7a">The Collector\'s Emporium opens after this pick</p>' : ''}
+    <div class="stat"><span>Score ${fmt(S.score)} · balls left ${S.balls}</span><span>+${earned} credits</span></div>${S.interest || S.repaid ? `<p class="eyebrow" style="text-transform:none;letter-spacing:.02em">${S.interest ? 'Includes +' + S.interest + ' interest (1 per 8 held, max 10). ' : ''}${S.repaid ? S.repaid + ' went to paying off debt.' : ''}</p>` : ''}${shopAfter(S.level) ? '<p class="eyebrow" style="color:#ffcf7a">The Collector\'s Emporium opens after this pick</p>' : ''}
     ${S.artifactDraft ? `<p class="eyebrow">${S.bossWon ? 'Villain defeated (+20 credits) · claim one of their artifacts' : 'You survived the villain · claim one of their artifacts'}</p>` : ''}
     <div class="draft">${draft.map((u, i) => `<button class="upg${famsOf(u).length ? ' fam' : ''}" type="button" data-i="${i}" style="--rc:${RAR[u.r].c};${famPaint(u)}">
       ${u.slotLabel && !S.artifactDraft ? `<span class="slotlab s-${u.slotLabel.toLowerCase()}">${u.slotLabel}</span>` : ''}<span class="tag"><span>${RAR[u.r].n}</span></span>
       <span class="paint"><span class="nm">${has(u.id) && u.up ? nameFor(u, has(u.id) + 1) : u.name}</span><span class="ds">${descFor(u, u.up ? has(u.id) + 1 : 1)}</span>${famChips(u)}${previewHtml(u)}${u.r === 'keystone' && keystone() && keystone() !== u ? `<span class="own" style="color:#2ee6c8">Replaces your keystone: ${keystone().name}</span>` : ''}${evoHint(u)}${has(u.id) ? `<span class="own">${u.up ? 'Upgrade: tier ' + has(u.id) + ' → ' + (has(u.id) + 1) : 'Owned ×' + has(u.id) + ' · stacks'}</span>` : ''}${needsSlot(u) && slotsUsed() >= SLOTS ? '<span class="own" style="color:#ff8a8a">Build full: remove a card in the shop first</span>' : ''}</span></button>`).join('')}</div>
     <p class="eyebrow" style="text-transform:none;letter-spacing:.02em">Odds this level: ${Object.entries(rarityWeights(S.level)).filter(([, v]) => v > 0).map(([k, v]) => `<span style="color:${RAR[k].c}">${RAR[k].n} ${v}%</span>`).join(' · ')}</p>
-    <div class="draft-foot"><button class="ghost" id="codexBtn2" type="button">Codex</button>${slotsUsed() >= SLOTS ? '<button class="ghost" id="skipDraft" type="button">Skip reward</button>' : ''}<span class="keyhint">← → choose · Space take · R reroll</span><button class="ghost gold" id="reroll" type="button" ${S.credits < S.reroll && !S.freeReroll ? 'disabled' : ''}>${S.freeReroll ? 'Reroll (token: free)' : 'Reroll (costs ' + S.reroll + ')'}</button><span class="wallet">Credits <b>${S.credits}</b></span></div>`;
+    <div class="draft-foot"><button class="ghost" id="codexBtn2" type="button">Codex</button><button class="ghost" id="skipDraft" type="button">Pass (+${PASS_CR} credits)</button><span class="keyhint">← → choose · Space take · R reroll · P pass</span><button class="ghost gold" id="reroll" type="button" ${S.credits < S.reroll && !S.freeReroll ? 'disabled' : ''}>${S.freeReroll ? 'Reroll (token: free)' : 'Reroll (costs ' + S.reroll + ')'}</button><span class="wallet">Credits <b>${S.credits}</b></span></div>`;
   card.querySelectorAll('.upg').forEach(el => el.onclick = () => { audioInit(); take(draft[+el.dataset.i]); });
   $('codexBtn2').onclick = () => showCodex(() => showClear());
-  if ($('skipDraft')) $('skipDraft').onclick = () => afterDraft();
+  if ($('skipDraft')) $('skipDraft').onclick = () => { S.credits += PASS_CR; tone(1400, .08, 'square', .05, 2000); afterDraft(); };
   $('reroll').onclick = () => { if (S.freeReroll) S.freeReroll--; else { if (S.credits < S.reroll) return; S.credits -= S.reroll; S.reroll += 5; } draft = S.artifactDraft ? UPGRADES.filter(u => u.boss === S.boss.id && !has(u.id)).sort(() => Math.random() - .5) : rollDraft(); if (!draft.length) { draft = rollDraft(); S.artifactDraft = false; } renderInv(); showClear(); };
   const first = card.querySelector('.upg'); if (first) first.focus({ preventScroll: true });
   renderInv();
@@ -3274,12 +3441,12 @@ function showVictory() {
   stopMusic(.3); sfx.victory();
   const build = UPGRADES.filter(u => has(u.id)).map(u => u.name + (has(u.id) > 1 ? ' ×' + has(u.id) : '')).join(', ') || 'no upgrades';
   card.classList.remove('wide'); ov.hidden = false;
-  card.innerHTML = `<p class="eyebrow">Level 20 cleared${S.bossWon ? ' · Thanos defeated' : ''}</p><h2>The multiverse is saved</h2>
+  card.innerHTML = `<p class="eyebrow">Level 30 cleared${S.bossWon ? ' · Doctor Doom defeated' : ''}</p><h2>The multiverse is saved</h2>
     <p>Your build: ${build}.</p>
     <div class="stat"><span>Final score</span><span>${fmt(S.score)}</span></div>
     <p>Keep going in endless mode: targets climb faster and the villains return every 5 levels, tougher each time. You'll draft first.</p>
     <button class="btn" id="endless" type="button">Enter endless mode</button><button class="ghost" id="again" type="button">New run</button>`;
-  $('endless').onclick = () => { audioInit(); S.endless = true; draft = UPGRADES.filter(u => u.boss === 'thanos' && !has(u.id)); if (!draft.length) draft = rollDraft(); S.artifactDraft = true; showClear(lastEarned); };
+  $('endless').onclick = () => { audioInit(); S.endless = true; draft = UPGRADES.filter(u => u.boss === 'doom' && !has(u.id)); if (!draft.length) draft = rollDraft(); S.artifactDraft = true; showClear(lastEarned); };
   $('again').onclick = () => { audioInit(); newRun(); };
   $('endless').focus({ preventScroll: true });
 }
@@ -3330,6 +3497,7 @@ function overlayKeys(e) {
     const el = cur || $('ovbtn');
     if (el && !e.repeat) { el.click(); e.preventDefault(); return true; }
   }
+  if (k === 'KeyP' && !e.repeat) { const p = $('skipDraft'); if (p && ov.contains(p)) { p.click(); e.preventDefault(); } return true; }
   if (k === 'KeyR' && !e.repeat) { const r = $('reroll') || card.querySelector('[data-act="reroll"]'); if (r && !r.disabled) { r.click(); e.preventDefault(); const f = card.querySelector('.upg:not(.sold)'); if (f) f.focus(); } return true; }
   return false;
 }
@@ -3392,10 +3560,14 @@ function frame(t) {
   }
   if (activePlay()) {
     const sdt = dt * (S.slowT > 0 ? .35 : 1) * (S.bfx && S.bfx.timeskip > 0 ? 1.4 : 1); if (S.slowT > 0) S.slowT -= dt;
-    acc += sdt;
-    const p0 = performance.now(); while (acc >= STEP) { const n = subSteps(); for (let i = 0; i < n; i++) physics(STEP / n); tick(STEP); acc -= STEP; } PERF.sim += performance.now() - p0;
+    // catch up in real time after slow frames (up to 0.12 s of game time per frame) so a frame-rate dip never turns into slow motion
+    acc += Math.min(.12, raw) * (sdt / dt || 1); let steps = 0;
+    const p0 = performance.now(); while (acc >= STEP && steps < 16) { for (const b of balls) { b.ix = b.x; b.iy = b.y; } const n = subSteps(); for (let i = 0; i < n; i++) physics(STEP / n); tick(STEP); acc -= STEP; steps++; } PERF.steps = (PERF.steps || 0) + steps; if (acc > STEP) { PERF.lost = (PERF.lost || 0) + acc; acc = 0; } PERF.sim += performance.now() - p0;
   } else acc = 0;
-  const p1 = performance.now(); render(S.phase === 'paused' ? 0 : dt); const p2 = performance.now(); PERF.draw += p2 - p1;
+  // render balls between the last two physics steps so fast balls glide instead of stuttering
+  const al = activePlay() ? Math.min(1, acc / STEP) : 1, sw = [];
+  for (const b of balls) if (b.ix != null && al < 1) { const dx = b.x - b.ix, dy = b.y - b.iy; if (dx * dx + dy * dy < 3600) { sw.push(b, b.x, b.y); b.x = b.ix + dx * al; b.y = b.iy + dy * al; } }
+  const p1 = performance.now(); try { render(S.phase === 'paused' ? 0 : dt); } finally { for (let i = 0; i < sw.length; i += 3) { sw[i].x = sw[i + 1]; sw[i].y = sw[i + 2]; } } const p2 = performance.now(); PERF.draw += p2 - p1;
   updateHud(dt); PERF.hud += performance.now() - p2; PERF.n++;
   requestAnimationFrame(frame);
 }
@@ -3420,7 +3592,7 @@ function simulate(sec, o = {}) {
   } finally { performance.now = realNow; window.setTimeout = realST; muted = wasMuted; flippers.forEach(f => f.on = false); }
   return { t: +(n * STEP).toFixed(1), pts: S.score - s0, ballsUsed: b0 - S.balls + (activePlay() ? 0 : 0), phase: S.phase, hits: S.hits };
 }
-window.MP.debug = { S, bossHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones };
+window.MP.debug = { S, bossHit, onHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones, physics, STEP, Bus, shot };
 resize();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTable);
 renderInv(); renderStones();
