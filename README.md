@@ -20,7 +20,7 @@ A roguelike pinball game in a single HTML file: draft superhero-inspired upgrade
 - Machine evolutions that re-theme the table
 - Infinity Stones with collection bonuses
 - Interactive bosses: Loki, Ultron, Magneto and Thanos
-- Shops run by four shopkeepers, plus special shop events
+- Shop
 
 ## Run locally
 Download `index.html` and open it in any browser. No build step and no dependencies.
