@@ -415,6 +415,7 @@ sling(105, 648, 100, 742, 162, 774);
 sling(435, 648, 440, 742, 378, 774);
 
 // targets
+const bifBar = seg(212, 890, 328, 890, { kind: 'bifrost', r: 4, e: .85, kick: 380, layer: 9 });
 const drops = [360, 400, 440].map((y, i) => seg(104, y, 104, y + 34, { kind: 'drop', r: 0, e: .3, down: false, pts: 250, n: i + 1 }));
 const standups = [322, 362, 402].map(y => seg(460, y, 460, y + 34, { kind: 'standup', r: 0, e: .35, pts: 300, flash: 0, lit: false }));
 const bumpers = [[253, 267, 20], [343, 267, 20], [298, 334, 20], [120, 165, 18], [160, 118, 18]].map(([x, y, r]) => ({ x, y, r, kick: r > 19 ? 520 : 480, kind: 'bumper', pts: r > 19 ? 100 : 75, flash: 0 }));
@@ -1003,17 +1004,17 @@ const EVOS = [
   { id: 'stark', need: ['arc', 'repulsor', 'smart'], name: 'Stark Tower', c: [255, 170, 60], hex: '#ffb347',
     desc: 'A repulsor drone patrols the playfield and blasts a target for 400 every 4 seconds. Every 25 hits the Arc Reactor overloads for 8 seconds: everything scores 2×, flippers swing harder and the drone fires every second.' },
   { id: 'wakanda', need: ['panther', 'vibrail', 'guard'], name: 'Wakandan Citadel', c: [170, 90, 255], hex: '#b58cff',
-    desc: 'Vibranium soaks up every impact. Bumper and slingshot hits charge the kinetic meter; when it is full it releases a shockwave: every bumper and standup fires for 500 and the Drain Guard recharges.' },
+    desc: 'The table is rebuilt in vibranium. Vibranium kickbacks rise in both outlanes and fire a draining ball back into play. Bumpers kick 20% harder. Bumper and slingshot hits charge the kinetic meter; when it is full a shockwave blasts every ball up the table, every bumper and standup fires for 500, both kickbacks re-arm and the Drain Guard recharges.' },
   { id: 'sanctum', need: ['portals', 'slingring', 'hex'], name: 'Sanctum Sanctorum', c: [255, 140, 40], hex: '#ff9a2e',
-    desc: 'The portals come loose and drift over the table. Every portal jump adds +0.25× to all scoring for the rest of the level, up to +3×.' },
+    desc: 'Reality bends: the three red bumpers leave their posts and orbit each other in a slow rune circle, spinning faster while a portal ×2 is active. The portals come loose and drift. Every portal jump adds +0.25× to all scoring for the rest of the level, up to +3×.' },
   { id: 'asgard', need: ['mjolnir', 'storm', 'bifrost'], name: 'Asgardian Forge', c: [90, 180, 255], hex: '#6fc3ff',
-    desc: 'The bumpers are electrified: every bumper hit arcs lightning to the nearest bumper for 150. Every 30 hits the Bifrost opens: everything scores 3× for 6 seconds.' },
+    desc: 'The bumpers are electrified: every bumper hit arcs lightning to the nearest bumper for 150. Every 30 hits the Bifrost opens for 6 seconds: everything scores 3× and a solid rainbow bridge spans the center drain, bouncing balls back into play for 300.' },
 ];
 const evo = id => S.evos && S.evos.has(id);
 const evoTheme = () => { let e = null; for (const E of EVOS) if (evo(E.id)) e = E.id === S.evoLast ? E : e || E; return e; };
 function checkEvos() {
   for (const E of EVOS) if (S.evos.has(E.id) && !E.need.every(has)) S.evos.delete(E.id);
-  for (const E of EVOS) if (!S.evos.has(E.id) && E.need.every(has)) { S.evos.add(E.id); S.evoLast = E.id; S.newSyn.push({ ...E, evo: true }); }
+  for (const E of EVOS) if (!S.evos.has(E.id) && E.need.every(has)) { S.evos.add(E.id); S.evoLast = E.id; if (E.id === 'wakanda') S.kbArm = [true, true]; S.newSyn.push({ ...E, evo: true }); }
 }
 function evoHint(u) {
   for (const E of EVOS) if (!evo(E.id) && E.need.includes(u.id) && !has(u.id)) {
@@ -1049,11 +1050,18 @@ function kinetic(b) {
   const tg = [...bumpers.filter(q => !q.pit).map(q => [q, q.x, q.y]), ...standups.map(q => [q, 466, q.y1 + 17])];
   tg.forEach(([o, x, y], i) => setTimeout(() => { o.flash = 1; award(500, 'kinetic', o, x, y - 28, true); fx.push({ type: 'ring', x, y, t: 0, life: .35, c: '190,120,255' }); }, 80 + i * 70));
   if (has('guard') && S.guardN) { S.guardN = 0; setTimeout(() => msg('DRAIN GUARD RECHARGED'), 900); }
+  S.kbArm = [true, true]; S.wave = 1;
+  for (const q of balls) if (!q.captured && q.layer === 0 && q.y > 300 && !inLane(q)) { q.vy = Math.min(q.vy, -1250 - Math.random() * 300); q.vx += (Math.random() - .5) * 300; }
 }
 function evoTick(dt) {
   if (S.odT > 0) S.odT = Math.max(0, S.odT - dt);
   if (S.bifT > 0) S.bifT = Math.max(0, S.bifT - dt);
   const t = performance.now() / 1000;
+  bifBar.layer = evo('asgard') && S.bifT > 0 ? 0 : 9;
+  if (evo('sanctum') && S.mad !== 'drift') { // the red bumpers orbit their shared centre
+    S.orbA = (S.orbA || 0) + dt * (S.portalT > 0 ? 1.4 : .35); const cx = 298, cy = 289, ca = Math.cos(S.orbA), sa = Math.sin(S.orbA);
+    mainBumpers().forEach(c => { const dx = c.bx - cx, dy = c.by - cy; c.x = cx + dx * ca - dy * sa; c.y = cy + dx * sa + dy * ca; });
+  } else if (S.orbA && S.mad !== 'drift') { S.orbA = 0; mainBumpers().forEach(c => { c.x = c.bx; c.y = c.by; }); }
   if (evo('sanctum')) PBASE.forEach(([x, y], i) => { PORTALS[i][0] = x + 14 * Math.cos(t * .6 + i * 2.1); PORTALS[i][1] = y + 20 * Math.sin(t * .85 + i * 1.3); });
   if (evo('stark') && S.phase === 'play') {
     const D = S.drone ||= { x: 280, y: 300 }; D.x = 280 + 150 * Math.sin(t * .55); D.y = 330 + 110 * Math.sin(t * 1.1 + 1); D.tilt = Math.cos(t * .55) * .35;
@@ -1090,6 +1098,26 @@ function drawEvoUnder(dt) {
     ctx.lineWidth = 6; ctx.strokeStyle = 'rgba(60,30,110,.8)'; ctx.beginPath(); ctx.arc(270, 910, 30, Math.PI, TAU); ctx.stroke();
     ctx.strokeStyle = k > .85 && Math.sin(t * 20) > 0 ? '#ffffff' : '#c79bff'; ctx.beginPath(); ctx.arc(270, 910, 30, Math.PI, Math.PI + Math.PI * k); ctx.stroke();
   }
+  if (evo('wakanda')) { // vibranium kickback pistons in both outlanes, violet bumper collars, the release shockwave
+    const K = S.kbArm || [false, false];
+    [[34, 0], [506, 1]].forEach(([x, i]) => { const on = K[i], f = S.kbFx && S.kbFx[0] === i ? S.kbFx[1] : 0, y = 772 - f * 30;
+      ctx.shadowColor = '#b58cff'; ctx.shadowBlur = on ? 16 : 0; ctx.fillStyle = on ? `rgba(199,155,255,${.7 + .3 * Math.sin(t * 6)})` : 'rgba(70,50,110,.8)';
+      ctx.beginPath(); ctx.moveTo(x - 11, y + 14); ctx.lineTo(x, y - 6); ctx.lineTo(x + 11, y + 14); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = on ? '#e8dcff' : '#3a2a5e'; ctx.fillRect(x - 3, y + 14, 6, 26); ctx.shadowBlur = 0; });
+    if (S.kbFx) { S.kbFx[1] -= dt * 4; if (S.kbFx[1] <= 0) S.kbFx = null; }
+    ctx.lineWidth = 3; ctx.strokeStyle = `rgba(190,130,255,${.5 + .3 * Math.sin(t * 3)})`; ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 10;
+    for (const c of mainBumpers()) { ctx.beginPath(); ctx.arc(c.x, c.y, c.r + 6, 0, TAU); ctx.stroke(); }
+    ctx.shadowBlur = 0;
+    if (S.wave) { S.wave = Math.max(0, S.wave - dt * .9); const r = (1 - S.wave) * 900; ctx.strokeStyle = `rgba(200,150,255,${S.wave})`; ctx.lineWidth = 10 * S.wave + 2; ctx.beginPath(); ctx.arc(270, 905, r, Math.PI, TAU); ctx.stroke(); }
+  }
+  if (evo('sanctum')) { // orbit track for the wandering bumpers
+    ctx.save(); ctx.shadowColor = '#ff9a2e'; ctx.shadowBlur = 8; ctx.strokeStyle = `rgba(255,160,60,${S.portalT > 0 ? .6 : .3})`; ctx.lineWidth = 2; ctx.setLineDash([4, 8]); ctx.lineDashOffset = -(S.orbA || 0) * 60;
+    ctx.beginPath(); ctx.arc(298, 289, 47, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.restore();
+  }
+  if (evo('asgard') && S.bifT > 0) { // the bridge over the drain
+    const cols = ['255,80,80', '255,170,60', '255,240,90', '90,230,120', '90,180,255', '170,110,255'], a = Math.min(1, S.bifT * 2);
+    ctx.save(); ctx.lineCap = 'round'; ctx.shadowBlur = 12; cols.forEach((c, i) => { ctx.strokeStyle = `rgba(${c},${.85 * a})`; ctx.shadowColor = `rgb(${c})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(212, 885 + i * 2); ctx.lineTo(328, 885 + i * 2); ctx.stroke(); }); ctx.restore();
+  }
   if (evo('sanctum')) { // rotating rune mandala
     ctx.shadowColor = '#ff9a2e'; ctx.shadowBlur = 10; ctx.strokeStyle = `rgba(255,160,60,${.35 + (S.portalT > 0 ? .4 : 0)})`; ctx.lineWidth = 1.5;
     ctx.save(); ctx.translate(280, 590);
@@ -1097,7 +1125,7 @@ function drawEvoUnder(dt) {
       for (let i = 0; i < 16; i++) { ctx.rotate(TAU / 16); ctx.beginPath(); ctx.moveTo(r - 4, -3); ctx.lineTo(r + 4, 0); ctx.lineTo(r - 4, 3); ctx.stroke(); } ctx.restore(); }
     ctx.save(); ctx.rotate(-t * .1); ctx.beginPath(); for (let i = 0; i <= 8; i++) { const a = i * 3 / 8 * TAU; ctx.lineTo(Math.cos(a) * 90, Math.sin(a) * 90); } ctx.globalAlpha = .35; ctx.stroke(); ctx.restore();
     ctx.restore();
-    if (S.mystic) { ctx.font = '600 13px ' + FONT_B; ctx.textAlign = 'center'; ctx.fillStyle = '#ffcf7a'; ctx.shadowBlur = 6; ctx.fillText('MYSTIC ×' + (1 + S.mystic).toFixed(2), 280, 748); }
+    if (S.mystic) { ctx.font = '600 13px ' + FONT_B; ctx.textAlign = 'center'; ctx.fillStyle = '#ffcf7a'; ctx.shadowBlur = 6; ctx.fillText('MYSTIC ×' + (1 + S.mystic).toFixed(2), 280, 690); }
   }
   if (evo('asgard')) { // rainbow bridge along the top arch, crackling bumpers
     const on = S.bifT > 0, cols = ['255,80,80', '255,170,60', '255,240,90', '90,230,120', '90,180,255', '170,110,255'];
@@ -1343,7 +1371,7 @@ function restoreRescue() {
 // ---- hooks called from the core game ----
 function cardsLevel() {
   S.rigId = S.rigNext || null; S.rigNext = null; if (S.rigId) setTimeout(() => msg('JURY-RIG: ' + CARD[S.rigId].name.toUpperCase() + ' AT MAX', 3), 2800);
-  Object.assign(S, { bankPts: 0, carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, nova: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, extremis: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, magik: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {} });
+  Object.assign(S, { bankPts: 0, carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, nova: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, extremis: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, magik: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, kbArm: [true, true], tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {} });
   for (const o of [...bumpers, ...standups, ...drops, ...stars, enemy]) { o.web = false; o.sym = false; o.x2T = 0; o.mod = null; o.elec = 0; o.hitN = 0; }
   for (let i = bumpers.length - 1; i >= 0; i--) if (bumpers[i].temp) bumpers.splice(i, 1); TGC = null;
   bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } });
@@ -1520,7 +1548,7 @@ function cardsTick(dt) {
   // global modifiers read by physics
   S.gmul = (has('korg') ? 1.08 : 1) * (S.mad === 'lowgrav' ? .6 : 1) * (S.bfx && S.bfx.gravity > 0 ? -.55 : 1);
   S.maxv = S.meltT > 0 ? 2400 : syn('lightspeed') ? 2300 : MAXV;
-  S.kickMul = (1 + T('vfrag', .1, .15, .2)) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
+  S.kickMul = (evo('wakanda') ? 1.2 : 1) * (1 + T('vfrag', .1, .15, .2)) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
   for (const k of TIMERS_S) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
   if (S.rodT > 0) S.rodT -= dt;
   if (has('doombots') && (S.dbT = (S.dbT || 0) + dt) >= 12 && S.phase === 'play') { S.dbT = 0; const [px, py] = plateXY(enemy); fx.push({ type: 'beam', x1: 540, y1: 60, x2: px, y2: py, t: 0, life: .4, c: '120,255,170' }); msg('DOOMBOT STRIKE'); if (S.boss && !S.boss.defeated) bossHit(enemy, null); else { S.enemyHp = Math.max(0, S.enemyHp - 1); award(400, 'drone', enemy, px, py - 30, true); if (!S.enemyHp) { S.enemyHp = S.enemyMax; award(2500, 'enemyDown', enemy, 280, 390, true); } } }
@@ -2387,6 +2415,7 @@ function onHit0(obj, impact, b) {
       } else msg('ENEMY HP ' + S.enemyHp + '/' + S.enemyMax);
       break;
     case 'decoy': if (S.boss && S.boss.id === 'loki') decoyHit(obj); break;
+    case 'bifrost': { const now = performance.now(); if (obj.cd2 > now) break; obj.cd2 = now + 300; award(300, 'lightning', obj, b.x, 860, true); pop(b.x, 840, 'BIFROST', '#9fd8ff'); tone(1047, .12, 'triangle', .05, 1568); break; }
     case 'gen': {
       const now = performance.now(); if (obj.cd > now) break; obj.cd = now + 180;
       obj.flash = 1; obj.hp--; award(150, 'gen', obj, obj.x, obj.y - 26); sfx.clang();
@@ -2413,6 +2442,8 @@ topLanes.forEach(l => line(l.x - 14, l.x + 14, 135, () => {
 }));
 lowLanes.forEach((l, i) => line(l.x1, l.x2, 700, (b, dir) => {
   if (dir < 0) return;
+  if (l.out && evo('wakanda') && b.layer === 0) { const side = l.x < 270 ? 0 : 1, K = S.kbArm ||= [true, true];
+    if (K[side]) { K[side] = false; b.y = 688; b.vy = -1700; b.vx = side ? -40 : 40; S.kbFx = [side, 1]; award(500, 'kinetic', null, l.x, 660, true); pop(l.x, 640, 'KICKBACK', '#c79bff', true); msg('VIBRANIUM KICKBACK'); tone(90, .25, 'sawtooth', .07, 400); S.shake = Math.max(S.shake, .5); return; } }
   if (has('outlaw') && hyp(b.vx, b.vy) > 700 && isReal(b)) { award(T('outlaw', 400, 600, 900), 'outlaw', l, l.x, 650, true); pop(l.x, 630, 'OUTLAW', '#ffe08a'); }
   if (!l.lit) { l.lit = true; award(100, 'rollover', l, l.x, 680); tone(760, .05, 'sine', .05); }
   if (l.out && S.outSave && prot()) { b.saved = true; S.outSave = false; rescue('outlane', b); msg('OUTLANE SAVE · BALL SAVED', 2.5); popups.push({ x: l.x < 270 ? 80 : 460, y: 720, text: 'BALL SAVED', t: 0, big: true, c: '#ff8a8a' }); }
@@ -3611,7 +3642,7 @@ function simulate(sec, o = {}) {
   } finally { performance.now = realNow; window.setTimeout = realST; muted = wasMuted; flippers.forEach(f => f.on = false); }
   return { t: +(n * STEP).toFixed(1), pts: S.score - s0, ballsUsed: b0 - S.balls + (activePlay() ? 0 : 0), phase: S.phase, hits: S.hits };
 }
-window.MP.debug = { S, bossHit, onHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones, physics, STEP, Bus, shot, RW: rarityWeights };
+window.MP.debug = { S, bossHit, onHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones, physics, STEP, Bus, shot, RW: rarityWeights, segs };
 resize();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTable);
 renderInv(); renderStones();
