@@ -538,13 +538,14 @@ const HEXMAP = { bumper: 'bumpers', sling: 'slingshots', ramp: 'ramp', orbit: 'o
   tunnel: 'tunnel', enemy: 'enemy', enemyDown: 'enemy', saucer: 'saucer', wormhole: 'wormhole', spinner: 'spinners', pit: 'quantum pit' };
 const HEXABLE = [...new Set(Object.values(HEXMAP))];
 
-// rarity odds by level: early drafts are almost all Common; Rare+ only shows up as the run goes on
+// rarity odds by level: a window slides smoothly up the rarity ladder, from 80% Common / 20% Uncommon at level 1
+// to 80% Epic / 20% Legendary at level 29 (keystones share the Epic tier); wider in the middle of the run so tiers overlap
 function rarityWeights(lv) {
-  if (lv <= 2) return { common: 85, uncommon: 15, rare: 0, epic: 0, legendary: 0 };
-  if (lv <= 4) return { common: 70, uncommon: 26, rare: 4, epic: 0, legendary: 0 };
-  if (lv <= 9) return { common: 52, uncommon: 30, rare: 12, epic: 3, keystone: 3, legendary: 0 };
-  if (lv <= 14) return { common: 40, uncommon: 31, rare: 17, epic: 6, keystone: 4, legendary: 2 };
-  return { common: 29, uncommon: 30, rare: 21, epic: 10, keystone: 5, legendary: 5 };
+  const m = clamp((lv - 1) / 28, 0, 1) * 3, c = m + .2, sw = 1 + .8 * Math.sin(Math.PI * m / 3), names = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
+  const raw = names.map((_, k) => Math.max(0, 1 - Math.abs(k - c) / sw)), tot = raw.reduce((a, b) => a + b, 0), out = {};
+  names.forEach((n, k) => out[n] = Math.round(raw[k] / tot * 100));
+  const d = 100 - Object.values(out).reduce((a, b) => a + b, 0); if (d) { const top = names.reduce((a, n) => out[n] > out[a] ? n : a, names[0]); out[top] += d; }
+  return out;
 }
 function rollRarity() { const w = rarityWeights(S.level); let t = Math.random() * 100; for (const k in w) { t -= w[k]; if (t <= 0) return k; } return 'common'; }
 function renderOdds() {
@@ -956,11 +957,12 @@ function rollDraft() {
   const picks = []; let rareSeen = false;
   SLOTS3.forEach(([label, fits], i) => {
     let r = rollRarity();
-    if (i === 0 && S.level >= 5 && S.sinceRare >= 3 && RANK[r] < 2) r = 'rare';
+    if (i === 0 && S.level >= 5 && S.sinceRare >= 3 && RANK[r] < 2 && rarityWeights(S.level).rare > 0) r = 'rare';
     if (i === 0 && S.lens && RANK[r] < 2) r = 'rare';
     const free = u => !picks.includes(u);
-    let rank = RANK[r], c = [];
-    for (; rank >= 0 && !c.length; rank--) c = pool.filter(u => RANK[u.r] === rank && free(u) && fits(u));
+    let rank = RANK[r], c = pool.filter(u => RANK[u.r] === rank && free(u) && fits(u));
+    if (!c.length) c = pool.filter(u => RANK[u.r] === rank && free(u)); // honour the rolled rarity before the slot's family preference
+    for (rank--; rank >= 0 && !c.length; rank--) c = pool.filter(u => RANK[u.r] === rank && free(u) && fits(u));
     if (!c.length) c = pool.filter(u => free(u) && fits(u) && RANK[u.r] <= RANK[r]);
     if (!c.length) c = pool.filter(u => free(u) && RANK[u.r] <= Math.max(RANK[r], 0));
     if (!c.length) c = pool.filter(free);
@@ -3609,7 +3611,7 @@ function simulate(sec, o = {}) {
   } finally { performance.now = realNow; window.setTimeout = realST; muted = wasMuted; flippers.forEach(f => f.on = false); }
   return { t: +(n * STEP).toFixed(1), pts: S.score - s0, ballsUsed: b0 - S.balls + (activePlay() ? 0 : 0), phase: S.phase, hits: S.hits };
 }
-window.MP.debug = { S, bossHit, onHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones, physics, STEP, Bus, shot };
+window.MP.debug = { S, bossHit, onHit, FAMS, unlocked, preview, keystone, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, renderStones, physics, STEP, Bus, shot, RW: rarityWeights };
 resize();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTable);
 renderInv(); renderStones();
