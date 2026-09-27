@@ -867,14 +867,31 @@ function reqOf(u) {
   if (f.length > 1 && u.r === 'rare') return { [f[0]]: 1, [f[1]]: 1, _max: 2 }; // hybrid rares: a foot in each family
   return { _any: f, _n: need };
 }
+// support cards only show up once you own something they can boost (no lightning bonus without lightning, etc.)
+const SRC = {
+  lightning: ['mjolnir', 'storm', 'mjolR', 'widow', 'capacitor'], chain: ['mjolnir'], explosive: ['gambit', 'deck', 'venom'],
+  portal: ['portals', 'wongring', 'nzgate'], teleport: ['portals', 'wongring', 'nzgate', 'space'], magnet: ['lodestone', 'magflip', 'polarity', 'attractor', 'mhelm', 'ks_magneto'],
+  extra: ['loki', 'instab', 'decoy', 'illusion', 'qtunnel', 'scepter', 'qbattery'], small: ['pym', 'ks_quantum'],
+};
+const NEEDS = { shard: ['lightning'], stormbreaker: ['chain'], godthunder: ['lightning'], ks_odin: ['lightning'], ks_storm: ['lightning'],
+  fuse: ['explosive'], ace: ['explosive'], ks_demo: ['explosive'], magik: ['portal'], ks_supreme: ['portal'], qbattery: ['teleport'],
+  ferro: ['magnet'], mirrorshard: ['extra'], ks_illusion: ['extra'], anthelm: ['extra', 'small'], quantumdrift: ['small'],
+  alloy: ['parts'], shuri: ['parts'], arc2: ['parts'], overclock: ['parts'], ks_auto: ['parts'] };
+const NEED_TXT = { lightning: 'a lightning card', chain: 'Mjolnir Bumpers', explosive: 'an explosive card', portal: 'a portal card', teleport: 'a portal or the Space Stone', magnet: 'a magnet card', extra: 'an extra-ball card', small: 'a small-ball card', parts: 'a Machine Part' };
+function needsMet(u) {
+  const n = NEEDS[u.id]; if (!n || has(u.id)) return true;
+  return n.some(k => k === 'parts' ? UPGRADES.some(q => q.cat === MPART && has(q.id) && !NEEDS[q.id]) : SRC[k].some(id => id !== u.id && has(id)));
+}
 function unlocked(u, A = S.aff) {
+  if (!needsMet(u)) return false;
   const q = reqOf(u); if (!q) return true; A = A || {};
   if (q._any) return q._any.some(f => (A[f] || 0) >= q._n);
   for (const f in q) if (f[0] !== '_' && (A[f] || 0) < q[f]) return false;
   if (q._max && !famsOf(u).some(f => (A[f] || 0) >= q._max)) return false;
   return true;
 }
-function reqText(u) {
+function reqText(u) { const a = reqText0(u), n = NEEDS[u.id] ? 'needs ' + NEEDS[u.id].map(k => NEED_TXT[k]).join(' or ') : ''; return a && n ? a + ' · ' + n : a || n; }
+function reqText0(u) {
   const q = reqOf(u); if (!q) return '';
   if (q._any) return q._any.map(f => FAMS[f].ico + ' ' + q._n).join(' or ');
   return Object.keys(q).filter(k => k[0] !== '_').map(f => FAMS[f].ico + ' ' + q[f]).join(' + ') + (q._max ? ' (one of them ' + q._max + ')' : '');
@@ -1103,7 +1120,7 @@ function drawEvoOver(dt) {
 }
 // ================= Step 8: card effects engine =================
 const LANESHOT = new Set(['ramp', 'rorbit', 'tunnel']);
-const LIGHT_KINDS = new Set(['lightning', 'storm', 'bolt']);
+const LIGHT_KINDS = new Set(['lightning', 'storm', 'bolt', 'capacitor']);
 const STARK_KINDS = new Set(['repulsor', 'missile', 'drone', 'suit', 'capacitor', 'spiderleg']);
 const PARTK = { sling: 'web', standup: 'smart', drop: 'smart', ramp: 'vibrail', orbit: 'vibrail', tunnel: 'vibrail', spinner: 'slingring', lane: 'bifrost', rollover: 'bifrost', repulsor: 'repulsor', lightning: 'mjolnir', capacitor: 'capacitor' };
 const SAFE = [[230, 520], [330, 520], [395, 395], [215, 350], [285, 170], [410, 300]];
@@ -1619,7 +1636,7 @@ const RBYRANK = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
 let IGNORE_LOCKS = false;
 function rollCard(w, exclude = [], f = () => true) {
   let rank = RANK[pickW(w)];
-  const pool = r => UPGRADES.filter(u => u.r === r && u.pool !== false && canGain(u) && !exclude.includes(u.id) && f(u) && (IGNORE_LOCKS || unlocked(u)) && !(u.r === 'keystone' && has(u.id)));
+  const pool = r => UPGRADES.filter(u => u.r === r && u.pool !== false && canGain(u) && !exclude.includes(u.id) && f(u) && (IGNORE_LOCKS ? needsMet(u) : unlocked(u)) && !(u.r === 'keystone' && has(u.id)));
   let c = pool(RBYRANK[rank]); while (!c.length && rank > 0) c = pool(RBYRANK[--rank]);
   return c.length ? rnd(c) : null;
 }
@@ -2430,7 +2447,10 @@ function collideSeg(b, s) {
   b.x = px + nx * m; b.y = py + ny * m;
   if (vn < 0) {
     b.vx -= (1 + s.e) * vn * nx; b.vy -= (1 + s.e) * vn * ny;
-    if (s.kick && -vn > 140 && !(s.cd > performance.now())) { b.vx += nx * s.kick; b.vy += ny * s.kick; }
+    if (s.kick && -vn > 140 && !(s.cd > performance.now())) { let k = s.kick;
+      if (s.kind === 'sling') { // anti ping-pong: every slingshot kick within 2.5 s of the last ones is weaker (100/65/30/0%), so a ball can never rally between them forever
+        const now = performance.now(); b.slK = (b.slK || []).filter(t => now - t < 2500); k *= Math.max(0, 1 - .35 * b.slK.length); b.slK.push(now); }
+      b.vx += nx * k; b.vy += ny * k; }
     s.lastNy = ny; onHit(s, -vn, b);
   }
 }
@@ -3359,10 +3379,7 @@ function render(dt) {
     if (B.t >= B.life) S.banner = null; else {
       ctx.save(); ctx.globalAlpha = Math.max(0, a); const x = 30, y = 44; // small, borderless, top-left
       ctx.textAlign = 'left'; ctx.shadowColor = 'rgba(0,0,0,.95)'; ctx.shadowBlur = 4; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1;
-      ctx.fillStyle = '#9fe6ff'; ctx.font = '600 10px ' + FONT_B; ctx.fillText(B.tag, x, y);
-      ctx.fillStyle = B.c || '#f5c542'; ctx.font = '17px ' + FONT_D; ctx.fillText(B.title.toUpperCase(), x, y + 18);
-      ctx.fillStyle = '#e9ecf5'; ctx.font = '11px ' + FONT_B;
-      const words = B.sub.split(' '); let line = '', ly = y + 32; for (const w of words) { if (ctx.measureText(line + w).width > 230) { ctx.fillText(line, x, ly); line = ''; ly += 13; } line += w + ' '; } ctx.fillText(line, x, ly);
+      ctx.fillStyle = B.c || '#f5c542'; ctx.font = '22px ' + FONT_D; ctx.fillText(B.title.toUpperCase(), x, y + 6);
       ctx.restore();
     }
   }
