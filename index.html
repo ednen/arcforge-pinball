@@ -470,7 +470,7 @@ const flippers = [
 ];
 
 // ================= state =================
-const S = { phase: 'start', level: 1, target: 10000, score: 0, balls: 3, ballNo: 1, mult: 1, combo: 0, comboT: 0, lastHit: null,
+const S = { phase: 'start', level: 1, target: 13000, score: 0, balls: 3, ballNo: 1, mult: 1, combo: 0, comboT: 0, lastHit: null,
   charge: 0, charging: false, clearT: 0, saveT: 0, outSave: false, saucer2x: false, worm: 0, letters: 0, rGlow: 0, tGlow: 0, shake: 0, pulse: 0, enemyHp: 3, enemyMax: 3, hot: 'ramp',
   maxBalls: 3, syn: new Set(), evos: new Set(), cnt: {}, fires: {}, bought: new Set(), debt: 0, tg: {}, hr: {}, guardN: 0, chain: [], chaosMods: {}, shotHist: [], deckSet: new Set(), baseT: 4000, newSyn: [], portalT: 0, credits: 0, sinceRare: 0, reroll: 5, hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardUsed: false, timeUsed: false, phoenixUsed: false };
 let curBall = null, fx = [];
@@ -621,7 +621,7 @@ const META = {
   web: { tags: ['WEB'], hero: 'spiderman', up: true, desc: 'Slingshots turn to webbing: {5|7|10}× points and a 25% stronger kick. A slung ball webs the next target it hits.' },
   rocket: { tags: ['SPEED', 'BUMPER'], hero: 'rocket' }, groot: { tags: ['SURVIVAL'], hero: 'groot' },
   repulsor: { tags: ['TECH', 'ARMOR', 'FLIPPER'], hero: 'ironman', up: true, desc: 'Flippers swing 15% faster. Every {5th|4th|3rd} flipper hit fires a beam at a bumper for {250|400|600}.' },
-  guard: { tags: ['SURVIVAL', 'TECH'], up: true, desc: 'Up to {2 balls|3 balls|4 balls} per level that drain between the flippers bounce back up the table.' },
+  guard: { tags: ['SURVIVAL', 'TECH'], up: true, desc: 'Up to {1 ball|2 balls} per level that drain between the flippers bounce back up the table.' },
   panther: { tags: ['BUMPER'], hero: 'panther' }, fury: { tags: ['SURVIVAL'] }, loki: { tags: ['MULTIBALL', 'CHAOS', 'MYSTIC'], hero: 'loki' },
   mjolnir: { tags: ['LIGHTNING', 'BUMPER'], hero: 'thor', up: true, desc: 'Bumper hits charge lightning. At {5|4|3} charges it chains to 3 targets for {300|400|550} each.' },
   hex: { tags: ['CHAOS', 'MYSTIC'], hero: 'wanda' }, instab: { tags: ['MULTIBALL', 'QUANTUM', 'CHAOS'] },
@@ -885,7 +885,7 @@ const LEG_ = (id, fam, name, desc) => ({ id, r: 'legendary', cat: 'Legendary', f
 UPGRADES.push(
   LEG_('leg_thunder', 'THUNDER', 'Crown of Storms', 'A storm cloud zaps your ball every 6 s. While charged, every hit throws lightning.'),
   LEG_('leg_web', 'WEB', 'Web of the Spider-Verse', 'Hits link into a glowing web. At combo 3+, each hit pays per strand.'),
-  LEG_('leg_tech', 'TECH', 'Stark Orbital Array', 'Every 12 s a satellite laser sweeps the table. Targets fire, and a ball in the beam gains Bonus.'),
+  LEG_('leg_tech', 'TECH', 'Stark Orbital Array', 'Every 8 s a satellite laser sweeps the table. Targets fire, and a ball in the beam gains Bonus.'),
   LEG_('leg_gamma', 'GAMMA', 'Heart of the World-Breaker', 'Every 15th hit the ball SMASHES, firing every nearby target.'),
   LEG_('leg_mystic', 'MYSTIC', 'Book of Vishanti', 'Runes orbit your ball. Every 8 s one makes a target score 5×.'),
   LEG_('leg_magnet', 'MAGNET', 'Asteroid M', 'A solid magnetic asteroid orbits the vortex. Hits pay 1,000.'),
@@ -1220,7 +1220,7 @@ function legTick(dt) {
   if (has('leg_thunder')) { const C = S.cloud ||= { x: 280, y: 92 }; C.x = 280 + 165 * Math.sin(t * .28); C.y = 92 + 10 * Math.sin(t * .9);
     if (legEvery('crown', 6, dt) && rb) { rb.chg = 3; fx.push({ type: 'bolt', x1: C.x, y1: C.y + 16, x2: rb.x, y2: rb.y, t: 0, life: .45, seed: Math.random() * 1e6 | 0 }); fx.push({ type: 'flash', t: 0, life: .12 }); tone(120, .5, 'sawtooth', .07, 50); noise(.4, .09, 3000, 200); msg('CROWN OF STORMS · CHARGED'); } }
   if (has('leg_web') && S.comboT <= 0 && S.strands.length) S.strands = [];
-  if (has('leg_tech')) { if (!S.sat && legEvery('sat', 12, dt)) { S.sat = { x: 20, fired: new Set() }; tone(1800, .6, 'sine', .04, 600); msg('ORBITAL STRIKE'); }
+  if (has('leg_tech')) { if (!S.sat && legEvery('sat', 8, dt)) { S.sat = { x: 20, fired: new Set() }; tone(1800, .6, 'sine', .04, 600); msg('ORBITAL STRIKE'); }
     if (S.sat) { const X0 = S.sat.x; S.sat.x += 330 * dt; const X1 = S.sat.x;
       for (const o of allTargets()) { const [ox, oy] = objPos(o); if (ox >= X0 && ox < X1 && !S.sat.fired.has(o)) { S.sat.fired.add(o); o.flash = 1; award(600, 'orbital', o, ox, oy - 26, true); } }
       for (const q of balls) if (isReal(q) && q.x >= X0 - 8 && q.x < X1 + 8 && !S.sat.fired.has(q)) { S.sat.fired.add(q); q.orb = Math.min(3, (q.orb || 0) + .5); pop(q.x, q.y - 34, 'ORBITAL +' + Math.round(q.orb * 100) + '%', '#7fe7ff', true); }
@@ -1271,17 +1271,6 @@ function drawLegUnder(dt) {
     ctx.fillStyle = gg; ctx.beginPath(); ctx.ellipse(0, 0, 18 + 10 * o, 34, 0, 0, TAU); ctx.fill(); ctx.shadowColor = '#5ad1ff'; ctx.shadowBlur = 12;
     for (let k = 0; k < 3; k++) { ctx.save(); ctx.rotate(t * (k % 2 ? -.8 : .6) + k); ctx.strokeStyle = `rgba(${k ? '90,210,255' : '255,120,245'},${.55 + .3 * o})`; ctx.lineWidth = 1.4; ctx.beginPath(); for (let i = 0; i <= 6; i++) { const a = i / 6 * TAU, r = 14 + k * 7 + 3 * Math.sin(t * 4 + i); ctx.lineTo(Math.cos(a) * r * .6, Math.sin(a) * r); } ctx.stroke(); ctx.restore(); }
     ctx.restore(); }
-  if (has('leg_vibranium')) { // the crystal under the drain: a slowly turning cluster that grows, pulses and sheds sparks
-    const [x, y] = HEARTP, g = Math.min(1, (S.herb || 0) / 20000), e = S.herbFx || 0, pulse = .5 + .5 * Math.sin(t * 3);
-    ctx.save(); ctx.translate(x, y - 6);
-    const halo = ctx.createRadialGradient(0, 0, 2, 0, 0, 34 + 20 * e); halo.addColorStop(0, `rgba(200,150,255,${.35 + .25 * pulse + .4 * e})`); halo.addColorStop(1, 'rgba(120,60,220,0)'); ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(0, 0, 34 + 20 * e, 0, TAU); ctx.fill();
-    ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 12 + 20 * e;
-    for (let i = 0; i < 6; i++) { const a = t * .8 + i * TAU / 6, depth = Math.sin(a), H = (14 + (i % 3) * 5) * (.6 + .4 * g) * (1 + .4 * e), px = Math.cos(a) * 11, w = 4 + 2 * Math.abs(Math.cos(a));
-      ctx.globalAlpha = .55 + .45 * (depth + 1) / 2; ctx.fillStyle = depth > 0 ? '#c9a4ff' : '#7b4fd0'; ctx.beginPath(); ctx.moveTo(px - w, 6); ctx.lineTo(px, 6 - H); ctx.lineTo(px + w, 6); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.beginPath(); ctx.moveTo(px, 6 - H); ctx.lineTo(px + w * .6, 6); ctx.lineTo(px + .5, 6); ctx.closePath(); ctx.fill(); }
-    ctx.globalAlpha = 1; const core = 8 + 4 * g; ctx.fillStyle = '#efe2ff'; ctx.beginPath(); ctx.moveTo(0, 6 - core * 2.4); ctx.lineTo(core * .6, 6); ctx.lineTo(-core * .6, 6); ctx.closePath(); ctx.fill();
-    for (let i = 0; i < 5; i++) { const ph = (t * .6 + i * .2) % 1, sx = Math.sin(i * 2.3 + t) * 16, sy = -ph * 40; ctx.fillStyle = `rgba(230,210,255,${1 - ph})`; ctx.fillRect(sx, sy, 2, 2); }
-    ctx.restore(); }
   if (has('phoenix')) { // phoenix wings of fire along the lower table: deep red plumes with bright gold edges and embers
     const last = S.balls <= 1, k = last ? 1 : .6; ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (const s2 of [-1, 1]) for (let i = 0; i < 8; i++) { const a = -Math.PI / 2 + s2 * (.32 + i * .16), L = (150 + i * 18) * (last ? 1.12 : .85), fl = 1 + .08 * Math.sin(t * 7 + i), x0 = 270 + s2 * 30, y0 = 900,
@@ -1307,6 +1296,16 @@ function drawLegUnder(dt) {
 function drawLegOver(dt) {
   const t = performance.now() / 1000; if (!(S.phase === 'play' || S.phase === 'clearing' || S.phase === 'paused')) return;
   ctx.save();
+  if (has('leg_vibranium')) { // Heart of Wakanda: a vibranium crystal ridge along the whole bottom of the table; it grows as it stores points
+    const g = Math.min(1, (S.herb || 0) / 20000), e = S.herbFx || 0, base = 928;
+    const glow = ctx.createLinearGradient(0, base - 70, 0, base); glow.addColorStop(0, 'rgba(160,100,255,0)'); glow.addColorStop(1, `rgba(170,110,255,${.28 + .15 * Math.sin(t * 2.5) + .4 * e})`); ctx.fillStyle = glow; ctx.fillRect(30, base - 70, 480, 70);
+    ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 10 + 18 * e;
+    for (let c = 0; c < 9; c++) { const cx = 50 + c * 55, spin = t * (.7 + (c % 3) * .15) * (c % 2 ? -1 : 1) + c;
+      for (let i = 0; i < 5; i++) { const a = spin + i * TAU / 5, depth = Math.sin(a), px = cx + Math.cos(a) * 15, w = 5 + 3.5 * Math.abs(Math.cos(a)), H = (24 + ((i + c) % 3) * 9) * (.65 + .35 * g) * (1 + .5 * e) * (1 + .12 * Math.sin(t * 3 + c));
+        ctx.globalAlpha = .55 + .45 * (depth + 1) / 2; ctx.fillStyle = depth > 0 ? '#d4b4ff' : '#7b4fd0'; ctx.beginPath(); ctx.moveTo(px - w, base); ctx.lineTo(px, base - H); ctx.lineTo(px + w, base); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.beginPath(); ctx.moveTo(px, base - H); ctx.lineTo(px + w * .55, base); ctx.lineTo(px + .5, base); ctx.closePath(); ctx.fill(); } }
+    ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    for (let i = 0; i < 14; i++) { const ph = (t * .5 + i * .071) % 1, sx = 40 + ((i * 37) % 460) + Math.sin(t + i) * 6, sy = base - 10 - ph * 70; ctx.fillStyle = `rgba(230,210,255,${(1 - ph) * .9})`; ctx.fillRect(sx, sy, 2, 2); } }
   if (S.blue) { const y = S.blue.y; ctx.strokeStyle = 'rgba(90,180,255,.95)'; ctx.shadowColor = '#5ab4ff'; ctx.shadowBlur = 18; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(22, y); ctx.lineTo(518, y); ctx.stroke(); ctx.strokeStyle = 'rgba(220,240,255,.9)'; ctx.lineWidth = 1; ctx.stroke(); ctx.shadowBlur = 0;
     for (let i = 0; i < 6; i++) { const x = 40 + ((t * 300 + i * 83) % 470); ctx.fillStyle = 'rgba(180,225,255,.8)'; ctx.fillRect(x, y - 1 + Math.sin(t * 30 + i) * 3, 3, 2); } }
   if (has('leg_magnet')) { const A = AST; ctx.save(); ctx.translate(A.x, A.y);
@@ -1493,7 +1492,6 @@ function arcBurst() {
   const parts = UPGRADES.filter(u => has(u.id) && u.cat === 'Machine Part'); if (!parts.length) return;
   msg('ARC REACTOR MK II · ALL PARTS FIRE', 2.5); S.pulse = 1; tone(200, .6, 'sawtooth', .06, 1200); fx.push({ type: 'ring', x: 280, y: 590, t: 0, life: .8, c: '127,231,255', big: true });
   parts.forEach((u, i) => setTimeout(() => { const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: 280, y1: 590, x2: x, y2: y, t: 0, life: .35 }); o.flash = 1; award(300 * Math.min(3, has(u.id)), 'arcburst', o, x, y - 24, true); }, i * 90));
-  if (has('guard') && S.guardN > 0) S.guardN = 0;
   if (has('portals')) S.portalT = Math.max(S.portalT, 3);
 }
 function meltdown() { S.meltT = 10; S.shake = 1; S.pulse = 1; msg('MELTDOWN! 2× · NO DRAIN PROTECTION', 3); sfx.boom(); fx.push({ type: 'flash', t: 0, life: .4 }); }
@@ -2528,7 +2526,7 @@ function newRun() { S.level = 1; S.target = targetFor(1); S.endless = false; S.s
 // the last act climbs ×1.16 per level on top of that, endless ×1.4. Boss levels go from ×0.8 (Loki) to ×1.1 (Doom).
 const growth = i => i > 30 ? 1.4 : i > 20 ? 1.18 : 1.23 + .004 * (i - 2) + (i >= 7 ? .03 : 0); // a little steeper from level 7 on
 const bossK = lv => lv <= 20 ? .8 + .2 * (lv - 5) / 15 : 1 + .1 * Math.min(10, lv - 20) / 10;
-const targetFor = lv => { let t = 4000 * Math.pow(2.5, Math.max(0, 8 - lv) / 7); for (let i = 2; i <= lv; i++) t *= growth(i); return Math.round(t * (bossFor(lv) ? 4 / 3 * bossK(lv) : 1) / 500) * 500; };
+const targetFor = lv => { let t = 4000 * Math.pow(2.5, Math.max(0, 8 - lv) / 7); for (let i = 2; i <= lv; i++) t *= growth(i); return Math.round(t * (bossFor(lv) ? 4 / 3 * bossK(lv) : 1) / 500) * 500 + 3000; }; // +3,000 on every level
 const nextTarget = () => targetFor(S.level + 1);
 function nextLevel() { S.level++; S.target = Math.round(targetFor(S.level) * (S.jam || 1) * (bossFor(S.level) && S.tva ? 1 + .2 * S.tva : 1) / 500) * 500; S.jam = 0; if (bossFor(S.level)) showBossIntro(); else startLevel(); }
 // run structure: four acts, a boss closes each act
@@ -2854,7 +2852,7 @@ function tick(dt) {
     // Time Stone memory: last 2 seconds of the ball's path
     b.ht = (b.ht || 0) + dt; if (b.ht > .05) { b.ht = 0; (b.hist ||= []).push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, layer: b.layer }); if (b.hist.length > 40) b.hist.shift(); }
     // Vibranium Drain Guard
-    if (has('guard') && S.guardN < T('guard', 2, 3, 4) && prot() && isReal(b) && b.layer === 0 && b.y > 872 && b.y < 900 && b.x > 205 && b.x < 335 && b.vy > 0) {
+    if (has('guard') && S.guardN < T('guard', 1, 2, 2) && prot() && isReal(b) && b.layer === 0 && b.y > 872 && b.y < 900 && b.x > 205 && b.x < 335 && b.vy > 0) {
       S.guardN++; rescue('guard', b); part('guard'); b.y = 872; b.vy = -1250; b.vx = (Math.random() - .5) * 400; msg('DRAIN GUARD!'); tone(300, .25, 'square', .08, 900);
       fx.push({ type: 'ring', x: b.x, y: 885, t: 0, life: .5, c: '200,160,255' });
     }
@@ -3587,7 +3585,7 @@ function render(dt) {
     const g = ctx.createLinearGradient(522, 0, 548, 0); g.addColorStop(0, '#5d6475'); g.addColorStop(.4, '#f2f4f8'); g.addColorStop(1, '#3d4252');
     ctx.fillStyle = g; ctx.fillRect(523, py - 6, 24, 10);
     if (S.charging) { ctx.fillStyle = '#e5383b'; ctx.fillRect(553, 930 - 160 * S.charge, 4, 160 * S.charge); } }
-  if (has('guard') && S.guardN < T('guard', 2, 3, 4)) { // vibranium bar between the flippers
+  if (has('guard') && S.guardN < T('guard', 1, 2, 2)) { // vibranium bar between the flippers
     ctx.save(); ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 14; ctx.lineCap = 'round';
     ctx.strokeStyle = '#5b3a9a'; ctx.lineWidth = 7; ctx.beginPath(); ctx.moveTo(214, 888); ctx.lineTo(326, 888); ctx.stroke();
     ctx.strokeStyle = '#e8dcff'; ctx.lineWidth = 2; ctx.stroke(); ctx.restore();
