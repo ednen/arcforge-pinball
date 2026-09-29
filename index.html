@@ -246,8 +246,9 @@ header.plaque::before{background:linear-gradient(115deg,transparent 35%,rgba(255
 .dmd::before{content:"";position:absolute;left:0;right:0;top:0;height:45%;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,0));border-radius:10px 10px 40% 40%/10px 10px 18px 18px}
 .dmd .big{text-shadow:0 0 4px rgba(255,190,80,.9),0 0 14px rgba(255,140,20,.55)}
 /* brighter DMD lettering: hot amber core with a layered glow */
-.dmd .top span,.dmd .big,.dmd .msg{color:#ffd27a;text-shadow:0 0 1px #fff3d0,0 0 4px rgba(255,200,100,1),0 0 10px rgba(255,160,40,.9),0 0 22px rgba(255,130,20,.6)}
-.dmd .big{color:#ffe2a0;text-shadow:0 0 2px #fff6dc,0 0 6px rgba(255,210,110,1),0 0 16px rgba(255,160,40,.95),0 0 32px rgba(255,120,10,.65)}
+.dmd{contain:layout paint}
+.dmd .top span,.dmd .big,.dmd .msg{color:#ffd27a;text-shadow:0 0 3px rgba(255,210,120,1),0 0 12px rgba(255,150,30,.8)}
+.dmd .big{color:#ffe2a0;text-shadow:0 0 4px rgba(255,215,120,1),0 0 18px rgba(255,140,20,.8)}
 .dmd .msg{color:#ffe0a0}
 .dmd::after{opacity:.55}
 .meter i.on{background:linear-gradient(180deg,#ffd68a,var(--amber));box-shadow:0 0 6px rgba(255,165,31,.9)}
@@ -816,7 +817,7 @@ UPGRADES.push(
   { id: 'vigilante', r: U_, cat: TR, up: true, tags: ['EXPLOSIVE'], hero: 'outlaws', name: "Vigilante's Arsenal", desc: 'Knocking down a target makes your next target hit worth +{50|75|100}%.' },
   { id: 'gammawarp', r: U_, cat: TR, up: true, tags: ['GAMMA', 'BUMPER'], hero: 'titanborn', name: "Titan's Fist", desc: 'Bumper hits by a fast ball score {2|2.5|3}×.' },
   { id: 'rcoupon', r: U_, cat: TR, tags: ['ECONOMY'], hero: 'outlaws', name: 'Scrapper\'s "Legally Acquired" Coupon', desc: 'The first item you buy in each shop costs 25% less.' },
-  { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "Loki's Counterfeit Credits", desc: 'Gain +30 credits now. Leaves your build at the next shop.' },
+  { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "Loki's Counterfeit Credits", desc: 'Gain +75 credits now. For the next three shops, all prices are +20%. Leaves your build after that.' },
   // ---- RARE: build-arounds ----
   { id: 'nano', r: R_, cat: MPART, tags: ['TECH', 'ARMOR'], hero: 'aetherworks', name: 'Nanite Swarm', desc: 'Every 10 s your weakest upgradeable card runs at full tier-3 power for 5 s.' },
   { id: 'alleye', r: R_, cat: TR, tags: ['MYSTIC', 'COSMIC'], hero: 'arcanists', name: 'The All-Seeing Eye', desc: 'Repeat the same sequence of shots (like ramp → warp, ramp → warp) and each loop adds +0.25× for the level.' },
@@ -851,6 +852,7 @@ function descFor(u, t = Math.max(1, has(u.id))) { return descFor0(u, t).replace(
 function descFor0(u, t = Math.max(1, has(u.id))) {
   let d = u.desc.replace(/\{([^}]*)\}/g, (_, g) => { const p = g.split('|'); return p[Math.min(p.length, t) - 1]; });
   if (t >= 3 && u.d3) d += ' ' + u.d3;
+  if (u.id === 'counterfeit' && has('counterfeit') && S.counterfeit) d = S.counterfeit + ' more shop' + (S.counterfeit > 1 ? 's' : '') + ' at +20% prices.';
   return d;
 }
 function nameFor(u, t = has(u.id)) {
@@ -992,8 +994,8 @@ UPGRADES.push({ id: 'thunderstrike', r: U_, cat: TR, up: true, fam: 'THUNDER', t
   spiderleg: ['Aetherweaver Leg', 'Every {20th|14th} hit, a leg strikes a webbed target (or the nearest one) for 400 and webs it.', 'common'],
   webtension: ['Web Tension', 'Hitting one slingshot and then the other within 1.5 s pays +{300|450} and webs a random target.', 'common'],
   webmaster: ['Web of Fate', 'Webbed targets score 2×.', 'epic'],
-  lucky: ['Lucky Bullet', '{7|10}% chance for a target hit to score 2.5×.', 'common'],
-  infernal: ['Infernal Engine', 'Every {25|20} hits the ball bursts into hellfire for 3 s: everything it hits scores 2×.', 'common'],
+  lucky: ['Lucky Bullet', '{10|15}% chance for a target hit to score 4×, but every other hit scores 10% less.', 'common'],
+  infernal: ['Infernal Engine', 'Every {20|15} hits the ball bursts into hellfire for 3 s: everything it hits scores 3×. Each burst costs 2 credits.', 'common'],
   hellrider: ["Hellrider's Chain", 'Combo hits score +{8|12}% more per combo step, but hits outside a combo score 30% less.', 'rare'],
   torch: ["Firebrand's Flame", 'Fast hits in a row build Heat. At full Heat everything scores 3×, but slow hits score 25% less.', 'rare'],
   venom: ['Living Ooze', 'The ball takes a power from the last target it hit: bumpers make it bouncy, slingshots sticky, standups heavy, drop targets explosive. Bumpers score 20% less.', 'rare'],
@@ -1237,7 +1239,7 @@ function evoTick(dt) {
   if (S.bifT > 0) S.bifT = Math.max(0, S.bifT - dt);
   const t = performance.now() / 1000;
   bifBar.layer = evo('asgard') && S.bifT > 0 ? 0 : 9;
-  if (evo('atlantis') && S.phase === 'play') { // voidsteel kinetic pulse from both flippers every 10 s
+  if (evo('atlantis') && activePlay()) { // voidsteel kinetic pulse from both flippers every 10 s
     if ((S.wpT = (S.wpT || 0) + dt) >= 10) { S.wpT = 0; S.pulses = flippers.map(f => ({ x: f.px + f.s * 38, y: f.py - 4, r: 0, got: new Set() })); tone(70, .5, 'sawtooth', .07, 260); noise(.35, .06, 400, 80, 'lowpass'); msg('KINETIC PULSE'); }
     for (const w of S.pulses || []) { w.r += 760 * dt;
       for (const q of balls) { if (q.captured || q.layer !== 0 || w.got.has(q)) continue; const dx = q.x - w.x, dy = q.y - w.y, d = hyp(dx, dy) || 1; if (dy > 20 || Math.abs(d - w.r) > 22) continue;
@@ -1249,7 +1251,7 @@ function evoTick(dt) {
     mainBumpers().forEach(c => { const dx = c.bx - cx, dy = c.by - cy; c.x = cx + dx * ca - dy * sa; c.y = cy + dx * sa + dy * ca; });
   } else if (S.orbA && S.mad !== 'drift') { S.orbA = 0; mainBumpers().forEach(c => { c.x = c.bx; c.y = c.by; }); }
   if (evo('sanctum')) PBASE.forEach(([x, y], i) => { PORTALS[i][0] = x + 14 * Math.cos(t * .6 + i * 2.1); PORTALS[i][1] = y + 20 * Math.sin(t * .85 + i * 1.3); });
-  if (evo('forgeworks') && S.phase === 'play') {
+  if (evo('forgeworks') && activePlay()) {
     const D = S.drone ||= { x: 280, y: 300 }; D.x = 280 + 150 * Math.sin(t * .55); D.y = 330 + 110 * Math.sin(t * 1.1 + 1); D.tilt = Math.cos(t * .55) * .35;
     if ((S.droneT = (S.droneT || 0) + dt) >= (S.odT > 0 ? 1 : 4)) {
       S.droneT = 0; const tg = [...mainBumpers().map(q => [q, q.x, q.y]), ...standups.map(q => [q, 466, q.y1 + 17])], [o, x, y] = tg[Math.random() * tg.length | 0];
@@ -1375,7 +1377,7 @@ function drawQuantum() {
   ctx.restore();
 }
 function legTick(dt) {
-  if (S.phase !== 'play') return;
+  if (!activePlay()) return;
   quantumTick(dt); artifactTick(dt); if (has('mirage')) { S.phT = (S.phT || 0) + dt; const k = Math.floor(S.phT / 4) % 3; for (const [i, q] of PHANTOMS.entries()) [q.x, q.y] = PH_SPOTS[i][k]; }
   if (has('vbody')) { // The Architect's laser, reprogrammed: a blue beam sweeps UP the table and lifts every ball it touches
     if (!S.blue && legEvery('blue', 12, dt)) { S.blue = { y: 850 }; tone(900, .4, 'sine', .05, 1800); }
@@ -1560,7 +1562,7 @@ function pop(x, y, text, c = '#9fe6ff', big = false) { popups.push({ x, y, text,
 function bonus(pts, x, y, label) {
   pts = Math.round(pts); if (pts <= 0) return; S.score += pts;
   if (x != null) popups.push({ x, y, text: (label ? label + ' ' : '') + fmt(pts), t: 0, big: pts >= 1000, c: '#ffcf7a' });
-  if (S.score >= S.target && S.phase === 'play') { bossDefeated(); S.phase = 'clearing'; S.clearT = 1.4; msg('TARGET REACHED!'); tone(660, .12, 'square', .08, 1320); }
+  if (S.score >= S.target && S.phase === 'play') targetReached();
 }
 function baseRad() {
   let r = 10;
@@ -1646,10 +1648,10 @@ function scoreFactor(kind, obj, cls) {
   if (b && has('hellrider') && !(S.comboT > 0)) m *= .7;
   if (b && has('torch') && hyp(b.vx, b.vy) < 500) m *= .75;
   if (kind === 'bumper' && has('venom')) m *= .8;
-  if (tgt && cls === 'hit' && has('lucky')) { if (Math.random() < T('lucky', .07, .1, .1)) { m *= 2.5; pop(...objPos(obj), 'LUCKY ×2.5', '#ff6b3d', true); } }
+  if (tgt && cls === 'hit' && has('lucky')) { if (Math.random() < T('lucky', .1, .15, .15)) { m *= 4; pop(...objPos(obj), 'LUCKY ×4', '#ff6b3d', true); } else m *= .9; }
   if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
   if (b) { const full = syn('masterill') || (b.temp && syn('spiderverse'));
-    if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 2;
+    if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 3;
     if (!full) { if (b.ghost && !b.full) m *= .5; if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= .25; if (b.spectral) m *= .5; }
   }
   if (hit && tgt) { // one-shot, per-hit effects are consumed only by clean hits
@@ -1839,7 +1841,7 @@ Bus.on('hit', e => { // counters for the balance-pass cards
     if (has('winter') && (b.gHits = (b.gHits || 0) + 1) % 10 === 0 && (b.gg || 0) < 5) { b.gg = (b.gg || 0) + 1; b.rad = baseRad() * (1 + .03 * b.gg); pop(b.x, b.y - 30, 'GROWTH +' + (b.gg * 3) + '%', '#6cff5a'); }
     if (has('claw')) b.surge = (b.surge || 0) + 1;
   }
-  if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 25, 20, 20)) { S.infN = 0; b.hellT = 3; msg('INFERNAL ENGINE · 2×'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
+  if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 20, 15, 15)) { S.infN = 0; b.hellT = 3; S.credits = Math.max(0, S.credits - 2); renderInv(); msg('INFERNAL ENGINE · 3× · −2 CREDITS'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
   if (has('powder') && !S.keg && (S.kegN = (S.kegN || 0) + 1) >= T('powder', 40, 32, 25)) { S.kegN = 0; S.keg = true; msg('POWDER KEG ARMED'); }
   if (has('fieldline') && !(S.fieldT > 0) && (S.fieldN = (S.fieldN || 0) + 1) >= T('fieldline', 25, 20, 15)) { S.fieldN = 0; S.fieldT = 6; msg('FIELD LINES'); sfx.hum(); }
   if (has('smoke') && !isReal(b) && budget('smoke', 6)) { S.combo = Math.min(S.combo + T('smoke', 1, 2, 3), has('webmaster') ? 30 : 20); S.comboT = 2; }
@@ -1945,7 +1947,7 @@ function cardsTick(dt) {
   S.kickMul = (S.bfx && S.bfx.overclock > 0 ? 1.6 : 1) * (has('skyfall') ? 1.15 : 1) * (evo('atlantis') ? 1.2 : 1) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
   for (const k of TIMERS_S) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
   if (S.rodT > 0) S.rodT -= dt;
-  if (has('clockbots') && (S.dbT = (S.dbT || 0) + dt) >= 12 && S.phase === 'play') { S.dbT = 0; const [px, py] = plateXY(enemy); fx.push({ type: 'beam', x1: 540, y1: 60, x2: px, y2: py, t: 0, life: .4, c: '120,255,170' }); msg('CLOCKWORK STRIKE'); coreHit(enemy, null, true); }
+  if (has('clockbots') && (S.dbT = (S.dbT || 0) + dt) >= 12 && activePlay()) { S.dbT = 0; const [px, py] = plateXY(enemy); fx.push({ type: 'beam', x1: 540, y1: 60, x2: px, y2: py, t: 0, life: .4, c: '120,255,170' }); msg('CLOCKWORK STRIKE'); coreHit(enemy, null, true); }
   if (!S.madT && S.mad) { S.mad = null; bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } }); }
   if (S.mad === 'drift') mainBumpers().forEach((c, i) => { c.x = c.bx + 24 * Math.sin(t * 1.3 + i * 2); c.y = c.by + 16 * Math.cos(t * 1.1 + i); });
   for (const o of allTargets()) { if (o.x2T > 0) o.x2T -= dt; if (o.elec > 0) o.elec -= dt; if (o.mod && (o.mod.t -= dt) <= 0) o.mod = null; }
@@ -2073,7 +2075,7 @@ const buildFull = () => slotsUsed() >= SLOTS;
 function gain(u, src, cb = () => {}) {
   owned[u.id] = has(u.id) + 1; markSeen(u.id);
   if (src === 'shop') (S.bought ||= new Set()).add(u.id);
-  if (u.id === 'counterfeit') S.credits += 30;
+  if (u.id === 'counterfeit') { S.credits += 75; S.counterfeit = 3; }
   refreshBuild();
   cb();
 }
@@ -2093,7 +2095,8 @@ function stockShop() {
 }
 let SH = null;
 function openShop() {
-  const sur = 1; if (has('counterfeit')) removeCard('counterfeit');
+  const sur = S.counterfeit > 0 ? 1.2 : 1;
+  if (S.counterfeit > 0 && --S.counterfeit <= 0 && has('counterfeit')) removeCard('counterfeit');
   SH = { sur, first: has('rcoupon') > 0, mode: null, sel: [], items: [], note: '', line: rnd(CURATOR.lines) };
   stockShop(); sfx.synergy(); renderShop();
 }
@@ -2142,7 +2145,7 @@ function renderShop() {
       <span class="slot-foot"><button class="btn confirm" type="button" id="pickOk" ${SH.sel.length === M.need ? '' : 'disabled'}>Confirm</button><button class="mini" type="button" id="pickNo">Cancel</button></span></div>`; })() : '';
   card.style.setProperty('--kc', K.c);
   card.innerHTML = `<div class="shop-top"><div class="khead"><span class="kbadge" aria-hidden="true">${K.ico}</span><div><p class="eyebrow">After level ${S.level} · ${K.name}</p><h2>${K.shop}</h2><p class="ktag">${K.tag}</p></div></div><span class="wallet">Credits <b>${S.credits}</b></span></div>
-    <p class="keeper"><b>${K.name}:</b> ${SH.line}${SH.first ? ' <span class="evo">Coupon: first item 25% off.</span>' : ''}</p>
+    <p class="keeper"><b>${K.name}:</b> ${SH.line}${SH.sur > 1 ? ' <span class="debt">Counterfeit surcharge: prices +20%.</span>' : ''}${SH.first ? ' <span class="evo">Coupon: first item 25% off.</span>' : ''}</p>
     ${body}
     <div class="acts">${acts.map(a => `<button class="act" type="button" data-act="${a.id}" ${canPay(a.cost) ? '' : 'disabled'}><b>${a.name}</b><span class="price small">${a.cost}</span><span class="ds">${a.desc}</span></button>`).join('')}</div>
     ${picker}
@@ -2266,8 +2269,8 @@ const ATTACKS = {
   gravity: { boss: 'lodestar', name: 'GRAVITY INVERSION', desc: 'Gravity reversed', dur: 2.5, c: '#e25bff' },
   outpull: { boss: 'lodestar', name: 'OUTLANE PULL', desc: 'Pulled to the outlanes', dur: 3, c: '#e25bff' },
   magshrink: { boss: 'lodestar', name: 'MAGNETIC CRUSH', desc: 'Flippers crushed to 2/3 size', dur: 5, c: '#e25bff' },
-  shrink: { boss: 'thanatos', name: 'REALITY WARP', desc: 'Flippers shrunk', dur: 8, c: '#ffb52e' },
-  timeskip: { boss: 'thanatos', name: 'TIME FRACTURE', desc: 'Time runs 1.4× faster', dur: 6, c: '#ffb52e' },
+  shrink: { boss: 'thanatos', name: 'REALITY WARP', desc: 'Flippers shrunk', dur: 4, c: '#ffb52e' },
+  timeskip: { boss: 'thanatos', name: 'TIME FRACTURE', desc: 'Time runs 1.2× faster', dur: 3, c: '#ffb52e' },
 };
 const BFX = () => S.bfx || (S.bfx = {});
 let SEAL = null;
@@ -2308,8 +2311,8 @@ function endAttack(id) {
   if (id === 'fakeball') for (const b of balls) if (b.fakeReal) b.vanish = true;
   endAttack2(id);
 }
-// flipper length follows the strongest shrink currently active (the Tyrant 65%, the Polarity King 2/3)
-function flipScale() { const F = BFX(), k = Math.min(F.shrink > 0 ? .65 : 1, F.magshrink > 0 ? 2 / 3 : 1) * (1 + T('vfrag', .06, .1, .1)); flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * k; }); }
+// flipper length follows the strongest shrink currently active (the Tyrant 82%, the Polarity King 2/3)
+function flipScale() { const F = BFX(), k = Math.min(F.shrink > 0 ? .82 : 1, F.magshrink > 0 ? 2 / 3 : 1) * (1 + T('vfrag', .06, .1, .1)); flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * k; }); }
 function clearBossAttacks() { const F = BFX(); for (const k in ATTACKS) if (F[k] > 0) { F[k] = 0; endAttack(k); } if (S.boss) S.boss.warn = null; }
 // per-ball effects of active attacks (called from physics)
 function bossForces(b, dt) {
@@ -2422,10 +2425,10 @@ function bossTick(dt) {
       if (B.snapT <= 0) { // THE RECKONING: half the targets turn to dust until two ramp shots
         B.snapT = 0; B.dusted.clear();
         const pool = [...mainBumpers(), ...standups, ...drops, ...stars, ...topLanes, bumpers.find(c => c.big)].sort(() => Math.random() - .5);
-        pool.slice(0, Math.ceil(pool.length / 2)).forEach(o => B.dusted.add(o)); B.rampNeed = 2;
-        msg('PURGED! HALF THE TABLE NULLIFIED', 2.5); setTimeout(() => msg('2 RAMP SHOTS TO RESTORE', 3), 2500); sfx.snap(); S.shake = 1; S.pulse = 1; fx.push({ type: 'flash', t: 0, life: .5 });
+        pool.slice(0, Math.ceil(pool.length / 4)).forEach(o => B.dusted.add(o)); B.rampNeed = 1;
+        msg('PURGED! A QUARTER OF THE TABLE NULLIFIED', 2.5); setTimeout(() => msg('1 RAMP SHOT TO RESTORE', 3), 2500); sfx.snap(); S.shake = 1; S.pulse = 1; fx.push({ type: 'flash', t: 0, life: .5 });
       }
-    } else if (B.t2 >= (S.score >= S.target / 2 ? 12 : 16)) { B.t2 = 0; B.snapT = 3; msg('THE TYRANT CHARGES THE PURGE · HIT THE RIFT CORE!', 3); sfx.empCharge(3); }
+    } else if (B.t2 >= (S.score >= S.target / 2 ? 12 : 16)) { B.t2 = 0; B.snapT = 4; msg('THE TYRANT CHARGES THE PURGE · HIT THE RIFT CORE!', 3); sfx.empCharge(4); }
   } else if (B.id === 'omnicron') {
     const every = S.score >= S.target / 2 ? 5.5 : 9;
     if (B.t >= every) {
@@ -2460,14 +2463,14 @@ function coreHit(obj, b, auto) {
 function lightLetter(x, y) {
   S.letters++;
   if (has('spellcaster')) { const pos = S.letters; award(pos * T('spellcaster', 60, 90, 150), 'spell', null, x, y - 40, true); pop(x, y - 62, WORD[pos - 1] + ' ×' + pos, '#ff9a2e'); }
-  if (S.letters >= WORD.length) { S.letters = 0; award(3000, 'word', WORD, 270, 700); msg('RIFTBOUND COMPLETE!', 3); S.saveT = Math.max(S.saveT, 10); tone(440, .4, 'square', .07, 1760); destroyed(enemy); shot('enemy', 280, 400); }
+  if (S.letters >= WORD.length) { S.letters = 0; award(3000, 'word', WORD, 270, 700); msg('RIFTBOUND COMPLETE!', 3); if (!S.wordSaved) { S.wordSaved = true; S.saveT = Math.max(S.saveT, 5); } tone(440, .4, 'square', .07, 1760); destroyed(enemy); shot('enemy', 280, 400); }
   else msg('RIFT CORE · ' + WORD.slice(0, S.letters) + '_'.repeat(WORD.length - S.letters));
 }
 // the boss is beaten by reaching the level's target
 function bossDefeated() {
   const B = S.boss; if (!B || B.defeated) return;
   B.defeated = true; B.illusions.clear(); B.hacked.clear(); B.dusted.clear(); bossReset(); clearBossAttacks(); stopMusic(.3); sfx.victory(); S.shake = 1;
-  setTimeout(() => msg(B.name.toUpperCase() + ' DEFEATED!', 3), 700); fx.push({ type: 'ring', x: 280, y: 428, t: 0, life: .8, c: '255,220,120', big: true });
+  fx.push({ type: 'ring', x: 280, y: 428, t: 0, life: .8, c: '255,220,120', big: true });
 }
 function decoyHit(d) {
   const { cd = 0 } = d, now = performance.now(); if (d.lastNy < .5 || cd > now) return; d.cd = now + 200;
@@ -2508,7 +2511,7 @@ function resetBoard() {
   drops.forEach(d => d.down = false); standups.forEach(s => s.lit = false);
   topLanes.forEach(l => l.lit = false); lowLanes.forEach(l => l.lit = false);
   holes.forEach(h => { h.ball = null; h.lit = 0; });
-  Object.assign(S, { saveT: 0, outSave: false, saucer2x: false, worm: 0, letters: 0, mult: 1, combo: 0, lastHit: null });
+  Object.assign(S, { saveT: 0, wordSaved: false, outSave: false, saucer2x: false, worm: 0, letters: 0, mult: 1, combo: 0, lastHit: null });
   stars.forEach(t => t.lit = false);
   pickHot();
 }
@@ -2543,7 +2546,7 @@ const actName = lv => lv <= 5 ? 'NEON DISTRICT' : lv <= 10 ? 'IRONWILD' : lv <= 
 const BOSSES = {
   5: { id: 'loki', name: 'Loki', color: '#46e08a', hp: 6, blurb: 'God of Mischief. He turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: ramp, warp and tunnel shots pay 3× for 10 seconds.' },
   15: { id: 'lodestar', name: 'The Polarity King', color: '#e25bff', hp: 10, blurb: 'Magnetic Field. Two magnetic generators sit either side of the wormhole and bend the ball toward them or push it away (the field flips every 8 seconds; watch the rings). Hit a generator 3 times to knock it out for 15 seconds. With both generators down the field dies.' },
-  20: { id: 'thanatos', name: 'The Tyrant', color: '#ffb52e', hp: 12, blurb: 'The Purge. Every so often he charges a colossal weapon (gold ring on the Rift Core): hit the Rift Core before it fills or half your targets are NULLIFIED and score nothing. Two purple-ramp shots bring them back. Beyond him lie the Void and the Sovereign Reach.' },
+  20: { id: 'thanatos', name: 'The Tyrant', color: '#ffb52e', hp: 12, blurb: 'The Purge. Every so often he charges a colossal weapon (gold ring on the Rift Core): hit the Rift Core before it fills or a quarter of your targets are NULLIFIED and score nothing. One purple-ramp shot brings them back. Beyond him lie the Void and the Sovereign Reach.' },
   25: { id: 'nyx', name: 'The Void Emperor', color: '#ff6a1f', hp: 14, blurb: 'Emperor of the Void. His Entropy drains your table multiplier every 14 seconds. He tears rifts that swallow the ball, floods the table with insectoid swarms that eat your combo, and plunges the machine into darkness.' },
   30: { id: 'malachar', name: 'The Sovereign', color: '#35c46b', hp: 18, blurb: 'Arcane technocrat and ruler of the Sovereign Reach. His force field shrugs off slow hits on the Rift Core: only a fast ball lights a letter. He rains automaton fire, binds both your flippers, mirrors the whole table, and steals the tricks of every villain you have beaten.' },
   10: { id: 'omnicron', name: 'The Architect', color: '#ff4a4a', hp: 8, blurb: 'Machine Takeover. He hacks red bumpers: hitting a hacked one wipes your combo and drops your multiplier; hit a green target to restore them. Every few seconds he charges an EMP (red ring on the Rift Core): hit the Rift Core before it fills or he overdrives your ball: for 4 seconds it flies fast and jerks in a new direction every split second. Past half the target he gets faster.' },
@@ -2603,10 +2606,30 @@ function award(base, kind, obj, x, y, generated = false) {
   if (cls === 'hit' && PHYS.has(kind)) countHit(kind, obj);
   if (has('reckoning') && !S.snap2 && S.score >= S.target * .75 && S.phase === 'play') { S.snap2 = true; bonus(Math.round(S.target * .1), 270, 420, 'THE RECKONING'); msg('THE PURGE · +10% OF TARGET', 2.5); fx.push({ type: 'flash', t: 0, life: .3 }); }
   if (has('gauntlet') && !S.snapped && S.score >= S.target / 2) { S.snapped = true; S.snapT = 10; S.forgeFx = 1.5; msg('THE STARFORGE FLARES · 5× FOR 10 SECONDS', 3); sfx.snap(); fx.push({ type: 'flash', t: 0, life: .4 }); }
-  if (S.score >= S.target && S.phase === 'play') { bossDefeated();
-    S.phase = 'clearing'; S.clearT = 1.4; msg('TARGET REACHED!');
-    tone(660, .12, 'square', .08, 1320); setTimeout(() => tone(990, .25, 'square', .08, 1980), 120);
-  }
+  if (S.score >= S.target && S.phase === 'play') targetReached();
+}
+// target reached: a victory banner flashes up at once while the machine keeps running, then fades into the reward screen
+const CLEAR_T = 2.6;
+function targetReached() {
+  const B = S.boss && !S.boss.defeated ? S.boss : null;
+  bossDefeated(); S.phase = 'clearing'; S.clearT = CLEAR_T;
+  S.winFx = { t: 0, title: B ? B.name.toUpperCase() + ' DEFEATED' : 'LEVEL ' + S.level + ' CLEAR', sub: B ? 'The realm is free' : 'Target reached', c: B ? B.color : '#ffcf3a' };
+  msg(B ? B.name.toUpperCase() + ' DEFEATED!' : 'TARGET REACHED!', 3); fx.push({ type: 'flash', t: 0, life: .25 });
+  tone(660, .12, 'square', .08, 1320); setTimeout(() => tone(990, .25, 'square', .08, 1980), 120);
+}
+function drawWinBanner(dt) {
+  const W0 = S.winFx; if (!W0 || !(S.phase === 'clearing' || S.phase === 'paused')) return;
+  if (S.phase === 'clearing') W0.t += dt;
+  const t = W0.t, a = t < .25 ? t / .25 : Math.max(0, 1 - Math.max(0, t - 1.5) / (CLEAR_T - 1.7)), sc = t < .25 ? .6 + .4 * (t / .25) + .08 * Math.sin(t / .25 * Math.PI) : 1 + .04 * (t - .25);
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha = a;
+  const g = ctx.createLinearGradient(0, 330, 0, 470); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.5, 'rgba(8,4,20,.62)'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 330, W, 140);
+  ctx.translate(W / 2, 400); ctx.scale(sc, sc); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  let size = 44; ctx.font = size + 'px ' + FONT_D; const tw = ctx.measureText(W0.title).width; if (tw > W - 70) { size = Math.floor(size * (W - 70) / tw); ctx.font = size + 'px ' + FONT_D; }
+  const tg = ctx.createLinearGradient(0, -size / 2, 0, size / 2); tg.addColorStop(0, '#fff6d8'); tg.addColorStop(.5, W0.c); tg.addColorStop(1, '#ff8a1c');
+  ctx.shadowColor = W0.c; ctx.shadowBlur = 26; ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(20,8,0,.85)'; ctx.strokeText(W0.title, 0, 0); ctx.fillStyle = tg; ctx.fillText(W0.title, 0, 0);
+  ctx.shadowBlur = 10; ctx.font = '600 15px ' + FONT_B; ctx.fillStyle = 'rgba(255,240,210,.95)'; ctx.fillText(W0.sub.toUpperCase(), 0, size * .75);
+  ctx.restore();
 }
 // a "shot" is a completed feature (ramp, orbit, bank...). Hot shot pays a bonus.
 const WORD = 'RIFTBOUND';
@@ -2634,7 +2657,7 @@ function onHit0(obj, impact, b) {
       break;
     case 'enemy':
       if (obj.lastNy < .5) { tone(140, .04, 'square', .04); break; } // hit from behind: nothing
-      { const now = performance.now(); if (obj.cd > now) break; obj.cd = now + 150; }
+      { const now = performance.now(); if (obj.cd > now) break; obj.cd = now + 350; }
       if (S.boss && !S.boss.defeated && S.boss.id === 'malachar' && b && hyp(b.vx, b.vy) < 850) { obj.flash = .5; popups.push({ x: 280, y: 400, text: 'DEFLECTED · HIT HARDER', t: 0, small: true, c: '#7dffb0' }); tone(260, .08, 'square', .04, 520); break; }
       coreHit(obj, b);
       break;
@@ -2905,6 +2928,7 @@ function tick(dt) {
   if (S.phase === 'clearing') { S.clearT -= dt; if (S.clearT <= 0) levelClear(); }
 }
 function ballLost() {
+  if (S.phase === 'clearing') return; // the level is already won
   if (S.saveT > 0 && S.phase === 'play' && prot()) { S.saveT = 0; rescue('save'); msg('BALL SAVED · RIFTBOUND BONUS', 2.5); popups.push({ x: 270, y: 800, text: 'BALL SAVED', t: 0, big: true, c: '#ff8a8a' }); tone(700, .2, 'triangle', .07, 1100); queueServe(true, 0.6); return; }
   if (has('bpsuit') && S.balls === 1 && !S.bpSaved && S.phase === 'play' && prot()) { S.bpSaved = true; rescue('bpsuit'); msg('VOIDSTEEL SUIT · KINETIC RELEASE', 3); bonus(S.bpKin || 0, 270, 700, 'KINETIC'); S.bpKin = 0; tone(110, .5, 'sawtooth', .07, 440); queueServe(true, .6); return; }
   if (has('phoenix') && S.balls === 1 && !S.phoenixUsed && S.phase === 'play' && prot()) { S.phoenixUsed = true; rescue('phoenix'); if (syn('immortal')) S.guardN = 0; msg('ASHBORN FORCE RISES', 3); tone(220, .6, 'sawtooth', .07, 880); queueServe(true, 0.7); return; }
@@ -3530,14 +3554,14 @@ function render(dt) {
     const g = ctx.createLinearGradient(0, y0, 0, y0 + h);
     g.addColorStop(0, sg.flash > .2 ? '#ffffff' : '#4a2a86'); g.addColorStop(1, sg.flash > .2 ? '#d8c2ff' : '#140a2e');
     ctx.beginPath(); ctx.roundRect(x0, y0, w, h, 5); ctx.fillStyle = g; ctx.fill();
-    ctx.strokeStyle = '#b58cff'; ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 8 + 4 * Math.sin(t * 3); ctx.lineWidth = 1.5; ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.strokeStyle = `rgba(181,140,255,${.25 + .1 * Math.sin(t * 3)})`; ctx.lineWidth = 5; ctx.stroke(); ctx.strokeStyle = '#b58cff'; ctx.lineWidth = 1.5; ctx.stroke();
     // the rift: a glowing crack across the core
     ctx.strokeStyle = `rgba(200,170,255,${.55 + .3 * Math.sin(t * 5 + cx)})`; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x0 + 6, y0 + 10); ctx.lineTo(x0 + 16, y0 + 7); ctx.lineTo(x0 + 22, y0 + 12); ctx.moveTo(x0 + 38, y0 + 8); ctx.lineTo(x0 + 46, y0 + 13); ctx.lineTo(x0 + 54, y0 + 9); ctx.stroke();
     // the next RIFTBOUND letter it will light
     const L = real ? WORD[S.letters % WORD.length] : WORD[(Math.floor(t * 6 + cx) % WORD.length + WORD.length) % WORD.length];
-    ctx.textAlign = 'center'; ctx.font = '15px ' + FONT_D; ctx.fillStyle = '#ffe9a8'; ctx.shadowColor = '#ffcf3a'; ctx.shadowBlur = 10; ctx.fillText(L, cx, y0 + 16); ctx.shadowBlur = 0;
+    ctx.textAlign = 'center'; ctx.font = '15px ' + FONT_D; ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,190,60,.45)'; ctx.strokeText(L, cx, y0 + 16); ctx.fillStyle = '#ffe9a8'; ctx.fillText(L, cx, y0 + 16);
     if (Bo && real && (Bo.charge > 0 || Bo.snapT > 0)) { // attack charge ring (Architect EMP / Tyrant purge): hit the core to stop it
-      const pr = Bo.snapT > 0 ? 1 - Bo.snapT / 3 : 1 - Bo.charge / 2.5; ctx.strokeStyle = Bo.snapT > 0 ? '#ffb52e' : '#ff4a4a'; ctx.lineWidth = 3; ctx.shadowColor = '#ff4a4a'; ctx.shadowBlur = 16;
+      const pr = Bo.snapT > 0 ? 1 - Bo.snapT / 4 : 1 - Bo.charge / 2.5; ctx.strokeStyle = Bo.snapT > 0 ? '#ffb52e' : '#ff4a4a'; ctx.lineWidth = 3; ctx.shadowColor = '#ff4a4a'; ctx.shadowBlur = 16;
       ctx.beginPath(); ctx.arc(cx, y0 + h / 2, 38, -Math.PI / 2, -Math.PI / 2 + pr * TAU); ctx.stroke(); ctx.shadowBlur = 0;
     }
     if (Bo && real && Bo.warn) { ctx.strokeStyle = `rgba(255,90,90,${.5 + .5 * Math.sin(t * 20)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(x0 - 3, y0 - 3, w + 6, h + 6, 7); ctx.stroke(); }
@@ -3625,7 +3649,7 @@ function render(dt) {
     for (const [r, sp, dash] of [[18, 1.6, [5, 4]], [13, -2.4, [3, 3]], [22, .9, [2, 6]]]) { ctx.save(); ctx.rotate(t * sp); ctx.setLineDash(dash); ctx.strokeStyle = S.portalT > 0 ? '#ffe0a0' : '#ff9a2e'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.stroke(); ctx.restore(); }
     ctx.restore();
   }
-  drawEvoOver(dt); drawLegOver(dt); drawCardsOver(dt); if (S.boss || S.bfx) { drawBossAttacks(); drawBossAttacks2(); drawBlackout(); }
+  drawEvoOver(dt); drawLegOver(dt); drawCardsOver(dt); if (S.boss || S.bfx) { drawBossAttacks(); drawBossAttacks2(); drawBlackout(); } drawWinBanner(dt);
   // upgrade effects
   fx = fx.filter(e => (e.t += dt) < e.life); if (fx.length > 60) fx = fx.slice(-60);
   for (const e of fx) {
@@ -3854,7 +3878,7 @@ function frame(t) {
     if (raw > 1 / 45) { Q.slow += raw; Q.fast = 0; if (!Q.low && Q.slow > 1) Q.low = true; } else if (raw < 1 / 55) { Q.slow = Math.max(0, Q.slow - raw * .5); Q.fast += raw; if (Q.fast > 4) { Q.slow = 0; if (Q.low) Q.low = false; } }
   }
   if (activePlay()) {
-    const sdt = dt * (S.slowT > 0 ? .35 : 1) * (S.bfx && S.bfx.timeskip > 0 ? 1.4 : 1); if (S.slowT > 0) S.slowT -= dt;
+    const sdt = dt * (S.slowT > 0 ? .35 : 1) * (S.bfx && S.bfx.timeskip > 0 ? 1.2 : 1); if (S.slowT > 0) S.slowT -= dt;
     // catch up in real time after slow frames (up to 0.12 s of game time per frame) so a frame-rate dip never turns into slow motion
     acc += Math.min(.12, raw) * (sdt / dt || 1); let steps = 0;
     const p0 = performance.now(); while (acc >= STEP && steps < 16) { for (const b of balls) { b.ix = b.x; b.iy = b.y; } const n = subSteps(); for (let i = 0; i < n; i++) physics(STEP / n); tick(STEP); acc -= STEP; steps++; } PERF.steps = (PERF.steps || 0) + steps; if (acc > STEP) { PERF.lost = (PERF.lost || 0) + acc; acc = 0; } PERF.sim += performance.now() - p0;
