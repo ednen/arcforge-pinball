@@ -672,7 +672,7 @@ const flippers = [
 // ================= state =================
 const S = { phase: 'start', level: 1, target: 13000, score: 0, balls: 3, ballNo: 1, mult: 1, combo: 0, comboT: 0, lastHit: null,
   charge: 0, charging: false, clearT: 0, saveT: 0, outSave: false, saucer2x: false, worm: 0, letters: 0, rGlow: 0, tGlow: 0, shake: 0, pulse: 0, hot: 'ramp',
-  maxBalls: 3, syn: new Set(), evos: new Set(), cnt: {}, fires: {}, bought: new Set(), tg: {}, hr: {}, guardN: 0, chain: [], chaosMods: {}, shotHist: [], deckSet: new Set(), baseT: 4000, newSyn: [], portalT: 0, credits: 0, sinceRare: 0, reroll: 5, hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardUsed: false, timeUsed: false, phoenixUsed: false };
+  maxBalls: 3, syn: new Set(), evos: new Set(), cnt: {}, fires: {}, bought: new Set(), tg: {}, hr: {}, guardN: 0, chain: [], chaosMods: {}, shotHist: [], deckSet: new Set(), baseT: 4000, newSyn: [], portalT: 0, credits: 50, sinceRare: 0, reroll: 5, hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardUsed: false, timeUsed: false, phoenixUsed: false };
 let curBall = null, fx = [];
 
 // ================= upgrades (Step 2) =================
@@ -694,14 +694,14 @@ const UPGRADES = [
   { id: 'guard', r: 'epic', r0: 'rare', cat: 'Machine Part', name: 'Voidsteel Drain Guard', desc: 'The first ball that drains between the flippers each level bounces back.' },
   { id: 'qsiphon', r: 'uncommon', cat: 'Machine Part', up: true, name: 'Quantum Siphon', desc: 'A third of the time (4 s out of every 12) the purple bumper\'s cave becomes a powerful vacuum that sucks in any ball that comes close. Every ball it swallows pays +{400|600}.' },
   { id: 'director', r: 'epic', cat: 'Trinket', name: "Commander's Contingency", desc: 'Start every level with one extra ball.' },
-  { id: 'loki', r: 'rare', cat: 'Trinket', name: "False King's Illusion", desc: 'Every 25th hit spawns a ghost ball for 8 seconds. Ghosts score half and drain for free.' },
+  { id: 'loki', r: 'rare', cat: 'Trinket', name: "Trickster's Illusion", desc: 'Every 25th hit spawns a ghost ball for 8 seconds. Ghosts score half and drain for free.' },
   { id: 'mjolnir', r: 'epic', cat: 'Machine Part', name: 'Mjölnir Bumpers', desc: 'Bumper hits charge lightning. At 5 charges it chains to 3 targets for 300 each.' },
   { id: 'hex', r: 'epic', cat: 'Trinket', name: "Chaos Hex", desc: 'Every 15th hit hexes a random scoring source: 2× or 3× for the rest of the level.' },
   { id: 'instab', r: 'epic', cat: 'Mutation', name: 'Rift Instability', desc: 'Every 35 hits the ball splits in two. Copies have a 20% chance to vanish on each bumper hit.' },
   { id: 'phoenix', r: 'legendary', cat: 'Mutation', name: 'Ashborn Force', desc: 'Your last ball scores 3×, other balls score 25% less. The last ball rises again once per level.' },
-  { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Mirage Scepter", desc: "Every 18th hit spawns a ghost ball (8 s) that scores full points. Stacks with False King's Illusion." },
-  { id: 'hypercube', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: 'Rune of Passage', desc: 'The blue quantum pit bumpers turn green, grow 20% larger and pay 50% more.' },
-  { id: 'dagger', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Trickster's Dagger", desc: 'Every 4th Arc Core hit lights two letters and pays +1,000.' },
+  { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: "Mirage Scepter", desc: "Every 18th hit spawns a ghost ball (8 s) that scores full points. Stacks with Trickster's Illusion." },
+  { id: 'hypercube', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: 'Rune of Passage', desc: 'The blue quantum pit bumpers turn green, grow 20% larger and pay 50% more.' },
+  { id: 'dagger', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: "Trickster's Dagger", desc: 'Every 4th Arc Core hit lights two letters and pays +1,000.' },
   { id: 'ucore', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: "Architect Core", desc: 'A red bumper hit 5 times in a level overclocks: it scores 4× and kicks 20% harder for the rest of the level.' },
   { id: 'vbody', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Rewired Laser', desc: 'Every 12 s a blue laser sweeps up the table from the flippers. Any ball it touches is pushed upward and pays 300.' },
   { id: 'drones', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Clockwork Sentries', desc: 'Two small rewired clockwork bots patrol the table. Balls pass through them from below, but a ball falling onto one bounces off and pays 150. Every 6 s each one zaps a random target for 200.' },
@@ -714,8 +714,8 @@ const UPGRADES = [
   { id: 'controlrod', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Control Rod', desc: 'Every 20 hits the rod pulses: everything scores 1.5× for 5 seconds.' },
   { id: 'carapace', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: "Emperor's Carapace", desc: 'Once per level, the first ball that drains is thrown back into play. The saved ball glows violet and scores 2× for 5 seconds.' },
   { id: 'nzgate', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Gate', desc: 'Portals are always open and every portal jump pays 1,000.' },
-  { id: 'purpose', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: 'Trickster\'s Bargain', desc: 'Every 7th hit turns a random target gold: it scores 3× for 8 seconds.' },
-  { id: 'horns', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Crown of Many Faces", desc: 'Hit 6 different parts of the machine within 5 seconds: everything scores 2× for 8 seconds.' },
+  { id: 'purpose', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: 'Trickster\'s Bargain', desc: 'Every 7th hit turns a random target gold: it scores 3× for 8 seconds.' },
+  { id: 'horns', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: "Crown of Many Faces", desc: 'Hit 6 different parts of the machine within 5 seconds: everything scores 2× for 8 seconds.' },
   { id: 'uplink', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Machine Uplink', desc: 'Points from Machine Parts are +40% stronger.' },
   { id: 'skyfall', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Overdrive Engine', desc: 'The red bumpers are rebuilt as armoured robots: they kick 15% harder and score +30%.' },
   { id: 'mshield', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Magnetic Shield', desc: 'Every ball you launch gets a 6-second ball save.' },
@@ -813,15 +813,22 @@ function completesSynergy(u) { // which synergies taking this card would switch 
   owned[u.id] = (o || 0) + 1; recountTags(); const out = SYNERGIES.filter(s => !before.has(s.id) && synOK(s));
   if (o) owned[u.id] = o; else delete owned[u.id]; recountTags(); return out;
 }
+// announcements run in three independent lanes (evolutions, family awakenings, other synergies):
+// the same kind queues up, different kinds play at the same time
+const BQ = { evo: [], awake: [], syn: [] }, BQbusy = {};
 function showSynergyBanner() {
-  const sy = S.newSyn.shift(); if (!sy) return;
-  if (sy.evo) { msg('EVOLVED: ' + sy.name.toUpperCase(), 4); startEvoMarquee(sy); }
-  else if (sy.kind === 'family' || sy.kind === 'capstone') { const F = FAMS[sy.fam[0]], cap = sy.tier >= 5;
+  while (S.newSyn.length) { const sy = S.newSyn.shift(); BQ[sy.evo ? 'evo' : sy.kind === 'family' || sy.kind === 'capstone' ? 'awake' : 'syn'].push(sy); }
+  for (const k in BQ) if (!BQbusy[k]) runBanner(k);
+}
+function runBanner(k) {
+  const sy = BQ[k].shift(); if (!sy) { BQbusy[k] = false; return; } BQbusy[k] = true; let dur;
+  if (k === 'evo') { msg('EVOLVED: ' + sy.name.toUpperCase(), 4); startEvoMarquee(sy); dur = EVO_T * 1000 + 300; }
+  else if (k === 'awake') { const F = FAMS[sy.fam[0]], cap = sy.tier >= 5;
     S.awake = { t: 0, life: 3.4, title: F.name.toUpperCase() + ' ' + (cap ? 'V' : 'III'), name: sy.name, sub: (sy.desc || '').split(/(?<=\.)\s/)[0], c: F.c, ico: F.ico, cap };
-    msg(F.name.toUpperCase() + ' ' + (cap ? 'V' : 'III') + ' AWAKENED', 4); sfx.awaken(cap); S.pulse = 1; S.shake = cap ? 1 : .7; }
-  else { S.banner = { title: sy.name, sub: sy.desc, tag: (sy.first ? 'NEW ' : '') + (sy.kind && sy.kind !== 'pair' ? SYNKIND[sy.kind].toUpperCase() : 'SYNERGY') + (sy.first ? ' DISCOVERED' : ' ACTIVE'), t: 0, life: 4.5 };
-  msg('SYNERGY: ' + sy.name.toUpperCase(), 4); sfx.synergy(); S.pulse = 1; }
-  if (S.newSyn.length) setTimeout(showSynergyBanner, sy.evo ? EVO_T * 1000 + 700 : S.awake && S.awake.t === 0 ? 3600 : 4600);
+    msg(F.name.toUpperCase() + ' ' + (cap ? 'V' : 'III') + ' AWAKENED', 4); sfx.awaken(cap); S.pulse = 1; S.shake = cap ? 1 : .7; dur = 3500; }
+  else { S.banner = { title: sy.name, sub: sy.desc, tag: (sy.first ? 'NEW ' : '') + (sy.kind && sy.kind !== 'pair' ? SYNKIND[sy.kind].toUpperCase() : 'SYNERGY') + (sy.first ? ' DISCOVERED' : ' ACTIVE'), t: 0, life: 3 };
+    msg('SYNERGY: ' + sy.name.toUpperCase(), 3); sfx.synergy(); S.pulse = 1; dur = 3100; }
+  setTimeout(() => runBanner(k), dur);
 }
 // ================= Step 8: card pool, tags, tiers =================
 const TAGC = { TECH: '#7fe7ff', COSMIC: '#b58cff', MYSTIC: '#ff9a2e', GAMMA: '#6cff5a', GIFTED: '#ffd23a', WEB: '#dfe3ee', LIGHTNING: '#9fd8ff', EXPLOSIVE: '#ff6b3d', MULTIBALL: '#c77dff', SPEED: '#ffe08a', PORTAL: '#ffb347', BUMPER: '#ff6b6b', RAMP: '#b98cff', SURVIVAL: '#5ee07a', COMBO: '#4fa3ff', FLIPPER: '#f5c542', QUANTUM: '#5ad1ff', CHAOS: '#ff5ad1', PARASITE: '#a0a4c0', ARMOR: '#d9a441', MAGNETIC: '#e25bff', ECONOMY: '#f5d77a' };
@@ -897,7 +904,7 @@ UPGRADES.push(
   { id: 'vigilante', r: U_, cat: TR, up: true, tags: ['EXPLOSIVE'], hero: 'outlaws', name: "Vigilante's Arsenal", desc: 'Knocking down a target makes your next target hit worth +{50|75|100}%.' },
   { id: 'gammawarp', r: U_, cat: TR, up: true, tags: ['GAMMA', 'BUMPER'], hero: 'titanborn', name: "Titan's Fist", desc: 'Bumper hits by a fast ball score {2|2.5|3}×.' },
   { id: 'rcoupon', r: U_, cat: TR, tags: ['ECONOMY'], hero: 'outlaws', name: 'Scrapper\'s "Legally Acquired" Coupon', desc: 'The first item you buy in each shop costs 25% less.' },
-  { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "False King's Counterfeit Credits", desc: 'Gain +75 credits now. For the next three shops, all prices are +20%. Leaves your build after that.' },
+  { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "Trickster's Counterfeit Credits", desc: 'Gain +75 credits now. For the next three shops, all prices are +20%. Leaves your build after that.' },
   // ---- RARE: build-arounds ----
   { id: 'nano', r: R_, cat: MPART, tags: ['TECH', 'ARMOR'], hero: 'aetherworks', name: 'Nanite Swarm', desc: 'Every 10 s your weakest upgradeable card runs at full tier-3 power for 5 s.' },
   { id: 'alleye', r: R_, cat: TR, tags: ['MYSTIC', 'COSMIC'], hero: 'arcanists', name: 'The All-Seeing Eye', desc: 'Repeat the same sequence of shots (like ramp → warp, ramp → warp) and each loop adds +0.25× for the level.' },
@@ -1042,7 +1049,7 @@ UPGRADES.push(
   { id: 'godthunder', r: 'epic', cat: TR, fam: 'THUNDER', req: { THUNDER: 4 }, tags: ['LIGHTNING', 'BUMPER'], name: 'God of Thunder', desc: 'RULE BREAK: lightning that strikes a bumper counts as a real hit 25% of the time, so it can trigger your card counters.' },
   { id: 'webmaster', r: 'epic', cat: TR, fam: 'WEB', req: { WEB: 4 }, tags: ['COMBO'], name: 'Web of Fate', desc: 'RULE BREAK: your combo never times out while a ball is in play, and it can reach 30 steps instead of 20.' },
   { id: 'overclock', r: 'epic', cat: MPART, fam: 'TECH', req: { TECH: 4 }, tags: ['TECH'], name: 'Overclock Protocol', desc: 'Every drone and bot is 50% stronger and 50% larger: they fire 50% more often and their hits pay 50% more.' },
-  { id: 'gammaform', r: 'epic', cat: TR, fam: 'GAMMA', req: { GAMMA: 4 }, tags: ['GAMMA', 'BUMPER'], name: 'Undying Titan', desc: 'RULE BREAK: glancing hits and quick re-hits count as clean hits, and the ball is permanently huge.' },
+  { id: 'gammaform', r: 'epic', cat: TR, fam: 'GAMMA', req: { GAMMA: 4 }, tags: ['GAMMA', 'BUMPER'], name: 'Undying Titan', desc: 'RULE BREAK: glancing hits and quick re-hits count as clean hits, and the ball is permanently a bit bigger.' },
 );
 // ---- family balance pass: new cards so every family has the same depth ----
 UPGRADES.push(
@@ -1070,12 +1077,12 @@ UPGRADES.push({ id: 'thunderstrike', r: U_, cat: TR, up: true, fam: 'THUNDER', t
   quiver: ['Sticky Webs', 'Webbed targets pay +{100|150} extra on every hit.', 'uncommon'],
   arrowhead: ['Web Launcher', 'Targets hit straight off a flipper get webbed.', 'common'],
   herald: ['City Gazette', 'Every 10th hit on a webbed target snaps a front-page photo for +{1000|1500}.', 'uncommon'],
-  baton: ['Web Snare', 'Hitting the same webbed target 3 times in a row pays +{500|800}.', 'uncommon'],
+  baton: ['Web Snare', 'Hit webbed targets 3 times in a row: +{1,000|1,500}.', 'uncommon'],
   spiderleg: ['Aetherweaver Leg', 'Every {20th|14th} hit, a leg strikes a webbed target (or the nearest one) for 400 and webs it.', 'common'],
   webtension: ['Web Tension', 'Hitting one slingshot and then the other within 1.5 s pays +{300|450} and webs a random target.', 'common'],
   webmaster: ['Web of Fate', 'Webbed targets score 2×.', 'epic'],
   lucky: ['Lucky Bullet', '{10|15}% chance for a target hit to score 4×, but every other hit scores 10% less.', 'common'],
-  infernal: ['Infernal Engine', 'Every {25|20} hits the ball bursts into hellfire for 3 s: everything it hits scores 2×. Each burst costs 2 credits.', 'common'],
+  infernal: ['Infernal Engine', 'Every {25|20} hits the ball bursts into hellfire for 3 s: everything it hits scores 2×. Each burst costs 5 credits.', 'common'],
   hellrider: ["Hellrider's Chain", 'Combo hits score +{8|12}% more per combo step, but hits outside a combo score 30% less.', 'rare'],
   torch: ["Firebrand's Flame", 'Fast hits in a row build Heat. At full Heat everything scores 3×, but slow hits score 25% less.', 'rare'],
   venom: ['Living Ooze', 'The ball takes a power from the last target it hit: bumpers make it bouncy, slingshots sticky, standups heavy, drop targets explosive. Bumpers score 20% less.', 'rare'],
@@ -1172,7 +1179,7 @@ famSyn('eventhorizon', 'MYSTIC', 3); famSyn('sanctum5', 'MYSTIC', 5, "Astral Dom
 famSyn('fieldmaster', 'MAGNET', 3, 'Field Master', 'Magnetic pulls are 50% stronger and pay 80 points every 0.4 s while they bend the ball.'); famSyn('magnetar', 'MAGNET', 5, 'Magnetar', 'The ball constantly curves toward unlit targets, and magnet payouts are tripled.');
 famSyn('chainreaction', 'EXPLOSIVE', 3); famSyn('bigbang', 'EXPLOSIVE', 5, 'Big Bang', 'Explosions reach 50% further and can chain one step deeper.');
 famSyn('qpartners', 'QUANTUM', 3, 'Quantum Gate', 'The quantum pit opens its mouth (balls coming down the left side fall straight in) and the purple ramp\'s entrance opens 75% wider.'); famSyn('clonesaga', 'QUANTUM', 5, 'Quantum Conduit', 'The quantum pit becomes a true tunnel: balls glide through it, and every pass pays 2,500.');
-famSyn('rage', 'HELLFIRE', 3, 'Hellfire Ball', 'Every 16 clean hits, or an 8-hit combo, ignites your ball for 5 s. While it burns, physical hits score ×1.3 Mult and every target it hits burns for 3 s. Hit a burning target again to detonate it for +400.'); famSyn('penance', 'HELLFIRE', 5, 'Inferno Core', 'Your last ball burns forever, and flaming hits score ×1.6 Mult (every 5th clean hit stokes the flame, up to ×2). Burning targets detonate in chain explosions, and draining your last ball at full heat sets off a final burst worth 6% of the target (once per level).');
+famSyn('rage', 'HELLFIRE', 3, 'Hellfire Ball', 'Every 16 clean hits, or an 8-hit combo, ignites your ball for 5 s. While it burns, physical hits score ×1.3 Mult and every target it hits burns for 2 s. Hit a burning target again to detonate it for +400.'); famSyn('penance', 'HELLFIRE', 5, 'Inferno Core', 'Your last ball burns forever, and flaming hits score ×1.6 Mult (every 5th clean hit stokes the flame, up to ×2). Burning targets detonate in chain explosions, and draining your last ball at full heat sets off a final burst worth 6% of the target (once per level).');
 famSyn('undying', 'VOIDSTEEL', 3); famSyn('vibcore', 'VOIDSTEEL', 5, 'Voidsteel Core', 'Once per ball, the drain itself bounces the ball back into play.');
 famSyn('lightspeed', 'SPEED', 3); famSyn('ftl', 'SPEED', 5);
 famSyn('astral', 'ILLUSION', 3); famSyn('masterill', 'ILLUSION', 5, 'Grand Illusion', 'Extra balls score full points, and one more extra ball may be on the table.');
@@ -1467,7 +1474,7 @@ function artifactTick(dt) {
   if (syn('clonesaga')) for (const b of balls) if (b.inPit && b.layer === 0 && b.y < 560) { // Quantum Conduit: a smooth ride down the tunnel
     b.vx += (Math.max(38, Math.min(62, b.x)) - b.x) * 6 * dt; b.vx *= 1 - 2.2 * dt; b.vy = Math.max(b.vy + 900 * dt, 260); }
   if (has('mshield')) for (const b of balls) if (b.msh && b.x < 505) { b.msh = false; S.saveT = Math.max(S.saveT, 6); pop(b.x, b.y - 30, 'MAGNETIC SHIELD', '#b58cff'); }
-  if (has('mgauntlet') && legEvery('mgaunt', 15, dt)) { const q = rnd(allTargets()); q.mod = { t: 6, m: 4 }; const [x, y] = objPos(q); pop(x, y - 34, 'HEXED 4×', '#58d68d', true); fx.push({ type: 'ring', x, y, t: 0, life: .5, c: '88,214,141' }); }
+  if (has('mgauntlet') && legEvery('mgaunt', 15, dt)) { const q = rnd(allTargets()); q.mod = { t: 6, m: 4, hex: true }; const [x, y] = objPos(q); pop(x, y - 34, 'HEXED 4×', '#5aa8ff', true); fx.push({ type: 'ring', x, y, t: 0, life: .5, c: '90,168,255' }); }
 }
 function quantumTick(dt) {
   const main = mainBumpers(), t = performance.now() / 1000;
@@ -1612,7 +1619,7 @@ function hellHit(obj) {
     obj.burnT = 0; const [x, y] = objPos(obj);
     if (syn('penance')) { explode(x, y, 400); pop(x, y - 50, 'CHAIN DETONATION', '#ff4a1a', true); }
     else { fx.push({ type: 'boom', x, y, t: 0, life: .45 }); noise(.35, .12, 700, 80, 'lowpass'); scorch(obj, x, y + 1); award(400, 'explosion', obj, x, y - 24, true); pop(x, y - 48, 'DETONATE', '#ff7a2e', true); }
-  } else { obj.burnT = 3; obj.burnC = ballTint(b); }
+  } else { obj.burnT = 2; obj.burnC = ballTint(b); }
 }
 function infernoBurst(b) { // Inferno Core: the last ball goes out in a blaze
   bonus(Math.round(S.target * .06), 270, 720, 'INFERNO BURST'); msg('INFERNO BURST', 3); fx.push({ type: 'flash', t: 0, life: .4 }); sfx.boom(); S.shake = 1;
@@ -1805,7 +1812,7 @@ function baseRad() {
   let r = 10;
   if (has('gamma')) r *= 1.05;
   if (has('chi')) r *= 1.08;
-  if (has('gammaform')) r = 12.5;
+  if (has('gammaform')) r *= 1.12;
   return clamp(r, 7.5, 12.5);
 }
 // ---- scoring factors (Step 9) ----
@@ -1948,7 +1955,16 @@ function drawBurning(dt) { // burning targets: the part's edge glows red-hot and
       if (Math.random() < .25 * k) flameSpark(x + (Math.random() - .5) * r * 1.4, y - r * .6, pal, true); }
   }
 }
+function drawHexed() { // hexed targets glow blue while the hex lasts
+  const t = performance.now() / 1000; let on = false;
+  for (const o of allTargets()) { const M = o.mod; if (!M || !M.hex || !(M.t > 0)) continue; if (!on) { on = true; ctx.save(); ctx.globalCompositeOperation = 'lighter'; }
+    const [x, y] = objPos(o), r = o.kind === 'standup' || o.kind === 'drop' ? 13 : o.kind === 'star' ? 12 : o === enemy ? 22 : (o.r || 20), p = .7 + .3 * Math.sin(t * 6), k = Math.min(1, M.t / .5);
+    const g = ctx.createRadialGradient(x, y, r * .4, x, y, r * 1.8); g.addColorStop(0, `rgba(90,168,255,${.45 * p * k})`); g.addColorStop(1, 'rgba(40,90,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 1.8, 0, TAU); ctx.fill();
+    ctx.strokeStyle = `rgba(150,205,255,${.75 * p * k})`; ctx.lineWidth = 2; ctx.setLineDash([5, 5]); ctx.lineDashOffset = -t * 20; ctx.beginPath(); ctx.arc(x, y, r + 5, 0, TAU); ctx.stroke(); ctx.setLineDash([]); }
+  if (on) ctx.restore();
+}
 function drawScorch(dt) {
+  if (has('mgauntlet')) drawHexed();
   if (syn('rage')) drawBurning(dt);
   if (!SCORCH.length) return;
   ctx.save();
@@ -2109,12 +2125,12 @@ Bus.on('hit', e => { // counters for the balance-pass cards
     if (o.web) {
       if (has('quiver') && budget('quiver', 10)) award(T('quiver', 100, 150, 150), 'web', o, null, null, true);
       if (has('herald') && (S.bugN = (S.bugN || 0) + 1) % 10 === 0) { award(T('herald', 1000, 1500, 1500), 'herald', o, 270, 640, true); msg('CITY GAZETTE: FRONT PAGE!'); fx.push({ type: 'flash', t: 0, life: .15 }); }
-      if (has('baton')) { if (S.snareO === o) { if (++S.snareN >= 3) { S.snareN = 0; const [x, y] = objPos(o); award(T('baton', 500, 800, 800), 'web', o, x, y - 40, true); pop(x, y - 60, 'WEB SNARE', '#ffffff', true); } } else { S.snareO = o; S.snareN = 1; } }
-    } else if (has('baton')) { S.snareO = null; S.snareN = 0; }
+      if (has('baton') && (S.snareN = (S.snareN || 0) + 1) >= 3) { S.snareN = 0; const [x, y] = objPos(o); award(T('baton', 1000, 1500, 1500), 'web', o, x, y - 40, true); pop(x, y - 60, 'WEB SNARE', '#ffffff', true); }
+    } else if (has('baton')) S.snareN = 0;
     if (has('winter') && (b.gHits = (b.gHits || 0) + 1) % 10 === 0 && (b.gg || 0) < 5) { b.gg = (b.gg || 0) + 1; b.rad = baseRad() * (1 + .03 * b.gg); pop(b.x, b.y - 30, 'GROWTH +' + (b.gg * 3) + '%', '#6cff5a'); }
     if (has('claw')) b.surge = (b.surge || 0) + 1;
   }
-  if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 25, 20, 20)) { S.infN = 0; b.hellT = 3; S.credits = Math.max(0, S.credits - 2); renderInv(); msg('INFERNAL ENGINE · 2× · −2 CREDITS'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
+  if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 25, 20, 20)) { S.infN = 0; b.hellT = 3; S.credits = Math.max(0, S.credits - 5); renderInv(); msg('INFERNAL ENGINE · 2× · −5 CREDITS'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
   if (has('powder') && !S.keg && (S.kegN = (S.kegN || 0) + 1) >= T('powder', 40, 32, 25)) { S.kegN = 0; S.keg = true; msg('POWDER KEG ARMED'); }
   if (has('fieldline') && !(S.fieldT > 0) && (S.fieldN = (S.fieldN || 0) + 1) >= T('fieldline', 25, 20, 15)) { S.fieldN = 0; S.fieldT = 6; msg('FIELD LINES'); sfx.hum(); }
   if (has('smoke') && !isReal(b) && budget('smoke', 6)) { S.combo = Math.min(S.combo + T('smoke', 1, 2, 3), has('webmaster') ? 30 : 20); S.comboT = 2; }
@@ -2330,11 +2346,7 @@ const shopAfter = lv => lv > 30 ? lv % 2 === 0 : [2, 4, 7, 9, 12, 14, 17, 19, 22
 const r5 = v => Math.max(5, Math.round(v / 5) * 5);
 const rr = ([a, b]) => r5(a + Math.random() * (b - a));
 function pickW(w) { let t = Math.random() * Object.values(w).reduce((a, b) => a + b, 0); for (const k in w) { t -= w[k]; if (t <= 0) return k; } return 'common'; }
-function shopWeights(any) {
-  const lv = S.level;
-  if (!any) return lv < 5 ? { common: 62, uncommon: 33, rare: 5 } : lv < 10 ? { common: 50, uncommon: 35, rare: 15 } : { common: 40, uncommon: 38, rare: 22 };
-  return lv < 5 ? { common: 45, uncommon: 35, rare: 14, epic: 5, legendary: 1 } : lv < 10 ? { common: 33, uncommon: 32, rare: 21, epic: 10, legendary: 4 } : { common: 23, uncommon: 30, rare: 25, epic: 15, legendary: 7 };
-}
+function shopWeights(any) { return rarityWeights(S.level + 2); } // the Curator's shelves run two levels ahead of the reward odds
 const RBYRANK = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
 function rollCard(w, exclude = [], f = () => true) {
   let rank = RANK[pickW(w)];
@@ -2524,7 +2536,7 @@ function spawnBall(src, o) {
   if (o.ghost && syn('trickster')) { o.life = 20; o.full = true; o.tk = true; }
   const b = { x: src.x, y: src.y, vx: -src.vx * .6 + (Math.random() - .5) * 300, vy: -Math.abs(src.vy) * .5 - 300, layer: src.layer, still: 0, launched: true, rad: src.rad || baseRad(), col: 99, ...o };
   balls.push(b); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: o.ghost ? '120,255,170' : o.temp ? '90,210,255' : '200,120,255' });
-  msg(o.msg || (o.ghost ? "FALSE KING'S ILLUSION" : 'RIFT SPLIT'));
+  msg(o.msg || (o.ghost ? "TRICKSTER'S ILLUSION" : 'RIFT SPLIT'));
   if ((o.ghost || o.dup) && syn('astral') && Math.random() < .12) setTimeout(() => { if (balls.filter(q => !isReal(q)).length < maxExtra()) balls.push({ ...b, vx: -b.vx, spectral: true, ghost: false, dup: false, life: 10, msg: null }); }, 150); tone(o.ghost ? 700 : 400, .25, 'triangle', .07, o.ghost ? 1400 : 200);
 }
 function countHit(kind, obj) {
@@ -2574,7 +2586,7 @@ function bumperExtras(c, b) {
 // ================= bosses (Step 3) =================
 const MAINB = bumpers.filter(c => !c.pit && !c.big && c.r > 19), mainBumpers = () => MAINB; // the three big red bumpers never change
 const TAUNTS = {
-  loki: ['FALSE KING: WRONG ONE, MORTAL', 'FALSE KING: MISSED ME', 'FALSE KING: TRY HARDER', 'FALSE KING: NOW YOU SEE ME'],
+  loki: ['TRICKSTER: WRONG ONE, MORTAL', 'TRICKSTER: MISSED ME', 'TRICKSTER: TRY HARDER', 'TRICKSTER: NOW YOU SEE ME'],
   lodestar: ['POLARITY KING: STEEL OBEYS ME', 'POLARITY KING: YOUR BALL IS MINE', 'POLARITY KING: FEEL THE PULL', 'POLARITY KING: NORTH IS WHERE I SAY'],
   thanatos: ['TYRANT: KNEEL TO THE CROWN', 'TYRANT: YOUR TABLE IS MINE', 'TYRANT: THE PURGE IS COMING', 'TYRANT: I CONQUER ALL REALMS'],
   nyx: ['VOID EMPEROR: THE DARK IS FOREVER', 'VOID EMPEROR: THE VOID HUNGERS', 'VOID EMPEROR: ENTROPY TAKES ALL', 'VOID EMPEROR: BE UNMADE'],
@@ -2586,7 +2598,6 @@ function bossReset() { clearBossAttacks(); placePlate(enemy, 0); decoys.forEach(
 // ---- boss attacks: telegraphed, table-changing abilities (hit the boss during the warning to interrupt) ----
 const ATTACKS = {
   mirror: { boss: 'loki', name: 'MIRROR CURSE', desc: 'Flippers swapped', dur: 5, c: '#46e08a' },
-  hall: { boss: 'loki', name: 'HALL OF ILLUSIONS', desc: 'Half the machine turns into illusions', dur: 7, c: '#46e08a' },
   fakeball: { boss: 'loki', name: 'DOPPELGANGER', desc: 'Two fake balls join the real one', dur: 12, c: '#46e08a' },
   firewall: { boss: 'omnicron', name: 'FIREWALL', desc: 'Ramp sealed', dur: 8, c: '#ff4a4a' },
   laser: { boss: 'omnicron', name: 'LASER SWEEP', desc: 'Dodge the beam', dur: 2.4, c: '#ff4a4a' },
@@ -2737,7 +2748,7 @@ function bossTick(dt) {
   const B = S.boss; if (!B || B.defeated) return;
   B.t += dt; B.t2 = (B.t2 || 0) + dt;
   if (B.id === 'loki') {
-    if (B.exposedT > 0) { B.exposedT -= dt; if (B.exposedT <= 0) { B.exposedT = 0; B.t = 5; B.t2 = 0; msg('THE FALSE KING HIDES AGAIN'); } return; }
+    if (B.exposedT > 0) { B.exposedT -= dt; if (B.exposedT <= 0) { B.exposedT = 0; B.t = 5; B.t2 = 0; msg('THE TRICKSTER HIDES AGAIN'); } return; }
     if (B.t >= 9) {                                          // new illusions: 2 red bumpers + one whole target group
       B.t = 0; B.illusions.clear();
       mainBumpers().sort(() => Math.random() - .5).slice(0, 2).forEach(c => B.illusions.add(c));
@@ -2869,7 +2880,7 @@ function startLevel() {
   Bus.emit('levelStart', { level: S.level }); renderInv();
   if (S.newSyn.length) setTimeout(showSynergyBanner, 900);
 }
-function newRun() { S.hunger = 0; S.artN = 0; S.locked = null; S.phT = 0; S.level = 1; S.target = targetFor(1); S.endless = false; S.syn = new Set(); S.evos = new Set(); S.newSyn = []; S.portalT = 0; for (const k in owned) delete owned[k]; Object.assign(S, { credits: 0, sinceRare: 0, debt: 0, bought: new Set(), counterfeit: 0, nextBalls: 0, freeReroll: 0, locked: null, taskId: null, fires: {} }); SH = null; card.classList.remove('shop'); refreshBuild(); startLevel(); }
+function newRun() { S.hunger = 0; S.artN = 0; S.locked = null; S.phT = 0; S.level = 1; S.target = targetFor(1); S.endless = false; S.syn = new Set(); S.evos = new Set(); S.newSyn = []; S.portalT = 0; for (const k in owned) delete owned[k]; Object.assign(S, { credits: 50, sinceRare: 0, debt: 0, bought: new Set(), counterfeit: 0, nextBalls: 0, freeReroll: 0, locked: null, taskId: null, fires: {} }); SH = null; card.classList.remove('shop'); refreshBuild(); startLevel(); }
 // target curve: level 1 asks 10,000; growth itself speeds up through the run (×1.23 → ×1.30 by level 20),
 // the last act climbs ×1.16 per level on top of that, endless ×1.4. Boss levels go from ×0.8 (Loki) to ×1.1 (the Sovereign).
 const growth = i => i > 30 ? 1.4 : i > 20 ? 1.18 : 1.23 + .004 * (i - 2) + (i >= 7 ? .03 : 0); // a little steeper from level 7 on
@@ -2880,7 +2891,7 @@ function nextLevel() { S.level++; S.target = Math.round(targetFor(S.level) * (bo
 // run structure: four acts, a boss closes each act
 const actName = lv => lv <= 5 ? 'NEON DISTRICT' : lv <= 10 ? 'IRONWILD' : lv <= 15 ? 'QUANTUM DEEP' : lv <= 20 ? 'FRACTURED REALMS' : lv <= 25 ? 'THE VOID' : lv <= 30 ? 'SOVEREIGN REACH' : 'ENDLESS RIFT';
 const BOSSES = {
-  5: { id: 'loki', name: 'The False King', color: '#46e08a', hp: 6, blurb: 'A usurper crowned in lies. He turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: ramp, warp and tunnel shots pay 3× for 10 seconds.' },
+  5: { id: 'loki', name: 'The Trickster', color: '#46e08a', hp: 6, blurb: 'A grinning master of lies. He turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: ramp, warp and tunnel shots pay 3× for 10 seconds.' },
   15: { id: 'lodestar', name: 'The Polarity King', color: '#e25bff', hp: 10, blurb: 'Magnetic Field. Two magnetic generators sit either side of the wormhole and bend the ball toward them or push it away (the field flips every 8 seconds; watch the rings). Hit a generator 3 times to knock it out for 15 seconds. With both generators down the field dies.' },
   20: { id: 'thanatos', name: 'The Tyrant', color: '#ffb52e', hp: 12, blurb: 'The Purge. Every so often he charges a colossal weapon (gold ring on the Arc Core): hit the Arc Core before it fills or a quarter of your targets are NULLIFIED and score nothing. One purple-ramp shot brings them back. Beyond him lie the Void and the Sovereign Reach.' },
   25: { id: 'nyx', name: 'The Void Emperor', color: '#ff6a1f', hp: 14, blurb: 'Emperor of the Void. His Entropy drains your table multiplier every 11 seconds. He tears rifts that swallow the ball, floods the table with insectoid swarms that eat your combo, and plunges the machine into darkness.' },
@@ -2926,7 +2937,7 @@ function award(base, kind, obj, x, y, generated = false) {
     msg('HACKED! COMBO LOST'); tone(90, .2, 'sawtooth', .07, 60); return;
   }
   if (B && B.id === 'loki' && cls === 'hit' && PHYS.has(kind) && !B.exposedT && ++B.streak >= 3) {
-    B.streak = 0; B.exposedT = 10; B.illusions.clear(); msg('THE FALSE KING EXPOSED! SHOTS PAY 3×', 3); tone(880, .3, 'square', .07, 1320);
+    B.streak = 0; B.exposedT = 10; B.illusions.clear(); msg('THE TRICKSTER EXPOSED! SHOTS PAY 3×', 3); tone(880, .3, 'square', .07, 1320);
   }
   if (B && B.id === 'omnicron' && kind === 'standup' && B.hacked.size) { B.hacked.clear(); msg('SYSTEMS RESTORED'); tone(660, .2, 'triangle', .06, 1320); }
   if (kind === 'ramp' || kind === 'orbit' || kind === 'tunnel') { if (has('vibrail') && cls === 'hit') { S.combo = Math.min(20, S.combo + 2); S.comboT = 2; } }
@@ -3304,7 +3315,7 @@ function bossPool(vb) { // one random artifact from the villain's five, never th
   try { if (pick[0]) localStorage.setItem('mp_art_' + vb, pick[0].id); } catch (e) {}
   return pick;
 }
-function levelClear() { if (has('pouch')) S.freeReroll = (S.freeReroll || 0) + 1; stopMusic(.5); S.phase = 'clear'; balls = []; Bus.emit('levelClear', { level: S.level }); msg('LEVEL CLEARED'); const interest = Math.min(10, Math.floor(S.credits / 8)); let earned = 20 + S.balls * 8 + 6 * has('reserve') + 25 * has('treasury') + interest; S.reroll = 5; const vb = S.boss ? S.boss.id : null; if (S.boss && S.boss.defeated) earned += 35;
+function levelClear() { if (has('pouch')) S.freeReroll = (S.freeReroll || 0) + 1; stopMusic(.5); S.phase = 'clear'; balls = []; Bus.emit('levelClear', { level: S.level }); msg('LEVEL CLEARED'); const interest = Math.min(6, Math.floor(S.credits / 10)); let earned = 15 + S.balls * 5 + 6 * has('reserve') + 25 * has('treasury') + interest; S.reroll = 5; const vb = S.boss ? S.boss.id : null; if (S.boss && S.boss.defeated) earned += 25;
   earned = Math.ceil(earned * (1 + T('magnet', .1, .2, .3)) * (has('crimelord') ? .5 : 1)); S.credits += earned; S.repaid = 0; S.interest = interest; S.bossWon = !!(S.boss && S.boss.defeated);
   if (S.boss && S.boss.id === 'malachar' && S.level === 30 && !S.endless) { lastEarned = earned; showVictory(); return; }
   draft = vb ? (a => a.length ? [a[Math.floor(Math.random() * a.length)]] : [])(bossPool(vb)) : rollDraft(); // boss: one random artifact, take it or pass
@@ -4059,7 +4070,7 @@ function render(dt) {
       ctx.restore();
     }
   }
-  drawAwake(dt); drawFreeze(dt);
+  drawFreeze(dt); drawAwake(dt);
   if (glass) ctx.drawImage(glass, 0, 0, W, H);
   if (S.phase === 'paused') {
     ctx.fillStyle = 'rgba(3,4,10,.6)'; ctx.fillRect(0, 0, W, H);
@@ -4079,10 +4090,10 @@ function drawAwake(dt) { // "THUNDER III AWAKENED": a huge flash in the family c
   if (t < .6) { ctx.fillStyle = `rgba(${rgb},${.55 * (1 - t / .6)})`; ctx.fillRect(0, 0, W, H); }
   if (t < 1.1) { const r = 40 + t * 700; ctx.strokeStyle = `rgba(${rgb},${.8 * (1 - t / 1.1)})`; ctx.lineWidth = 10 * (1 - t / 1.1) + 2; ctx.beginPath(); ctx.arc(W / 2, 380, r, 0, TAU); ctx.stroke(); }
   ctx.globalAlpha = Math.max(0, a);
-  const g = ctx.createLinearGradient(0, 270, 0, 500); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.5, 'rgba(6,6,16,.72)'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 270, W, 230);
+  const oy = S.freeze && S.freeze.kind === 'evo' ? 280 : 0, g = ctx.createLinearGradient(0, 270 + oy, 0, 500 + oy); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.5, 'rgba(6,6,16,.72)'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 270 + oy, W, 230);
   if (A.cap) { ctx.save(); ctx.translate(W / 2, 360); ctx.rotate(t * .4); ctx.fillStyle = `rgba(${rgb},.12)`; for (let i = 0; i < 12; i++) { ctx.rotate(TAU / 12); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-30, -420); ctx.lineTo(30, -420); ctx.fill(); } ctx.restore(); }
   const sc = t < .3 ? .7 + .3 * (t / .3) + .1 * Math.sin(t / .3 * Math.PI) : 1;
-  ctx.translate(W / 2, 0); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.translate(W / 2, S.freeze && S.freeze.kind === 'evo' ? 280 : 0); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   ctx.save(); ctx.translate(0, 340); ctx.scale(sc, sc);
   const size = fitFont(ctx, A.ico + ' ' + A.title, A.cap ? 74 : 64, W - 80);
   ctx.shadowColor = A.c; ctx.shadowBlur = 24; ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(0,0,0,.85)'; ctx.strokeText(A.ico + ' ' + A.title, 0, 0); ctx.fillStyle = '#fff'; ctx.fillText(A.ico + ' ' + A.title, 0, 0);
