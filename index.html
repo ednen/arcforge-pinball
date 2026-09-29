@@ -706,13 +706,13 @@ const UPGRADES = [
   { id: 'vbody', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Rewired Laser', desc: 'Every 12 s a blue laser sweeps up the table from the flippers. Any ball it touches is pushed upward and pays 300.' },
   { id: 'drones', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Clockwork Sentries', desc: 'Two small rewired clockwork bots patrol the table. Balls pass through them from below, but a ball falling onto one bounces off and pays 150. Every 6 s each one zaps a random target for 200.' },
   { id: 'magflip', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Magnetic Wave', desc: 'Every 8 s three magnetic waves sweep in from the edges of the table. While they run, every ball is pulled toward the middle.' },
-  { id: 'polarity', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Polarity Core', desc: 'Every 10th hit pulls every ball toward the red bumpers for 2 seconds.' },
+  { id: 'polarity', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Polarity Core', desc: 'Every 15 seconds the red bumpers turn magnetic and pull every ball toward them for 2 seconds.' },
   { id: 'helmet', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: "Polarity Crown", desc: 'Boss levels need 10% fewer points.' },
   { id: 'gauntlet', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Starforge', desc: 'When you reach half the target, the forge flares: everything scores 5× for 10 seconds.' },
   { id: 'obsidianblade', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Void Blade', desc: 'Arc Core hits score 3× points.' },
   { id: 'titan', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: "Tyrant's Resolve", desc: '+1 ball every level and +20% points from everything.' },
   { id: 'controlrod', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Control Rod', desc: 'Every 20 hits the rod pulses: everything scores 1.5× for 5 seconds.' },
-  { id: 'carapace', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: "Emperor's Carapace", desc: 'Once per level, the first ball that drains is thrown back into play.' },
+  { id: 'carapace', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: "Emperor's Carapace", desc: 'Once per level, the first ball that drains is thrown back into play. The saved ball glows violet and scores 2× for 5 seconds.' },
   { id: 'nzgate', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Gate', desc: 'Portals are always open and every portal jump pays 1,000.' },
   { id: 'purpose', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: 'Trickster\'s Bargain', desc: 'Every 7th hit turns a random target gold: it scores 3× for 8 seconds.' },
   { id: 'horns', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Crown of Many Faces", desc: 'Hit 6 different parts of the machine within 5 seconds: everything scores 2× for 8 seconds.' },
@@ -1029,7 +1029,7 @@ UPGRADES.push(
   // table-piece cards: reward HOW you hit a piece
   { id: 'webtension', r: C_, cat: TR, up: true, fam: 'WEB', tags: ['WEB', 'COMBO'], name: 'Web Tension', desc: 'Hitting one slingshot and then the other within 1.5 s pays +{300|450|700}.' },
   { id: 'outlaw', r: C_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED'], name: 'Outlaw Lanes', desc: 'A fast ball through any lower lane pays +{400|600|900}.' },
-  { id: 'cradle', r: C_, cat: TR, up: true, fam: 'WEB', tags: ['FLIPPER'], name: 'Cradle Master', desc: 'Hold the ball still on a raised flipper for 1 s: +{300|450|700}.' },
+  { id: 'cradle', r: C_, cat: TR, up: true, fam: 'WEB', tags: ['MAGNETIC', 'FLIPPER'], name: 'Static Charge', desc: 'Hold the ball on a raised flipper to magnetize it: full charge takes 1.5 s. Its next bumper hit discharges for up to +{900|1,350|2,100}.' },
   { id: 'thunderclap', r: U_, cat: TR, up: true, fam: 'THUNDER', tags: ['BUMPER', 'LIGHTNING'], name: 'Thunderclap', desc: 'Each bumper hit in a row adds +{40|60|90} to every bumper hit after it. A flipper or slingshot hit resets the count.' },
   { id: 'volley', r: U_, cat: TR, up: true, fam: 'WEB', tags: ['COMBO'], name: 'Trick Arrow Volley', desc: 'Knocking down the whole drop bank within {6|8|10} s of the first target pays +{2000|3000|4500}.' },
   { id: 'trickarrow', r: U_, cat: TR, up: true, fam: 'WEB TECH', tags: ['TECH'], name: 'Marked Target', desc: 'A standup hit marks a standing drop target. Knocking the marked one down pays {5|7|10}×.' },
@@ -1041,7 +1041,7 @@ UPGRADES.push(
   // Epics: each breaks one of the game's rules
   { id: 'godthunder', r: 'epic', cat: TR, fam: 'THUNDER', req: { THUNDER: 4 }, tags: ['LIGHTNING', 'BUMPER'], name: 'God of Thunder', desc: 'RULE BREAK: lightning that strikes a bumper counts as a real hit 25% of the time, so it can trigger your card counters.' },
   { id: 'webmaster', r: 'epic', cat: TR, fam: 'WEB', req: { WEB: 4 }, tags: ['COMBO'], name: 'Web of Fate', desc: 'RULE BREAK: your combo never times out while a ball is in play, and it can reach 30 steps instead of 20.' },
-  { id: 'overclock', r: 'epic', cat: MPART, fam: 'TECH', req: { TECH: 4 }, tags: ['TECH'], name: 'Overclock Protocol', desc: 'Every drone and bot is 50% stronger: they fire 50% more often and their hits pay 50% more.' },
+  { id: 'overclock', r: 'epic', cat: MPART, fam: 'TECH', req: { TECH: 4 }, tags: ['TECH'], name: 'Overclock Protocol', desc: 'Every drone and bot is 50% stronger and 50% larger: they fire 50% more often and their hits pay 50% more.' },
   { id: 'gammaform', r: 'epic', cat: TR, fam: 'GAMMA', req: { GAMMA: 4 }, tags: ['GAMMA', 'BUMPER'], name: 'Undying Titan', desc: 'RULE BREAK: glancing hits and quick re-hits count as clean hits, and the ball is permanently huge.' },
 );
 // ---- family balance pass: new cards so every family has the same depth ----
@@ -1075,7 +1075,7 @@ UPGRADES.push({ id: 'thunderstrike', r: U_, cat: TR, up: true, fam: 'THUNDER', t
   webtension: ['Web Tension', 'Hitting one slingshot and then the other within 1.5 s pays +{300|450} and webs a random target.', 'common'],
   webmaster: ['Web of Fate', 'Webbed targets score 2×.', 'epic'],
   lucky: ['Lucky Bullet', '{10|15}% chance for a target hit to score 4×, but every other hit scores 10% less.', 'common'],
-  infernal: ['Infernal Engine', 'Every {20|15} hits the ball bursts into hellfire for 3 s: everything it hits scores 3×. Each burst costs 2 credits.', 'common'],
+  infernal: ['Infernal Engine', 'Every {25|20} hits the ball bursts into hellfire for 3 s: everything it hits scores 2×. Each burst costs 2 credits.', 'common'],
   hellrider: ["Hellrider's Chain", 'Combo hits score +{8|12}% more per combo step, but hits outside a combo score 30% less.', 'rare'],
   torch: ["Firebrand's Flame", 'Fast hits in a row build Heat. At full Heat everything scores 3×, but slow hits score 25% less.', 'rare'],
   venom: ['Living Ooze', 'The ball takes a power from the last target it hit: bumpers make it bouncy, slingshots sticky, standups heavy, drop targets explosive. Bumpers score 20% less.', 'rare'],
@@ -1089,7 +1089,7 @@ UPGRADES.push({ id: 'thunderstrike', r: U_, cat: TR, up: true, fam: 'THUNDER', t
   claw: ['Gamma Surge', "Each hit adds +2% to that ball's value, up to +{40|60}%.", 'uncommon'],
   gammawarp: ['Gamma Warp', 'The green warp turns into a gamma warp, 20% wider: every warp shot grows the ball 12% for 8 s and pays 3× warp points.', 'epic'],
   shield: ["Vanguard Shield", 'Once per ball, a ball dropping into an outlane is knocked back into play.', 'uncommon'],
-  vfrag: ['Voidsteel Fragment', 'Your flippers are {6|10}% longer.', 'common'],
+  vfrag: ['Voidsteel Fragment', 'Your flippers swing {8|12}% harder, and every flipper hit pays +{100|150}.', 'common'],
   bpsuit: ['Voidsteel Suit', 'Stores 10% of your collision points as kinetic energy. Once per level, when your last ball drains, the suit throws it back and releases the energy.', 'epic'],
   microvial: ['Phase Particle Vial', 'Every {12|9} s Phase particles hit a red bumper: it grows 40% for 6 s and scores 2× while big.', 'common'],
   anthelm: ["Phasewalker's Helm", 'Every 12 s ants carry {a red bumper|two red bumpers} to a nearby spot for 8 s and pay +{600|1200}. The first hit on a moved bumper pays +400.', 'common'],
@@ -1172,7 +1172,7 @@ famSyn('eventhorizon', 'MYSTIC', 3); famSyn('sanctum5', 'MYSTIC', 5, "Astral Dom
 famSyn('fieldmaster', 'MAGNET', 3, 'Field Master', 'Magnetic pulls are 50% stronger and pay 80 points every 0.4 s while they bend the ball.'); famSyn('magnetar', 'MAGNET', 5, 'Magnetar', 'The ball constantly curves toward unlit targets, and magnet payouts are tripled.');
 famSyn('chainreaction', 'EXPLOSIVE', 3); famSyn('bigbang', 'EXPLOSIVE', 5, 'Big Bang', 'Explosions reach 50% further and can chain one step deeper.');
 famSyn('qpartners', 'QUANTUM', 3, 'Quantum Gate', 'The quantum pit opens its mouth (balls coming down the left side fall straight in) and the purple ramp\'s entrance opens 75% wider.'); famSyn('clonesaga', 'QUANTUM', 5, 'Quantum Conduit', 'The quantum pit becomes a true tunnel: balls glide through it, and every pass pays 2,500.');
-famSyn('rage', 'HELLFIRE', 3); famSyn('penance', 'HELLFIRE', 5, 'Final Reckoning', 'Your last ball scores 2× Mult, and every drained ball adds +50% Bonus for the level.');
+famSyn('rage', 'HELLFIRE', 3, 'Hellfire Ball', 'Every 16 clean hits, or an 8-hit combo, ignites your ball for 5 s. While it burns, physical hits score ×1.3 Mult and every target it hits burns for 3 s. Hit a burning target again to detonate it for +400.'); famSyn('penance', 'HELLFIRE', 5, 'Inferno Core', 'Your last ball burns forever, and flaming hits score ×1.6 Mult (every 5th clean hit stokes the flame, up to ×2). Burning targets detonate in chain explosions, and draining your last ball at full heat sets off a final burst worth 6% of the target (once per level).');
 famSyn('undying', 'VOIDSTEEL', 3); famSyn('vibcore', 'VOIDSTEEL', 5, 'Voidsteel Core', 'Once per ball, the drain itself bounces the ball back into play.');
 famSyn('lightspeed', 'SPEED', 3); famSyn('ftl', 'SPEED', 5);
 famSyn('astral', 'ILLUSION', 3); famSyn('masterill', 'ILLUSION', 5, 'Grand Illusion', 'Extra balls score full points, and one more extra ball may be on the table.');
@@ -1413,8 +1413,8 @@ function drawEvoOver(dt) {
   if (S.bifFx) { S.bifFx = Math.max(0, S.bifFx - dt * .7); ctx.save(); playfieldPath(ctx); ctx.clip(); const g = ctx.createLinearGradient(0, 0, W, 0);
     ['#ff5050', '#ffaa3c', '#fff05a', '#5ae678', '#5ab4ff', '#aa6eff'].forEach((c, i) => g.addColorStop(i / 5, c)); ctx.globalAlpha = S.bifFx * .45; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
   if (evo('forgeworks') && S.drone && (S.phase === 'play' || S.phase === 'clearing')) { // the drone: a small hovering craft with pulse jets
-    const D = S.drone, t = performance.now() / 1000; ctx.save(); ctx.translate(D.x + 10, D.y + 26); ctx.rotate(D.tilt || 0); ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.ellipse(0, 0, 16, 6, 0, 0, TAU); ctx.fill(); ctx.restore();
-    ctx.save(); ctx.translate(D.x, D.y); ctx.rotate(D.tilt || 0);
+    const D = S.drone, t = performance.now() / 1000; ctx.save(); ctx.translate(D.x + 10, D.y + 26); ctx.rotate(D.tilt || 0); ctx.scale(OC(), OC()); ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.ellipse(0, 0, 16, 6, 0, 0, TAU); ctx.fill(); ctx.restore();
+    ctx.save(); ctx.translate(D.x, D.y); ctx.rotate(D.tilt || 0); ctx.scale(OC(), OC());
     for (const s of [-1, 1]) { const g = ctx.createRadialGradient(s * 12, 8, 0, s * 12, 8, 12); g.addColorStop(0, 'rgba(210,250,255,.95)'); g.addColorStop(1, 'rgba(120,220,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(s * 12, 8 + Math.sin(t * 30) * 1.5, 12, 0, TAU); ctx.fill(); }
     const g = ctx.createLinearGradient(0, -10, 0, 8); g.addColorStop(0, '#ff6b5a'); g.addColorStop(1, '#8a1018');
     ctx.fillStyle = g; ctx.strokeStyle = '#f5c542'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, -11); ctx.lineTo(16, 5); ctx.lineTo(6, 3); ctx.lineTo(0, 8); ctx.lineTo(-6, 3); ctx.lineTo(-16, 5); ctx.closePath(); ctx.fill(); ctx.stroke();
@@ -1543,7 +1543,88 @@ function drawQuantum() {
   if (has('quantumdrift')) for (const c of bumpers) if (c.pit) { ctx.strokeStyle = `rgba(90,200,255,${.35 + .2 * Math.sin(t * 4 + c.by)})`; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(c.x, c.y, c.r + 4, 0, TAU); ctx.stroke(); }
   ctx.restore();
 }
+// ================= Infernal: Hellfire Ball (III) and Inferno Core (V) =================
+// ================= modern flame renderer: tapered tongues + additive sprite particles, embers and smoke =================
+const FLAMEP = [], FSPR = new Map();
+function noise1(x) { const i = Math.floor(x), f = x - i, h = n => { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); }; const u = f * f * (3 - 2 * f); return h(i) * (1 - u) + h(i + 1) * u; }
+function flameSprite(c) { // soft round blob in one colour, rendered once and reused
+  let s = FSPR.get(c); if (s) return s; s = document.createElement('canvas'); s.width = s.height = 64; const g = s.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  gr.addColorStop(0, `rgba(${c},1)`); gr.addColorStop(.35, `rgba(${c},.55)`); gr.addColorStop(1, `rgba(${c},0)`); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); FSPR.set(c, s); return s;
+}
+function flameTongue(x, y, ang, len, w, pal, a) { // one tapered, curling tongue of fire: white-hot root, coloured body, fading tip
+  if (len < 2) return; const ca = Math.cos(ang), sa = Math.sin(ang), px = -sa, py = ca, tx = x + ca * len, ty = y + sa * len, bend = w * .9 * Math.sin(len * .37 + performance.now() / 90);
+  const g = ctx.createLinearGradient(x, y, tx, ty); g.addColorStop(0, `rgba(${pal[0]},${a * .6})`); g.addColorStop(.3, `rgba(${pal[1]},${a * .8})`); g.addColorStop(1, `rgba(${pal[2]},0)`);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x + px * w, y + py * w);
+  ctx.quadraticCurveTo(x + ca * len * .55 + px * (w * .8 + bend), y + sa * len * .55 + py * (w * .8 + bend), tx + px * bend * .6, ty + py * bend * .6);
+  ctx.quadraticCurveTo(x + ca * len * .5 - px * (w * .8 - bend), y + sa * len * .5 - py * (w * .8 - bend), x - px * w, y - py * w);
+  ctx.arc(x, y, w, ang + Math.PI / 2, ang - Math.PI / 2); ctx.fill();
+}
+function flameSpark(x, y, pal, ember, size, rise) { if (FLAMEP.length > 260) return;
+  FLAMEP.push(ember ? { x, y, vx: (Math.random() - .5) * 60, vy: -60 - Math.random() * 90, t: 0, life: .5 + Math.random() * .5, r: 1.3 + Math.random(), pal, ember: true }
+      : { x, y, vx: (Math.random() - .5) * 30, vy: rise ? -110 - Math.random() * 70 : -40 - Math.random() * 40, t: 0, life: rise ? .45 + Math.random() * .3 : .35 + Math.random() * .25, r: size || 7 + Math.random() * 6, pal, smoke: Math.random() < .25 }); }
+function drawFlameParts(dt) {
+  if (!FLAMEP.length) return; const live = S.phase !== 'paused';
+  ctx.save();
+  for (let i = FLAMEP.length - 1; i >= 0; i--) { const p = FLAMEP[i]; if (live) { p.t += dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .96; p.vy -= (p.ember ? 20 : 60) * dt; }
+    const k = p.t / p.life; if (k >= 1) { FLAMEP.splice(i, 1); continue; }
+    if (p.ember) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = (1 - k) * .9; ctx.fillStyle = `rgb(${p.pal[0]})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (1 - k * .5), 0, TAU); ctx.fill(); continue; }
+    if (p.smoke && k > .45) { ctx.globalCompositeOperation = 'source-over'; const r = p.r * (1 + k * 1.4); ctx.globalAlpha = .22 * (1 - k); ctx.drawImage(flameSprite('30,26,34'), p.x - r, p.y - r, r * 2, r * 2); continue; }
+    ctx.globalCompositeOperation = 'lighter'; const r = p.r * (1 - k * .55);
+    ctx.globalAlpha = .55 * (1 - k); ctx.drawImage(flameSprite(k < .3 ? p.pal[0] : p.pal[1]), p.x - r, p.y - r, r * 2, r * 2);
+  }
+  ctx.restore();
+}
+function drawBallFlame(q, k, dt) { // a comet of fire: flickering tongues streaming behind the ball, a white-hot core and shed particles
+  const pal = flamePal(ballTint(q)), R0 = q.rad || 10, sp = hyp(q.vx, q.vy), t = performance.now() / 1000;
+  // flames stream away from the motion and lean upward when the ball is slow
+  const mix = Math.min(1, sp / 700), ux = sp > 1 ? -q.vx / sp : 0, uy = sp > 1 ? -q.vy / sp : -1, dx = ux * mix, dy = uy * mix - (1 - mix), dl = hyp(dx, dy) || 1, ang = Math.atan2(dy / dl, dx / dl);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const halo = ctx.createRadialGradient(q.x, q.y, R0 * .5, q.x, q.y, R0 * 2.6); halo.addColorStop(0, `rgba(${pal[1]},${.18 * k})`); halo.addColorStop(1, `rgba(${pal[2]},0)`); ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(q.x, q.y, R0 * 2.6, 0, TAU); ctx.fill();
+  const L = R0 * (3.2 + 2.2 * mix) * k;
+  for (let i = 0; i < 5; i++) { const n = noise1(t * 6 + i * 3.3 + q.x * .01), off = (i - 2) * .32;
+    flameTongue(q.x + Math.cos(ang) * R0 * .55, q.y + Math.sin(ang) * R0 * .55, ang + off * (1 - .4 * mix) + (n - .5) * .45, L * (1 - Math.abs(off) * .55) * (.75 + .5 * n), R0 * (.8 - Math.abs(off) * .3), pal, .85 * k); }
+  
+  ctx.restore();
+  if (S.phase !== 'paused' && dt > 0) { const n = Q.low ? 1 : 3; const bx = q.x + Math.cos(ang) * R0 * 1.4, by = q.y + Math.sin(ang) * R0 * 1.4; for (let i = 0; i < n; i++) flameSpark(bx + (Math.random() - .5) * R0, by + (Math.random() - .5) * R0, pal, false); if (Math.random() < (Q.low ? .15 : .45)) flameSpark(bx + (Math.random() - .5) * R0, by, pal, true); }
+}
+// flame palette follows the ball's current colour (violet Carapace, green Titan, ghost mint...); plain balls burn orange
+function ballTint(b) {
+  if (b.carUntil > performance.now()) return [190, 90, 255];
+  if (b.fakeReal) return [40, 200, 90];
+  if (b.giantT > 0) return [108, 255, 90];
+  if (b.chg >= .5) return [226, 91, 255];
+  if (b.spectral) return [200, 230, 255];
+  if (b.ghost) return [90, 255, 150];
+  if (b.dup) return [190, 100, 255];
+  if (b.temp) return b.mirror ? [215, 200, 255] : b.venom ? [140, 140, 190] : b.illu ? [255, 120, 220] : [90, 210, 255];
+  if (b.venom) return [140, 140, 190];
+  return null;
+}
+function flamePal(c) { return c ? [c.map(v => v + (255 - v) * .65 | 0).join(','), c.join(','), c.map(v => v * .45 | 0).join(',')] : ['255,240,170', '255,130,30', '255,40,0']; }
+const hellOn = b => !!b && isReal(b) && b.layer !== 3 && (b.hfire > 0 || (syn('penance') && S.balls <= 1 && S.phase === 'play'));
+function ignite(b) { b.hfire = 5; S.hfN = 0; msg('HELLFIRE BALL · ×1.3 MULT', 2.5); pop(b.x, b.y - 34, 'IGNITED', '#ff7a2e', true); voice(90, .5, 'sawtooth', .07, 0, 0, 420); noise(.5, .08, 900, 3000, 'bandpass'); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '255,120,40', big: true }); }
+function hellHit(obj) {
+  if (!syn('rage')) return; const b = curBall; if (!b || !isReal(b)) return;
+  if (!hellOn(b)) { if (S.hfCd > 0) return; S.hfN = (S.hfN || 0) + 1; if (S.hfN >= 16 || S.combo === 8) ignite(b); return; }
+  if (syn('penance') && (b.hfHits = (b.hfHits || 0) + 1) % 5 === 0) { const h0 = b.heat || 0; b.heat = Math.min(2, h0 + 1); if (b.hfire > 0) b.hfire = 5; pop(b.x, b.y - 40, b.heat > h0 ? 'STOKED · ×' + (1.6 + .2 * b.heat).toFixed(1) : 'FLAME RENEWED', '#ff4a1a', true); tone(160, .25, 'sawtooth', .06, 480); }
+  if (!isTarget(obj)) return;
+  if (obj.burnT > 0 && budget('hfdet', 4)) { // detonate a burning target
+    obj.burnT = 0; const [x, y] = objPos(obj);
+    if (syn('penance')) { explode(x, y, 400); pop(x, y - 50, 'CHAIN DETONATION', '#ff4a1a', true); }
+    else { fx.push({ type: 'boom', x, y, t: 0, life: .45 }); noise(.35, .12, 700, 80, 'lowpass'); scorch(obj, x, y + 1); award(400, 'explosion', obj, x, y - 24, true); pop(x, y - 48, 'DETONATE', '#ff7a2e', true); }
+  } else { obj.burnT = 3; obj.burnC = ballTint(b); }
+}
+function infernoBurst(b) { // Inferno Core: the last ball goes out in a blaze
+  bonus(Math.round(S.target * .06), 270, 720, 'INFERNO BURST'); msg('INFERNO BURST', 3); fx.push({ type: 'flash', t: 0, life: .4 }); sfx.boom(); S.shake = 1;
+  bumpers.filter(q => !q.pit).forEach((q, i) => setTimeout(() => { fx.push({ type: 'boom', x: q.x, y: q.y, t: 0, life: .45 }); scorch(q, q.x, q.y + 1); }, i * 70));
+}
+function hellTick(dt) {
+  if (S.hfCd > 0) S.hfCd -= dt;
+  for (const q of balls) if (q.hfire > 0 && (q.hfire -= dt) <= 0) { q.hfire = 0; S.hfCd = 8; }
+  for (const o of allTargets()) if (o.burnT > 0) o.burnT = Math.max(0, o.burnT - dt);
+}
 function legTick(dt) {
+  hellTick(dt);
   if (!activePlay()) return;
   quantumTick(dt); artifactTick(dt); if (has('mirage')) { S.phT = (S.phT || 0) + dt; const k = Math.floor(S.phT / 4) % 3; for (const [i, q] of PHANTOMS.entries()) [q.x, q.y] = PH_SPOTS[i][k]; }
   if (has('vbody')) { // The Architect's laser, reprogrammed: a blue beam sweeps UP the table and lifts every ball it touches
@@ -1631,7 +1712,7 @@ function drawLegUnder(dt) {
 }
 function drawLegOver(dt) {
   const t = performance.now() / 1000; if (!(S.phase === 'play' || S.phase === 'clearing' || S.phase === 'paused')) return;
-  drawQuantum();
+  drawQuantum(); drawFlameParts(dt);
   ctx.save();
   if (has('leg_adamant')) { // Voidsteel Heart: a voidsteel crystal ridge along the whole bottom of the table; it grows as it stores points
     const g = Math.min(1, (S.herb || 0) / 20000), e = S.herbFx || 0, base = 928;
@@ -1645,14 +1726,14 @@ function drawLegOver(dt) {
     for (let i = 0; i < 14; i++) { const ph = (t * .5 + i * .071) % 1, sx = 40 + ((i * 37) % 460) + Math.sin(t + i) * 6, sy = base - 10 - ph * 70; ctx.fillStyle = `rgba(230,210,255,${(1 - ph) * .9})`; ctx.fillRect(sx, sy, 2, 2); } }
   if (S.blue) { const y = S.blue.y; ctx.strokeStyle = 'rgba(90,180,255,.95)'; ctx.shadowColor = '#5ab4ff'; ctx.shadowBlur = 18; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(22, y); ctx.lineTo(518, y); ctx.stroke(); ctx.strokeStyle = 'rgba(220,240,255,.9)'; ctx.lineWidth = 1; ctx.stroke(); ctx.shadowBlur = 0;
     for (let i = 0; i < 6; i++) { const x = 40 + ((t * 300 + i * 83) % 470); ctx.fillStyle = 'rgba(180,225,255,.8)'; ctx.fillRect(x, y - 1 + Math.sin(t * 30 + i) * 3, 3, 2); } }
-  if (has('forgeworks')) { const D = FORGED; ctx.save(); ctx.translate(D.x, D.y); ctx.rotate(Math.sin(t * .45) * .3);
+  if (has('forgeworks')) { const D = FORGED; ctx.save(); ctx.translate(D.x, D.y); ctx.scale(OC(), OC()); ctx.rotate(Math.sin(t * .45) * .3);
     for (const sx of [-1, 1]) { const g = ctx.createRadialGradient(sx * 9, 6, 0, sx * 9, 6, 8); g.addColorStop(0, 'rgba(210,250,255,.95)'); g.addColorStop(1, 'rgba(120,220,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx * 9, 6 + Math.sin(t * 30) * 1, 8, 0, TAU); ctx.fill(); }
     ctx.fillStyle = '#b3121b'; ctx.strokeStyle = '#f5c542'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(0, -8); ctx.lineTo(11, 3); ctx.lineTo(0, 6); ctx.lineTo(-11, 3); ctx.closePath(); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#e8fdff'; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(0, -1, 2.5, 0, TAU); ctx.fill(); ctx.restore(); }
   if (has('mirage') && phantomA() > 0) for (const q of PHANTOMS) { const fl = (.45 + .2 * Math.sin(t * 7 + q.x) + (q.flash || 0) * .4) * phantomA(); if (q.flash > 0) q.flash = Math.max(0, q.flash - dt * 4); ctx.save(); ctx.globalAlpha = Math.min(1, fl); ctx.translate(q.x + Math.sin(t * 13 + q.y) * 1.2, q.y);
     const g = ctx.createRadialGradient(-4, -5, 1, 0, 0, q.r); g.addColorStop(0, '#ffe0e0'); g.addColorStop(.5, 'rgba(229,56,59,.8)'); g.addColorStop(1, 'rgba(90,10,20,.6)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, q.r, 0, TAU); ctx.fill();
     ctx.strokeStyle = 'rgba(125,255,176,.8)'; ctx.setLineDash([3, 4]); ctx.lineDashOffset = -t * 20; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, q.r + 4, 0, TAU); ctx.stroke(); ctx.setLineDash([]); ctx.restore(); }
-  if (has('drones')) for (const q of SENTRIES) { ctx.save(); ctx.translate(q.x, q.y); const f = q.flash;
+  if (has('drones')) for (const q of SENTRIES) { ctx.save(); ctx.translate(q.x, q.y); ctx.scale(OC(), OC()); const f = q.flash;
     ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(5, 9, 13, 6, 0, 0, TAU); ctx.fill();
     const th = ctx.createRadialGradient(0, 12, 0, 0, 12, 10); th.addColorStop(0, 'rgba(255,170,120,.9)'); th.addColorStop(1, 'rgba(255,60,40,0)'); ctx.fillStyle = th; ctx.beginPath(); ctx.arc(0, 12 + Math.sin(t * 30) * 1.5, 9, 0, TAU); ctx.fill();
     const g = ctx.createLinearGradient(0, -12, 0, 10); g.addColorStop(0, f ? '#ffffff' : '#d7dbe6'); g.addColorStop(.5, '#8a90a2'); g.addColorStop(1, '#3a3f4e'); ctx.fillStyle = g; ctx.strokeStyle = '#1b1e27'; ctx.lineWidth = 1.5;
@@ -1677,10 +1758,7 @@ function drawLegOver(dt) {
     if (has('leg_gamma') && isReal(q) && q.trail) { ctx.shadowColor = '#6cff5a'; ctx.shadowBlur = 16; ctx.strokeStyle = `rgba(108,255,90,${.45 + .2 * Math.sin(t * 8)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(q.x, q.y, 14, 0, TAU); ctx.stroke(); ctx.shadowBlur = 0; }
     if (has('leg_speed') && isReal(q) && q.trail && hyp(q.vx, q.vy) > 900) { const T2 = q.trail; for (let i = 0; i < T2.length - 2; i += 4) { const a = i / T2.length; ctx.fillStyle = `rgba(255,224,90,${.45 * a})`; ctx.beginPath(); ctx.arc(T2[i], T2[i + 1], 8 * a + 2, 0, TAU); ctx.fill(); }
       }
-    if (q.flameT > 0) { const k = Math.min(1, q.flameT * 2), sp = hyp(q.vx, q.vy) || 1, ux = q.vx / sp, uy = q.vy / sp; ctx.save(); ctx.globalCompositeOperation = 'lighter';
-      for (let i = 0; i < 14; i++) { const d = i * 4 + Math.random() * 4, w = (q.rad || 10) * (1.25 - i / 16), x = q.x - ux * d + (Math.random() - .5) * 6, y = q.y - uy * d + (Math.random() - .5) * 6;
-        const g = ctx.createRadialGradient(x, y, 0, x, y, w + 4); g.addColorStop(0, `rgba(255,240,170,${.55 * k})`); g.addColorStop(.5, `rgba(255,130,30,${.4 * k})`); g.addColorStop(1, 'rgba(255,40,0,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, w + 4, 0, TAU); ctx.fill(); }
-      ctx.restore(); }
+    if (q.flameT > 0 || hellOn(q)) drawBallFlame(q, q.flameT > 0 ? Math.min(1, q.flameT * 2) : Math.min(1, q.hfire > 0 ? q.hfire * 2 : 1) * (.85 + .075 * (q.heat || 0)), dt);
     if (q.hellT > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g2 = ctx.createRadialGradient(q.x, q.y, 4, q.x, q.y, 22); g2.addColorStop(0, 'rgba(255,120,40,.6)'); g2.addColorStop(1, 'rgba(200,0,0,0)'); ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(q.x, q.y + Math.sin(t * 20) * 1.5, 22, 0, TAU); ctx.fill(); ctx.restore(); }
     if (false) { ctx.save(); ctx.shadowColor = '#ff4a4a'; ctx.shadowBlur = 16; ctx.strokeStyle = `rgba(255,74,74,${.6 + .3 * Math.sin(t * 20)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(q.x, q.y, (q.rad || 10) + 3, 0, TAU); ctx.stroke(); ctx.restore(); }
     if (q.mirror) { ctx.strokeStyle = `rgba(225,210,255,${.6 + .3 * Math.sin(t * 10)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(q.x, q.y, (q.rad || 10) + 4, 0, TAU); ctx.stroke(); }
@@ -1743,14 +1821,13 @@ function globalBonus() {
   if (has('catalogue')) a += .02 * S.bought.size;
   if (has('malachar')) a += .1 * Math.floor(S.credits / 100);
   if (has('ironmask')) a += .3;
-  a += S.lost * (T('ember', .1, .15, .25) + (syn('penance') ? .5 : 0));
+  a += S.lost * T('ember', .1, .15, .25);
   return a;
 }
 function globalMult() {
   let m = S.mult;
   if (S.odT > 0) m *= 2; if (S.bifT > 0) m *= 3; if (S.snapT > 0) m *= 5; if (S.heatOn) m *= has('torch') ? 3 : 2; if (S.meltT > 0) m *= 2;
   if (S.portalT > 0) m *= 2;
-  if (syn('penance') && S.balls <= 1) m *= 2;
   if (has('phoenix')) m *= S.balls <= 1 ? (syn('immortal') ? 4 : 3) : .75;
   if (S.rodT > 0) m *= 1.5;
   return m;
@@ -1759,6 +1836,7 @@ function scoreFactor(kind, obj, cls) {
   const b = curBall, hit = cls === 'hit', phys = PHYS.has(kind), tgt = isTarget(obj);
   // source
   let src = 1;
+  if (b && b.carUntil > performance.now()) src *= 2; // Emperor's Carapace: the saved ball glows violet
   if (kind === 'bumper') {
     if (b && b.kin && cls === 'hit') { src *= 2; b.kin = false; }
     if (obj && obj.pit && has('hypercube')) src *= 1.5;
@@ -1812,7 +1890,7 @@ function scoreFactor(kind, obj, cls) {
   if (tgt && cls === 'hit' && has('lucky')) { if (Math.random() < T('lucky', .1, .15, .15)) { m *= 4; pop(...objPos(obj), 'LUCKY ×4', '#ff6b3d', true); } else m *= .9; }
   if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
   if (b) { const full = syn('masterill') || (b.temp && syn('spiderverse'));
-    if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 3;
+    if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 2; if (phys && hellOn(b)) m *= syn('penance') ? 1.6 + .2 * (b.heat || 0) : 1.3;
     if (!full) { if (b.ghost && !b.full) m *= .5; if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= .25; if (b.spectral) m *= .5; }
   }
   if (hit && tgt) { // one-shot, per-hit effects are consumed only by clean hits
@@ -1846,6 +1924,43 @@ function arcBurst() {
 }
 function meltdown() { S.meltT = 10; S.shake = 1; S.pulse = 1; msg('MELTDOWN! 2× · NO DRAIN PROTECTION', 3); sfx.boom(); fx.push({ type: 'flash', t: 0, life: .4 }); }
 // ---- explosions ----
+// scorch marks: explosions leave soot on the parts they hit, fading after 6 s (visual only)
+let SCORCH = [];
+function scorch(o, x, y) {
+  const [ox, oy] = objPos(o), e = SCORCH.find(q => q.o === o);
+  if (e) { e.t = 0; return; }
+  const a = Math.atan2(oy - y, ox - x), r = o.kind === 'standup' || o.kind === 'drop' ? 13 : o.kind === 'star' ? 11 : o === enemy ? 20 : Math.min(26, (o.r || 18) * 1.05);
+  SCORCH.push({ o, t: 0, r, a, blobs: Array.from({ length: 6 }, () => [(Math.random() - .5) * r * .9, (Math.random() - .5) * r * .9, r * (.45 + Math.random() * .4)]), specks: Array.from({ length: 7 }, () => [(Math.random() - .5) * r * 2.4, (Math.random() - .5) * r * 2.4, .8 + Math.random() * 1.6]) });
+  if (SCORCH.length > 24) SCORCH.shift();
+}
+function drawBurning(dt) { // burning targets: the part's edge glows red-hot and a column of fire rolls up off it
+  const t = performance.now() / 1000, live = S.phase !== 'paused' && dt > 0;
+  for (const o of allTargets()) { if (!(o.burnT > 0)) continue;
+    const [x, y] = objPos(o), k = Math.min(1, o.burnT / .6), r = o.kind === 'standup' || o.kind === 'drop' ? 11 : o.kind === 'star' ? 11 : o === enemy ? 20 : (o.r || 20), pal = flamePal(o.burnC), seed = (o.x || x) * .13, fl = .8 + .2 * noise1(t * 9 + seed);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    const heat = ctx.createRadialGradient(x, y, r * .55, x, y, r * 1.35); heat.addColorStop(0, `rgba(${pal[1]},0)`); heat.addColorStop(.55, `rgba(${pal[1]},${.4 * k * fl})`); heat.addColorStop(1, `rgba(${pal[2]},0)`); // red-hot rim hugging the part
+    ctx.fillStyle = heat; ctx.beginPath(); ctx.arc(x, y, r * 1.35, 0, TAU); ctx.fill();
+    for (const i of [-1.4, 1.4, -.7, .7, 0]) { const n = noise1(t * 4.3 + i * 2.9 + seed), ai = Math.abs(i); // five tongues licking up from the top edge, tallest in the middle
+      flameTongue(x + i * r * .45, y - r * (.7 - ai * .16), -Math.PI / 2 + i * .2 + (n - .5) * .55, r * (1.5 + 1.1 * n) * (1 - ai * .28) * k, r * (.34 - ai * .07), pal, .85 * k); }
+    ctx.restore();
+    if (live) { const n = Q.low ? 1 : 2; // fire particles roll off the upper half of the part and rise
+      for (let j = 0; j < n + 1; j++) { const a = -Math.PI / 2 + (Math.random() - .5) * 2.2; flameSpark(x + Math.cos(a) * r * .75, y + Math.sin(a) * r * .75, pal, false, r * (.45 + Math.random() * .35) * k, true); }
+      if (Math.random() < .25 * k) flameSpark(x + (Math.random() - .5) * r * 1.4, y - r * .6, pal, true); }
+  }
+}
+function drawScorch(dt) {
+  if (syn('rage')) drawBurning(dt);
+  if (!SCORCH.length) return;
+  ctx.save();
+  SCORCH = SCORCH.filter(q => { if (S.phase !== 'paused') q.t += dt; if (q.t >= 6 || (q.o.kind === 'drop' && q.o.down)) return false;
+    const [x, y] = objPos(q.o), a = q.t < .15 ? q.t / .15 : q.t < 4 ? 1 : 1 - (q.t - 4) / 2;
+    ctx.globalAlpha = a * .85;
+    for (const [dx, dy, rr] of q.blobs) { const g = ctx.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, rr); g.addColorStop(0, 'rgba(8,5,3,.75)'); g.addColorStop(.6, 'rgba(22,14,8,.45)'); g.addColorStop(1, 'rgba(40,24,12,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x + dx, y + dy, rr, 0, TAU); ctx.fill(); }
+    ctx.fillStyle = 'rgba(10,8,6,.8)'; for (const [dx, dy, rr] of q.specks) { ctx.beginPath(); ctx.arc(x + dx, y + dy, rr, 0, TAU); ctx.fill(); }
+    if (q.t < 1.2) { ctx.globalAlpha = (1 - q.t / 1.2) * .6; ctx.fillStyle = 'rgba(255,120,40,.7)'; for (const [dx, dy] of q.specks.slice(0, 3)) { ctx.beginPath(); ctx.arc(x + dx * .5, y + dy * .5, 1.6, 0, TAU); ctx.fill(); } } // cooling embers
+    return true; });
+  ctx.restore();
+}
 function explode(x, y, pow, depth = 0, src = null) {
   if (!budget('boom', 3)) return;
   fx.push({ type: 'boom', x, y, t: 0, life: .45 }); noise(.35, .12, 700, 80, 'lowpass'); S.shake = Math.max(S.shake || 0, .35);
@@ -1853,6 +1968,7 @@ function explode(x, y, pow, depth = 0, src = null) {
   const RR = 95 * (syn('bigbang') ? 1.5 : 1); if (!depth) pow *= 1 + T('fuse', .2, .35, .5);
   if (has('vigilante') && Math.random() < T('vigilante', .12, .2, .2)) { pow *= 4; pop(x, y - 40, 'CRITICAL!', '#ff3a3a', true); S.shake = 1; }
   const near = allTargets().map(o => [o, hyp(objPos(o)[0] - x, objPos(o)[1] - y)]).filter(([, d]) => d <= RR).sort((a, b) => a[1] - b[1]).slice(0, 5);
+  for (const [o] of near) scorch(o, x, y);
   for (const [o, d] of near) { const [ox, oy] = objPos(o); o.flash = 1; award(pow * (1 - d / (RR * 2)), 'explosion', o, ox, oy - 20, true); hits.push([o, d]); if (syn('chaosboom')) o.mod = { m: rnd([.5, 1.5, 2, 2.5]), t: 6 }; }
   const maxD = (has('ace') ? 2 : syn('chainreaction') ? 1 : 0) + (syn('bigbang') && syn('chainreaction') ? 1 : 0);
   if (depth < maxD) hits.filter(([o]) => o !== src).sort((a, b) => a[1] - b[1]).slice(0, 2).forEach(([o]) => { if (has('ace') || Math.random() < .3) setTimeout(() => explode(...objPos(o), pow * .3, depth + 1, o), 180); });
@@ -1897,8 +2013,6 @@ function rescue(src, b) {
   if (syn('fastball')) { if (b && balls.includes(b)) { b.giantT = 5; msg('FASTBALL SPECIAL!'); } else S.fastPending = true; }
 }
 function clutch(b) {
-  if (syn('rage')) { b.rage = (b.rage || 0) + .2; pop(b.x, b.y - 60, 'RAGE +20%', '#6cff5a', true); }
-  if (syn('rage')) pop(b.x, b.y - 26, 'CLOSE SAVE', '#ffd23a');
 }
 // ---- hooks called from the core game ----
 function cardsLevel() {
@@ -2000,7 +2114,7 @@ Bus.on('hit', e => { // counters for the balance-pass cards
     if (has('winter') && (b.gHits = (b.gHits || 0) + 1) % 10 === 0 && (b.gg || 0) < 5) { b.gg = (b.gg || 0) + 1; b.rad = baseRad() * (1 + .03 * b.gg); pop(b.x, b.y - 30, 'GROWTH +' + (b.gg * 3) + '%', '#6cff5a'); }
     if (has('claw')) b.surge = (b.surge || 0) + 1;
   }
-  if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 20, 15, 15)) { S.infN = 0; b.hellT = 3; S.credits = Math.max(0, S.credits - 2); renderInv(); msg('INFERNAL ENGINE · 3× · −2 CREDITS'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
+  if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 25, 20, 20)) { S.infN = 0; b.hellT = 3; S.credits = Math.max(0, S.credits - 2); renderInv(); msg('INFERNAL ENGINE · 2× · −2 CREDITS'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
   if (has('powder') && !S.keg && (S.kegN = (S.kegN || 0) + 1) >= T('powder', 40, 32, 25)) { S.kegN = 0; S.keg = true; msg('POWDER KEG ARMED'); }
   if (has('fieldline') && !(S.fieldT > 0) && (S.fieldN = (S.fieldN || 0) + 1) >= T('fieldline', 25, 20, 15)) { S.fieldN = 0; S.fieldT = 6; msg('FIELD LINES'); sfx.hum(); }
   if (has('smoke') && !isReal(b) && budget('smoke', 6)) { S.combo = Math.min(S.combo + T('smoke', 1, 2, 3), has('webmaster') ? 30 : 20); S.comboT = 2; }
@@ -2134,7 +2248,10 @@ function cardsTick(dt) {
     if (b.gwOn && !(b.gwT > 0)) { b.gwOn = false; b.rad = baseRad() * (1 + .03 * (b.gg || 0)); }
     if (b.giantT > 0 && !inLane(b)) { b.giantT -= dt; b.rad = 12.5; if (b.giantT <= 0) b.rad = b.baseR || baseRad(); }
     if (b.temp || b.spectral) { b.life -= dt; if (b.life <= 0) b.vanish = true; }
-    if (has('cradle') && real && b.layer === 0) { const f = flippers.find(f => f.on && Math.abs(b.x - (f.px + f.s * 50)) < 55 && b.y > 740 && b.y < 830); if (f && sp < 60) { b.cradle = (b.cradle || 0) + dt; if (b.cradle >= 1 && !b.cradled) { b.cradled = true; award(T('cradle', 300, 450, 700), 'cradle', null, b.x, b.y - 30, true); pop(b.x, b.y - 50, 'CRADLED', '#e6e9f2'); tone(1320, .08, 'sine', .05, 1760); } } else { b.cradle = 0; if (sp > 300) b.cradled = false; } }
+    if (has('cradle') && real && b.layer === 0) { // Static Charge: a ball held on a raised flipper soaks up magnetism
+      const f = flippers.find(f => f.on && Math.abs(b.x - (f.px + f.s * 50)) < 55 && b.y > 740 && b.y < 830);
+      if (f && sp < 60) { const c0 = b.chg || 0; b.chg = Math.min(3, c0 + dt * 2); /* full charge (3) in 1.5 s */ if (Math.floor(b.chg) > Math.floor(c0)) { pop(b.x, b.y - 40, 'CHARGE ' + Math.floor(b.chg), '#e25bff'); tone(500 + 250 * Math.floor(b.chg), .08, 'sine', .05, 900 + 250 * Math.floor(b.chg)); } b.chgT = 4; }
+      else if (b.chg > 0 && (b.chgT -= dt) <= 0) b.chg = 0; }
     if (b.spectral && b.y > 895 && b.vy > 0) { b.vy = -1300; b.vx = (270 - b.x) * 2; fx.push({ type: 'ring', x: b.x, y: 900, t: 0, life: .3, c: '200,230,255' }); }
     if (!real || b.layer !== 0) continue;
     if (b.y < 700) b.qDamp = false; // Quantum Dampener: slows the ball 20% once each time it drops into the flipper zone
@@ -2144,7 +2261,7 @@ function cardsTick(dt) {
     // Voidsteel Core (Voidsteel V): the drain bounces the ball back once per ball
     if (syn('vibcore') && !S.vibUsed && prot() && b.y > 890 && b.y < 910 && b.x > 190 && b.x < 350 && b.vy > 0) { S.vibUsed = true; b.y = 886; b.vy = -1250; b.vx = (270 - b.x) * 3; msg('VOIDSTEEL CORE'); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '181,140,255' }); rescue('vibcore', b); }
     // Emperor's Carapace: once per level
-    if (has('carapace') && !S.carUsed && prot() && b.y > 892 && b.y < 912 && b.x > 190 && b.x < 350 && b.vy > 0) { S.carUsed = true; b.y = 886; b.vy = -1250; b.vx = (270 - b.x) * 3; msg("EMPEROR'S CARAPACE"); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '255,106,31' }); rescue('carapace', b); }
+    if (has('carapace') && !S.carUsed && prot() && b.y > 892 && b.y < 912 && b.x > 190 && b.x < 350 && b.vy > 0) { S.carUsed = true; b.y = 886; b.vy = -1250; b.vx = (270 - b.x) * 3; b.carUntil = performance.now() + 5000; msg("EMPEROR'S CARAPACE · 2× FOR 5 S", 3); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .6, c: '190,90,255', big: true }); tone(220, .4, 'sawtooth', .06, 880); rescue('carapace', b); }
     // speed builds
     if (has('comet')) S.comet = sp > 1150 ? Math.min(T('comet', 1, 1.5, 2), S.comet + .08 * dt) : Math.max(0, S.comet - .15 * dt);
     if (has('starrider')) S.cosmic = sp > 1450 ? Math.min(3, S.cosmic + .25 * dt) : sp < 700 ? Math.max(0, S.cosmic - .5 * dt) : S.cosmic;
@@ -2416,7 +2533,6 @@ function countHit(kind, obj) {
   if (kind !== 'bumper') S.bumpStreak = 0;
   if (has('loki') && S.hits % 25 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
   if (has('scepter') && S.hits % 18 === 0 && b) spawnBall(b, { ghost: true, life: 8, full: true });
-  if (has('polarity') && S.hits % 10 === 0) { S.polT = 2; msg('POLARITY CORE'); sfx.hum(); }
   if (has('instab') && S.hits % 35 === 0 && b) spawnBall(b, { dup: true });
   if (has('hex') && S.hits % 15 === 0) {
     const k = HEXABLE[Math.random() * HEXABLE.length | 0], m = Math.random() < .5 ? 2 : 3;
@@ -2521,7 +2637,7 @@ function endAttack(id) {
   endAttack2(id);
 }
 // flipper length follows the strongest shrink currently active (the Tyrant 82%, the Polarity King 2/3)
-function flipScale() { const F = BFX(), k = Math.min(F.shrink > 0 ? .82 : 1, F.magshrink > 0 ? 2 / 3 : 1) * (1 + T('vfrag', .06, .1, .1)); flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * k; }); }
+function flipScale() { const F = BFX(), k = Math.min(F.shrink > 0 ? .82 : 1, F.magshrink > 0 ? 2 / 3 : 1) ; flippers.forEach(f => { f.L0 = f.L0 || f.L; f.L = f.L0 * k; }); }
 function clearBossAttacks() { const F = BFX(); for (const k in ATTACKS) if (F[k] > 0) { F[k] = 0; endAttack(k); } if (S.boss) S.boss.warn = null; }
 // per-ball effects of active attacks (called from physics)
 function bossForces(b, dt) {
@@ -2692,6 +2808,13 @@ function decoyHit(d) {
   sfx.poof(); sfx.laugh(); taunt('loki');
 }
 
+// Static Charge: a magnetized ball discharges into the next bumper it hits
+Bus.on('hit', e => { const b = e.ball; if (e.kind !== 'bumper' || !b || !(b.chg >= .5) || !has('cradle')) return; const n = b.chg, o = e.obj; b.chg = 0;
+  award(T('cradle', 300, 450, 700) * n, 'cradle', o, o.x, o.y - 36, true); pop(o.x, o.y - 56, 'DISCHARGE', '#e25bff', true); o.flash = 1;
+  for (let i = 0; i < 3; i++) fx.push({ type: 'ring', x: o.x, y: o.y, t: -i * .08, life: .45, c: '226,91,255' }); tone(180, .25, 'sawtooth', .06, 900); });
+// Voidsteel Fragment: flipper hits pay
+{ let cd = 0; Bus.on('hit', e => { if (e.kind !== 'flipper' || !has('vfrag') || !e.ball || !isReal(e.ball)) return; const now = performance.now(); if (now - cd < 150) return; cd = now;
+  award(T('vfrag', 100, 150, 150), 'flipper', null, e.ball.x, e.ball.y - 26, true); } ); }
 // Thunder Strike: every Nth flipper hit calls lightning onto a red bumper
 { let n = 0, cd = 0; Bus.on('hit', e => { if (e.kind !== 'flipper' || !has('thunderstrike') || !e.ball || !isReal(e.ball)) return; const now = performance.now(); if (now - cd < 200) return; cd = now;
   if (++n % T('thunderstrike', 6, 5, 5)) return; const c = rnd(mainBumpers()); fx.push({ type: 'bolt', x1: e.ball.x, y1: e.ball.y, x2: c.x, y2: c.y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); c.flash = 1; award(T('thunderstrike', 1000, 1500, 1500), 'lightning', c, c.x, c.y - 34, true); tone(160, .2, 'sawtooth', .05, 60); }); }
@@ -2732,11 +2855,11 @@ function queueServe(launched, delay) { S.serveQ = { launched, t: delay }; }
 function serveTick(dt) { if (!S.serveQ) return; if ((S.serveQ.t -= dt) <= 0) { const q = S.serveQ; S.serveQ = null; serveBall(q.launched); } }
 function serveBall(launched = false) { const b = { x: 535, y: 894, vx: 0, vy: 0, still: 0, layer: 0, launched }; cardsBall(b); b.msh = true; balls.push(b); }
 function startLevel() {
-  S.score = 0; S.balls = S.maxBalls = clamp(3 + has('director') + has('titan') - has('grimoire') + (S.nextBalls || 0), 1, 5); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
+  S.score = 0; S.balls = S.maxBalls = clamp(3 + has('director') + has('titan') - has('grimoire') + (S.nextBalls || 0), 1, 5); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; S.polCd = 0; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
   Object.assign(S, { gambit: false, freeze: null, awake: null, odT: 0, bifT: 0, mystic: 0, kin: 0, spins: 0, evoN: {}, droneT: 0 });
   Object.assign(S, { hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardN: 0, phoenixUsed: false, bpSaved: false });
   const bd = bossFor(S.level);
-  HALL.clear();
+  HALL.clear(); SCORCH = []; FLAMEP.length = 0; S.hfN = 0; S.hfCd = 0; S.burstUsed = false; allTargets().forEach(o => o.burnT = 0);
   S.boss = bd ? { ...bd, t: 0, t2: 0, streak: 0, exposedT: 0, illusions: new Set(), hacked: new Set(), dusted: new Set(), pol: 1, rampNeed: 0, defeated: false } : null;
   gens.forEach(g => { g.hp = 3; g.down = 0; g.flash = 0; });
   bossReset();
@@ -2817,7 +2940,7 @@ function award(base, kind, obj, x, y, generated = false) {
   if (x != null) popups.push({ x, y, text: fmt(pts), t: 0, big: pts >= 1000, c: cls === 'glance' || cls === 'rattle' ? '#9aa0b8' : undefined });
   Bus.emit('score', { pts, kind, generated, cls });
   if (cls === 'hit') { const pk = PARTK[kind]; if (pk && has(pk) && (kind !== 'spinner' || S.spins % 10 === 0)) part(pk); }
-  if (cls === 'hit' && PHYS.has(kind)) countHit(kind, obj);
+  if (cls === 'hit' && PHYS.has(kind)) { countHit(kind, obj); hellHit(obj); }
   if (has('reckoning') && !S.snap2 && S.score >= S.target * .75 && S.phase === 'play') { S.snap2 = true; bonus(Math.round(S.target * .1), 270, 420, 'THE RECKONING'); msg('THE PURGE · +10% OF TARGET', 2.5); fx.push({ type: 'flash', t: 0, life: .3 }); }
   if (has('gauntlet') && !S.snapped && S.score >= S.target / 2) { S.snapped = true; S.snapT = 10; S.forgeFx = 1.5; msg('THE STARFORGE FLARES · 5× FOR 10 SECONDS', 3); sfx.snap(); fx.push({ type: 'flash', t: 0, life: .4 }); }
   if (S.score >= S.target && S.phase === 'play') targetReached();
@@ -3010,7 +3133,7 @@ const NONE = [];
 function segsNear(b) { if (!GRID) buildGrid(); return GRID.get(Math.floor(b.y / GCELL) * 1000 + Math.floor(b.x / GCELL)) || NONE; }
 function physics(dt) {
   for (const f of flippers) {
-    const target = f.on && !(f.frozen > 0) ? f.up : f.rest, sp = f.on && !(f.frozen > 0) ? ((has('repulsor') ? 23 : 20) + (S.odT > 0 ? 3 : 0)) : 13, old = f.a;
+    const target = f.on && !(f.frozen > 0) ? f.up : f.rest, sp = f.on && !(f.frozen > 0) ? ((has('repulsor') ? 23 : 20) + (S.odT > 0 ? 3 : 0)) * (1 + T('vfrag', .08, .12, .12)) : 13, old = f.a;
     f.a = f.a > target ? Math.max(target, f.a - sp * dt) : Math.min(target, f.a + sp * dt);
     f.w = (f.a - old) / dt;
   }
@@ -3099,9 +3222,11 @@ function tick(dt) {
   for (const f of flippers) if (f.frozen > 0) f.frozen -= dt;
   if (S.snapT > 0) S.snapT = Math.max(0, S.snapT - dt);
   if (S.polT > 0) S.polT -= dt;
+  if (has('polarity') && S.phase === 'play' && (S.polCd = (S.polCd || 0) + dt) >= 15) { S.polCd = 0; S.polT = Math.max(S.polT, 2); msg('POLARITY CORE'); sfx.hum(); } // Polarity Core: every 15 s
   if (has('forgeworks')) { const t = performance.now() / 1000, D = FORGED; D.x = 280 + 190 * Math.sin(t * .45); D.y = 150 + 30 * Math.sin(t * 1.3);
     if ((D.zap = (D.zap || 0) + dt) >= T('forgeworks', 8, 6, 6) / OC()) { D.zap = 0; const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: D.x, y1: D.y + 6, x2: x, y2: y, t: 0, life: .3, c: '255,200,120' }); o.flash = 1; award(T('forgeworks', 200, 300, 300) * OC(), 'drone', o, x, y - 28, true); tone(1500, .08, 'square', .04, 800); } }
   if (has('drones')) { const t = performance.now() / 1000; // two patrolling sentry bots
+    for (const q of SENTRIES) q.r = 12 * OC(); // Overclock Protocol: bots are 50% larger
     SENTRIES[0].x = 335 + 75 * Math.sin(t * .7); SENTRIES[0].y = 468 + 10 * Math.sin(t * 1.9);
     SENTRIES[1].x = 270 + 70 * Math.sin(t * .6 + 2); SENTRIES[1].y = 690 + 8 * Math.sin(t * 2.3);
     for (const q of SENTRIES) { if (q.flash > 0) q.flash = Math.max(0, q.flash - dt * 4); if ((q.zap = (q.zap || 0) + dt) >= 6 / OC()) { q.zap = Math.random(); const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: q.x, y1: q.y - 4, x2: x, y2: y, t: 0, life: .3, c: '255,74,74' }); o.flash = 1; award(200 * OC(), 'drone', o, x, y - 28, true); tone(1300, .08, 'square', .04, 700); } } }
@@ -3146,6 +3271,7 @@ function tick(dt) {
   if (gone.length) {
     let savedServe = false;
     for (const b of gone) {
+      if (!b.vanish && syn('penance') && S.balls <= 1 && !S.burstUsed && (b.heat || 0) >= 2 && hellOn(b)) { S.burstUsed = true; infernoBurst(b); }
       if (b.vanish || !isReal(b)) { if (b.vanish) fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .4, c: b.ghost ? '120,255,170' : '200,120,255' }); continue; }
       if (b.saved) savedServe = true;
     }
@@ -3667,7 +3793,13 @@ function drawBall(b) {
   { const v2 = b.vx * b.vx + b.vy * b.vy; if (v2 > 850 * 850 && !b.captured) { const v = Math.sqrt(v2), k = Math.min(1, (v - 850) / 900), L = .028 * v, ux = b.vx / v, uy = b.vy / v;
     const g = ctx.createLinearGradient(b.x, b.y, b.x - ux * L, b.y - uy * L); g.addColorStop(0, `rgba(215,235,255,${.5 * k})`); g.addColorStop(1, 'rgba(215,235,255,0)');
     ctx.save(); ctx.strokeStyle = g; ctx.lineCap = 'round'; ctx.lineWidth = R * 1.6; ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x - ux * L, b.y - uy * L); ctx.stroke(); ctx.restore(); } }
+  if (b.chg >= .5) { const t = performance.now() / 1000, k = Math.min(1, b.chg / 3); ctx.save(); ctx.strokeStyle = `rgba(226,91,255,${.4 + .4 * k})`; ctx.lineWidth = 1.5 + k; ctx.setLineDash([3, 4]); ctx.lineDashOffset = -t * 30; ctx.beginPath(); ctx.arc(b.x, b.y, R + 4 + 2 * k, 0, TAU); ctx.stroke(); ctx.restore(); }
+  if (b.carUntil) { const left = (b.carUntil - performance.now()) / 1000; if (left <= 0) b.carUntil = 0; else { // Emperor's Carapace: violet aura while the 2× lasts
+    const t = performance.now() / 1000, k = Math.min(1, left / .6), p = .6 + .4 * Math.sin(t * 9); ctx.save(); ctx.globalAlpha = k;
+    const g = ctx.createRadialGradient(b.x, b.y, R * .6, b.x, b.y, R + 14); g.addColorStop(0, 'rgba(200,110,255,.75)'); g.addColorStop(1, 'rgba(150,60,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(b.x, b.y, R + 14, 0, TAU); ctx.fill();
+    ctx.strokeStyle = `rgba(220,160,255,${.5 + .4 * p})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(b.x, b.y, R + 4 + 2 * p, t * 4, t * 4 + 4.4); ctx.stroke(); ctx.restore(); } }
   drawBall0(b);
+  if (b.carUntil > performance.now()) { ctx.save(); ctx.fillStyle = 'rgba(175,85,255,.45)'; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill(); ctx.restore(); }
   if (b.fakeReal) { // Loki's illusion: deep emerald with a flickering gold rim (the reward ghost balls are pale mint)
     const k = .5 + .5 * Math.sin(performance.now() / 90); ctx.save(); ctx.fillStyle = 'rgba(12,110,48,.62)'; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill();
     ctx.strokeStyle = `rgba(214,178,60,${.45 + .4 * k})`; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(b.x, b.y, R + 1.5, 0, TAU); ctx.stroke(); ctx.restore(); }
@@ -3865,6 +3997,7 @@ function render(dt) {
     ctx.strokeStyle = '#e8dcff'; ctx.lineWidth = 2; ctx.stroke(); ctx.restore();
   }
   drawCardsMid(dt);
+  drawScorch(dt);
   for (const b of balls) if (b.layer === 3) drawBall(b); // balls falling through the drain grooves pass under the flippers
   for (const f of flippers) drawFlipper(f);
   for (const b of balls) if (b.layer === 0) drawBall(b);
