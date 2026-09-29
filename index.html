@@ -1,5 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Riftbound Pinball</title></head><body>
-<title>Riftbound Pinball</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Arcforge Pinball</title></head><body>
+<title>Arcforge Pinball</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow+Condensed:wght@500;600;700&family=DotGothic16&display=swap">
@@ -68,6 +68,7 @@ canvas{display:block;width:100%;height:100%;border-radius:4px;touch-action:none}
 .inv li.evol b{color:var(--ec)}
 .inv li.evol.done{background:linear-gradient(90deg,color-mix(in srgb,var(--ec) 18%,transparent),transparent)}
 .upg .evo{font-size:12px;color:#ffcf7a;letter-spacing:.04em}
+.upg .req,.paint .req{display:block;font-size:12px;color:#8fe3b0;letter-spacing:.04em}
 .chips{display:flex;flex-wrap:wrap;gap:3px}
 .chips em,.tagsum em{font:600 10px/1.3 "Barlow Condensed",sans-serif;font-style:normal;letter-spacing:.08em;color:var(--tc);border:1px solid color-mix(in srgb,var(--tc) 45%,transparent);border-radius:3px;padding:0 4px}
 .tagsum{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
@@ -332,13 +333,68 @@ header.plaque::before{background:linear-gradient(115deg,transparent 35%,rgba(255
   .fbtn{font-size:14px;padding:8px 12px 8px 10px}
 }
 @media (max-width:380px){ .upg .nm{font-size:13px} .upg .ds{font-size:11px} }
+
+/* build summary: what the build is doing right now */
+.arow{grid-template-columns:1fr auto;gap:6px;font-size:14px;letter-spacing:.02em}.arow span{display:flex;align-items:baseline;gap:4px;white-space:nowrap;min-width:0}.arow span em{font-style:normal;overflow:hidden;text-overflow:ellipsis;min-width:0;color:var(--fc);font-size:14px;text-align:left}.arow span u{flex:none}.inv-head{flex-wrap:wrap;row-gap:2px}.inv-head>span{white-space:nowrap}.inv-head b#credits{white-space:nowrap}
+.arow span{font-weight:600}.arow span u{text-decoration:none;font:400 17px/1 Bangers,Impact,sans-serif;letter-spacing:.06em;margin-left:3px;color:#fff;text-shadow:0 0 8px var(--fc)}
+.arow i{gap:3px}.arow b{width:9px;height:9px;border-radius:50%;background:transparent;border:1.5px solid color-mix(in srgb,var(--fc) 45%,#2a2e3c);box-sizing:border-box}
+.arow b.tier{outline:0;width:11px;height:11px;margin-top:-1px}
+.arow b.on{background:var(--fc);border-color:var(--fc)}
+.arow.lit span{text-shadow:0 0 10px color-mix(in srgb,var(--fc) 60%,transparent)}
+.arow.max{background:linear-gradient(90deg,color-mix(in srgb,var(--fc) 16%,transparent),transparent);border-radius:4px;padding:1px 4px;margin:0 -4px}
+.bsum{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.bsum .empty{margin:0;color:var(--muted);font-size:14px}
+.bsyn,.bevo{display:flex;flex-direction:column;gap:2px}
+.bsyn span{font-size:15px;color:var(--gold);letter-spacing:.03em;cursor:help}
+.bsyn span.k-family{color:#9fe6ff}.bsyn span.k-capstone{color:#ffb52e}.bsyn span.k-hybrid{color:#ff9a2e}.bsyn span.k-hero{color:#ff5a8a}
+.bevo span{font-size:15px;color:var(--ec);letter-spacing:.03em;cursor:help;font-weight:600}
+.bevo span.part{font-weight:400;opacity:.6;font-size:13px}
+.bparts{margin:2px 0 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.bparts b{color:#fff;font-size:15px}
+.fullb{border-top:1px solid rgba(255,255,255,.08);padding-top:6px}
+.fullb summary{cursor:pointer;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fullb summary:hover{color:#fff}
+.dmd.cursed{animation:cursed 2s ease-out}
+@keyframes cursed{0%{filter:brightness(3) hue-rotate(80deg);transform:translate(-6px,4px)}6%{transform:translate(6px,-4px)}12%{transform:translate(-4px,2px)}18%{transform:none}60%{filter:brightness(1.4) hue-rotate(40deg)}100%{filter:none}}
+.curator{flex:none;width:128px;height:165px;filter:drop-shadow(0 6px 18px rgba(245,197,66,.25))}
+.curator *{transform-box:fill-box;transform-origin:center}
+.curator .cu-eyes{animation:cuBlink 5s infinite}
+@keyframes cuBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.curator .cu-glint{animation:cuGlint 3.4s infinite}
+@keyframes cuGlint{0%,70%,100%{opacity:0}78%{opacity:1}}
+.curator .cu-orb{animation:cuBob 3s ease-in-out infinite}.curator .cu-jar circle{animation:cuPulse 2.2s ease-in-out infinite}
+@keyframes cuBob{50%{transform:translateY(-4px)}}@keyframes cuPulse{50%{opacity:.35}}
+.curator .cu-flame{transform-origin:50% 100%;animation:cuFlick .35s ease-in-out infinite alternate}
+@keyframes cuFlick{to{transform:scale(.8,1.15) skewX(6deg)}}
+.curator .cu-head{transform-origin:50% 100%;animation:cuSway 6s ease-in-out infinite}
+@keyframes cuSway{50%{transform:rotate(-2.5deg)}}
+.curator .cu-gear{animation:cuSpin 8s linear infinite}@keyframes cuSpin{to{transform:rotate(360deg)}}
+.curator .cu-gem{animation:cuPulse 1.6s ease-in-out infinite}
+.curator .cu-rays{animation:cuPulse 4s ease-in-out infinite}
+.curator.talk .cu-mouth{animation:cuTalk .16s 6 alternate}
+@keyframes cuTalk{to{transform:scaleY(5)}}
+.curator.talk .cu-head{animation:cuNod .5s 2}
+@keyframes cuNod{50%{transform:rotate(3deg) translateY(2px)}}
+@media (max-width:600px){.curator{width:78px;height:100px}}
+@media (prefers-reduced-motion:reduce){.curator *{animation:none!important}}
+
+/* Balatro-style scoring pair: blue Bonus × red Mult, styled as two dot-matrix windows on the cabinet */
+.lamps{grid-template-columns:1fr 2fr}
+.lamp.calc{flex-direction:row;align-items:stretch;gap:0;padding:6px}
+.cbox{--gc:70,165,255;position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;border-radius:6px;padding:5px 2px 4px;background:radial-gradient(ellipse at 50% 40%,rgba(var(--gc),.16),transparent 70%),#07080c;border:2px solid #000;box-shadow:0 0 0 1px #4a5166,inset 0 0 14px rgba(0,0,0,.95),inset 0 0 18px rgba(var(--gc),.12);overflow:hidden}
+.cbox::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,transparent 50%,rgba(0,0,0,.3) 62%) 0 0/3px 3px;pointer-events:none}
+.cbox.multb{--gc:255,70,80}
+.cbox b{position:relative;font:400 25px/1 DotGothic16,"Courier New",monospace!important;letter-spacing:.02em;color:rgb(var(--gc))!important;text-shadow:0 0 5px rgba(var(--gc),1),0 0 14px rgba(var(--gc),.85),0 0 26px rgba(var(--gc),.45)!important;filter:brightness(1.3) saturate(1.2)}
+.cbox span{position:relative;font:600 9px/1 "Barlow Condensed",sans-serif!important;letter-spacing:.22em!important;color:rgba(var(--gc),.95)!important;background:rgba(var(--gc),.12);border:1px solid rgba(var(--gc),.35);border-radius:3px;padding:2px 5px 1px}
+.lamp.calc .cx{align-self:center;flex:none;width:18px;text-align:center;font:400 20px/1 DotGothic16,"Courier New",monospace;font-style:normal;color:#ffd08a;text-shadow:0 0 6px rgba(255,165,31,.8)}
+.cbox.bump b{animation:cbump .3s ease-out}
+@keyframes cbump{0%{transform:scale(1.22);filter:brightness(2.2)}30%{filter:brightness(.7)}55%{filter:brightness(1.8)}100%{transform:none;filter:brightness(1.25)}}
 </style>
 
 <div class="app">
   <aside class="side">
     <header class="plaque">
-      <h1>Riftbound Pinball</h1>
-      <p>Build the machine. Break reality.</p>
+      <h1>Arcforge Pinball</h1>
+      <p>Forge the machine. Break reality.</p>
     </header>
     <section class="dmd" aria-live="polite">
       <div class="top"><span id="dBall">BALL 1</span><span id="dLvl">LEVEL 1</span></div>
@@ -349,19 +405,21 @@ header.plaque::before{background:linear-gradient(115deg,transparent 35%,rgba(255
     </section>
     <section class="lamps">
       <div class="lamp"><span>Balls</span><div class="balls" id="balls"></div></div>
-      <div class="lamp"><span>Mult</span><b id="mult">×1</b></div>
-      <div class="lamp"><span>Bonus</span><b id="combo">—</b></div>
+      <div class="lamp calc" title="Points = base × (1 + Bonus) × Mult"><div class="cbox chips"><b id="combo">+0%</b><span>Bonus</span></div><i class="cx">×</i><div class="cbox multb"><b id="mult">1</b><span>Mult</span></div></div>
     </section>
     <section class="plaque meters" id="meters" hidden>
       <div class="inv-head"><span>Build meters</span></div>
       <div id="meterList"></div>
     </section>
     <section class="plaque inv" aria-live="polite">
-      <div class="inv-head"><span>Your build <button class="mini" id="codexBtn" type="button">Codex</button></span><b id="credits">0 credits</b></div>
-      <div class="odds" id="odds"></div>
+      <div class="inv-head"><span>Build summary <button class="mini" id="codexBtn" type="button">Codex</button></span><b id="credits">0 credits</b></div>
       <div class="affsum" id="affSum"></div>
-      <div class="tagsum" id="tagSum"></div>
-      <ul id="invList"><li class="empty">No upgrades yet. Clear a level to draft one.</li></ul>
+      <div class="bsum" id="bSum"><p class="empty">No upgrades yet. Clear a level to draft one.</p></div>
+      <details class="fullb" id="fullB"><summary id="fullSum">Full build list</summary>
+        <div class="odds" id="odds"></div>
+        <div class="tagsum" id="tagSum"></div>
+        <ul id="invList"><li class="empty">No upgrades yet. Clear a level to draft one.</li></ul>
+      </details>
     </section>
     <section class="plaque keys-panel">
       <div class="keys">
@@ -375,7 +433,7 @@ header.plaque::before{background:linear-gradient(115deg,transparent 35%,rgba(255
       <p style="text-transform:none;letter-spacing:0;font-size:15px">On touch screens, tap the left or right half of the table. Hold Launch to plunge.</p>
     </section>
     <button class="ghost" id="mute" type="button">Sound: on</button>
-    <p class="fanote">Riftbound Pinball · an original roguelike pinball game.</p>
+    <p class="fanote">Arcforge Pinball · an original roguelike pinball game.</p>
   </aside>
   <main class="wrap" id="wrap">
     <div class="stage" id="stage">
@@ -560,7 +618,7 @@ const bifBar = seg(212, 890, 328, 890, { kind: 'bifrost', r: 4, e: .85, kick: 38
 const drops = [360, 400, 440].map((y, i) => seg(104, y, 104, y + 34, { kind: 'drop', r: 0, e: .3, down: false, pts: 250, n: i + 1 }));
 const standups = [322, 362, 402].map(y => seg(460, y, 460, y + 34, { kind: 'standup', r: 0, e: .35, pts: 300, flash: 0, lit: false }));
 const bumpers = [[253, 267, 20], [343, 267, 20], [298, 334, 20], [128, 173, 18], [160, 118, 18]].map(([x, y, r]) => ({ x, y, r, kick: r > 19 ? 520 : 480, kind: 'bumper', pts: r > 19 ? 150 : 100, flash: 0 }));
-// the Rift Core: a raised plate in the middle; every hit from below lights the next RIFTBOUND letter
+// the Arc Core: a raised plate in the middle; every hit from below lights the next ARCFORGE letter
 const enemy = seg(252, 432, 308, 432, { kind: 'enemy', r: 6, e: .5, flash: 0 });
 // The Polarity King's magnetic generators (only active during his fight)
 const gens = [[188, 562], [372, 562]].map(([x, y]) => ({ x, y, r: 15, kick: 260, kind: 'gen', hp: 3, down: 0, flash: 0 }));
@@ -602,7 +660,7 @@ const SHOTS = {
   standups: { x: 436, y: 468, rot: .4, label: 'STANDUPS' },
   saucer: { x: 368, y: 240, rot: .7, label: 'SAUCER' },
   worm: { x: 280, y: 668, rot: 0, label: 'WORMHOLE' },
-  enemy: { x: 280, y: 462, rot: 0, label: 'RIFT CORE' },
+  enemy: { x: 280, y: 462, rot: 0, label: 'ARC CORE' },
 };
 
 // flippers: s=+1 left, -1 right; angle a from horizontal, + is down
@@ -636,14 +694,14 @@ const UPGRADES = [
   { id: 'guard', r: 'epic', r0: 'rare', cat: 'Machine Part', name: 'Voidsteel Drain Guard', desc: 'The first ball that drains between the flippers each level bounces back.' },
   { id: 'qsiphon', r: 'uncommon', cat: 'Machine Part', up: true, name: 'Quantum Siphon', desc: 'A third of the time (4 s out of every 12) the purple bumper\'s cave becomes a powerful vacuum that sucks in any ball that comes close. Every ball it swallows pays +{400|600}.' },
   { id: 'director', r: 'epic', cat: 'Trinket', name: "Commander's Contingency", desc: 'Start every level with one extra ball.' },
-  { id: 'loki', r: 'rare', cat: 'Trinket', name: "Loki's Illusion", desc: 'Every 25th hit spawns a ghost ball for 8 seconds. Ghosts score half and drain for free.' },
+  { id: 'loki', r: 'rare', cat: 'Trinket', name: "False King's Illusion", desc: 'Every 25th hit spawns a ghost ball for 8 seconds. Ghosts score half and drain for free.' },
   { id: 'mjolnir', r: 'epic', cat: 'Machine Part', name: 'Mjölnir Bumpers', desc: 'Bumper hits charge lightning. At 5 charges it chains to 3 targets for 300 each.' },
   { id: 'hex', r: 'epic', cat: 'Trinket', name: "Chaos Hex", desc: 'Every 15th hit hexes a random scoring source: 2× or 3× for the rest of the level.' },
   { id: 'instab', r: 'epic', cat: 'Mutation', name: 'Rift Instability', desc: 'Every 35 hits the ball splits in two. Copies have a 20% chance to vanish on each bumper hit.' },
   { id: 'phoenix', r: 'legendary', cat: 'Mutation', name: 'Ashborn Force', desc: 'Your last ball scores 3×, other balls score 25% less. The last ball rises again once per level.' },
-  { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: "Mirage Scepter", desc: "Every 18th hit spawns a ghost ball (8 s) that scores full points. Stacks with Loki's Illusion." },
-  { id: 'hypercube', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: 'Rune of Passage', desc: 'The blue quantum pit bumpers turn green, grow 20% larger and pay 50% more.' },
-  { id: 'dagger', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: "Trickster's Dagger", desc: 'Every 4th Rift Core hit lights two letters and pays +1,000.' },
+  { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Mirage Scepter", desc: "Every 18th hit spawns a ghost ball (8 s) that scores full points. Stacks with False King's Illusion." },
+  { id: 'hypercube', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: 'Rune of Passage', desc: 'The blue quantum pit bumpers turn green, grow 20% larger and pay 50% more.' },
+  { id: 'dagger', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Trickster's Dagger", desc: 'Every 4th Arc Core hit lights two letters and pays +1,000.' },
   { id: 'ucore', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: "Architect Core", desc: 'A red bumper hit 5 times in a level overclocks: it scores 4× and kicks 20% harder for the rest of the level.' },
   { id: 'vbody', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Rewired Laser', desc: 'Every 12 s a blue laser sweeps up the table from the flippers. Any ball it touches is pushed upward and pays 300.' },
   { id: 'drones', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Clockwork Sentries', desc: 'Two small rewired clockwork bots patrol the table. Balls pass through them from below, but a ball falling onto one bounces off and pays 150. Every 6 s each one zaps a random target for 200.' },
@@ -651,13 +709,13 @@ const UPGRADES = [
   { id: 'polarity', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Polarity Core', desc: 'Every 10th hit pulls every ball toward the red bumpers for 2 seconds.' },
   { id: 'helmet', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: "Polarity Crown", desc: 'Boss levels need 10% fewer points.' },
   { id: 'gauntlet', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Starforge', desc: 'When you reach half the target, the forge flares: everything scores 5× for 10 seconds.' },
-  { id: 'obsidianblade', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Void Blade', desc: 'Rift Core hits score 3× points.' },
+  { id: 'obsidianblade', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Void Blade', desc: 'Arc Core hits score 3× points.' },
   { id: 'titan', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: "Tyrant's Resolve", desc: '+1 ball every level and +20% points from everything.' },
   { id: 'controlrod', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Control Rod', desc: 'Every 20 hits the rod pulses: everything scores 1.5× for 5 seconds.' },
   { id: 'carapace', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: "Emperor's Carapace", desc: 'Once per level, the first ball that drains is thrown back into play.' },
   { id: 'nzgate', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Gate', desc: 'Portals are always open and every portal jump pays 1,000.' },
-  { id: 'purpose', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: 'Trickster\'s Bargain', desc: 'Every 7th hit turns a random target gold: it scores 3× for 8 seconds.' },
-  { id: 'horns', r: 'artifact', boss: 'loki', cat: 'Artifact · Loki', name: "Crown of Many Faces", desc: 'Hit 6 different parts of the machine within 5 seconds: everything scores 2× for 8 seconds.' },
+  { id: 'purpose', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: 'Trickster\'s Bargain', desc: 'Every 7th hit turns a random target gold: it scores 3× for 8 seconds.' },
+  { id: 'horns', r: 'artifact', boss: 'loki', cat: 'Artifact · False King', name: "Crown of Many Faces", desc: 'Hit 6 different parts of the machine within 5 seconds: everything scores 2× for 8 seconds.' },
   { id: 'uplink', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Machine Uplink', desc: 'Points from Machine Parts are +40% stronger.' },
   { id: 'skyfall', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Overdrive Engine', desc: 'The red bumpers are rebuilt as armoured robots: they kick 15% harder and score +30%.' },
   { id: 'mshield', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Magnetic Shield', desc: 'Every ball you launch gets a 6-second ball save.' },
@@ -669,7 +727,7 @@ const UPGRADES = [
   { id: 'mgauntlet', r: 'artifact', boss: 'malachar', cat: 'Artifact · The Sovereign', name: "Sovereign's Runic Gauntlet", desc: 'Every 15 seconds a random target is hexed: it scores 4× for 6 seconds.' },
   { id: 'pouch', r: 'artifact', boss: 'malachar', cat: 'Artifact · The Sovereign', name: 'Royal Treasury Key', desc: 'One free draft reroll after every level.' },
   { id: 'ironmask', r: 'artifact', boss: 'malachar', cat: 'Artifact · The Sovereign', name: "Sovereign's Visor", desc: '+30% Bonus to all scoring, and boss levels need 10% fewer points.' },
-  { id: 'clockbots', r: 'artifact', boss: 'malachar', cat: 'Artifact · The Sovereign', name: 'Clockwork Legion', desc: 'Every 12 seconds a clockwork soldier shoots the Rift Core and lights the next letter.' },
+  { id: 'clockbots', r: 'artifact', boss: 'malachar', cat: 'Artifact · The Sovereign', name: 'Clockwork Legion', desc: 'Every 12 seconds a clockwork soldier shoots the Arc Core and lights the next letter.' },
   { id: 'treasury', r: 'artifact', boss: 'malachar', cat: 'Artifact · The Sovereign', name: 'Sovereign Treasury', desc: '+25 credits after every level and 15% off everything in the shop.' },
   { id: 'shield', r: 'uncommon', cat: 'Trinket', name: "Vanguard Shield", desc: 'Every slingshot hit adds 2 steps to your combo.' },
   { id: 'storm', r: 'rare', cat: 'Trinket', name: "Tempest's Blessing", desc: 'Every 8th hit calls lightning down on a red bumper for 400.' },
@@ -685,7 +743,7 @@ window.MP.owned = owned;
 // which award kinds count as a physical "hit" (upgrade counters), and which scoring source a Hex boosts
 const PHYS = new Set(['bumper', 'sling', 'drop', 'standup', 'enemy', 'lane', 'rollover', 'star']);
 const HEXMAP = { bumper: 'bumpers', sling: 'slingshots', ramp: 'ramp', orbit: 'orbits', drop: 'drop targets', bank: 'drop targets', standup: 'standups', standups: 'standups',
-  tunnel: 'tunnel', enemy: 'rift core', word: 'rift core', saucer: 'saucer', wormhole: 'wormhole', spinner: 'spinners', pit: 'quantum pit' };
+  tunnel: 'tunnel', enemy: 'arc core', word: 'arc core', saucer: 'saucer', wormhole: 'wormhole', spinner: 'spinners', pit: 'quantum pit' };
 const HEXABLE = [...new Set(Object.values(HEXMAP))];
 
 // rarity odds by level: a window slides smoothly up the rarity ladder, from 80% Common / 20% Uncommon at level 1
@@ -704,22 +762,27 @@ function renderOdds() {
     <div class="bar">${ks.map(k => `<i style="width:${w[k]}%;background:${RAR[k].c}" title="${RAR[k].n} ${w[k]}%"></i>`).join('')}</div>
     <div class="keys2">${ks.map(k => `<span style="--rc:${RAR[k].c}">${RAR[k].n} ${w[k]}%</span>`).join('')}</div>`;
 }
-let invDirty = false, invT = 0;
+let invDirty = false, invT = 0; const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V'];
 function renderInv() { if (activePlay()) invDirty = true; else renderInv0(); }
 function renderInv0() {
   renderOdds();
   $('credits').textContent = S.credits + ' credits';
   const list = UPGRADES.filter(u => has(u.id)), synl = SYNERGIES.filter(sy => syn(sy.id));
-  if (!list.length) { $('invList').innerHTML = '<li class="empty">No upgrades yet. Clear a level to draft one.</li>'; $('tagSum').innerHTML = ''; $('affSum').innerHTML = ''; return; }
-  $('invList').innerHTML = `<li class="slots">Build slots ${slotsUsed()}/${SLOTS}</li>` + list.map(u => {
+  if (!list.length) { $('invList').innerHTML = '<li class="empty">No upgrades yet. Clear a level to draft one.</li>'; $('tagSum').innerHTML = ''; $('affSum').innerHTML = ''; $('bSum').innerHTML = '<p class="empty">No upgrades yet. Clear a level to draft one.</p>'; $('fullSum').textContent = 'Full build list'; return; }
+  $('invList').innerHTML = list.map(u => {
     let extra = '';
     if (u.id === 'hex') extra = Object.entries(S.hexed).map(([k, v]) => k + ' ×' + v).join(', ');
     const nm = nameFor(u) + (u.stack && has(u.id) > 1 ? ' ×' + has(u.id) : ''), ds = descFor(u);
     return `<li tabindex="0" title="${ds.replace(/"/g, '&quot;')}" class="${extra ? 'hexline' : ''}" style="--rc:${RAR[u.r].c}"><b>${nm}</b>${tierPips(u)}${famsOf(u).map(f => `<i class="fi" title="${FAMS[f].name}">${FAMS[f].ico}</i>`).join('')}<span>${extra || ds}</span></li>`;
   }).join('') + synl.map(sy => `<li class="synl k-${sy.kind}" tabindex="0" title="${sy.desc}"><b>✦ ${sy.name}</b><span>${SYNKIND[sy.kind]} · ${sy.req}. ${sy.desc}</span></li>`).join('') + evoLines() + `<li class="codex">Synergies discovered ${codex.size}/${SYNERGIES.length}</li>`;
+  $('fullSum').textContent = `Full build list · ${list.length} card${list.length > 1 ? 's' : ''}`;
   recountTags();
   const A = S.aff || {}, fams = Object.keys(FAMS).filter(f => A[f]).sort((a, b) => A[b] - A[a]);
-  $('affSum').innerHTML = fams.length ? '<span class="lbl">Build affinity</span>' + fams.map(f => { const n = A[f], next = n < 3 ? 'III' : n < 5 ? 'V' : ''; const tip = SYNERGIES.filter(q => (q.kind === 'family' || q.kind === 'capstone') && q.fam[0] === f).sort((a, b) => a.tier - b.tier).map(q => `<p class="${n >= q.tier ? 'got' : ''}"><b>${q.tier === 5 ? 'V' : 'III'} · ${q.name}</b> ${q.desc || ''}</p>`).join(''); return `<div class="arow" tabindex="0" style="--fc:${FAMS[f].c}"><span>${FAMS[f].ico} ${FAMS[f].name}</span><i>${[1, 2, 3, 4, 5].map(k => `<b class="${k <= n ? 'on' : ''}${k === 3 || k === 5 ? ' tier' : ''}"></b>`).join('')}</i><em>${n}${next ? '' : ' · MAX'}</em><div class="atip">${tip}</div></div>`; }).join('') : '';
+  $('affSum').innerHTML = fams.map(f => { const n = A[f], k = Math.min(5, n); const tip = SYNERGIES.filter(q => (q.kind === 'family' || q.kind === 'capstone') && q.fam[0] === f).sort((a, b) => a.tier - b.tier).map(q => `<p class="${n >= q.tier ? 'got' : ''}"><b>${q.tier === 5 ? 'V' : 'III'} · ${q.name}</b> ${q.desc || ''}</p>`).join(''); return `<div class="arow${k >= 3 ? ' lit' : ''}${k >= 5 ? ' max' : ''}" tabindex="0" style="--fc:${FAMS[f].c}"><span>${FAMS[f].ico} <em>${FAMS[f].name.toUpperCase()}</em><u>${ROMAN[k]}</u></span><i>${[1, 2, 3, 4, 5].map(q => `<b class="${q <= k ? 'on' : ''}${q === 3 || q === 5 ? ' tier' : ''}"></b>`).join('')}</i><div class="atip">${tip}</div></div>`; }).join('');
+  const ev = EVOS.filter(E => evo(E.id)), evp = EVOS.filter(E => !evo(E.id) && E.need.filter(has).length >= 2);
+  $('bSum').innerHTML = (synl.length ? `<div class="bsyn">${synl.map(sy => `<span class="k-${sy.kind}" tabindex="0" title="${sy.desc.replace(/"/g, '&quot;')}">✦ ${sy.name}</span>`).join('')}</div>` : '')
+    + (ev.length || evp.length ? `<div class="bevo">${ev.map(E => `<span style="--ec:${E.hex}" tabindex="0" title="${E.desc.replace(/"/g, '&quot;')}">⚙ ${E.name}</span>`).join('')}${evp.map(E => `<span class="part" style="--ec:${E.hex}" title="Needs ${E.need.filter(id => !has(id)).map(id => UPGRADES.find(u => u.id === id).name).join(' + ')}">⚙ ${E.name} ${E.need.filter(has).length}/3</span>`).join('')}</div>` : '')
+    + `<p class="bparts"><b>${slotsUsed()}</b> / ${SLOTS} parts</p>`;
   $('tagSum').innerHTML = Object.entries(S.tg).sort((a, b) => b[1] - a[1]).map(([t, n]) => `<em style="--tc:${TAGC[t]}" title="${t}: ${n} card${n > 1 ? 's' : ''}">${t} ${n}</em>`).join('');
 }
 var RLINE = null;
@@ -730,7 +793,7 @@ const SYNERGIES = [
   { id: 'mirror', need: ['loki', 'portals'], name: 'Hall of Mirrors', desc: 'Ghost balls that pass through a portal have a 35% chance to split into two ghosts.' },
   { id: 'forgeworks', need: ['arc', 'repulsor'], name: 'Aether Protocol', desc: 'Every 10th bumper hit fires a missile barrage at 5 targets for 200 each.' },
   { id: 'immortal', need: ['phoenix', 'guard'], name: 'Undying Ball', desc: 'Your last ball scores 4×, and the Drain Guard recharges every time the Phoenix rises.' },
-  { id: 'ricochet', need: ['shield', 'web'], name: 'Ricochet Protocol', desc: 'Slingshots fire the ball straight at the Rift Core or a red bumper.' },
+  { id: 'ricochet', need: ['shield', 'web'], name: 'Ricochet Protocol', desc: 'Slingshots fire the ball straight at the Arc Core or a red bumper.' },
   { id: 'atlantis', need: ['vibrail', 'reserve'], name: 'Voidsteel Covenant', desc: 'Every purple ramp shot earns 1 credit.' },
   { id: 'misfits', need: ['rocket', 'treant'], name: 'Kinetic Pact', desc: 'Every Booster boost relights the outlane save.' },
   { id: 'trickster', need: ['loki', 'scepter'], name: 'Trickster King', desc: 'Ghost balls last 20 seconds and score 2×.' },
@@ -752,10 +815,13 @@ function completesSynergy(u) { // which synergies taking this card would switch 
 }
 function showSynergyBanner() {
   const sy = S.newSyn.shift(); if (!sy) return;
-  if (sy.evo) { S.banner = { title: sy.name, sub: sy.desc, tag: 'MACHINE EVOLVED', t: 0, life: 6, c: sy.hex }; msg('EVOLVED: ' + sy.name.toUpperCase(), 4); sfx.evolve(); S.pulse = 1; S.shake = 1; S.evoFx = { t: 0, c: sy.c }; }
+  if (sy.evo) { msg('EVOLVED: ' + sy.name.toUpperCase(), 4); startEvoMarquee(sy); }
+  else if (sy.kind === 'family' || sy.kind === 'capstone') { const F = FAMS[sy.fam[0]], cap = sy.tier >= 5;
+    S.awake = { t: 0, life: 3.4, title: F.name.toUpperCase() + ' ' + (cap ? 'V' : 'III'), name: sy.name, sub: (sy.desc || '').split(/(?<=\.)\s/)[0], c: F.c, ico: F.ico, cap };
+    msg(F.name.toUpperCase() + ' ' + (cap ? 'V' : 'III') + ' AWAKENED', 4); sfx.awaken(cap); S.pulse = 1; S.shake = cap ? 1 : .7; }
   else { S.banner = { title: sy.name, sub: sy.desc, tag: (sy.first ? 'NEW ' : '') + (sy.kind && sy.kind !== 'pair' ? SYNKIND[sy.kind].toUpperCase() : 'SYNERGY') + (sy.first ? ' DISCOVERED' : ' ACTIVE'), t: 0, life: 4.5 };
   msg('SYNERGY: ' + sy.name.toUpperCase(), 4); sfx.synergy(); S.pulse = 1; }
-  if (S.newSyn.length) setTimeout(showSynergyBanner, sy.evo ? 6100 : 4600);
+  if (S.newSyn.length) setTimeout(showSynergyBanner, sy.evo ? EVO_T * 1000 + 700 : S.awake && S.awake.t === 0 ? 3600 : 4600);
 }
 // ================= Step 8: card pool, tags, tiers =================
 const TAGC = { TECH: '#7fe7ff', COSMIC: '#b58cff', MYSTIC: '#ff9a2e', GAMMA: '#6cff5a', GIFTED: '#ffd23a', WEB: '#dfe3ee', LIGHTNING: '#9fd8ff', EXPLOSIVE: '#ff6b3d', MULTIBALL: '#c77dff', SPEED: '#ffe08a', PORTAL: '#ffb347', BUMPER: '#ff6b6b', RAMP: '#b98cff', SURVIVAL: '#5ee07a', COMBO: '#4fa3ff', FLIPPER: '#f5c542', QUANTUM: '#5ad1ff', CHAOS: '#ff5ad1', PARASITE: '#a0a4c0', ARMOR: '#d9a441', MAGNETIC: '#e25bff', ECONOMY: '#f5d77a' };
@@ -831,7 +897,7 @@ UPGRADES.push(
   { id: 'vigilante', r: U_, cat: TR, up: true, tags: ['EXPLOSIVE'], hero: 'outlaws', name: "Vigilante's Arsenal", desc: 'Knocking down a target makes your next target hit worth +{50|75|100}%.' },
   { id: 'gammawarp', r: U_, cat: TR, up: true, tags: ['GAMMA', 'BUMPER'], hero: 'titanborn', name: "Titan's Fist", desc: 'Bumper hits by a fast ball score {2|2.5|3}×.' },
   { id: 'rcoupon', r: U_, cat: TR, tags: ['ECONOMY'], hero: 'outlaws', name: 'Scrapper\'s "Legally Acquired" Coupon', desc: 'The first item you buy in each shop costs 25% less.' },
-  { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "Loki's Counterfeit Credits", desc: 'Gain +75 credits now. For the next three shops, all prices are +20%. Leaves your build after that.' },
+  { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "False King's Counterfeit Credits", desc: 'Gain +75 credits now. For the next three shops, all prices are +20%. Leaves your build after that.' },
   // ---- RARE: build-arounds ----
   { id: 'nano', r: R_, cat: MPART, tags: ['TECH', 'ARMOR'], hero: 'aetherworks', name: 'Nanite Swarm', desc: 'Every 10 s your weakest upgradeable card runs at full tier-3 power for 5 s.' },
   { id: 'alleye', r: R_, cat: TR, tags: ['MYSTIC', 'COSMIC'], hero: 'arcanists', name: 'The All-Seeing Eye', desc: 'Repeat the same sequence of shots (like ramp → warp, ramp → warp) and each loop adds +0.25× for the level.' },
@@ -968,7 +1034,7 @@ UPGRADES.push(
   { id: 'volley', r: U_, cat: TR, up: true, fam: 'WEB', tags: ['COMBO'], name: 'Trick Arrow Volley', desc: 'Knocking down the whole drop bank within {6|8|10} s of the first target pays +{2000|3000|4500}.' },
   { id: 'trickarrow', r: U_, cat: TR, up: true, fam: 'WEB TECH', tags: ['TECH'], name: 'Marked Target', desc: 'A standup hit marks a standing drop target. Knocking the marked one down pays {5|7|10}×.' },
   { id: 'antshort', r: U_, cat: TR, up: true, fam: 'QUANTUM', tags: ['QUANTUM', 'BUMPER'], name: "Phasewalker's Shortcut", desc: 'A tunnel shot pays +{100|150|250} for every bumper hit since your last tunnel shot (up to 30).' },
-  { id: 'spellcaster', r: U_, cat: TR, up: true, fam: 'MYSTIC', tags: ['PORTAL'], name: 'Spell Caster', desc: 'Each RIFTBOUND letter lit on the Rift Core pays +{60|90|150} times its place in the word (R = 1 … D = 9).' },
+  { id: 'spellcaster', r: U_, cat: TR, up: true, fam: 'MYSTIC', tags: ['PORTAL'], name: 'Spell Caster', desc: 'Each ARCFORGE letter lit on the Arc Core pays +{60|90|150} times its place in the word (R = 1 … D = 9).' },
   { id: 'fourthwall', r: U_, cat: TR, up: true, fam: 'HELLFIRE ILLUSION', tags: ['CHAOS'], name: "The Fourth Wall", desc: 'Interrupting a boss attack pays +{3000|4500|7000}. "Did you just read the warning? Cheater."' },
   { id: 'loopdeloop', r: R_, cat: TR, up: true, fam: 'SPEED', tags: ['SPEED', 'RAMP'], name: "Stunt Pilot's Loop-de-Loop", desc: 'Making the same shot (ramp, warp or tunnel) again within 6 s pays it {3|4|5}×. Keep repeating to keep the chain.' },
   { id: 'constellation', r: R_, cat: TR, up: true, fam: 'MYSTIC THUNDER', tags: ['LIGHTNING'], name: 'Constellation', desc: 'Roll over 3 different stars within {7|9|11} s: every bumper and standup fires for {300|450|700}.' },
@@ -1063,7 +1129,7 @@ function reqOf(u) {
 }
 // support cards only show up once you own something they can boost (no lightning bonus without lightning, etc.)
 const SRC = {
-  lightning: ['mjolnir', 'storm', 'mjolR', 'widow', 'capacitor', 'thunderstrike', 'leg_thunder'], chain: ['mjolnir'], explosive: ['gambler', 'deck', 'venom', 'bullet', 'detonator', 'powder', 'visor', 'leg_explosive'], save: ['guard', 'shield', 'cloak', 'bpsuit', 'badge', 'phoenix', 'octoarms'],
+  lightning: ['mjolnir', 'storm', 'mjolR', 'widow', 'capacitor', 'thunderstrike', 'leg_thunder'], chain: ['mjolnir'], explosive: ['gambler', 'deck', 'venom', 'bullet', 'detonator', 'powder', 'visor', 'leg_explosive'], save: ['guard', 'cloak', 'phoenix', 'octoarms', 'mshield', 'healing'],
   portal: ['portals', 'keeperring', 'nzgate'], teleport: ['portals', 'keeperring', 'nzgate'], magnet: ['lodestone', 'magflip', 'polarity', 'attractor', 'lodepoles', 'mstorm', 'leg_magnet'],
   web: ['web', 'cartridge', 'tracer', 'arrowhead', 'webtension', 'spiderleg', 'leg_web'], big: ['gamma', 'chi', 'winter', 'gammaform', 'gammawarp'],
   extra: ['loki', 'instab', 'decoy', 'illusion', 'qtunnel', 'scepter', 'qbattery', 'leg_quantum'],
@@ -1124,6 +1190,11 @@ function preview(u) {
     const unl = UPGRADES.filter(q => q.id !== u.id && q.pool !== false && q.r !== 'artifact' && !before.has(q.id) && unlocked(q, A1));
     return { fam, unl };
   });
+}
+function enablerHint(u) { // gated cards say which of your cards makes them work
+  const n = NEEDS[u.id]; if (!n || has(u.id)) return '';
+  const by = [...new Set(n.flatMap(k => k === 'parts' ? UPGRADES.filter(q => q.cat === MPART && has(q.id)).map(q => q.id) : SRC[k].filter(id => id !== u.id && has(id))))].map(id => nameFor(CARD[id] || UPGRADES.find(q => q.id === id)));
+  return by.length ? `<span class="req">Works with your ${by.slice(0, 2).join(', ')}</span>` : '';
 }
 function previewHtml(u) {
   if (!famsOf(u).length) return '';
@@ -1401,7 +1472,7 @@ function artifactTick(dt) {
 function quantumTick(dt) {
   const main = mainBumpers(), t = performance.now() / 1000;
   for (const c of bumpers) { if (c.r0 == null) c.r0 = c.r; if (c.growT > 0 && (c.growT -= dt) <= 0) c.growT = 0; const want = c.r0 * (c.growT > 0 ? 1.4 : 1) * (c.pit && has('hypercube') ? 1.2 : 1); c.r += (want - c.r) * Math.min(1, dt * 6); }
-  if (has('microvial') && legEvery('microvial', T('microvial', 12, 9, 9), dt)) { const c = rnd(main.filter(q => !(q.growT > 0))); if (c) { c.growT = 6; pop(c.x, c.y - 40, 'PHASE PARTICLES · 2×', '#ff5a5a', true); tone(180, .3, 'sine', .06, 720); fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .5, c: '255,90,90' }); } }
+  if (has('microvial') && legEvery('microvial', T('microvial', 12, 9, 9), dt)) { const c = main[(S.vialI = ((S.vialI ?? -1) + 1) % main.length)]; if (c && !(c.growT > 0)) { c.growT = 6; pop(c.x, c.y - 40, 'PHASE PARTICLES · 2×', '#ff5a5a', true); tone(180, .3, 'sine', .06, 720); fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .5, c: '255,90,90' }); } }
   if (has('anthelm') && !(S.ants && S.ants.length) && legEvery('anthelm', 12, dt)) { S.ants = [];
     for (const c of main.slice().sort(() => Math.random() - .5).slice(0, has('anthelm') >= 2 ? 2 : 1)) { const a = Math.random() * TAU; S.ants.push({ c, t: 8, hx: c.bx, hy: c.by, tx: c.bx + 22 * Math.cos(a), ty: c.by + 22 * Math.sin(a), paid: false }); }
     const c0 = S.ants[0] && S.ants[0].c; if (c0) { award(T('anthelm', 600, 1200, 1200), 'ants', null, c0.x, c0.y - 40, true); pop(c0.x, c0.y - 62, 'ANTS ON THE MOVE', '#ff9a2e'); } }
@@ -1648,7 +1719,7 @@ function pickForge(list) { if (syn('mechspider')) { const w = list.filter(o => o
 function pop(x, y, text, c = '#9fe6ff', big = false) { popups.push({ x, y, text, t: 0, small: !big, big, c }); }
 // raw points that skip multipliers (echoes of already-multiplied points)
 function bonus(pts, x, y, label) {
-  pts = Math.round(pts); if (pts <= 0) return; S.score += pts;
+  pts = Math.round(pts); if (pts <= 0 || (S.freeze && S.freeze.kind === 'gambit')) return; S.score += pts;
   if (x != null) popups.push({ x, y, text: (label ? label + ' ' : '') + fmt(pts), t: 0, big: pts >= 1000, c: '#ffcf7a' });
   if (S.score >= S.target && S.phase === 'play') targetReached();
 }
@@ -1787,7 +1858,7 @@ function explode(x, y, pow, depth = 0, src = null) {
   if (depth < maxD) hits.filter(([o]) => o !== src).sort((a, b) => a[1] - b[1]).slice(0, 2).forEach(([o]) => { if (has('ace') || Math.random() < .3) setTimeout(() => explode(...objPos(o), pow * .3, depth + 1, o), 180); });
   if (has('ace') && depth === 0) { S.cnt.gambler = (S.cnt.gambler || 0) + 2; S.deckSet && hits.slice(0, 2).forEach(([o]) => S.deckSet.add(o)); }
 }
-function destroyed(o) { // a drop target knocked down, or RIFTBOUND completed on the Rift Core
+function destroyed(o) { // a drop target knocked down, or ARCFORGE completed on the Arc Core
   if (has('vigilante')) S.punish = T('vigilante', .5, .75, 1);
   if (o.web && syn('webbomb')) { const [x, y] = objPos(o); setTimeout(() => explode(x, y, 600), 60); msg('WEB BOMB'); }
 }
@@ -2170,6 +2241,57 @@ function gain(u, src, cb = () => {}) {
 const CURATOR = { name: 'The Curator', shop: "The Curator's Vault", tag: 'Everything lost eventually finds its way here.', c: '#f5c542', ico: 'TC',
   lines: ['"Everything the Rift swallows washes up on my shelves eventually."', '"Look, but do not touch. Well. Touch if you pay."', '"Each of these once belonged to a world that no longer exists."'],
   buy: ['"An excellent addition. To your machine, and to my ledger."', '"Wise. Or reckless. The two look alike from here."', '"Sold. Do come back, the Rift is always bringing me more."'] };
+// the Curator: an animated portrait in his cabinet of curiosities (pure SVG + CSS, no images)
+function curatorArt(talk) {
+  return `<svg class="curator${talk ? ' talk' : ''}" viewBox="0 0 140 180" role="img" aria-label="The Curator">
+  <defs>
+    <radialGradient id="cuBg" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#3b2458"/><stop offset=".7" stop-color="#150d24"/><stop offset="1" stop-color="#07050d"/></radialGradient>
+    <linearGradient id="cuBrass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b0"/><stop offset=".35" stop-color="#d9a53a"/><stop offset=".7" stop-color="#8a5a1a"/><stop offset="1" stop-color="#f5c542"/></linearGradient>
+    <linearGradient id="cuCoat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a1830"/><stop offset="1" stop-color="#1e0610"/></linearGradient>
+    <linearGradient id="cuFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9dccb"/><stop offset="1" stop-color="#a99684"/></linearGradient>
+    <radialGradient id="cuHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f5c542" stop-opacity=".35"/><stop offset="1" stop-color="#f5c542" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cuGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9dffcf"/><stop offset="1" stop-color="#9dffcf" stop-opacity="0"/></radialGradient>
+    <clipPath id="cuArch"><path d="M10 176V58a60 52 0 0 1 120 0v118z"/></clipPath>
+  </defs>
+  <path d="M10 176V58a60 52 0 0 1 120 0v118z" fill="url(#cuBg)"/>
+  <g clip-path="url(#cuArch)">
+    <circle class="cu-rays" cx="70" cy="80" r="40" fill="url(#cuHalo)"/>
+    <g stroke="#6b4a1e" stroke-width="3"><path d="M10 72h34M96 72h34M10 112h30M100 112h30"/></g>
+    <g class="cu-jar"><rect x="18" y="52" width="16" height="19" rx="3" fill="#1d3a33" stroke="#9dffcf" stroke-width="1.2"/><circle cx="26" cy="61" r="5" fill="url(#cuGlow)"/><rect x="20" y="49" width="12" height="4" fill="#8a5a1a"/></g>
+    <g class="cu-orb"><circle cx="114" cy="60" r="8" fill="#6fc3ff" opacity=".85"/><circle cx="111" cy="57" r="2.5" fill="#fff"/><path d="M104 71h20" stroke="#8a5a1a" stroke-width="2"/></g>
+    <g><path d="M18 96h14l-7 8 7 8H18l7-8z" fill="#f5c542" opacity=".8" stroke="#8a5a1a"/></g>
+    <g><rect x="108" y="98" width="6" height="14" fill="#e9dccb"/><path class="cu-flame" d="M111 88c4 4 4 8 0 10-4-2-4-6 0-10z" fill="#ffb347"/></g>
+    <!-- coat -->
+    <path d="M22 180c2-30 16-44 48-46 32 2 46 16 48 46z" fill="url(#cuCoat)"/>
+    <path d="M52 136 70 160 88 136" fill="none" stroke="#f5c542" stroke-width="2"/><path d="M64 122h12v10H64z" fill="#c9b8a4"/>
+    <path d="M50 134 62 124 70 140 78 124 90 134 70 150z" fill="#2a0c18" stroke="#8a5a1a"/>
+    <circle cx="70" cy="146" r="3.5" fill="#9dffcf" class="cu-gem"/>
+    <!-- head -->
+    <g class="cu-head">
+      <path d="M52 92c0-20 8-30 18-30s18 10 18 30c0 16-8 30-18 30s-18-14-18-30z" fill="url(#cuFace)"/>
+      <path d="M70 92v12l-4 3" fill="none" stroke="#7d6a5a" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M59 89l7-2M74 87l7 2" stroke="#3a2a22" stroke-width="2" stroke-linecap="round"/>
+      <g class="cu-eyes"><ellipse cx="62" cy="94" rx="3.2" ry="2.4" fill="#1a0f0a"/><ellipse cx="78" cy="94" rx="3.2" ry="2.4" fill="#1a0f0a"/><circle cx="62.8" cy="93.4" r="1.1" fill="#f5c542"/><circle cx="78.8" cy="93.4" r="1.1" fill="#f5c542"/></g>
+      <circle cx="78" cy="94" r="6.5" fill="rgba(160,230,255,.15)" stroke="url(#cuBrass)" stroke-width="1.8"/>
+      <path d="M84 97q4 10 2 22" fill="none" stroke="#d9a53a" stroke-width=".9"/>
+      <path class="cu-glint" d="M75 90l2 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M70 107c-4-3-9-3-12 0-2 2-4 2-5 0M70 107c4-3 9-3 12 0 2 2 4 2 5 0" fill="none" stroke="#2a1c16" stroke-width="2" stroke-linecap="round"/>
+      <path d="M64 114q7 2 12-1" fill="none" stroke="#5a3a30" stroke-width="1.2" stroke-linecap="round"/>
+      <ellipse class="cu-mouth" cx="70" cy="113.5" rx="3.5" ry=".5" fill="#2a0c10"/>
+      <!-- tall hat -->
+      <path d="M46 70h48l-3 5H49z" fill="#1a1022"/>
+      <path d="M54 70l2-42c0-4 28-4 28 0l2 42z" fill="#241631"/>
+      <path d="M55 60h30v6H55z" fill="#8a2a3e"/>
+      <circle cx="80" cy="63" r="4" fill="none" stroke="#f5c542" stroke-width="1.5" class="cu-gear" stroke-dasharray="2 1.2"/>
+    </g>
+    <!-- steepled gloved hands -->
+    <g class="cu-hands" fill="#ece6da" stroke="#8a7a6a" stroke-width="1"><path d="M52 178c0-10 6-18 12-22l5-14c1-2 3-1 3 1l-2 14 1 21z"/><path d="M88 178c0-10-6-18-12-22l-5-14c-1-2-3-1-3 1l2 14-1 21z"/><path d="M58 168h8M74 168h8" stroke="#b0a492"/></g>
+  </g>
+  <path d="M10 176V58a60 52 0 0 1 120 0v118z" fill="none" stroke="url(#cuBrass)" stroke-width="5"/>
+  <path d="M4 176h132" stroke="url(#cuBrass)" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="70" cy="8" r="5" fill="url(#cuBrass)"/>
+</svg>`;
+}
 const SLOT_NAMES = ['Card I', 'Card II', 'Card III'];
 function shopCard(any, slot, ex) { const u = rollCard(shopWeights(any), ex); return u ? { slot, kind: 'card', u, base: cardPrice(u) } : null; }
 function stockShop() {
@@ -2211,14 +2333,14 @@ function buy(i) {
   if (buildFull() && needsSlot(it.u)) { SH.note = `Your build is full (${SLOTS}/${SLOTS}). Use Remove (25) to free a slot first.`; SH.randPick = null; return renderShop(); }
   const cost = forced != null ? forced : priceOf(it); if (!pay(cost)) { SH.note = 'Not enough credits.'; SH.randPick = null; return renderShop(); }
   if (SH.randPick) { SH.note = 'Random Pick: ' + SH.randPick + '!'; SH.randPick = null; }
-  it.sold = true; SH.first = false; tone(1200, .08, 'square', .05, 1800); SH.line = rnd(CURATOR.buy);
+  it.sold = true; SH.first = false; tone(1200, .08, 'square', .05, 1800); SH.line = rnd(CURATOR.buy); SH.talk = performance.now();
   gain(it.u, 'shop', renderShop);
 }
 function leaveShop() { if (SH && SH.items) { const L = SH.items.findIndex(it => it.locked && !it.sold); if (L >= 0) S.locked = { ...SH.items[L], idx: L }; } SH = null; nextLevel(); }
 function upgCard(u, extra = '', opts = {}) {
   const t = has(u.id), next = opts.sold ? Math.max(1, t) : u.up && t ? Math.min(maxT(u), t + 1) : 1, hide = opts.hidden;
   const nm = hide ? '???' : t && u.up ? nameFor(u, next) : u.name, ds = hide ? 'Hidden until you buy it.' : descFor(u, next);
-  return `<span class="tag"><span>${hide ? 'Unknown' : RAR[u.r].n}</span></span><span class="paint"><span class="nm">${nm}</span><span class="ds">${ds}</span>${hide ? '' : famChips(u)}${hide || opts.sold ? '' : previewHtml(u)}${extra}</span>`;
+  return `<span class="tag"><span>${hide ? 'Unknown' : RAR[u.r].n}</span></span><span class="paint"><span class="nm">${nm}</span><span class="ds">${ds}</span>${hide ? '' : famChips(u)}${hide || opts.sold ? '' : previewHtml(u) + enablerHint(u)}${extra}</span>`;
 }
 function renderShop() {
   if (!SH) return; card.classList.add('wide'); card.classList.add('shop'); ov.classList.add('full'); ov.hidden = false;
@@ -2231,7 +2353,7 @@ function renderShop() {
       <div class="picks">${pool.map(u => `<button type="button" class="pick ${SH.sel.includes(u.id) ? 'sel' : ''}" data-pick="${u.id}" style="--rc:${RAR[u.r].c}" title="${descFor(u).replace(/"/g, '&quot;')}">${nameFor(u)}${has(u.id) > 1 && u.stack ? ' ×' + has(u.id) : ''}</button>`).join('')}</div>
       <span class="slot-foot"><button class="btn confirm" type="button" id="pickOk" ${SH.sel.length === M.need ? '' : 'disabled'}>Confirm</button><button class="mini" type="button" id="pickNo">Cancel</button></span></div>`; })() : '';
   card.style.setProperty('--kc', K.c);
-  card.innerHTML = `<div class="shop-top"><div class="khead"><span class="kbadge" aria-hidden="true">${K.ico}</span><div><p class="eyebrow">After level ${S.level} · ${K.name}</p><h2>${K.shop}</h2><p class="ktag">${K.tag}</p></div></div><span class="wallet">Credits <b>${S.credits}</b></span></div>
+  card.innerHTML = `<div class="shop-top"><div class="khead">${curatorArt(SH.talk && performance.now() - SH.talk < 300)}<div><p class="eyebrow">After level ${S.level} · ${K.name}</p><h2>${K.shop}</h2><p class="ktag">${K.tag}</p></div></div><span class="wallet">Credits <b>${S.credits}</b></span></div>
     <p class="keeper"><b>${K.name}:</b> ${SH.line}${SH.sur > 1 ? ' <span class="debt">Counterfeit surcharge: prices +20%.</span>' : ''}${SH.first ? ' <span class="evo">Coupon: first item 25% off.</span>' : ''}</p>
     ${body}
     <div class="acts">${acts.map(a => `<button class="act" type="button" data-act="${a.id}" ${canPay(a.cost) ? '' : 'disabled'}><b>${a.name}</b><span class="price small">${a.cost}</span><span class="ds">${a.desc}</span></button>`).join('')}</div>
@@ -2285,7 +2407,7 @@ function spawnBall(src, o) {
   if (o.ghost && syn('trickster')) { o.life = 20; o.full = true; o.tk = true; }
   const b = { x: src.x, y: src.y, vx: -src.vx * .6 + (Math.random() - .5) * 300, vy: -Math.abs(src.vy) * .5 - 300, layer: src.layer, still: 0, launched: true, rad: src.rad || baseRad(), col: 99, ...o };
   balls.push(b); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: o.ghost ? '120,255,170' : o.temp ? '90,210,255' : '200,120,255' });
-  msg(o.msg || (o.ghost ? "LOKI'S ILLUSION" : 'RIFT SPLIT'));
+  msg(o.msg || (o.ghost ? "FALSE KING'S ILLUSION" : 'RIFT SPLIT'));
   if ((o.ghost || o.dup) && syn('astral') && Math.random() < .12) setTimeout(() => { if (balls.filter(q => !isReal(q)).length < maxExtra()) balls.push({ ...b, vx: -b.vx, spectral: true, ghost: false, dup: false, life: 10, msg: null }); }, 150); tone(o.ghost ? 700 : 400, .25, 'triangle', .07, o.ghost ? 1400 : 200);
 }
 function countHit(kind, obj) {
@@ -2336,7 +2458,7 @@ function bumperExtras(c, b) {
 // ================= bosses (Step 3) =================
 const MAINB = bumpers.filter(c => !c.pit && !c.big && c.r > 19), mainBumpers = () => MAINB; // the three big red bumpers never change
 const TAUNTS = {
-  loki: ['LOKI: WRONG ONE, MORTAL', 'LOKI: MISSED ME', 'LOKI: TRY HARDER', 'LOKI: NOW YOU SEE ME'],
+  loki: ['FALSE KING: WRONG ONE, MORTAL', 'FALSE KING: MISSED ME', 'FALSE KING: TRY HARDER', 'FALSE KING: NOW YOU SEE ME'],
   lodestar: ['POLARITY KING: STEEL OBEYS ME', 'POLARITY KING: YOUR BALL IS MINE', 'POLARITY KING: FEEL THE PULL', 'POLARITY KING: NORTH IS WHERE I SAY'],
   thanatos: ['TYRANT: KNEEL TO THE CROWN', 'TYRANT: YOUR TABLE IS MINE', 'TYRANT: THE PURGE IS COMING', 'TYRANT: I CONQUER ALL REALMS'],
   nyx: ['VOID EMPEROR: THE DARK IS FOREVER', 'VOID EMPEROR: THE VOID HUNGERS', 'VOID EMPEROR: ENTROPY TAKES ALL', 'VOID EMPEROR: BE UNMADE'],
@@ -2499,7 +2621,7 @@ function bossTick(dt) {
   const B = S.boss; if (!B || B.defeated) return;
   B.t += dt; B.t2 = (B.t2 || 0) + dt;
   if (B.id === 'loki') {
-    if (B.exposedT > 0) { B.exposedT -= dt; if (B.exposedT <= 0) { B.exposedT = 0; B.t = 5; B.t2 = 0; msg('LOKI HIDES AGAIN'); } return; }
+    if (B.exposedT > 0) { B.exposedT -= dt; if (B.exposedT <= 0) { B.exposedT = 0; B.t = 5; B.t2 = 0; msg('THE FALSE KING HIDES AGAIN'); } return; }
     if (B.t >= 9) {                                          // new illusions: 2 red bumpers + one whole target group
       B.t = 0; B.illusions.clear();
       mainBumpers().sort(() => Math.random() - .5).slice(0, 2).forEach(c => B.illusions.add(c));
@@ -2518,7 +2640,7 @@ function bossTick(dt) {
         pool.slice(0, Math.ceil(pool.length / 4)).forEach(o => B.dusted.add(o)); B.rampNeed = 1;
         msg('PURGED! A QUARTER OF THE TABLE NULLIFIED', 2.5); setTimeout(() => msg('1 RAMP SHOT TO RESTORE', 3), 2500); sfx.snap(); S.shake = 1; S.pulse = 1; fx.push({ type: 'flash', t: 0, life: .5 });
       }
-    } else if (B.t2 >= (S.score >= S.target / 2 ? 12 : 16)) { B.t2 = 0; B.snapT = 4; msg('THE TYRANT CHARGES THE PURGE · HIT THE RIFT CORE!', 3); sfx.empCharge(4); }
+    } else if (B.t2 >= (S.score >= S.target / 2 ? 12 : 16)) { B.t2 = 0; B.snapT = 4; msg('THE TYRANT CHARGES THE PURGE · HIT THE ARC CORE!', 3); sfx.empCharge(4); }
   } else if (B.id === 'omnicron') {
     const every = S.score >= S.target / 2 ? 5.5 : 9;
     if (B.t >= every) {
@@ -2539,7 +2661,7 @@ function bossTick(dt) {
     }
   }
 }
-// ---- the Rift Core: each hit lights the next RIFTBOUND letter; during a boss fight it also disrupts attacks ----
+// ---- the Arc Core: each hit lights the next ARCFORGE letter; during a boss fight it also disrupts attacks ----
 function coreHit(obj, b, auto) {
   const B = S.boss && !S.boss.defeated ? S.boss : null, [px, py] = plateXY(obj); obj.flash = 1;
   let n = 1; if (has('dagger') && (S.coreHits = (S.coreHits || 0) + 1) % 4 === 0) { n = 2; award(1000, 'enemy', obj, px, py - 50, true); }
@@ -2553,8 +2675,8 @@ function coreHit(obj, b, auto) {
 function lightLetter(x, y) {
   S.letters++;
   if (has('spellcaster')) { const pos = S.letters; award(pos * T('spellcaster', 60, 90, 150), 'spell', null, x, y - 40, true); pop(x, y - 62, WORD[pos - 1] + ' ×' + pos, '#ff9a2e'); }
-  if (S.letters >= WORD.length) { S.letters = 0; award(3000, 'word', WORD, 270, 700); msg('RIFTBOUND COMPLETE!', 3); if (!S.wordSaved) { S.wordSaved = true; S.saveT = Math.max(S.saveT, 5); } tone(440, .4, 'square', .07, 1760); destroyed(enemy); shot('enemy', 280, 400); }
-  else msg('RIFT CORE · ' + WORD.slice(0, S.letters) + '_'.repeat(WORD.length - S.letters));
+  if (S.letters >= WORD.length) { S.letters = 0; award(3000, 'word', WORD, 270, 700); msg('ARCFORGE COMPLETE!', 3); if (!S.wordSaved) { S.wordSaved = true; S.saveT = Math.max(S.saveT, 5); } tone(440, .4, 'square', .07, 1760); destroyed(enemy); shot('enemy', 280, 400); }
+  else msg('ARC CORE · ' + WORD.slice(0, S.letters) + '_'.repeat(WORD.length - S.letters));
 }
 // the boss is beaten by reaching the level's target
 function bossDefeated() {
@@ -2611,7 +2733,7 @@ function serveTick(dt) { if (!S.serveQ) return; if ((S.serveQ.t -= dt) <= 0) { c
 function serveBall(launched = false) { const b = { x: 535, y: 894, vx: 0, vy: 0, still: 0, layer: 0, launched }; cardsBall(b); b.msh = true; balls.push(b); }
 function startLevel() {
   S.score = 0; S.balls = S.maxBalls = clamp(3 + has('director') + has('titan') - has('grimoire') + (S.nextBalls || 0), 1, 5); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
-  Object.assign(S, { odT: 0, bifT: 0, mystic: 0, kin: 0, spins: 0, evoN: {}, droneT: 0 });
+  Object.assign(S, { gambit: false, freeze: null, awake: null, odT: 0, bifT: 0, mystic: 0, kin: 0, spins: 0, evoN: {}, droneT: 0 });
   Object.assign(S, { hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardN: 0, phoenixUsed: false, bpSaved: false });
   const bd = bossFor(S.level);
   HALL.clear();
@@ -2635,11 +2757,11 @@ function nextLevel() { S.level++; S.target = Math.round(targetFor(S.level) * (bo
 // run structure: four acts, a boss closes each act
 const actName = lv => lv <= 5 ? 'NEON DISTRICT' : lv <= 10 ? 'IRONWILD' : lv <= 15 ? 'QUANTUM DEEP' : lv <= 20 ? 'FRACTURED REALMS' : lv <= 25 ? 'THE VOID' : lv <= 30 ? 'SOVEREIGN REACH' : 'ENDLESS RIFT';
 const BOSSES = {
-  5: { id: 'loki', name: 'Loki', color: '#46e08a', hp: 6, blurb: 'God of Mischief. He turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: ramp, warp and tunnel shots pay 3× for 10 seconds.' },
+  5: { id: 'loki', name: 'The False King', color: '#46e08a', hp: 6, blurb: 'A usurper crowned in lies. He turns targets into green-shimmering illusions that score nothing. Hit 3 real targets in a row to expose him: ramp, warp and tunnel shots pay 3× for 10 seconds.' },
   15: { id: 'lodestar', name: 'The Polarity King', color: '#e25bff', hp: 10, blurb: 'Magnetic Field. Two magnetic generators sit either side of the wormhole and bend the ball toward them or push it away (the field flips every 8 seconds; watch the rings). Hit a generator 3 times to knock it out for 15 seconds. With both generators down the field dies.' },
-  20: { id: 'thanatos', name: 'The Tyrant', color: '#ffb52e', hp: 12, blurb: 'The Purge. Every so often he charges a colossal weapon (gold ring on the Rift Core): hit the Rift Core before it fills or a quarter of your targets are NULLIFIED and score nothing. One purple-ramp shot brings them back. Beyond him lie the Void and the Sovereign Reach.' },
+  20: { id: 'thanatos', name: 'The Tyrant', color: '#ffb52e', hp: 12, blurb: 'The Purge. Every so often he charges a colossal weapon (gold ring on the Arc Core): hit the Arc Core before it fills or a quarter of your targets are NULLIFIED and score nothing. One purple-ramp shot brings them back. Beyond him lie the Void and the Sovereign Reach.' },
   25: { id: 'nyx', name: 'The Void Emperor', color: '#ff6a1f', hp: 14, blurb: 'Emperor of the Void. His Entropy drains your table multiplier every 11 seconds. He tears rifts that swallow the ball, floods the table with insectoid swarms that eat your combo, and plunges the machine into darkness.' },
-  30: { id: 'malachar', name: 'The Sovereign', color: '#35c46b', hp: 18, blurb: 'Arcane technocrat and ruler of the Sovereign Reach. His force field shrugs off slow hits on the Rift Core: only a fast ball lights a letter. He rains automaton fire, binds both your flippers, mirrors the whole table, and steals the tricks of every villain you have beaten.' },
+  30: { id: 'malachar', name: 'The Sovereign', color: '#35c46b', hp: 18, blurb: 'Arcane technocrat and ruler of the Sovereign Reach. His force field shrugs off slow hits on the Arc Core: only a fast ball lights a letter. He rains automaton fire, binds both your flippers, mirrors the whole table, and steals the tricks of every villain you have beaten.' },
   10: { id: 'omnicron', name: 'The Architect', color: '#ff4a4a', hp: 8, blurb: 'Machine Takeover. He hacks red bumpers: hitting a hacked one wipes your combo and drops your multiplier; hit a green target to restore them. Two gunner droids hover over the table for the whole fight. Each one locks on (red aim line) and zaps your ball slightly off course. Past half the target they fire faster.' },
 };
 
@@ -2658,6 +2780,7 @@ function bossFor(lv) {
 // Collision classes: HIT (clean contact, triggers everything) · GLANCE (weak contact, 50%, no triggers)
 //  · RATTLE (same target again within 0.25 s, 25%, no triggers) · EFFECT (points made by cards, never trigger counters)
 function award(base, kind, obj, x, y, generated = false) {
+  if (S.freeze && S.freeze.kind === 'gambit') return;
   let cls = generated ? 'effect' : 'hit';
   if (!generated && isTarget(obj) && curBall) {
     const now = performance.now();
@@ -2680,7 +2803,7 @@ function award(base, kind, obj, x, y, generated = false) {
     msg('HACKED! COMBO LOST'); tone(90, .2, 'sawtooth', .07, 60); return;
   }
   if (B && B.id === 'loki' && cls === 'hit' && PHYS.has(kind) && !B.exposedT && ++B.streak >= 3) {
-    B.streak = 0; B.exposedT = 10; B.illusions.clear(); msg('LOKI EXPOSED! SHOTS PAY 3×', 3); tone(880, .3, 'square', .07, 1320);
+    B.streak = 0; B.exposedT = 10; B.illusions.clear(); msg('THE FALSE KING EXPOSED! SHOTS PAY 3×', 3); tone(880, .3, 'square', .07, 1320);
   }
   if (B && B.id === 'omnicron' && kind === 'standup' && B.hacked.size) { B.hacked.clear(); msg('SYSTEMS RESTORED'); tone(660, .2, 'triangle', .06, 1320); }
   if (kind === 'ramp' || kind === 'orbit' || kind === 'tunnel') { if (has('vibrail') && cls === 'hit') { S.combo = Math.min(20, S.combo + 2); S.comboT = 2; } }
@@ -2703,8 +2826,9 @@ function award(base, kind, obj, x, y, generated = false) {
 const CLEAR_T = 2.6;
 function targetReached() {
   const B = S.boss && !S.boss.defeated ? S.boss : null;
+  if (B && B.id === 'malachar' && S.level === 30 && !S.endless && !S.gambit) return startGambit(B);
   bossDefeated(); S.phase = 'clearing'; S.clearT = CLEAR_T;
-  S.winFx = { t: 0, title: B ? B.name.toUpperCase() + ' DEFEATED' : 'LEVEL ' + S.level + ' CLEAR', sub: B ? 'The realm is free' : 'Target reached', c: B ? B.color : '#ffcf3a' };
+  S.winFx = { t: 0, title: B ? B.name.toUpperCase() + ' DEFEATED' : S.gambit && S.level === 30 ? 'THE RIFT IS SEALED' : 'LEVEL ' + S.level + ' CLEAR', sub: B ? 'The realm is free' : 'Target reached', c: B ? B.color : '#ffcf3a' };
   msg(B ? B.name.toUpperCase() + ' DEFEATED!' : 'TARGET REACHED!', 3); fx.push({ type: 'flash', t: 0, life: .25 });
   tone(660, .12, 'square', .08, 1320); setTimeout(() => tone(990, .25, 'square', .08, 1980), 120);
 }
@@ -2723,7 +2847,7 @@ function drawWinBanner(dt) {
   ctx.restore();
 }
 // a "shot" is a completed feature (ramp, orbit, bank...). Hot shot pays a bonus.
-const WORD = 'RIFTBOUND';
+const WORD = 'ARCFORGE';
 function shot(name, x, y) {
   Bus.emit('shot', { name }); cardsShot(name);
   pieceShot(name);
@@ -3036,7 +3160,7 @@ function tick(dt) {
 }
 function ballLost() {
   if (S.phase === 'clearing') return; // the level is already won
-  if (S.saveT > 0 && S.phase === 'play' && prot()) { S.saveT = 0; rescue('save'); msg('BALL SAVED · RIFTBOUND BONUS', 2.5); popups.push({ x: 270, y: 800, text: 'BALL SAVED', t: 0, big: true, c: '#ff8a8a' }); tone(700, .2, 'triangle', .07, 1100); queueServe(true, 0.6); return; }
+  if (S.saveT > 0 && S.phase === 'play' && prot()) { S.saveT = 0; rescue('save'); msg('BALL SAVED · ARCFORGE BONUS', 2.5); popups.push({ x: 270, y: 800, text: 'BALL SAVED', t: 0, big: true, c: '#ff8a8a' }); tone(700, .2, 'triangle', .07, 1100); queueServe(true, 0.6); return; }
   if (has('bpsuit') && S.balls === 1 && !S.bpSaved && S.phase === 'play' && prot()) { S.bpSaved = true; rescue('bpsuit'); msg('VOIDSTEEL SUIT · KINETIC RELEASE', 3); bonus(S.bpKin || 0, 270, 700, 'KINETIC'); S.bpKin = 0; tone(110, .5, 'sawtooth', .07, 440); queueServe(true, .6); return; }
   if (has('phoenix') && S.balls === 1 && !S.phoenixUsed && S.phase === 'play' && prot()) { S.phoenixUsed = true; rescue('phoenix'); if (syn('immortal')) S.guardN = 0; msg('ASHBORN FORCE RISES', 3); tone(220, .6, 'sawtooth', .07, 880); queueServe(true, 0.7); return; }
   S.balls--; S.lost++; Bus.emit('drain', {}); cardsDrain();
@@ -3130,6 +3254,9 @@ const sfx = {
   snap() { noise(.06, .4, 3500, 2500, 'bandpass'); voice(60, 1.4, 'sawtooth', .09, .05, 0, 30); noise(1.4, .12, 800, 60, 'lowpass', .05); },
   evolve() { [131, 196, 262, 392, 523, 784].forEach((f, i) => voice(f, .7, 'sawtooth', .045, i * .12, 3)); noise(1.2, .07, 400, 3000, 'bandpass', .05); [1047, 1319, 1568].forEach((f, i) => voice(f, .5, 'triangle', .05, .8 + i * .08, 6)); },
   synergy() { [523, 659, 784, 988, 1175, 1568].forEach((f, i) => voice(f, .35, 'triangle', .06, i * .07, 5)); noise(.6, .05, 6000, 2000, 'highpass', .1); },
+  awaken(cap) { voice(55, 1.3, 'sawtooth', .08, 0, 0, 110); noise(.9, .1, 300, 4000, 'bandpass'); (cap ? [262, 330, 392, 523, 659, 784, 1047] : [294, 370, 440, 587]).forEach((f, i) => voice(f, 1, 'square', .032, .22 + i * .05, 4)); voice(cap ? 2093 : 1760, 1.4, 'sine', .06, .55, 8); if (cap) voice(65, 1.6, 'sine', .12, .2, 0, 40); },
+  land() { voice(140, .18, 'square', .06, 0, 0, 70); noise(.12, .08, 2200, 600); },
+  slotTick() { voice(1400 + Math.random() * 600, .03, 'square', .025); },
   stinger() { [110, 116.5, 98].forEach((f, i) => voice(f, 1.2, 'sawtooth', .06, i * .02)); noise(1, .08, 400, 80, 'lowpass'); },
 };
 // boss music: a tiny step sequencer (eighth notes), scheduled ahead on the audio clock
@@ -3311,7 +3438,7 @@ function buildTable() {
   g.beginPath(); g.moveTo(20, 890); g.lineTo(160, 890); g.lineTo(215, H); g.lineTo(20, H); g.closePath(); g.fill();
   g.beginPath(); g.moveTo(520, 890); g.lineTo(380, 890); g.lineTo(325, H); g.lineTo(520, H); g.closePath(); g.fill();
   g.strokeStyle = '#8c93a5'; g.lineWidth = 2; g.beginPath(); g.moveTo(20, 890); g.lineTo(160, 890); g.lineTo(215, H); g.moveTo(520, 890); g.lineTo(380, 890); g.lineTo(325, H); g.stroke();
-  g.font = '15px ' + FONT_B; g.fillStyle = '#8e95ab'; g.textAlign = 'center'; g.fillText('RIFTBOUND', 95, 932); g.fillText('PINBALL CO.', 445, 932);
+  g.font = '15px ' + FONT_B; g.fillStyle = '#8e95ab'; g.textAlign = 'center'; g.fillText('ARCFORGE', 95, 932); g.fillText('PINBALL CO.', 445, 932);
   // the void the drain channels empty into
   { const vg = g.createRadialGradient(270, 952, 4, 270, 945, 70); vg.addColorStop(0, 'rgba(0,0,0,1)'); vg.addColorStop(.6, 'rgba(5,3,12,.85)'); vg.addColorStop(1, 'rgba(5,3,12,0)'); g.fillStyle = vg; g.fillRect(190, 880, 160, 70); }
   // drain channels: only the lower rail is drawn (outer side of each groove)
@@ -3657,7 +3784,7 @@ function render(dt) {
       ctx.fill(); ctx.shadowBlur = 0; });
     ctx.drawImage(sp.c, t.x - 22, t.y - 22, 44, 44);
   }
-  // the Rift Core (plus Loki's decoy copies, which flicker)
+  // the Arc Core (plus Loki's decoy copies, which flicker)
   const drawPlate = (sg, real) => {
     const [cx, fy] = plateXY(sg), x0 = cx - 30, y0 = fy - 14, w = 60, h = 20, t = performance.now() / 1000;
     sg.flash = Math.max(0, (sg.flash || 0) - dt * 5);
@@ -3671,7 +3798,7 @@ function render(dt) {
     ctx.strokeStyle = `rgba(181,140,255,${.25 + .1 * Math.sin(t * 3)})`; ctx.lineWidth = 5; ctx.stroke(); ctx.strokeStyle = '#b58cff'; ctx.lineWidth = 1.5; ctx.stroke();
     // the rift: a glowing crack across the core
     ctx.strokeStyle = `rgba(200,170,255,${.55 + .3 * Math.sin(t * 5 + cx)})`; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x0 + 6, y0 + 10); ctx.lineTo(x0 + 16, y0 + 7); ctx.lineTo(x0 + 22, y0 + 12); ctx.moveTo(x0 + 38, y0 + 8); ctx.lineTo(x0 + 46, y0 + 13); ctx.lineTo(x0 + 54, y0 + 9); ctx.stroke();
-    // the next RIFTBOUND letter it will light
+    // the next ARCFORGE letter it will light
     const L = real ? WORD[S.letters % WORD.length] : WORD[(Math.floor(t * 6 + cx) % WORD.length + WORD.length) % WORD.length];
     ctx.textAlign = 'center'; ctx.font = '15px ' + FONT_D; ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,190,60,.45)'; ctx.strokeText(L, cx, y0 + 16); ctx.fillStyle = '#ffe9a8'; ctx.fillText(L, cx, y0 + 16);
     if (Bo && real && (Bo.charge > 0 || Bo.snapT > 0)) { // attack charge ring (Architect EMP / Tyrant purge): hit the core to stop it
@@ -3679,7 +3806,7 @@ function render(dt) {
       ctx.beginPath(); ctx.arc(cx, y0 + h / 2, 38, -Math.PI / 2, -Math.PI / 2 + pr * TAU); ctx.stroke(); ctx.shadowBlur = 0;
     }
     if (Bo && real && Bo.warn) { ctx.strokeStyle = `rgba(255,90,90,${.5 + .5 * Math.sin(t * 20)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(x0 - 3, y0 - 3, w + 6, h + 6, 7); ctx.stroke(); }
-    ctx.fillStyle = 'rgba(214,190,255,.8)'; ctx.font = '600 10px ' + FONT_B; ctx.fillText('RIFT CORE', cx, y0 - 4);
+    ctx.fillStyle = 'rgba(214,190,255,.8)'; ctx.font = '600 10px ' + FONT_B; ctx.fillText('ARC CORE', cx, y0 - 4);
     ctx.restore();
   };
   for (const d of decoys) if (d.layer === 0) drawPlate(d, false);
@@ -3799,6 +3926,7 @@ function render(dt) {
       ctx.restore();
     }
   }
+  drawAwake(dt); drawFreeze(dt);
   if (glass) ctx.drawImage(glass, 0, 0, W, H);
   if (S.phase === 'paused') {
     ctx.fillStyle = 'rgba(3,4,10,.6)'; ctx.fillRect(0, 0, W, H);
@@ -3807,6 +3935,121 @@ function render(dt) {
   }
 }
 
+
+// ================= marquee moments: family awakenings, machine evolutions, the Sovereign's final gambit =================
+function wrapText(c, text, maxW) { const out = []; let line = ''; for (const w of text.split(' ')) { const tl = line ? line + ' ' + w : w; if (c.measureText(tl).width > maxW && line) { out.push(line); line = w; } else line = tl; } if (line) out.push(line); return out; }
+function fitFont(c, text, size, maxW, fam = FONT_D) { c.font = size + 'px ' + fam; const w = c.measureText(text).width; if (w > maxW) { size = Math.floor(size * maxW / w); c.font = size + 'px ' + fam; } return size; }
+function drawAwake(dt) { // "THUNDER III AWAKENED": a huge flash in the family colour and a one-line effect
+  const A = S.awake; if (!A) return; if (S.phase !== 'paused') A.t += dt; if (A.t >= A.life) { S.awake = null; return; }
+  const t = A.t, a = Math.min(1, t * 5, (A.life - t) * 1.6), rgb = hexRgb(A.c);
+  ctx.save();
+  if (t < .6) { ctx.fillStyle = `rgba(${rgb},${.55 * (1 - t / .6)})`; ctx.fillRect(0, 0, W, H); }
+  if (t < 1.1) { const r = 40 + t * 700; ctx.strokeStyle = `rgba(${rgb},${.8 * (1 - t / 1.1)})`; ctx.lineWidth = 10 * (1 - t / 1.1) + 2; ctx.beginPath(); ctx.arc(W / 2, 380, r, 0, TAU); ctx.stroke(); }
+  ctx.globalAlpha = Math.max(0, a);
+  const g = ctx.createLinearGradient(0, 270, 0, 500); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.5, 'rgba(6,6,16,.72)'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 270, W, 230);
+  if (A.cap) { ctx.save(); ctx.translate(W / 2, 360); ctx.rotate(t * .4); ctx.fillStyle = `rgba(${rgb},.12)`; for (let i = 0; i < 12; i++) { ctx.rotate(TAU / 12); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-30, -420); ctx.lineTo(30, -420); ctx.fill(); } ctx.restore(); }
+  const sc = t < .3 ? .7 + .3 * (t / .3) + .1 * Math.sin(t / .3 * Math.PI) : 1;
+  ctx.translate(W / 2, 0); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.save(); ctx.translate(0, 340); ctx.scale(sc, sc);
+  const size = fitFont(ctx, A.ico + ' ' + A.title, A.cap ? 74 : 64, W - 80);
+  ctx.shadowColor = A.c; ctx.shadowBlur = 24; ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(0,0,0,.85)'; ctx.strokeText(A.ico + ' ' + A.title, 0, 0); ctx.fillStyle = '#fff'; ctx.fillText(A.ico + ' ' + A.title, 0, 0);
+  ctx.font = Math.round(size * .55) + 'px ' + FONT_D; ctx.fillStyle = A.c; ctx.strokeText('AWAKENED', 0, size * .72); ctx.fillText('AWAKENED', 0, size * .72);
+  ctx.restore();
+  ctx.shadowBlur = 0; ctx.font = '600 20px ' + FONT_B; ctx.fillStyle = A.c; ctx.fillText(A.name.toUpperCase(), 0, 428);
+  ctx.font = '17px ' + FONT_B; ctx.fillStyle = '#e9ecf5'; wrapText(ctx, A.sub, W - 110).slice(0, 2).forEach((l, i) => ctx.fillText(l, 0, 454 + i * 21));
+  ctx.restore();
+}
+function hexRgb(h) { h = h.replace('#', ''); if (h.length === 3) h = h.replace(/./g, c => c + c); const n = parseInt(h, 16); return `${n >> 16 & 255},${n >> 8 & 255},${n & 255}`; }
+const EVO_T = 5, EVO_AT = { forgeworks: [280, 590], atlantis: [270, 880], sanctum: [298, 289], asgard: [270, 700] };
+function startEvoMarquee(E) {
+  const parts = E.need.map(id => UPGRADES.find(u => u.id === id)).filter(Boolean);
+  S.freeze = { kind: 'evo', t: 0, dur: EVO_T, E, parts, landed: 0, boom: false, inst: false };
+  sfx.evolve(); S.pulse = 1;
+}
+function startGambit(B) {
+  S.gambit = true; bossDefeated();
+  S.freeze = { kind: 'gambit', t: 0, dur: 4.4, from: S.target, to: S.target * 2, B, hit: false, lastTick: 0 };
+  msg('THE SOVEREIGN FALLS', 3); fx.push({ type: 'flash', t: 0, life: .3 }); tone(660, .12, 'square', .08, 1320);
+}
+const easeBack = k => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+function drawFreeze(dt) {
+  const F = S.freeze; if (!F) return;
+  if (S.phase !== 'paused') F.t += dt;
+  if (F.t >= F.dur) { S.freeze = null; if (F.kind === 'gambit') endGambit(F); return; }
+  if (F.kind === 'evo') drawEvoMarquee(F); else drawGambit(F);
+}
+function drawEvoMarquee(F) {
+  const t = F.t, E = F.E, rgb = E.c.join(','), [ix, iy] = EVO_AT[E.id] || [270, 500];
+  const dark = t < .5 ? t / .5 : t < 3.6 ? 1 : Math.max(0, 1 - (t - 3.6) / 1.2);
+  ctx.save();
+  // the table darkens; while the part installs a spotlight opens where it goes
+  ctx.fillStyle = `rgba(2,3,8,${.86 * dark})`; ctx.beginPath(); ctx.rect(0, 0, W, H);
+  if (t > 3.2) { const r = Math.min(160, (t - 3.2) * 260); ctx.moveTo(ix + r, iy); ctx.arc(ix, iy, r, 0, TAU, true); }
+  ctx.fill('evenodd');
+  const cx = W / 2, cy = 330, CW = 124, CH = 164, xs = [cx - 150, cx, cx + 150], from = [[-160, 200], [cx, H + 200], [W + 160, 200]];
+  // three component cards fly into place, then fuse
+  F.parts.forEach((u, i) => {
+    const t0 = .35 + i * .3, k = clamp((t - t0) / .55, 0, 1); if (k <= 0) return;
+    if (k >= 1 && F.landed <= i) { F.landed = i + 1; sfx.land(); S.shake = .35; }
+    const e = easeBack(k), fuse = clamp((t - 1.85) / .4, 0, 1); if (fuse >= 1) return;
+    let x = from[i][0] + (xs[i] - from[i][0]) * e, y = from[i][1] + (cy - from[i][1]) * e; x += (cx - x) * fuse * fuse; y += (cy - 40 - y) * fuse * fuse;
+    const s = 1 - .7 * fuse * fuse, rc = RAR[u.r] ? RAR[u.r].c : E.hex;
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate((1 - Math.min(1, e)) * (i - 1) * .5);
+    ctx.shadowColor = E.hex; ctx.shadowBlur = 22; ctx.fillStyle = '#141828'; ctx.strokeStyle = rc; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.roundRect(-CW / 2, -CH / 2, CW, CH, 10); ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.fillStyle = E.hex; ctx.font = '600 12px ' + FONT_B; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('PART ' + (i + 1) + ' / 3', 0, -CH / 2 + 18);
+    ctx.font = '40px ' + FONT_D; ctx.fillText('⚙', 0, -18);
+    ctx.fillStyle = '#fff'; ctx.font = '19px ' + FONT_D; wrapText(ctx, u.name.toUpperCase(), CW - 16).slice(0, 3).forEach((l, j, a) => ctx.fillText(l, 0, 38 + (j - (a.length - 1) / 2) * 20));
+    ctx.restore();
+  });
+  if (t > 2.2 && !F.boom) { F.boom = true; sfx.boom(); S.shake = 1; fx.push({ type: 'flash', t: 0, life: .35 }); }
+  if (t > 2.2 && t < 3) { const k = (t - 2.2) / .8; ctx.strokeStyle = `rgba(${rgb},${1 - k})`; ctx.lineWidth = 14 * (1 - k) + 2; ctx.beginPath(); ctx.arc(cx, cy - 40, 30 + k * 360, 0, TAU); ctx.stroke(); }
+  // the name
+  if (t > 2.2) {
+    const k = clamp((t - 2.2) / .35, 0, 1), a = Math.min(k, t < 4 ? 1 : Math.max(0, 1 - (t - 4) / .8)), sc = .6 + .4 * easeBack(k);
+    ctx.save(); ctx.globalAlpha = a; ctx.translate(cx, cy - 40); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = '600 16px ' + FONT_B; ctx.fillStyle = E.hex; ctx.fillText('M A C H I N E   E V O L U T I O N', 0, -62);
+    ctx.save(); ctx.rotate(t * .8); ctx.strokeStyle = `rgba(${rgb},.35)`; ctx.lineWidth = 3; ctx.setLineDash([14, 10]); ctx.beginPath(); ctx.arc(0, 0, 150, 0, TAU); ctx.stroke(); ctx.restore();
+    ctx.scale(sc, sc); fitFont(ctx, E.name.toUpperCase(), 70, W - 60);
+    const g = ctx.createLinearGradient(0, -34, 0, 34); g.addColorStop(0, '#ffffff'); g.addColorStop(.55, E.hex); g.addColorStop(1, `rgb(${E.c.map(v => v * .6 | 0).join(',')})`);
+    ctx.shadowColor = E.hex; ctx.shadowBlur = 30; ctx.lineWidth = 6; ctx.strokeStyle = 'rgba(0,0,0,.9)'; ctx.strokeText(E.name.toUpperCase(), 0, 0); ctx.fillStyle = g; ctx.fillText(E.name.toUpperCase(), 0, 0);
+    ctx.restore();
+  }
+  // install: a beam drops from the name into the machine, the sweep rolls up the table
+  if (t > 3.2 && !F.inst) { F.inst = true; S.evoFx = { t: 0, c: rgb }; tone(180, .5, 'sawtooth', .07, 720); fx.push({ type: 'ring', x: ix, y: iy, t: 0, life: 1, c: rgb, big: true }); }
+  if (t > 3.2 && t < 4.2) { const k = (t - 3.2) / 1; ctx.strokeStyle = `rgba(${rgb},${1 - k})`; ctx.lineWidth = 6; ctx.shadowColor = E.hex; ctx.shadowBlur = 20; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(ix, iy); ctx.stroke();
+    for (let r = 0; r < 3; r++) { const rr = ((k * 3 + r / 3) % 1) * 120; ctx.beginPath(); ctx.arc(ix, iy, rr, 0, TAU); ctx.lineWidth = 3; ctx.stroke(); } }
+  ctx.restore();
+}
+function drawGambit(F) {
+  const t = F.t, B = F.B, core = [280, 428];
+  ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = `rgba(2,4,6,${.55 * Math.min(1, t * 3, (F.dur - t) * 2)})`; ctx.fillRect(0, 0, W, H);
+  if (t < 1.5) { const a = Math.min(1, t * 5, (1.5 - t) * 3); ctx.globalAlpha = a; fitFont(ctx, B.name.toUpperCase() + ' FALLS', 66, W - 90); ctx.shadowColor = B.color; ctx.shadowBlur = 26; ctx.lineWidth = 5; ctx.strokeStyle = '#000'; ctx.strokeText(B.name.toUpperCase() + ' FALLS', W / 2, 360); ctx.fillStyle = B.color; ctx.fillText(B.name.toUpperCase() + ' FALLS', W / 2, 360);
+    ctx.shadowBlur = 0; ctx.font = '18px ' + FONT_B; ctx.fillStyle = '#e9ecf5'; ctx.fillText('…but with his last breath he curses the scoreboard', W / 2, 404); ctx.globalAlpha = 1; }
+  if (t > 1 && t < 1.6) { // his dying curse flies out of the Arc Core and slams into the scoreboard
+    const k = (t - 1) / .6, e = k * k, x = core[0] + (-30 - core[0]) * e, y = core[1] + (-30 - core[1]) * e - Math.sin(k * Math.PI) * 120;
+    ctx.shadowColor = B.color; ctx.shadowBlur = 30; ctx.fillStyle = '#eaffef'; ctx.beginPath(); ctx.arc(x, y, 14, 0, TAU); ctx.fill();
+    ctx.strokeStyle = B.color; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(core[0], core[1]); ctx.quadraticCurveTo(core[0] - 40, core[1] - 200, x, y); ctx.globalAlpha = .5; ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  if (t >= 1.6 && !F.hit) { F.hit = true; sfx.boom(); S.shake = 1; const d = document.querySelector('.dmd'); if (d) { d.classList.remove('cursed'); void d.offsetWidth; d.classList.add('cursed'); } }
+  if (t > 1.7) { const a = Math.min(1, (t - 1.7) * 4, (F.dur - t) * 2.5), settled = t > 3.3; ctx.globalAlpha = a; ctx.shadowColor = '#ff4a4a'; ctx.shadowBlur = 20;
+    fitFont(ctx, settled ? 'TARGET DOUBLED' : 'FINAL STAND', 64, W - 90); ctx.lineWidth = 5; ctx.strokeStyle = '#000'; ctx.strokeText(settled ? 'TARGET DOUBLED' : 'FINAL STAND', W / 2, 370); ctx.fillStyle = settled ? '#ff5a4a' : '#ffcf3a'; ctx.fillText(settled ? 'TARGET DOUBLED' : 'FINAL STAND', W / 2, 370);
+    ctx.shadowBlur = 0; ctx.font = '600 22px ' + FONT_B; ctx.fillStyle = '#fff'; ctx.fillText(settled ? 'Reach ' + fmt(F.to) + ' to seal the Rift' : 'The scoreboard is spinning…', W / 2, 414); }
+  ctx.restore();
+}
+function gambitHud() { // slot-machine flick: every digit spins, then locks in left to right
+  const F = S.freeze, t = F.t; if (t < 1.6) return;
+  const spin = (v, k) => { const str = fmt(v), n = str.replace(/\D/g, '').length, lock = Math.floor(clamp(k, 0, 1) * (n + 1)); let d = 0; return str.replace(/\d/g, c => d++ < lock ? c : '' + (Math.random() * 10 | 0)); };
+  set('dScore', spin(S.score, (t - 2.1) / .7)); set('dTarget', spin(t < 2.5 ? F.from : F.to, (t - 2.6) / .7));
+  if (t - F.lastTick > .06 && t < 3.3) { F.lastTick = t; sfx.slotTick(); }
+  if (t > 3.3 && S.target !== F.to) { S.target = F.to; tone(880, .15, 'square', .07, 1760); }
+  cache.sc = cache.tg = null;
+}
+function endGambit(F) {
+  S.target = F.to; cache.sc = cache.tg = null; const d = document.querySelector('.dmd'); if (d) d.classList.remove('cursed');
+  msg('FINAL STAND · REACH ' + fmt(F.to), 4); startMusic('malachar');
+}
 // ================= HUD (dot-matrix display) =================
 const meter = $('meter'); meter.innerHTML = '<i></i>'.repeat(20); const cells = [...meter.children];
 let msgT = 0, cache = {};
@@ -3814,16 +4057,18 @@ let msgQ = null;
 function msg(t, secs = 2.2) { msgQ = t; msgT = secs; }
 function flushMsg() { if (msgQ == null) return; const el = $('dMsg'); el.textContent = msgQ; cache.dMsg = msgQ; msgQ = null; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
 function set(id, v) { if (cache[id] !== v) { $(id).textContent = v; cache[id] = v; } }
+function calcSet(id, v) { if (cache[id] === v) return; const el = $(id); el.textContent = v; cache[id] = v; const bx = el.parentNode; bx.classList.remove('bump'); void bx.offsetWidth; bx.classList.add('bump'); }
 function updateHud(dt) {
   flushMsg(); if (invDirty && (invT -= dt) <= 0) { invT = .25; invDirty = false; renderInv0(); }
   renderMeters(dt);
   set('dBall', 'BALL ' + Math.min(S.ballNo, S.maxBalls));
   set('dLvl', 'LEVEL ' + S.level);
-  if (cache.sc !== S.score) { cache.sc = S.score; set('dScore', fmt(S.score)); }
-  if (cache.tg !== S.target) { cache.tg = S.target; set('dTarget', fmt(S.target)); }
+  if (S.freeze && S.freeze.kind === 'gambit') gambitHud();
+  else { if (cache.sc !== S.score) { cache.sc = S.score; set('dScore', fmt(S.score)); }
+  if (cache.tg !== S.target) { cache.tg = S.target; set('dTarget', fmt(S.target)); } }
   const n = Math.min(20, Math.floor(S.score / S.target * 20));
   if (cache.meter !== n) { cells.forEach((c, i) => c.classList.toggle('on', i < n)); cache.meter = n; }
-  { const m = damp(globalMult()), a = Math.round(globalBonus() * 100); set('mult', '×' + (m % 1 ? m.toFixed(1) : m)); set('combo', a ? '+' + a + '%' : '—'); }
+  { const m = damp(globalMult()), a = Math.round(globalBonus() * 100); calcSet('mult', m % 1 ? m.toFixed(1) : '' + m); calcSet('combo', '+' + a + '%'); }
   if (cache.balls !== S.balls + '/' + S.maxBalls) { $('balls').innerHTML = Array.from({ length: S.maxBalls }, (_, i) => `<i class="${i < S.balls ? '' : 'gone'}"></i>`).join(''); cache.balls = S.balls + '/' + S.maxBalls; }
   if (msgT > 0) msgT -= dt;
   else if (S.phase === 'play') set('dMsg', balls.some(inLane) ? (innerWidth <= 780 ? 'HOLD LAUNCH, THEN RELEASE' : 'HOLD SPACE TO LAUNCH') : S.boss && !S.boss.defeated ? S.boss.name.toUpperCase() + ' · REACH THE TARGET' : 'HOT SHOT: ' + SHOTS[S.hot].label);
@@ -3840,9 +4085,9 @@ function showCard(html, label, action) {
 }
 function hideOverlay() { ov.hidden = true; }
 function showStart() {
-  showCard(`<h2>Riftbound Pinball</h2>
-    <p class="eyebrow" style="text-transform:none;letter-spacing:.04em">Build the machine. Break reality.</p>
-    <p>The Rift Engine has awakened. Reach the target score before your 3 balls drain. After each level, draft 1 of 3 Rift upgrades and rebuild the machine. Hit the Rift Core in the middle to spell RIFTBOUND, shoot the purple ramp and the wormhole to fill the 12-light ring for a jackpot. Loop the orbits, clear the drop bank and standups, and chase the blinking pink hot-shot arrow for bonus points. Six entities rule the fractured realms: defeat them all. Every few levels the Curator’s Vault opens.</p>
+  showCard(`<h2>Arcforge Pinball</h2>
+    <p class="eyebrow" style="text-transform:none;letter-spacing:.04em">Forge the machine. Break reality.</p>
+    <p>The Arcforge has awakened. Reach the target score before your 3 balls drain. After each level, draft 1 of 3 Rift upgrades and rebuild the machine. Hit the Arc Core in the middle to spell ARCFORGE, shoot the purple ramp and the wormhole to fill the 12-light ring for a jackpot. Loop the orbits, clear the drop bank and standups, and chase the blinking pink hot-shot arrow for bonus points. Six entities rule the fractured realms: defeat them all. Every few levels the Curator’s Vault opens.</p>
     <p class="fanote" style="display:block">Cards belong to 12 families. Taking cards raises your family affinity, which unlocks family tiers, hybrids and, at V, the family's Legendary (see the Codex). On a phone, use the Flip and Launch buttons under the table (or tap either half of the table). </p>
     <div class="stat"><span>Level 1 target</span><span>${fmt(S.target)}</span></div>`, 'Start run', newRun);
 }
@@ -3855,7 +4100,7 @@ function showClear(earned = lastEarned) {
     ${S.artifactDraft ? `<p class="eyebrow">Villain defeated (+35 credits) · they dropped an artifact: take it or pass</p>` : ''}
     <div class="draft" style="--cols:${Math.max(1, Math.min(3, draft.length))}">${draft.map((u, i) => `<div class="dcell"><button class="upg${famsOf(u).length ? ' fam' : ''}${u.r === 'legendary' ? ' legrev' : ''}" type="button" data-i="${i}" style="--rc:${RAR[u.r].c};${famPaint(u)}">
       ${u.slotLabel && !S.artifactDraft ? `<span class="slotlab s-${u.slotLabel.toLowerCase()}">${u.slotLabel}</span>` : ''}<span class="tag"><span>${RAR[u.r].n}</span></span>
-      <span class="paint"><span class="nm">${has(u.id) && u.up ? nameFor(u, has(u.id) + 1) : u.name}</span><span class="ds">${descFor(u, u.up ? has(u.id) + 1 : 1)}</span>${famChips(u)}${previewHtml(u)}${evoHint(u)}${has(u.id) ? `<span class="own">${u.up ? 'Upgrade: tier ' + has(u.id) + ' → ' + (has(u.id) + 1) : 'Owned ×' + has(u.id) + ' · stacks'}</span>` : ''}${needsSlot(u) && slotsUsed() >= SLOTS ? '<span class="own" style="color:#ff8a8a">Build full: remove a card in the shop first</span>' : ''}</span></button></div>`).join('')}</div>
+      <span class="paint"><span class="nm">${has(u.id) && u.up ? nameFor(u, has(u.id) + 1) : u.name}</span><span class="ds">${descFor(u, u.up ? has(u.id) + 1 : 1)}</span>${famChips(u)}${previewHtml(u)}${enablerHint(u)}${evoHint(u)}${has(u.id) ? `<span class="own">${u.up ? 'Upgrade: tier ' + has(u.id) + ' → ' + (has(u.id) + 1) : 'Owned ×' + has(u.id) + ' · stacks'}</span>` : ''}${needsSlot(u) && slotsUsed() >= SLOTS ? '<span class="own" style="color:#ff8a8a">Build full: remove a card in the shop first</span>' : ''}</span></button></div>`).join('')}</div>
     <div class="draft-foot"><button class="fbtn f-pass" id="skipDraft" type="button"><i>⏭</i>Pass <small>+${PASS_CR}</small></button>${S.artifactDraft ? "" : `<button class="fbtn f-reroll" id="reroll" type="button" ${S.credits < S.reroll && !S.freeReroll ? 'disabled' : ''}><i>🎲</i>Reroll <small>${S.freeReroll ? 'free' : S.reroll}</small></button>`}<span class="wallet">Credits <b>${S.credits}</b></span></div>
     <div class="draft-foot2"><button class="fbtn f-codex" id="codexBtn2" type="button"><i>📖</i>Codex</button></div>`;
   card.querySelectorAll('.upg').forEach(el => el.onclick = () => { audioInit(); take(draft[+el.dataset.i]); });
@@ -3868,7 +4113,7 @@ function showClear(earned = lastEarned) {
 function showBossIntro() {
   const B = bossFor(S.level);
   showCard(`<p class="eyebrow">Level ${S.level} · end of ${actName(S.level).toLowerCase()}</p><h2 style="color:${B.color}">Boss: ${B.name}</h2>
-    <p>${B.blurb}</p><p class="atk">${Object.values(ATTACKS).filter(a => a.boss === B.id).map(a => `<b>${a.name}</b> · ${a.desc}`).join('<br>')}<br><small>Every attack is announced first. Hit the Rift Core during the warning to disrupt it.</small></p><p>Reach the target to defeat ${B.name} and claim one of their artifacts.</p>
+    <p>${B.blurb}</p><p class="atk">${Object.values(ATTACKS).filter(a => a.boss === B.id).map(a => `<b>${a.name}</b> · ${a.desc}`).join('<br>')}<br><small>Every attack is announced first. Hit the Arc Core during the warning to disrupt it.</small></p><p>Reach the target to defeat ${B.name} and claim one of their artifacts.</p>
     <div class="stat"><span>Target</span><span>${fmt(S.target)}</span></div>`, 'Fight', startLevel);
 }
 function showVictory() {
@@ -3990,14 +4235,14 @@ function frame(t) {
   if (activePlay()) { // adaptive quality with hysteresis: < 45 fps for 1 s → low, > 55 fps for 4 s → high
     if (raw > 1 / 45) { Q.slow += raw; Q.fast = 0; if (!Q.low && Q.slow > 1) Q.low = true; } else if (raw < 1 / 55) { Q.slow = Math.max(0, Q.slow - raw * .5); Q.fast += raw; if (Q.fast > 4) { Q.slow = 0; if (Q.low) Q.low = false; } }
   }
-  if (activePlay()) {
+  if (activePlay() && !S.freeze) {
     const sdt = dt * (S.slowT > 0 ? .35 : 1) * (S.bfx && S.bfx.timeskip > 0 ? 1.2 : 1); if (S.slowT > 0) S.slowT -= dt;
     // catch up in real time after slow frames (up to 0.12 s of game time per frame) so a frame-rate dip never turns into slow motion
     acc += Math.min(.12, raw) * (sdt / dt || 1); let steps = 0;
     const p0 = performance.now(); while (acc >= STEP && steps < 16) { for (const b of balls) { b.ix = b.x; b.iy = b.y; } const n = subSteps(); for (let i = 0; i < n; i++) physics(STEP / n); tick(STEP); acc -= STEP; steps++; } PERF.steps = (PERF.steps || 0) + steps; if (acc > STEP) { PERF.lost = (PERF.lost || 0) + acc; acc = 0; } PERF.sim += performance.now() - p0;
   } else acc = 0;
   // render balls between the last two physics steps so fast balls glide instead of stuttering
-  const al = activePlay() ? Math.min(1, acc / STEP) : 1, sw = [];
+  const al = activePlay() && !S.freeze ? Math.min(1, acc / STEP) : 1, sw = [];
   for (const b of balls) if (b.ix != null && al < 1) { const dx = b.x - b.ix, dy = b.y - b.iy; if (dx * dx + dy * dy < 3600) { sw.push(b, b.x, b.y); b.x = b.ix + dx * al; b.y = b.iy + dy * al; } }
   const p1 = performance.now(); try { render(S.phase === 'paused' ? 0 : dt); } finally { for (let i = 0; i < sw.length; i += 3) { sw[i].x = sw[i + 1]; sw[i].y = sw[i + 2]; } } const p2 = performance.now(); PERF.draw += p2 - p1;
   updateHud(dt); PERF.hud += performance.now() - p2; PERF.n++;
@@ -4024,7 +4269,7 @@ function simulate(sec, o = {}) {
   } finally { performance.now = realNow; window.setTimeout = realST; muted = wasMuted; flippers.forEach(f => f.on = false); }
   return { t: +(n * STEP).toFixed(1), pts: S.score - s0, ballsUsed: b0 - S.balls + (activePlay() ? 0 : 0), phase: S.phase, hits: S.hits };
 }
-window.MP.debug = { S, coreHit, onHit, FAMS, unlocked, preview, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, physics, STEP, Bus, shot, RW: rarityWeights, segs, AST, inPoly, tunnelPoly, get RAMPPOLY() { return RAMPPOLY; }, setDraft: d => { draft = d; }, showClear: e => showClear(e) };
+window.MP.debug = { S, openShop, refreshBuild, showSynergyBanner, targetReached, EVOS, coreHit, onHit, FAMS, unlocked, preview, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, physics, STEP, Bus, shot, RW: rarityWeights, segs, AST, inPoly, tunnelPoly, get RAMPPOLY() { return RAMPPOLY; }, setDraft: d => { draft = d; }, showClear: e => showClear(e) };
 resize();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTable);
 renderInv();
