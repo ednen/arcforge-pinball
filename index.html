@@ -900,7 +900,7 @@ const CARDICON = {
   uplink: 'satellite +gear', skyfall: 'robot +bumper', mshield: 'shield +magnet', magrails: 'rail +magnet', blackorder: 'banner +star', reckoning: 'pulse +skull', hunger: 'maw +plus', nullbands: 'ring +meteor',
   mgauntlet: 'hand +rune', pouch: 'key +coin', ironmask: 'helm +clock', clockbots: 'robot +clock', treasury: 'chest', shield: 'shield +sling', storm: 'storm', portals: 'portal@-8,0,.8 portal@8,0,.8',
   smart: 'reticle +bolt', vibrail: 'rail +arrows', warpring: 'spinner +ring', bifrost: 'lanes +star', grimoire: 'book +skull', capacitor: 'battery +bolt', arrowhead: 'flipper +web', tracer: 'target +web',
-  vfrag: 'flipper +coin', badge: 'star +arrows', herald: 'news', microvial: 'vial +bumper', gamma: 'vial +plus', gyro: 'orbit +arrows', cartridge: 'battery +web', mead: 'vial +bolt', alloy: 'gear +shield',
+  vfrag: 'flipper +coin', badge: 'star +arrows', herald: 'news', microvial: 'vial +bumper', gamma: 'vial +plus', gyro: 'orbit +arrows', cartridge: 'battery +web', mead: 'helm +bolt', alloy: 'gear +shield',
   baton: 'web +target', crescent: 'moon', spare: 'gear +plus', gambler: 'card +burst', anthelm: 'helm +bumper', shard: 'hammer +plus', spiderleg: 'web +node', bullet: 'bullet +pit', gburst: 'burst +ball',
   cleaver: 'bolt +chain', sense: 'flipper +wave', adrenal: 'battery +mult', winter: 'ball +plus', weave: 'shield +web', qbattery: 'battery +portal', claw: 'ball +arrows', visor: 'helm +ramp', illhelm: 'slot',
   inventor: 'gear +hand', stonegiant: 'stone', comet: 'meteor', widow: 'sling +bolt', skyhawk: 'wing', khonsu: 'moon +star', deck: 'card@-6,0,.85 card@6,2,.85', chi: 'ball@0,0,1.35', keeperring: 'ring +portal',
@@ -913,7 +913,7 @@ const CARDICON = {
   loopdeloop: 'orbit +wing', constellation: 'star@-10,-8,.55 star@10,-4,.55 star@0,10,.55', godthunder: 'hammer +storm', webmaster: 'web +mult', overclock: 'gear +arrows', gammaform: 'fist +ball', lodepoles: 'bumper +magnet',
   fieldline: 'magnet +bumper', mstorm: 'storm +magnet', polarflip: 'flipper +magnet', detonator: 'sling +bomb', powder: 'keg', echo: 'pulse +dup', rampage: 'fist +bumper', smoke: 'mirror +ghost', mirage: 'bumper@-8,0,.8 ghost@10,6,.6',
   blitz: 'arrows +bolt', lucky: 'bullet +dice', infernal: 'flame +gear', thunderstrike: 'flipper +bolt',
-  leg_thunder: 'storm +crown', leg_web: 'web +crown', leg_tech: 'satellite +crown', leg_gamma: 'heart +burst', leg_mystic: 'book +rune', leg_magnet: 'meteor +magnet', leg_explosive: 'fuse +bomb', leg_quantum: 'portal +atom',
+  leg_thunder: 'storm +crown', leg_web: 'web +crown', leg_tech: 'satellite +crown', leg_gamma: 'meteor +burst', leg_mystic: 'book +rune', leg_magnet: 'meteor +magnet', leg_explosive: 'fuse +bomb', leg_quantum: 'portal +atom',
   leg_adamant: 'heart +shield', leg_speed: 'meteor +flame', leg_illusion: 'mirror +crown',
 };
 function cardIconSvg(u) {
@@ -1004,7 +1004,7 @@ UPGRADES.push(
   // ---- COMMON: one sentence, one job ----
   { id: 'capacitor', r: C_, cat: MPART, up: true, tags: ['TECH', 'LIGHTNING', 'RAMP'], hero: 'aetherworks', name: 'Aether Capacitor', desc: 'Every channel shot (pink tunnel, purple ramp, green warp) stores a charge. At {4|3|3} charges it discharges into all three red bumpers for {300|450|600} each.' },
   { id: 'arrowhead', r: C_, cat: TR, up: true, tags: ['FLIPPER', 'COMBO'], hero: 'outlaws', name: "Deadeye Arrowhead", desc: 'Targets hit straight off a flipper give +{20|35|50}% points.' },
-  { id: 'tracer', r: C_, cat: TR, up: true, tags: ['WEB', 'COMBO'], hero: 'threadbound', name: 'Thread Tracer', desc: 'Hitting the same target {3|3|2} times webs it. Webbed targets give +{30|45|60}%.' },
+  { id: 'tracer', r: R_, cat: TR, up: true, tags: ['WEB', 'COMBO'], hero: 'threadbound', name: 'Thread Tracer', desc: 'Hitting the same target {3|3|2} times webs it. Webbed targets give +{30|45|60}%.' },
   { id: 'vfrag', r: C_, cat: MPART, up: true, tags: ['BUMPER'], hero: 'voidsteel', name: 'Voidsteel Fragment', desc: 'Bumper collision force +{10|15|20}%. A green WARP shot charges the ball with voidsteel for 5 s: +{25|40|60}% Bonus.' },
   { id: 'badge', r: C_, cat: TR, up: true, tags: ['SURVIVAL'], name: 'Directorate Badge', desc: 'Every green WARP shot pays +{300|450|700}. Every 3rd warp relights the outlane save.' },
   { id: 'herald', r: C_, cat: TR, up: true, tags: ['COMBO'], hero: 'threadbound', name: 'City Gazette', desc: 'Completing a combo of 5 or more steps awards +{500|800|1,200}.' },
@@ -1012,7 +1012,7 @@ UPGRADES.push(
   { id: 'gamma', r: C_, cat: TR, up: true, tags: ['GAMMA', 'BUMPER'], hero: 'titanborn', name: 'Titan Serum', desc: 'The ball is 5% larger. Bumpers score +{15|25|40}%.' },
   { id: 'gyro', r: C_, cat: MPART, up: true, tags: ['TECH', 'RAMP', 'SPEED'], hero: 'aetherworks', name: 'Aether Gyroscope', desc: 'Hit all three channels (pink tunnel, purple ramp, green warp) within 15 s: +{1500|2200|3500} and the ball speeds up 15%.' },
   { id: 'cartridge', r: C_, cat: TR, up: true, tags: ['WEB'], hero: 'threadbound', name: 'Thread Cartridge', desc: 'Slingshots slow the ball slightly, give +{100|160|250} and web the next target it hits.' },
-  { id: 'mead', r: C_, cat: TR, up: true, tags: ['COSMIC'], hero: 'stormborn', name: 'Asgardian Mead', desc: 'The first {15|20|25} collisions of each ball score +{20|25|30}%.' },
+  { id: 'mead', r: R_, cat: TR, up: false, tags: ['COSMIC', 'LIGHTNING'], hero: 'stormborn', name: "Warrior's Toast", desc: 'Every time you complete ARCFORGE, the ball enters Battle-Fury for 8 s: every hit calls thunder down on the target for 500.' },
   { id: 'alloy', r: C_, cat: TR, up: true, tags: ['TECH'], hero: 'voidsteel', name: 'Voidsteel Alloy', desc: 'Points from Machine Parts are +{10|18|25}% stronger.' },
   { id: 'baton', r: C_, cat: TR, up: true, tags: ['SURVIVAL', 'FLIPPER'], hero: 'outlaws', name: "Blindside Baton", desc: 'A last-second save (a falling ball caught on the flipper tip, right above the drain) gives +{500|800|1,200}.' },
   { id: 'crescent', r: C_, cat: TR, up: true, tags: ['FLIPPER', 'MYSTIC'], hero: 'arcanists', name: "Moonveil Crescent", desc: 'Hit the ball with both flippers within 2 s: +{0.15|0.2}× Mult for the rest of the level (up to +1.5×).' },
@@ -1022,9 +1022,9 @@ UPGRADES.push(
   { id: 'shard', r: C_, cat: TR, up: true, tags: ['LIGHTNING'], hero: 'stormborn', name: 'Mjölnir Shard', desc: 'Lightning effects score +{15|25|40}%.' },
   { id: 'spiderleg', r: C_, cat: MPART, up: true, tags: ['TECH', 'WEB', 'ARMOR'], hero: 'threadbound', name: 'Aetherweaver Leg', desc: 'Every {20th|16th|12th} hit, a leg strikes the nearest target for 300.' },
   { id: 'bullet', r: 'epic', cat: MPART, fam: 'EXPLOSIVE', tags: ['EXPLOSIVE', 'BUMPER'], hero: 'outlaws', name: 'Pit Charges', desc: 'The blue bumpers in the quantum pit are packed with explosives: every hit on one detonates a 900 blast.' },
-  { id: 'gburst', r: C_, cat: TR, up: true, tags: ['GAMMA', 'SPEED'], hero: 'titanborn', name: 'Gamma Burst', desc: 'Every 5th bumper hit: +{300|450} and the ball speeds up 15%.' },
+  { id: 'gburst', r: R_, cat: TR, up: true, tags: ['GAMMA', 'SPEED'], hero: 'titanborn', name: 'Gamma Burst', desc: 'Every 4th bumper hit: +{300|450} and the ball speeds up 15%.' },
   // ---- UNCOMMON: mechanics start interacting ----
-  { id: 'cleaver', r: U_, cat: TR, up: true, tags: ['LIGHTNING'], hero: 'stormborn', name: 'Tempest Fragment', desc: 'Lightning chains hit +{1|1|2} target{||s}.' },
+  { id: 'cleaver', r: U_, cat: TR, up: false, tags: ['LIGHTNING'], hero: 'stormborn', name: 'Tempest Fragment', desc: 'Lightning leaves targets Electrified for 5 s. Hitting an Electrified target calls a 300-point lightning strike on a nearby target.' },
   { id: 'sense', r: U_, cat: TR, up: true, tags: ['SURVIVAL'], hero: 'voidsteel', name: 'Sixth Sense', desc: 'Once per ball, time slows for {1|1.5|2} s when the ball heads for the drain.' },
   { id: 'adrenal', r: U_, cat: TR, up: true, tags: ['TECH'], hero: 'aetherworks', name: 'Overdrive Chip', desc: 'Every {25|20|15} collisions, your next scoring hit is worth 3×.' },
   { id: 'winter', r: U_, cat: TR, up: true, tags: ['FLIPPER', 'ARMOR'], name: "Winter Soldier's Arm", desc: 'Hard flipper shots give +{40|60|90}% to the targets they hit.' },
@@ -1034,14 +1034,14 @@ UPGRADES.push(
   { id: 'visor', r: U_, cat: TR, up: true, tags: ['GIFTED', 'RAMP'], name: "Prism Visor", desc: 'Every ramp shot fires an optic beam through {3|4|5} targets for 300 each.' },
   { id: 'illhelm', r: U_, cat: TR, up: true, tags: ['CHAOS'], hero: 'riftwalkers', name: "Mirage Helm", desc: 'Every 14 s a jackpot machine appears. Hit it: the reels spin to 7-7-7 and pay +{2000|3500}, and a real target scores 2× for {10|15} s.' },
   { id: 'inventor', r: U_, cat: TR, up: true, tags: ['TECH'], hero: 'voidsteel', name: "Artificer's Prototype", desc: 'Every {3rd|3rd|2nd} machine-part trigger fires twice.' },
-  { id: 'stonegiant', r: U_, cat: TR, up: true, tags: ['GAMMA'], name: "Living Stone", desc: 'The ball gets heavier. Collisions score +{30|40|55}%.' },
+  { id: 'stonegiant', r: R_, cat: TR, up: false, tags: ['GAMMA'], name: "Living Stone", desc: 'Clean hits build Mass, up to 5 stacks. Each stack makes the ball 3% larger and its physical hits 10% stronger. At 5 Mass, the next bumper hit triggers Stonebreak, blasting all nearby targets for 500 and resetting Mass.' },
   { id: 'comet', r: U_, cat: TR, up: true, tags: ['SPEED', 'COSMIC'], name: 'Starfire Helm', desc: 'Keeping the ball fast slowly builds a scoring bonus, up to +{1|1.5|2}×. It fades when the ball slows.' },
   { id: 'widow', r: U_, cat: TR, up: true, tags: ['LIGHTNING', 'COMBO'], name: "Shockwire Bite", desc: 'A slingshot followed by a bumper within 2 s shocks every target near that bumper for {200|300|450}.' },
-  { id: 'skyhawk', r: U_, cat: TR, up: true, tags: ['SPEED', 'RAMP'], name: "Skyhunter Wings", desc: 'Balls leaving the tunnel or the quantum pit are steered toward a live target, which scores +{25|50|100}%.' },
-  { id: 'khonsu', r: U_, cat: TR, up: true, tags: ['MYSTIC'], hero: 'arcanists', name: "Moon Idol", desc: 'Every {30|25|20} hits it switches between +25% scoring and +25% collision force.' },
+  { id: 'skyhawk', r: 'epic', cat: TR, up: false, tags: ['SPEED', 'RAMP'], name: "Skyhunter Wings", desc: 'Whenever the ball leaves the pink tunnel or the quantum pit, it speeds up and scores +0.5× Mult for 3 s.' },
+  { id: 'khonsu', r: C_, cat: TR, up: false, tags: ['MYSTIC'], hero: 'arcanists', name: "Moon Idol", desc: 'While the ball is in the upper half of the machine, it scores +0.5× Mult.' },
   { id: 'deck', r: U_, cat: TR, up: true, tags: ['EXPLOSIVE', 'GIFTED'], hero: 'outlaws', name: "Volatile Deck", desc: 'Every 4th different target you hit explodes for {400|600|900}.' },
   { id: 'chi', r: U_, cat: TR, up: true, tags: ['FLIPPER', 'COMBO'], name: "Iron Fist's Chi", desc: 'Flipper hits in a row charge your next target hit, up to {4|5|6}×.' },
-  { id: 'keeperring', r: U_, cat: TR, up: true, tags: ['PORTAL', 'MYSTIC', 'RAMP'], hero: 'arcanists', name: "Astral Ring", desc: 'Every 4th ramp, orbit or tunnel shot opens a pair of portals for {10|14} s.' },
+  { id: 'keeperring', r: U_, cat: TR, up: true, tags: ['PORTAL', 'MYSTIC', 'RAMP'], hero: 'arcanists', name: "Astral Ring", desc: 'Every 3rd ramp, orbit or tunnel shot opens a pair of portals for {10|14} s.' },
   { id: 'magnet', r: U_, cat: TR, up: true, tags: ['ECONOMY', 'MAGNETIC'], hero: 'outlaws', name: "Scrapper's Magnet", desc: 'Credit coins on the table fly to your ball. All credit rewards +{10|20|30}%.' },
   { id: 'vigilante', r: U_, cat: TR, up: true, tags: ['EXPLOSIVE'], hero: 'outlaws', name: "Vigilante's Arsenal", desc: 'Knocking down a target makes your next target hit worth +{50|75|100}%.' },
   { id: 'gammawarp', r: U_, cat: TR, up: true, tags: ['GAMMA', 'BUMPER'], hero: 'titanborn', name: "Titan's Fist", desc: 'Bumper hits by a fast ball score {2|2.5|3}×.' },
@@ -1049,7 +1049,7 @@ UPGRADES.push(
   { id: 'counterfeit', r: U_, cat: TR, tags: ['ECONOMY', 'CHAOS'], hero: 'riftwalkers', name: "Trickster's Counterfeit Credits", desc: 'Gain +75 credits now. For the next three shops, all prices are +20%. Leaves your build after that.' },
   // ---- RARE: build-arounds ----
   { id: 'nano', r: R_, cat: MPART, tags: ['TECH', 'ARMOR'], hero: 'aetherworks', name: 'Nanite Swarm', desc: 'Every 10 s your weakest upgradeable card runs at full tier-3 power for 5 s.' },
-  { id: 'alleye', r: R_, cat: TR, tags: ['MYSTIC', 'COSMIC'], hero: 'arcanists', name: 'The All-Seeing Eye', desc: 'Repeat the same sequence of shots (like ramp → warp, ramp → warp) and each loop adds +0.25× for the level.' },
+  { id: 'alleye', r: R_, cat: TR, tags: ['MYSTIC', 'COSMIC'], hero: 'arcanists', name: 'The All-Seeing Eye', desc: 'Every 6 clean hits, the Eye reveals a target for 6 s. Hitting the revealed target scores 3× and reveals another.' },
   { id: 'mjolR', r: R_, cat: TR, tags: ['LIGHTNING', 'BUMPER'], hero: 'stormborn', name: 'Mjölnir', desc: 'Every 8 bumper hits, lightning strikes your highest-value target for 1,000.' },
   { id: 'healing', r: R_, cat: TR, tags: ['SURVIVAL', 'GIFTED'], hero: 'titanborn', name: "Ravager's Healing Factor", desc: 'After 40 collisions without draining, one used rescue recharges (Drain Guard, outlane save or Time Stone).' },
   { id: 'bpsuit', r: R_, cat: TR, tags: ['TECH', 'RAMP', 'ARMOR'], hero: 'voidsteel', name: 'Voidsteel Suit', desc: 'Stores 10% of your collision points as kinetic energy. The next ramp shot releases all of it.' },
@@ -1064,12 +1064,12 @@ UPGRADES.push(
   { id: 'octoarms', r: R_, cat: MPART, tags: ['TECH', 'SURVIVAL', 'FLIPPER'], name: 'Mech Octopus Arms', desc: 'Every 30 hits, two mechanical arms guard the center drain for 10 s and bat balls back up.' },
   { id: 'torch', r: R_, cat: TR, tags: ['SPEED'], name: "Firebrand's Flame", desc: 'Fast collisions in a row build Heat. At full Heat everything scores 2× until the ball slows down.' },
   { id: 'starrider', r: R_, cat: TR, tags: ['SPEED', 'COSMIC'], name: "Star Rider's Board", desc: 'Every green WARP shot adds +0.5× to the Cosmic multiplier. While the ball moves at extreme speed a Cosmic multiplier keeps climbing (up to +3×). It drains away when the ball slows.' },
-  { id: 'soulblade', r: R_, cat: TR, tags: ['PORTAL', 'MYSTIC', 'GIFTED'], name: "Soul Blade", desc: 'Portal exits slash every nearby target for 300, and each jump adds +100 to portal points for the level.' },
+  { id: 'soulblade', r: R_, cat: TR, tags: ['MYSTIC', 'GIFTED'], name: "Soul Blade", desc: 'Portal exits slash every nearby target for 300, and each jump adds +100 to portal points for the level.' },
   { id: 'ubump', r: R_, cat: MPART, tags: ['TECH', 'BUMPER'], name: 'Architect Bumper Core', desc: 'Every 50 hits an automated bumper rises in the middle of the table for 15 s.' },
   { id: 'illusion', r: R_, cat: TR, tags: ['MULTIBALL', 'CHAOS'], hero: 'riftwalkers', name: "Mirage Holo-Tech", desc: 'Every 35 hits a fake ball appears for 10 s. Fake balls score 25% and drain for free.' },
   { id: 'ace', r: R_, cat: TR, tags: ['EXPLOSIVE', 'GIFTED'], hero: 'outlaws', name: "Volatile Ace", desc: 'Explosions charge your other explosive cards and can set off further explosions (normally they cannot).' },
   { id: 'crimelord', r: R_, cat: TR, tags: ['ECONOMY'], name: "Devil's Bargain", desc: 'Everything scores +40%, but you earn half as many credits for clearing a level.' },
-  { id: 'catalogue', r: R_, cat: TR, tags: ['ECONOMY'], name: "The Curator's Catalogue", desc: 'Every different card you have bought in shops this run gives +2% to all scoring.' },
+  { id: 'catalogue', r: R_, cat: TR, tags: ['ECONOMY'], name: "The Curator's Catalogue", desc: 'Every card you have bought in shops this run gives +0.05× Mult.' },
   { id: 'malachar', r: R_, cat: TR, tags: ['ECONOMY', 'MYSTIC'], name: "Dragon's Hoard", desc: 'Every 100 unspent credits gives +10% to all scoring.' },
 );
 const CARD = {}; for (const u of UPGRADES) CARD[u.id] = u;
@@ -1184,7 +1184,7 @@ const FAMOF = {
 // new foundation commons for thin families and rule-breaking epics
 UPGRADES.push(
   { id: 'lodestone', r: C_, cat: MPART, up: true, fam: 'MAGNET', tags: ['MAGNETIC', 'FLIPPER'], name: 'Lodestone Flippers', desc: 'A magnet on each raised flipper gently pulls nearby balls onto it, making cradles easier. Stronger at higher tiers ({50|70|90}% pull).' },
-  { id: 'ferro', r: C_, cat: TR, up: true, fam: 'MAGNET', tags: ['MAGNETIC'], name: 'Ferro Fluid', desc: 'While any magnet bends the ball it pays +{80|130|200} every 0.4 s.' },
+  { id: 'ferro', r: 'epic', cat: TR, up: true, fam: 'MAGNET', tags: ['MAGNETIC'], name: 'Ferro Fluid', desc: 'While any magnet bends the ball it pays +{200|300} every 0.4 s.' },
   { id: 'attractor', r: U_, cat: MPART, up: true, fam: 'MAGNET', tags: ['MAGNETIC', 'BUMPER'], name: 'Attractor Coil', desc: 'Every {20|16|12} hits a 3 s magnetic pulse drags every ball toward the red bumpers.' },
   { id: 'ember', r: C_, cat: TR, up: true, fam: 'HELLFIRE', tags: ['COMBO'], name: 'Hellfire Ember', desc: 'Each ball you drain this level adds +{0.25|0.35|0.5}× Mult.' },
   { id: 'mirrorshard', r: C_, cat: TR, up: true, fam: 'ILLUSION', tags: ['MULTIBALL'], name: 'Mirror Shard', desc: 'Extra balls (ghosts, copies, splits) get +{25|40|60}% Bonus.' },
@@ -1247,8 +1247,8 @@ UPGRADES.push({ id: 'thunderstrike', r: U_, cat: TR, up: true, fam: 'THUNDER', t
   hellrider: ["Hellrider's Chain", 'Combo hits score +{8|12}% more per combo step, but hits outside a combo score 30% less.', 'rare'],
   torch: ["Firebrand's Flame", 'Fast hits in a row build Heat. At full Heat everything scores 3×, but slow hits score 25% less.', 'rare'],
   venom: ['Living Ooze', 'The ball takes a power from the last target it hit: bumpers make it bouncy, slingshots sticky, standups heavy, drop targets explosive. Bumpers score 20% less.', 'rare'],
-  visor: ["Prism Visor", 'Every purple RAMP shot blasts the ramp exit with an prism blast for {800|1200}.', 'uncommon'],
-  vigilante: ["Vigilante's Arsenal", '{12|20}% of your explosions are CRITICAL and hit 4× as hard.', 'uncommon'],
+  visor: ["Prism Visor", 'Every pink TUNNEL shot blasts the tunnel exit with a prism blast for {800|1200}.', 'common'],
+  vigilante: ["Vigilante's Arsenal", '{40|60}% of your explosions are CRITICAL and hit 4× as hard.', 'epic'],
   mirage: ['Phantom Bumpers', 'Two illusion bumpers shimmer onto the table half the time, flickering in and out every 2 s. They are solid, but pay only {40|60}% of a red bumper.', 'uncommon'],
   mimic: ['Illusory Twin', 'While an extra ball is on the table, your real ball scores +{25|40}%.', 'rare'],
   winter: ['Gamma Growth', 'Every 10 hits the ball grows 3% (up to +15% per ball). Each growth adds +{8|12}% to its points.', 'uncommon'],
@@ -1274,10 +1274,10 @@ UPGRADES.push(
   LEG_('leg_thunder', 'THUNDER', 'Crown of Storms', 'A storm cloud zaps your ball every 6 s. While charged, every hit throws lightning.'),
   LEG_('leg_web', 'WEB', 'Loom of Worlds', 'Every hit webs its target. Hits on webbed targets pay extra for every webbed target on the table.'),
   LEG_('leg_tech', 'TECH', 'Aetherworks Orbital Array', 'Every 8 s a satellite laser sweeps the table. Targets fire, and a ball in the beam gains Bonus.'),
-  LEG_('leg_gamma', 'GAMMA', 'Heart of the Worldsplitter', 'Every 15th hit the ball SMASHES, firing every nearby target.'),
-  LEG_('leg_mystic', 'MYSTIC', 'Book of the Ancients', 'Runes orbit your ball. Every 8 s one makes a target score 5×.'),
+  LEG_('leg_gamma', 'GAMMA', 'Titanfall', 'Every 30 clean hits, the ball slams downward with immense force: all nearby targets catch fire, the three red bumpers trigger, and the whole table shakes. Larger balls increase the blast radius and damage.'),
+  LEG_('leg_mystic', 'MYSTIC', 'Book of the Ancients', 'Open portals slowly eat into the next ARCFORGE letter, 0.2 letter per second. Portals take turns and each one continues where the last left off.'),
   LEG_('leg_magnet', 'MAGNET', 'The Iron Asteroid', 'A solid magnetic asteroid orbits the vortex. Hits pay 1,000.'),
-  LEG_('leg_explosive', 'EXPLOSIVE', 'The Long Fuse', 'A fuse burns around the table. Every 15 s your ball explodes for 1,500.'),
+  LEG_('leg_explosive', 'EXPLOSIVE', 'The Long Fuse', 'A fuse burns around the table. Every 15 s your ball explodes for 3,000.'),
   LEG_('leg_quantum', 'QUANTUM', 'Quantum Rift', 'Every 20 s a rift splits your ball into 2 extra copies.'),
   LEG_('leg_adamant', 'VOIDSTEEL', 'Voidsteel Heart', 'A crystal soaks up 15% of your points and erupts every 25 s, paying it back twice.'),
   LEG_('leg_speed', 'SPEED', 'The Velocity Surge', 'At top speed the ball bursts into flame for 2 s: everything it hits scores 2.5×.'),
@@ -1291,30 +1291,30 @@ UPGRADES.push(
   leg_web: ['Loom of Worlds', 'Hits on webbed targets pay extra for every webbed target on the table.', 'legendary'],
   gyro: ['Gyroscopic Stabilizer', 'At high speed the ball curves toward the ramp, the tunnel and the warp lane.', 'common'],
   arc: ['Aether Reactor', 'Machine hits charge the Reactor. At 100% it discharges, firing 5 random targets for 300 each.', 'common'],
-  webmaster: ['Web of Fate', 'Webbed targets score {1.5|2}×.', 'epic'],
+  webmaster: ['Web of Fate', 'Webbed targets get an extra +{0.4|0.6}× Mult, on top of their usual +0.4×.', 'epic'],
   qtunnel: ['Quantum Tunnel', 'Ramp shots have a 40% chance to copy the ball for 6 s.', 'rare'],
   clockbots: ['Clockwork Legion', 'Three clockwork soldiers stand guard. Every 12 s they fire at the Arc Core, each shot lighting the next letter.', 'artifact'],
-  scepter: ['Mirage Scepter', "Every 18th hit spawns a ghost ball for 8 s that scores half points. Stacks with Trickster's Illusion.", 'artifact'],
+  scepter: ['Mirage Scepter', "Every 18th hit spawns a ghost ball for 8 s that scores 25% points. Stacks with Trickster's Illusion.", 'artifact'],
   ironmask: ["Sovereign's Visor", 'Every 10 s the visor replays every point you scored in the last 2 seconds.', 'artifact'],
   nullbands: ['Rift Bands', 'Every 12th hit your ball fires a green rift missile at a random target for 3,000.', 'artifact'],
   reckoning: ['The Purge', 'Every 12 s a purge flash sweeps the table: every part of the machine scores half its points.', 'artifact'],
-  phoenix: ['Ashborn Force', 'Your last ball scores 2× and rises again once per level.', 'legendary'],
+  phoenix: ['Phoenix Engine', 'The last ball is permanently ignited. Once per level, draining it resurrects it and triggers a table-wide fireburst.', 'legendary'],
   blitz: ['Blitz', 'RULE BREAK: the ball moves 15% faster, and at top speed glancing hits and quick re-hits count as clean hits.', 'epic'],
-  detonator: ['Rigged Slingshots', 'RULE BREAK: the slingshots are wired with explosives. Every slingshot kick is a 700 explosion.', 'epic'],
-  soulblade: ['Soul Blade', 'Portal exits slash every nearby target for 300, and each jump adds +150 to portal points for the level.', 'rare'],
+  detonator: ['Rigged Slingshots', 'RULE BREAK: the slingshots are wired with explosives. Every slingshot kick is a 700 explosion.', 'rare'],
+  soulblade: ['Soul Blade', 'Every 10th clean hit fires a spectral horizontal slash across the table, striking every target in its path for 400.', 'rare'],
   octoarms: ['Mecha Arms', 'Every 30 hits, two mechanical hands guard the center drain for 8 s and push balls back up.', 'rare'],
   healing: ['Gamma Rage', 'The bigger the ball, the more it scores: +{2|3}% for every 1% it is larger than normal.', 'rare'],
   chaos: ['Chaos Magic', 'Every 30 hits a random part of the machine is rewritten with a pentagram for the rest of the level (2× to 5× points).', 'epic'],
   smart: ['Auto-Aim Network', 'Every {10|8} clean target hits, the system locks onto the highest-value target you have not hit and fires it for {1,000|1,500}.', 'epic'],
   magnet: ['Scrap Magnet', 'Every 16 hits the magnet rips a piece of scrap onto the table. It pulls the ball in until struck, then launches into the nearest target for {600|900}.', 'uncommon'],
   volley: ['Trick Arrow Volley', 'Every 8th target hit fires three explosive arrows at nearby targets for {250|400} each.', 'uncommon'],
-  fourthwall: ['Cheat Code', 'Once per ball, hitting the same target 4 times in a row makes the game accuse you of cheating: +{1,500|2,500}.', 'uncommon'],
+  fourthwall: ['Cheat Code', 'Once per ball, hitting the same target 4 times (not necessarily in a row) makes the game accuse you of cheating: +{1,500|2,500}.', 'uncommon'],
   nano: ['Nanite Replication', 'Every {25|20} clean hits, nanites build a temporary copy of the last target you hit. It stays for 6 s and scores normally.', 'rare'],
   helmet: ['Polarity Crown', 'Boss levels: everything scores 30% more.', 'artifact'],
   fieldline: ['Field Lines', 'Every {25|20} hits, double magnetic field lines link all three red bumpers for 6 s. A ball crossing a line pays +400.', 'uncommon'],
   spiderleg: ['Aetherweaver Leg', 'Every {15th|12th} hit, a leg strikes the nearest target that is not webbed for 400 and webs it.', 'epic'],
   widow: ['Shockwire Bite', 'A slingshot followed by a bumper within 2 s shocks every target near that bumper for {150|250}.', 'common'],
-  loki: ["Trickster's Illusion", 'Every 25th hit spawns a ghost ball for 8 seconds. Ghosts score half and drain for free.', 'epic'],
+  loki: ["Trickster's Illusion", 'Every 30th hit spawns a ghost ball for 8 seconds. Ghosts score 25% and drain for free.', 'rare'],
   repulsor: ['Pulse Flippers', 'Flippers swing 15% faster. Every 5th flipper hit fires a beam at a bumper for {150|250}.', 'uncommon'],
   echo: ['Quantum Echo', 'Every {8th|6th} clean hit echoes half a second later for its full points.', 'epic'],
   hellrider: ["Hellrider's Chain", 'Combo hits score +{12|18}% more per combo step, but hits outside a combo score 20% less.', 'uncommon'],
@@ -1322,7 +1322,7 @@ UPGRADES.push(
   mjolR: ['Mjölnir', 'Every 5 bumper hits, lightning strikes your highest-value target for 1,000.', 'rare'],
   sense: ['Voidsteel Dampener', 'The flipper tips glow with voidsteel: a wide field around the flippers slows the ball by 30% as it falls toward them.', 'rare'],
   treant: ['Voidsteel Inlanes', 'The inlanes are plated with voidsteel. A ball rolling down one pays +{800|1,200} and stores a kinetic charge: its next bumper hit scores 2.5×.', 'rare'],
-  forgeworks: ['Aetherworks Drone', 'A small Aetherworks drone hovers over the table and zaps a random target for {350|500} every {6|5} s.', 'uncommon'],
+  forgeworks: ['Aetherworks Drone', 'A small Aetherworks drone hovers over the table and zaps a random target or the Arc Core for 350 every 6 s.{| A second drone joins it.}', 'uncommon'],
   bpsuit: ['Kinetic Reservoir', 'Store {10|15}% of your collision points as kinetic energy, up to 4,000. The next ramp shot releases it as bonus points and launches the ball upward.', 'rare'],
   cradle: ['Capacitor Flippers', 'Every flipper hit stores a charge, up to 3. The 3rd charge makes the ball score {2.5|4}× on its next target and calls lightning where it hits.', 'common'],
   cloak: ['Levitation Mantle', 'When a ball drops into the far-left or far-right outlane, the mantle wraps it and flies it straight up to safety. Recharges in 8 s.', 'rare'],
@@ -1352,12 +1352,12 @@ function reqOf(u) {
 const SRC = {
   lightning: ['mjolnir', 'storm', 'mjolR', 'widow', 'capacitor', 'thunderstrike', 'leg_thunder'], chain: ['mjolnir'], explosive: ['gambler', 'deck', 'bullet', 'detonator', 'powder', 'visor', 'leg_explosive'], save: ['guard', 'cloak', 'phoenix', 'octoarms', 'mshield', 'healing'],
   portal: ['portals', 'keeperring', 'nzgate'], teleport: ['portals', 'keeperring', 'nzgate'], magnet: ['lodestone', 'magflip', 'polarity', 'attractor', 'lodepoles', 'mstorm', 'leg_magnet'],
-  web: ['web', 'cartridge', 'tracer', 'arrowhead', 'webtension', 'spiderleg', 'leg_web'], big: ['gamma', 'chi', 'winter', 'gammaform', 'gammawarp'],
+  web: ['web', 'cartridge', 'tracer', 'arrowhead', 'webtension', 'spiderleg', 'leg_web'], big: ['gamma', 'chi', 'winter', 'gammaform', 'gammawarp', 'stonegiant'],
   bots: ['drones', 'forgeworks', 'clockbots'],
   extra: ['loki', 'instab', 'decoy', 'illusion', 'qtunnel', 'scepter', 'qbattery', 'leg_quantum'],
 };
-const NEEDS = { overclock: ['bots'], runes: ['portal'], vigilante: ['explosive'], weave: ['save'], quiver: ['web'], herald: ['web'], baton: ['web'], webmaster: ['web'], healing: ['big'], mimic: ['extra'], smoke: ['extra'], mhelm: ['magnet'], polarflip: ['magnet'], shard: ['lightning'], cleaver: ['chain'], godthunder: ['lightning'],
-  fuse: ['explosive'], ace: ['explosive'], soulblade: ['portal'], qbattery: ['teleport'],
+const NEEDS = { overclock: ['bots'], runes: ['portal'], vigilante: ['explosive'], weave: ['save'], quiver: ['web'], herald: ['web'], baton: ['web'], webmaster: ['web'], healing: ['big'], mimic: ['extra'], smoke: ['extra'], mhelm: ['magnet'], polarflip: ['magnet'], shard: ['lightning'], cleaver: ['lightning'], godthunder: ['lightning'],
+  fuse: ['explosive'], ace: ['explosive'], qbattery: ['teleport'],
   ferro: ['magnet'], mirrorshard: ['extra'], 
   alloy: ['parts'], inventor: ['parts'], arc2: ['parts'] };
 const NEED_TXT = { web: 'a card that webs targets', big: 'a card that grows the ball', lightning: 'a lightning card', chain: 'Mjölnir Bumpers', explosive: 'an explosive card', portal: 'a portal card', teleport: 'a portal card', magnet: 'a magnet card', extra: 'an extra-ball card', small: 'a small-ball card', parts: 'a Machine Part', save: 'a ball-saving card', bots: 'a drone or bot card' };
@@ -1387,7 +1387,7 @@ const FT = (f, n) => () => aff(f) >= n;
 const famSyn = (id, f, n, name, desc) => { let sy = SYNERGIES.find(s => s.id === id); if (!sy) { sy = { id }; SYNERGIES.push(sy); } Object.assign(sy, { kind: n >= 5 ? 'capstone' : 'family', fam: [f], tier: n, test: FT(f, n), req: FAMS[f].ico + ' ' + FAMS[f].name + ' ' + (n >= 5 ? 'V' : 'III') }, name ? { name } : {}, desc ? { desc } : {}); };
 const hybSyn = (id, a, b, name, desc) => { let sy = SYNERGIES.find(s => s.id === id); if (!sy) { sy = { id }; SYNERGIES.push(sy); } Object.assign(sy, { kind: 'hybrid', fam: [a, b], test: () => aff(a) >= 3 && aff(b) >= 3, req: FAMS[a].ico + ' III + ' + FAMS[b].ico + ' III' }, name ? { name } : {}, desc ? { desc } : {}); };
 famSyn('overcharge', 'THUNDER', 3); famSyn('livingstorm', 'THUNDER', 5);
-famSyn('reflexes', 'WEB', 3); famSyn('weboflife', 'WEB', 5, 'Living Thread', 'Every clean target hit webs the target, and webbed targets give +50% instead of +20%.');
+famSyn('reflexes', 'WEB', 3); famSyn('weboflife', 'WEB', 5, 'Living Thread', 'Every clean target hit webs the target, and webbed targets also give +50% Bonus.');
 famSyn('hpp', 'TECH', 3); famSyn('forgelegacy', 'TECH', 5, 'Aetherworks Legacy', 'Every machine-part trigger also pays 200 points, and the Aether Reactor Mk II charges twice as fast.');
 famSyn('brutesmash', 'GAMMA', 3); famSyn('worldbreaker', 'GAMMA', 5, 'Worldsplitter', 'Collisions get +100% Bonus and bumpers kick the ball 20% harder.');
 famSyn('eventhorizon', 'MYSTIC', 3); famSyn('sanctum5', 'MYSTIC', 5, "Astral Dominion", 'Portals are always open, even without Astral Portals, and portal jumps pay 3× points.');
@@ -1495,7 +1495,7 @@ const EVOS = [
     desc: 'The flippers are rebuilt in voidsteel. Every 10 seconds they release a violet kinetic pulse that rolls up the table: it shoves every ball it passes (harder up close) and each ball it catches pays 300. Bumpers kick 20% harder.' },
   { id: 'sanctum', need: ['portals', 'warpring', 'constellation'], name: 'Astral Sanctum', c: [255, 140, 40], hex: '#ff9a2e',
     desc: 'Reality bends: the three red bumpers leave their posts and orbit each other in a slow rune circle, spinning faster while a portal ×2 is active. The portals come loose and drift. Every portal jump adds +0.25× to all scoring for the rest of the level, up to +3×.' },
-  { id: 'asgard', need: ['mjolnir', 'storm', 'bifrost'], name: 'Asgardian Forge', c: [90, 180, 255], hex: '#6fc3ff',
+  { id: 'asgard', need: ['mjolnir', 'cleaver', 'bifrost'], name: 'Asgardian Forge', c: [90, 180, 255], hex: '#6fc3ff',
     desc: 'The flippers are thunder-forged: every flipper hit calls lightning down on a bumper or standup for 250. The bumpers are electrified and arc lightning to their neighbours for 150. Every 30 hits the Bifröst opens for 6 seconds: everything scores 3× and a rainbow bridge spans the center drain.' },
 ];
 const evo = id => S.evos && S.evos.has(id);
@@ -1562,8 +1562,8 @@ function evoTick(dt) {
     S.drone ||= { x: 280, y: 300 }; S.drone2 ||= { x: 280, y: 300, cd: 2 };
     [S.drone, S.drone2].forEach((D, i) => { const ph = i * Math.PI; D.x = 280 + 150 * Math.sin(t * .55 + ph); D.y = 330 + 110 * Math.sin(t * 1.1 + 1 + ph * .5); D.tilt = Math.cos(t * .55 + ph) * .35;
       if ((D.cd = (D.cd || 0) + dt) >= (S.odT > 0 ? 1 : 4) / OC()) {
-        D.cd = 0; const tg = [...mainBumpers().map(q => [q, q.x, q.y]), ...standups.map(q => [q, 466, q.y1 + 17])], [o, x, y] = tg[Math.random() * tg.length | 0];
-        fx.push({ type: 'beam', x1: D.x, y1: D.y + 6, x2: x, y2: y, t: 0, life: .3, c: '255,200,120' }); o.flash = 1; award(300 * OC(), 'drone', o, x, y - 30, true); tone(1200, .1, 'square', .04, 600);
+        D.cd = 0; const tg = [...mainBumpers().map(q => [q, q.x, q.y]), ...standups.map(q => [q, 466, q.y1 + 17]), [enemy, ...objPos(enemy)]], [o, x, y] = tg[Math.random() * tg.length | 0];
+        fx.push({ type: 'beam', x1: D.x, y1: D.y + 6, x2: x, y2: y, t: 0, life: .3, c: '255,200,120' }); o.flash = 1; droneStrike(o, 300 * OC(), x, y - 30); tone(1200, .1, 'square', .04, 600);
       } });
   }
 }
@@ -1670,6 +1670,10 @@ function logPts(pts) { if (!has('ironmask')) return; const L = S.slog ||= [], no
 // ---- every clean hit (the scoring engine calls this after the points are in) ----
 function cleanHit(kind, obj) {
   const b = curBall, tgt = isTarget(obj);
+  if (has('leg_gamma') && b && isReal(b) && (S.titanN = (S.titanN || 0) + 1) >= 30) { S.titanN = 0; titanfall(b); }
+  if (has('alleye') && tgt) { if (S.eye && S.eye.o === obj) eyeReveal(obj, true); else if (!S.eye && (S.eyeC = (S.eyeC || 0) + 1) >= 6) { S.eyeC = 0; eyeReveal(null); } }
+  if (has('soulblade') && b && (S.sbN = (S.sbN || 0) + 1) % 10 === 0) soulSlash(b.y);
+  if (has('stonegiant') && b) { if ((b.mass || 0) >= 5) { if (kind === 'bumper') stonebreak(b, obj); } else setMass(b, (b.mass || 0) + 1); }
   if (has('arc') && (S.arcC = (S.arcC || 0) + 4) >= 100) { S.arcC = 0; reactorDischarge(); }
   if (has('venom')) S.hungB = Math.min(.3, (S.hungB || 0) + T('venom', .04, .06, .06));
   if (tgt) S.lastTgt = obj;
@@ -1679,7 +1683,7 @@ function cleanHit(kind, obj) {
   if (b && b.capM) { b.capM = 0; fx.push({ type: 'bolt', x1: x + (Math.random() - .5) * 60, y1: y - 170, x2: x, y2: y, t: 0, life: .4, seed: Math.random() * 1e6 | 0 }, { type: 'ring', x, y, t: 0, life: .45, c: '255,224,90', big: true }); award(250, 'lightning', obj, x + 18, y - 52, true); S.shake = Math.max(S.shake || 0, .45); tone(1400, .25, 'sawtooth', .06, 200); }
   if (has('starrider') && S.slip && performance.now() > S.slip.from && performance.now() < S.slip.to && S.lastPts > 0) { const v = S.lastPts * T('starrider', .6, 1, 1), o = obj; setTimeout(() => { if (!activePlay()) return; const [gx, gy] = objPos(o); fx.push({ type: 'ring', x: gx, y: gy, t: 0, life: .45, c: '190,205,255' }); bonus(v, gx, gy - 30, 'SLIPSTREAM', true); }, 500); }
   if (has('trickarrow') && obj === S.mark) { pop(x, y - 48, 'MARKED ×' + T('trickarrow', 4, 5, 5), '#7fe7ff', true); tone(1500, .1, 'square', .05, 2200); moveMark(obj); }
-  if (has('fourthwall') && b && isReal(b) && !b.cheatUsed) { if (S.cheatO === obj) { if (++S.cheatN >= 4) { b.cheatUsed = true; S.cheatN = 0; award(T('fourthwall', 1500, 2500, 2500), 'cheat', obj, x, y - 40, true); S.cheatFx = { t: 0 }; msg('CHEATER DETECTED', 3); sfx.hack(); } } else { S.cheatO = obj; S.cheatN = 1; } }
+  if (has('fourthwall') && b && isReal(b) && !b.cheatUsed) { { const CM = b.cheatM ||= new Map(), n = (CM.get(obj) || 0) + 1; CM.set(obj, n); if (n >= 4) { b.cheatUsed = true; b.cheatM = null; award(T('fourthwall', 1500, 2500, 2500), 'cheat', obj, x, y - 40, true); S.cheatFx = { t: 0 }; msg('CHEATER DETECTED', 3); sfx.hack(); } } }
   if (has('smart') && !S.aim && (S.aimN = (S.aimN || 0) + 1) >= T('smart', 10, 8, 8)) { S.aimN = 0; autoAim(); }
   if (has('volley') && b && (S.volN = (S.volN || 0) + 1) % 8 === 0) trickVolley(b, obj);
 }
@@ -1790,6 +1794,12 @@ function v189Tick(dt) {
 }
 // ---- overlay drawing ----
 function v189Draw(dt) {
+  drawEye(dt); drawBook();
+  for (const b of balls) if (b.mass > 0) { const t = performance.now() / 1000, r = (b.rad || 10) + 5; ctx.fillStyle = b.mass >= 5 ? '#ffe2a8' : '#c9b28a'; if (b.mass >= 5) { ctx.shadowColor = '#ffcf7a'; ctx.shadowBlur = 10; } // Living Stone: Mass stones orbit the ball
+    for (let i = 0; i < b.mass; i++) { const q = t * 2.2 + i * TAU / 5; ctx.beginPath(); ctx.arc(b.x + Math.cos(q) * r, b.y + Math.sin(q) * r, 2.2, 0, TAU); ctx.fill(); } ctx.shadowBlur = 0; }
+  for (const b of balls) if (b.furyT > 0) { const t = performance.now() / 1000, r = (b.rad || 10) + 6 + 2 * Math.sin(t * 14), a = Math.min(1, b.furyT); // Battle-Fury aura
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = `rgba(255,${190 + 40 * Math.sin(t * 9) | 0},90,${.75 * a})`; ctx.shadowColor = '#ffd25a'; ctx.shadowBlur = 14; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(b.x, b.y, r, 0, TAU); ctx.stroke();
+    for (let i = 0; i < 3; i++) { const q = t * 5 + i * 2.1; ctx.beginPath(); ctx.moveTo(b.x + Math.cos(q) * r, b.y + Math.sin(q) * r); ctx.lineTo(b.x + Math.cos(q + .3) * (r + 7), b.y + Math.sin(q + .3) * (r + 7)); ctx.stroke(); } ctx.restore(); }
   const t = performance.now() / 1000;
   if (S.ockT > 0) { // Mecha Arms: two robot hands rise beside the drain, palms up, fingers pointing at each other
     const k = Math.min(1, (8 - S.ockT) / .35, S.ockT / .35), push = Math.max(0, S.ockPush || 0) / .3, bob = Math.sin(t * 5) * 1.5;
@@ -1833,7 +1843,7 @@ const ILLSPOTS = [[200, 250], [365, 205], [420, 300], [200, 390], [300, 395], [3
 function placeIllusions() { const kinds = ILLTYPES.slice().sort(() => Math.random() - .5).slice(0, 2), spots = ILLSPOTS.filter(([x, y]) => !balls.some(b => hyp(b.x - x, b.y - y) < 50)).sort(() => Math.random() - .5);
   LEGILL.length = 0; kinds.forEach((k, i) => { const [x, y] = spots[i] || ILLSPOTS[i]; LEGILL.push({ ...k, x, y, e: 1, kind: 'illpart', flash: 0, a: 0 }); }); }
 const PHANTOM_ON = () => ((S.phT || 0) % 4) < 2, phantomA = () => { const t = (S.phT || 0) % 4; return t < 2 ? Math.min(1, t / .25, (2 - t) / .25) : 0; };
-const FORGED = { x: 280, y: 150, zap: 0 };
+const FORGED = { x: 280, y: 150, zap: 0 }, FORGED2 = { x: 280, y: 190, zap: 3 };
 const PHANTOMS = [[238, 205], [402, 178]].map(([x, y]) => ({ x, y, hx: x, hy: y, r: 17, kick: 420, e: 1, kind: 'phantom', flash: 0 }));
 const PH_SPOTS = [[[238, 205], [208, 226], [258, 186]], [[396, 168], [368, 184], [346, 204]]]; // each phantom flickers between three spots close to home, clear of the star, saucer and posts
 const SENTRIES = [0, 1].map(() => ({ x: 300, y: 470, r: 12, kick: 260, e: 1, kind: 'sentry', flash: 0 }));
@@ -1987,7 +1997,8 @@ function drawFlameParts(dt) {
   ctx.restore();
 }
 function drawBallFlame(q, k, dt) { // a comet of fire: flickering tongues streaming behind the ball, a white-hot core and shed particles
-  const pal = flamePal(ballTint(q)), R0 = q.rad || 10, sp = hyp(q.vx, q.vy), t = performance.now() / 1000;
+  const pal = flamePal(q.flameT > 0 && !hellOn(q) ? [70, 150, 255] : ballTint(q)), R0 = q.rad || 10, // Velocity Surge burns blue
+    sp = hyp(q.vx, q.vy), t = performance.now() / 1000;
   // flames stream away from the motion and lean upward when the ball is slow
   const mix = Math.min(1, sp / 700), ux = sp > 1 ? -q.vx / sp : 0, uy = sp > 1 ? -q.vy / sp : -1, dx = ux * mix, dy = uy * mix - (1 - mix), dl = hyp(dx, dy) || 1, ang = Math.atan2(dy / dl, dx / dl);
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
@@ -2013,7 +2024,7 @@ function ballTint(b) {
   return null;
 }
 function flamePal(c) { return c ? [c.map(v => v + (255 - v) * .65 | 0).join(','), c.join(','), c.map(v => v * .45 | 0).join(',')] : ['255,240,170', '255,130,30', '255,40,0']; }
-const hellOn = b => !!b && isReal(b) && b.layer !== 3 && (b.hfire > 0 || (syn('penance') && S.balls <= 1 && S.phase === 'play'));
+const hellOn = b => !!b && isReal(b) && b.layer !== 3 && (b.hfire > 0 || ((syn('penance') || has('phoenix')) && S.balls <= 1 && S.phase === 'play')); // Phoenix Engine: the last ball burns for good
 function ignite(b) { b.hfire = 5; S.hfN = 0; msg('HELLFIRE BALL · ×1.3 MULT', 2.5); pop(b.x, b.y - 34, 'IGNITED', '#ff7a2e', true); voice(90, .5, 'sawtooth', .07, 0, 0, 420); noise(.5, .08, 900, 3000, 'bandpass'); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .5, c: '255,120,40', big: true }); }
 function hellHit(obj) {
   if (!syn('rage')) return; const b = curBall; if (!b || !isReal(b)) return;
@@ -2058,9 +2069,9 @@ function legTick(dt) {
       for (const o of allTargets()) { const [ox, oy] = objPos(o); if (ox >= X0 && ox < X1 && !S.sat.fired.has(o)) { S.sat.fired.add(o); o.flash = 1; award(600, 'orbital', o, ox, oy - 26, true); } }
       for (const q of balls) if (isReal(q) && q.x >= X0 - 8 && q.x < X1 + 8 && !S.sat.fired.has(q)) { S.sat.fired.add(q); q.orb = Math.min(3, (q.orb || 0) + .5); pop(q.x, q.y - 34, 'ORBITAL +' + Math.round(q.orb * 100) + '%', '#7fe7ff', true); }
       if (S.sat.x > 545) S.sat = null; } }
-  if (has('leg_mystic') && legEvery('runes', 8, dt) && rb) { const o = rnd(allTargets()), [x, y] = objPos(o); o.mod = { t: 10, m: 5 }; fx.push({ type: 'beam', x1: rb.x, y1: rb.y, x2: x, y2: y, t: 0, life: .4, c: '255,160,60' }); pop(x, y - 34, 'ENCHANTED 5×', '#ff9a2e', true); tone(660, .3, 'sine', .05, 1320); }
+  bookTick(dt);
   if (has('leg_magnet')) { AST.a += dt * .32; AST.x = 280 + 118 * Math.cos(AST.a - Math.PI / 2); AST.y = 590 + 118 * Math.sin(AST.a - Math.PI / 2); if (AST.flash > 0) AST.flash = Math.max(0, AST.flash - dt * 4); }
-  if (has('leg_explosive')) { S.fuse = (S.fuse || 0) + dt / 15; if (S.fuse >= 1) { S.fuse = 0; if (rb) { explode(rb.x, rb.y, 1500); const sp = hyp(rb.vx, rb.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.25) / sp; rb.vx *= k; rb.vy *= k; msg('THE FUSE BURNS OUT · BOOM'); S.shake = 1; sfx.boom(); fx.push({ type: 'ring', x: rb.x, y: rb.y, t: 0, life: .6, c: '255,120,60', big: true }); } } }
+  if (has('leg_explosive')) { S.fuse = (S.fuse || 0) + dt / 15; if (S.fuse >= 1) { S.fuse = 0; if (rb) { explode(rb.x, rb.y, 3000); const sp = hyp(rb.vx, rb.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.25) / sp; rb.vx *= k; rb.vy *= k; msg('THE FUSE BURNS OUT · BOOM'); S.shake = 1; sfx.boom(); fx.push({ type: 'ring', x: rb.x, y: rb.y, t: 0, life: .6, c: '255,120,60', big: true }); } } }
   if (has('leg_quantum') && legEvery('rift', 20, dt) && rb) { S.riftFx = 1; for (let i = 0; i < 2; i++) setTimeout(() => { const r = realBall(); if (r) tempBall(r, { life: 6 / tempDur(), msg: 'QUANTUM RIFT' }); }, i * 120); fx.push({ type: 'ring', x: RIFT[0], y: RIFT[1], t: 0, life: .6, c: '90,210,255', big: true }); }
   if (S.riftFx) S.riftFx = Math.max(0, S.riftFx - dt);
   if (has('leg_adamant') && legEvery('herb', 25, dt) && S.herb > 0) { const v = S.herb * 2; S.herb = 0; bonus(v, HEARTP[0] - 40, HEARTP[1] - 70, 'VOIDSTEEL'); msg('VOIDSTEEL HEART ERUPTS'); fx.push({ type: 'ring', x: HEARTP[0], y: HEARTP[1], t: 0, life: .8, c: '180,110,255', big: true }); tone(110, .6, 'sawtooth', .07, 440); S.herbFx = 1; }
@@ -2068,7 +2079,7 @@ function legTick(dt) {
   if (has('leg_speed')) for (const q of balls) { if (!isReal(q) || q.captured) continue;
     if (q.flameT > 0) { q.flameT -= dt; if (q.flameT <= 0) { q.flameT = 0; q.flameCd = 4; } }
     else if (q.flameCd > 0) q.flameCd -= dt;
-    else if (q.layer === 0 && !inLane(q) && hyp(q.vx, q.vy) >= (S.maxv || MAXV) * .9) { q.flameT = 2; msg('SPEED FORCE · FLAMING BALL 2.5×'); pop(q.x, q.y - 34, 'IGNITED', '#ffb347', true); tone(300, .4, 'sawtooth', .06, 900); fx.push({ type: 'ring', x: q.x, y: q.y, t: 0, life: .45, c: '255,150,50' }); } }
+    else if (q.layer === 0 && !inLane(q) && hyp(q.vx, q.vy) >= (S.maxv || MAXV) * .9) { q.flameT = 2; msg('SPEED FORCE · FLAMING BALL 2.5×'); pop(q.x, q.y - 34, 'IGNITED', '#6fb4ff', true); tone(300, .4, 'sawtooth', .06, 900); fx.push({ type: 'ring', x: q.x, y: q.y, t: 0, life: .45, c: '90,160,255' }); } }
   if (has('leg_illusion')) { if (!LEGILL.length || legEvery('illmove', 12, dt)) placeIllusions(); for (const q of LEGILL) { if (q.flash > 0) q.flash = Math.max(0, q.flash - dt * 4); q.a = Math.min(1, (q.a || 0) + dt * 2); } } else if (LEGILL.length) LEGILL.length = 0;
   if (has('leg_gamma') || has('leg_speed')) for (const q of balls) if (isReal(q)) { (q.trail ||= []).push(q.x, q.y); if (q.trail.length > 16) q.trail.splice(0, 2); }
   if (S.cracks && S.cracks.length) S.cracks = S.cracks.filter(c => (c.t -= dt) > 0);
@@ -2078,11 +2089,6 @@ Bus.on('hit', e => {
   const tg = PHYS.has(e.kind) || e.kind === 'enemy';
   if (has('leg_thunder') && b.chg > 0 && tg && budget('crown', 5)) { const pool = allTargets().filter(o => o !== e.obj).sort(() => Math.random() - .5).slice(0, 2); pool.forEach(o => boltTo(b.x, b.y, o, 400)); }
   if (has('leg_web') && tg && e.obj && budget('webverse', 8)) { const o = e.obj; if (o.web) { const n = allTargets().filter(q => q.web).length; const [x, y] = objPos(o); award(40 * Math.min(n, 10), 'webverse', o, x + 20, y - 44, true); } }
-  if (has('leg_gamma') && isReal(b) && (e.kind !== 'flipper') && (b.gcol = (b.gcol || 0) + 1) % 15 === 0) {
-    msg('WORLDSPLITTER SMASH!'); S.shake = 1; sfx.boom(); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .6, c: '108,255,90', big: true });
-    for (const o of allTargets()) { const [ox, oy] = objPos(o); if (hyp(ox - b.x, oy - b.y) < 200) { o.flash = 1; award(700, 'gamma', o, ox, oy - 26, true); } }
-    const lines = []; for (let i = 0; i < 7; i++) { let a = i / 7 * TAU + Math.random() * .5, x = b.x, y = b.y; const pts = [x, y]; for (let k = 0; k < 5; k++) { a += (Math.random() - .5) * .9; x += Math.cos(a) * (14 + Math.random() * 18); y += Math.sin(a) * (14 + Math.random() * 18); pts.push(x, y); } lines.push(pts); }
-    S.cracks.push({ lines, t: 6 }); if (S.cracks.length > 5) S.cracks.shift(); }
 });
 function drawLegUnder(dt) {
   const t = performance.now() / 1000;
@@ -2092,7 +2098,7 @@ function drawLegUnder(dt) {
     for (const [a, c] of [[B[0], B[1]], [B[1], B[2]], [B[2], B[0]]]) { const dx = c.x - a.x, dy = c.y - a.y, l = hyp(dx, dy) || 1, nx = -dy / l * 4, ny = dx / l * 4; for (const sg of [1, -1]) { ctx.beginPath(); ctx.moveTo(a.x + nx * sg, a.y + ny * sg); ctx.lineTo(c.x + nx * sg, c.y + ny * sg); ctx.stroke(); } } ctx.setLineDash([]); ctx.shadowBlur = 0; }
   if (S.mirage) { const [x, y] = objPos(S.mirage.o); ctx.strokeStyle = `rgba(125,255,176,${.5 + .4 * Math.sin(t * 9)})`; ctx.shadowColor = '#7dffb0'; ctx.shadowBlur = 14; ctx.lineWidth = 2;
     for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(x + Math.sin(t * 5 + i * 2) * 3, y + Math.cos(t * 4 + i) * 3, 20 + i * 5, 0, TAU); ctx.stroke(); } ctx.shadowBlur = 0; }
-  if (S.cracks) for (const c of S.cracks) { const a = Math.min(1, c.t / 2); ctx.strokeStyle = `rgba(20,30,10,${.8 * a})`; ctx.lineWidth = 3; for (const L of c.lines) { ctx.beginPath(); for (let i = 0; i < L.length; i += 2) i ? ctx.lineTo(L[i], L[i + 1]) : ctx.moveTo(L[i], L[i + 1]); ctx.stroke(); }
+  if (S.cracks) for (const c of S.cracks) { const a = Math.min(1, c.t); ctx.strokeStyle = `rgba(20,30,10,${.8 * a})`; /* a: full for 2 s, then fades over the last second */ ctx.lineWidth = 3; for (const L of c.lines) { ctx.beginPath(); for (let i = 0; i < L.length; i += 2) i ? ctx.lineTo(L[i], L[i + 1]) : ctx.moveTo(L[i], L[i + 1]); ctx.stroke(); }
     ctx.strokeStyle = `rgba(120,255,90,${.7 * a})`; ctx.lineWidth = 1.2; ctx.shadowColor = '#6cff5a'; ctx.shadowBlur = 8; for (const L of c.lines) { ctx.beginPath(); for (let i = 0; i < L.length; i += 2) i ? ctx.lineTo(L[i], L[i + 1]) : ctx.moveTo(L[i], L[i + 1]); ctx.stroke(); } ctx.shadowBlur = 0; }
   if (has('leg_quantum')) { // fractal rift
     const [x, y] = RIFT, o = S.riftFx || 0; ctx.save(); ctx.translate(x, y); const gg = ctx.createRadialGradient(0, 0, 2, 0, 0, 34); gg.addColorStop(0, 'rgba(0,0,0,.95)'); gg.addColorStop(.6, 'rgba(20,40,90,.8)'); gg.addColorStop(1, 'rgba(90,210,255,0)');
@@ -2138,7 +2144,7 @@ function drawLegOver(dt) {
     for (let i = 0; i < 14; i++) { const ph = (t * .5 + i * .071) % 1, sx = 40 + ((i * 37) % 460) + Math.sin(t + i) * 6, sy = base - 10 - ph * 70; ctx.fillStyle = `rgba(230,210,255,${(1 - ph) * .9})`; ctx.fillRect(sx, sy, 2, 2); } }
   if (S.blue) { const y = S.blue.y; ctx.strokeStyle = 'rgba(90,180,255,.95)'; ctx.shadowColor = '#5ab4ff'; ctx.shadowBlur = 18; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(22, y); ctx.lineTo(518, y); ctx.stroke(); ctx.strokeStyle = 'rgba(220,240,255,.9)'; ctx.lineWidth = 1; ctx.stroke(); ctx.shadowBlur = 0;
     for (let i = 0; i < 6; i++) { const x = 40 + ((t * 300 + i * 83) % 470); ctx.fillStyle = 'rgba(180,225,255,.8)'; ctx.fillRect(x, y - 1 + Math.sin(t * 30 + i) * 3, 3, 2); } }
-  if (has('forgeworks')) { const D = FORGED; ctx.save(); ctx.translate(D.x, D.y); ctx.scale(OC(), OC()); ctx.rotate(Math.sin(t * .45) * .3);
+  if (has('forgeworks')) for (const D of has('forgeworks') >= 2 ? [FORGED, FORGED2] : [FORGED]) { ctx.save(); ctx.translate(D.x, D.y); ctx.scale(OC(), OC()); ctx.rotate(Math.sin(t * .45) * .3);
     for (const sx of [-1, 1]) { const g = ctx.createRadialGradient(sx * 9, 6, 0, sx * 9, 6, 8); g.addColorStop(0, 'rgba(210,250,255,.95)'); g.addColorStop(1, 'rgba(120,220,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx * 9, 6 + Math.sin(t * 30) * 1, 8, 0, TAU); ctx.fill(); }
     ctx.fillStyle = '#b3121b'; ctx.strokeStyle = '#f5c542'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(0, -8); ctx.lineTo(11, 3); ctx.lineTo(0, 6); ctx.lineTo(-11, 3); ctx.closePath(); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#e8fdff'; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(0, -1, 2.5, 0, TAU); ctx.fill(); ctx.restore(); }
@@ -2171,7 +2177,6 @@ function drawLegOver(dt) {
     ctx.fillStyle = '#9aa3b8'; ctx.fillRect(x - 16, 34, 32, 8); ctx.fillStyle = '#3f7fd0'; ctx.fillRect(x - 30, 35, 12, 6); ctx.fillRect(x + 18, 35, 12, 6); }
   for (const q of balls) { if (q.captured) continue;
     if (q.chg > 0) { const k = performance.now() / 50 | 0; ctx.strokeStyle = 'rgba(170,235,255,.9)'; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 12; ctx.lineWidth = 1.5; ctx.beginPath(); for (let i = 0; i <= 12; i++) { const a = i / 12 * TAU, j = ((i * 7919 + k * 31) % 13) / 13; ctx.lineTo(q.x + Math.cos(a) * (13 + j * 7), q.y + Math.sin(a) * (13 + j * 7)); } ctx.stroke(); ctx.shadowBlur = 0; }
-    if (has('leg_mystic') && isReal(q)) for (let i = 0; i < 3; i++) { const a = t * 2.2 + i * TAU / 3, x = q.x + Math.cos(a) * 24, y = q.y + Math.sin(a) * 24; ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.fillStyle = 'rgba(255,200,120,.85)'; ctx.shadowColor = '#ff9a2e'; ctx.shadowBlur = 10; ctx.fillRect(-4, -5, 8, 10); ctx.strokeStyle = '#7a3a00'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(-2, -2); ctx.lineTo(2, -2); ctx.moveTo(-2, 1); ctx.lineTo(2, 1); ctx.stroke(); ctx.restore(); }
     if (has('leg_gamma') && isReal(q) && q.trail) { ctx.shadowColor = '#6cff5a'; ctx.shadowBlur = 16; ctx.strokeStyle = `rgba(108,255,90,${.45 + .2 * Math.sin(t * 8)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(q.x, q.y, 14, 0, TAU); ctx.stroke(); ctx.shadowBlur = 0; }
     if (has('leg_speed') && isReal(q) && q.trail && hyp(q.vx, q.vy) > 900) { const T2 = q.trail; for (let i = 0; i < T2.length - 2; i += 4) { const a = i / T2.length; ctx.fillStyle = `rgba(255,224,90,${.45 * a})`; ctx.beginPath(); ctx.arc(T2[i], T2[i + 1], 8 * a + 2, 0, TAU); ctx.fill(); }
       }
@@ -2196,6 +2201,48 @@ const prot = () => !(S.meltT > 0); // meltdown switches off drain protection
 const tempDur = () => 1;
 const isTarget = o => o && typeof o === 'object' && (o.kind === 'bumper' || o.kind === 'standup' || o.kind === 'drop' || o.kind === 'enemy' || o.kind === 'star');
 let TGC = null; // live target list, rebuilt at most once per tick (or when a target appears/disappears)
+function tempestStrike(src) { // Tempest Fragment: a ball hit on an Electrified target calls lightning on a nearby target (never on itself)
+  if (!budget('tempest', 4)) return; const [sx, sy] = objPos(src), near = allTargets().filter(o => o !== src).map(o => [o, ...objPos(o)]).filter(([, x, y]) => hyp(x - sx, y - sy) < 220).sort((p, q) => hyp(p[1] - sx, p[2] - sy) - hyp(q[1] - sx, q[2] - sy)).slice(0, 3); if (!near.length) return;
+  const [o, x, y] = rnd(near); fx.push({ type: 'bolt', x1: sx, y1: sy, x2: x, y2: y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(300, 'lightning', o, x, y - 26, true); tone(1600, .08, 'sawtooth', .04, 400); }
+function furyThunder(o) { // Warrior's Toast: Battle-Fury hits call thunder down on the target
+  if (!budget('fury', 8)) return; const [x, y] = objPos(o); fx.push({ type: 'bolt', x1: x + (Math.random() - .5) * 50, y1: y - 180, x2: x, y2: y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); award(500, 'lightning', o, x, y - 40, true); tone(140, .25, 'sawtooth', .06, 60); }
+function setMass(b, n) { const k0 = 1 + .03 * (b.mass || 0); b.mass = n; b.rad = (b.rad || 10) / k0 * (1 + .03 * n); if (n) pop(b.x, b.y - 30, 'MASS ' + n, '#c9b28a'); }
+function stonebreak(b, src) { // Living Stone: at full Mass the next bumper hit blasts everything nearby
+  const x0 = b.x, y0 = b.y; setMass(b, 0); msg('STONEBREAK!', 2); S.shake = Math.max(S.shake || 0, .8); noise(.45, .1, 600, 80, 'lowpass'); tone(90, .35, 'sawtooth', .07, 50);
+  fx.push({ type: 'ring', x: x0, y: y0, t: 0, life: .6, c: '201,178,138', big: true }); fragsAt(x0, y0, '201,178,138', 16);
+  allTargets().filter(o => o !== src).forEach(o => { const [x, y] = objPos(o); if (hyp(x - x0, y - y0) < 170) { o.flash = 1; award(500, 'explosion', o, x, y - 24, true); } }); }
+function titanfall(b) { // Titanfall (Gamma legendary): the ball slams down, sets everything nearby alight and fires the red bumpers
+  const k = Math.max(1, (b.rad || 10) / 10), R0 = 170 * k, dmg = Math.round(600 * k / 50) * 50, x0 = b.x, y0 = b.y, pal = ballTint(b);
+  msg('TITANFALL!', 2.5); S.shake = Math.max(S.shake || 0, 1.4); S.pulse = 1; sfx.boom(); noise(.6, .14, 500, 60, 'lowpass'); voice(70, .6, 'sawtooth', .08, 0, 0, 35);
+  fx.push({ type: 'flash', t: 0, life: .2 }, { type: 'ring', x: x0, y: y0, t: 0, life: .7, c: '108,255,90', big: true }, { type: 'ring', x: x0, y: y0, t: 0, life: .45, c: '255,150,60' }); fragsAt(x0, y0, '120,255,90', 18);
+  for (const o of allTargets()) { const [ox, oy] = objPos(o); if (hyp(ox - x0, oy - y0) < R0) { o.flash = 1; o.burnT = 2; o.burnC = pal; award(dmg, 'gamma', o, ox, oy - 26, true); } }
+  mainBumpers().forEach((c, i) => setTimeout(() => { if (!activePlay()) return; c.flash = 1; fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .35, c: '255,90,90' }); award(c.pts, 'bumper', c, c.x, c.y - 36, true); tone(480 + i * 80, .07, 'square', .06, 820); }, 90 + i * 80));
+  const lines = []; for (let i = 0; i < 9; i++) { let a = i / 9 * TAU + Math.random() * .5, x = x0, y = y0; const pts = [x, y]; for (let q = 0; q < 6; q++) { a += (Math.random() - .5) * .9; const st = (14 + Math.random() * 18) * k; x += Math.cos(a) * st; y += Math.sin(a) * st; pts.push(x, y); } lines.push(pts); }
+  (S.cracks ||= []).push({ lines, t: 3 }); if (S.cracks.length > 5) S.cracks.shift(); } // the crack holds for 2 s, then fades out over 1 s
+function eyeReveal(prev, hit) { // The All-Seeing Eye: mark a target for 6 s
+  if (hit) { const [x, y] = objPos(prev); pop(x, y - 52, 'SEEN ×3', '#5aff8c', true); tone(900, .15, 'sine', .05, 1400); }
+  const c = liveTargets().filter(o => o !== prev && o !== enemy); S.eye = c.length ? { o: rnd(c), t: 6 } : null; if (S.eye && !hit) tone(520, .25, 'sine', .05, 1040); }
+function drawEye(dt) { const E = S.eye; if (!E || !has('alleye')) return; const [x, y0] = objPos(E.o), t = performance.now() / 1000, y = y0 - (E.o.r || 12) - 22 + Math.sin(t * 3) * 2, a = Math.min(1, E.t / .6);
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); ctx.shadowColor = '#5aff8c'; ctx.shadowBlur = 14; ctx.strokeStyle = '#7dffb0'; ctx.lineWidth = 2;
+  const h = 7 * (Math.sin(t * 1.3) ** 8 > .9 ? .2 : 1); ctx.beginPath(); ctx.moveTo(-14, 0); ctx.quadraticCurveTo(0, -h * 1.6, 14, 0); ctx.quadraticCurveTo(0, h * 1.6, -14, 0); ctx.closePath(); ctx.fillStyle = 'rgba(10,30,18,.85)'; ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#5aff8c'; ctx.beginPath(); ctx.arc(0, 0, Math.min(4.5, h * .75), 0, TAU); ctx.fill(); ctx.fillStyle = '#031208'; ctx.beginPath(); ctx.arc(0, 0, Math.min(2, h * .35), 0, TAU); ctx.fill();
+  ctx.shadowBlur = 0; ctx.globalAlpha = a * .5; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(0, 9); ctx.lineTo(0, 16); ctx.stroke(); ctx.setLineDash([]);
+  ctx.globalAlpha = a * .7; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0, 22 + (y0 - y - 22), (E.o.r || 12) + 6, 0, TAU * Math.min(1, E.t / 6)); ctx.stroke(); ctx.restore(); }
+// Book of the Ancients: every open portal takes its turn eating into the next ARCFORGE letter (0.2 letter/s); progress carries over between portals
+function openPortals() { const L = []; if (has('portals') || has('nzgate') || S.tempPortalT > 0 || syn('sanctum5')) L.push(...PORTALS); if (has('nzgate')) L.push(...VPORTALS); return L; }
+const letterXY = i => [270 + (i - (WORD.length - 1) / 2) * 17, 742 - Math.sin(i / (WORD.length - 1) * Math.PI) * 10];
+function bookTick(dt) { if (!has('leg_mystic')) return; const L = openPortals(); if (!L.length) return;
+  S.bookP = (S.bookP || 0) + .2 * dt; if (S.bookP >= 1) { S.bookP -= 1; S.bookI = (S.bookI || 0) + 1; const [x, y] = letterXY(S.letters); fx.push({ type: 'ring', x, y, t: 0, life: .4, c: '255,170,70' }); lightLetter(x, y); tone(880, .12, 'sine', .05, 1320); } }
+function drawBook() { if (!has('leg_mystic')) return; const L = openPortals(); if (!L.length || !(S.bookP > 0)) return; const P = L[(S.bookI || 0) % L.length], [x, y] = letterXY(S.letters), t = performance.now() / 1000;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = 'rgba(255,170,70,.45)'; ctx.lineWidth = 1.5; ctx.setLineDash([2, 6]); ctx.lineDashOffset = -t * 30; ctx.beginPath(); ctx.moveTo(P[0], P[1]); ctx.quadraticCurveTo((P[0] + x) / 2, Math.min(P[1], y) - 40, x, y); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(255,190,80,.55)'; ctx.fillRect(x - 7, y + 10 - 20 * S.bookP, 14, 20 * S.bookP); ctx.restore(); }
+function soulSlash(y0) { // Soul Blade: a spectral slash sweeps across the table at the ball's height
+  const dir = Math.random() < .5 ? 1 : -1, xa = dir > 0 ? 24 : 536, xb = dir > 0 ? 536 : 24; fx.push({ type: 'blade', x1: xa, y1: y0, x2: xb, y2: y0, t: 0, life: .5, spec: true }); msg('SOUL BLADE'); noise(.3, .07, 4000, 900); tone(1800, .2, 'sawtooth', .04, 300);
+  allTargets().forEach(o => { const [ox, oy] = objPos(o); if (Math.abs(oy - y0) < (o.r || 12) + 26) setTimeout(() => { if (!activePlay()) return; o.flash = 1; award(400, 'soulcut', o, ox, oy - 22, true); }, Math.abs(ox - xa) / 512 * 220); }); }
+function phoenixBurst() { // Phoenix Engine: a table-wide fireburst as the last ball is reborn
+  S.shake = Math.max(S.shake || 0, 1); S.pulse = 1; sfx.boom(); fx.push({ type: 'flash', t: 0, life: .3 }, { type: 'ring', x: 270, y: 860, t: 0, life: .8, c: '255,140,40', big: true });
+  allTargets().forEach((o, i) => setTimeout(() => { if (!activePlay()) return; const [x, y] = objPos(o); o.flash = 1; o.burnT = 2; o.burnC = null; fx.push({ type: 'boom', x, y, t: 0, life: .35 }); award(300, 'explosion', o, x, y - 24, true); }, 40 + i * 25)); }
+function droneStrike(o, pts, x, y) { award(pts, 'drone', o, x, y, true); if (o === enemy) coreHit(enemy, null, true); } // drone shots on the Arc Core light letters like a real core hit
 function allTargets() { return TGC || (TGC = [...bumpers, ...standups, ...drops.filter(d => !d.down), ...stars, enemy]); }
 function objPos(o) {
   if (o === enemy) { const p = plateXY(enemy); return [p[0], p[1] - 2]; }
@@ -2235,8 +2282,7 @@ function globalBonus() {
   a += .15 * has('blackorder') * Math.floor((S.level - 1) / 5) + (has('hunger') ? S.hunger || 0 : 0);
   a += .4 * has('crimelord');
   a += .2 * has('titan');
-  a += (S.mystic || 0) + (S.comet || 0) + (S.khon === 'score' ? .25 : 0) + .25 * (S.eyeN || 0);
-  if (has('catalogue')) a += .02 * S.bought.size;
+  a += (S.mystic || 0) + (S.comet || 0);
   if (has('malachar')) a += .1 * Math.floor(S.credits / 100);
   if (has('helmet') && S.boss && !S.boss.defeated) a += .3; // Polarity Crown
   return a;
@@ -2247,8 +2293,9 @@ function globalMult() {
   if (S.portalT > 0) m *= 2;
   if (S.imm > 0) m *= 1 + S.imm; // Immortal (Voidsteel III): +0.25× Mult per save
   if (S.ehS && S.ehS.length) { const now = performance.now(), n = S.ehS.filter(e => e > now).length; if (n) m *= 1 + .25 * n; } // Event Horizon stacks
-  if (has('phoenix') && S.balls <= 1) m *= syn('immortal') ? 3 : 2;
+  if (syn('immortal') && S.balls <= 1) m *= 3;
   if (S.rodT > 0) m *= 1.5;
+  if (has('catalogue') && S.boughtN) m *= 1 + .05 * S.boughtN; // The Curator's Catalogue: +0.05× per shop purchase
   if (has('ember') && S.lost) m *= 1 + S.lost * T('ember', .25, .35, .5); // Hellfire Ember: +Mult per drained ball
   return m;
 }
@@ -2257,6 +2304,7 @@ function scoreFactor(kind, obj, cls) {
   const b = curBall, hit = cls === 'hit' || (cls === 'effect' && WEAP_KINDS.has(kind) && isTarget(obj)), phys = PHYS.has(kind), tgt = isTarget(obj);
   // source
   let src = 1;
+  if (phys && b && b.mass) src *= 1 + .1 * b.mass; // Living Stone: Mass
   if (b && b.carUntil > performance.now()) src *= 2; // Emperor's Carapace: the saved ball glows violet
   if (kind === 'bumper') {
     if (b && b.kin && cls === 'hit') { src *= 2.5; b.kin = false; }
@@ -2282,8 +2330,7 @@ function scoreFactor(kind, obj, cls) {
   // Bonus (+%)
   let add = globalBonus();
   if (phys) {
-    add += T('stonegiant', .3, .4, .55);
-    if (b) { add += (b.rage || 0) + (b.venom === 'heavy' ? .3 : 0) + (has('venom') ? S.hungB || 0 : 0); if (has('mead') && (b.col || 0) < T('mead', 15, 20, 25)) add += T('mead', .2, .25, .3);
+    if (b) { add += (b.rage || 0) + (b.venom === 'heavy' ? .3 : 0) + (has('venom') ? S.hungB || 0 : 0);
       if (has('radiation') && b.radT > 0) add += T('radiation', .3, .5, .75);
       }
     if (syn('worldbreaker')) add += 1;
@@ -2297,24 +2344,26 @@ function scoreFactor(kind, obj, cls) {
     if (has('mimic') && balls.some(q => !isReal(q))) add += T('mimic', .25, .4, .4);
     if (has('hellrider')) add += S.comboT > 0 ? S.combo * T('hellrider', .12, .18, .18) : 0; }
   if (b) add += (b.eh || 0) + (b.wiz || 0) + (b.orb || 0) + (has('rampage') ? (b.rampage || 0) * T('rampage', .1, .15, .2) : 0);
-  if (tgt) { if (obj.web) add += Math.max(has('tracer') ? T('tracer', .3, .45, .6) : .2, syn('weboflife') ? .5 : 0); if (obj.sym) add += .5; }
+  if (tgt) { if (obj.web) add += Math.max(has('tracer') ? T('tracer', .3, .45, .6) : 0, syn('weboflife') ? .5 : 0); if (obj.sym) add += .5; }
   // Mult (×)
   let m = globalMult();
-  if (tgt) { if (obj.x2T > 0) m *= 2; if (obj.mod && obj.mod.t > 0) m *= obj.mod.m; if (obj.web) m += .5; if (obj.web && has('webmaster')) m *= T('webmaster', 1.5, 2, 2); if (obj === S.mark && hit && has('trickarrow')) m *= T('trickarrow', 4, 5, 5); if (b && b.capM && cls === 'hit') m *= b.capM; if (obj.growT > 0) m *= 2; }
+  if (tgt) { if (obj.x2T > 0) m *= 2; if (obj.mod && obj.mod.t > 0) m *= obj.mod.m; if (obj.web) m += .4 + T('webmaster', .4, .6, .6); /* webbed: +0.4× Mult, Web of Fate adds +0.4 / +0.6 */ if (obj === S.mark && hit && has('trickarrow')) m *= T('trickarrow', 4, 5, 5); if (b && b.capM && cls === 'hit') m *= b.capM; if (obj.growT > 0) m *= 2; }
   if (S.crownT > 0) m *= 1.5;
   if (S.cres > 0) m *= 1 + S.cres;
-  if (has('grimoire')) m *= 1.5 + .5 * (S.lost || 0);
+  if (b && has('khonsu') && b.y < 470) m += .5; // Moon Idol: upper half of the table
+  if (b && b.skyT > 0) m += .5; // Skyhunter Wings
+  if (tgt && S.eye && S.eye.o === obj && cls === 'hit') m *= 3; // The All-Seeing Eye: the revealed target
+  if (has('grimoire')) m *= 1.5 + .5 * Math.max(0, (S.lost || 0) - 1); // the Grimoire's own drained ball does not count for itself
   if (b && has('hellrider') && !(S.comboT > 0)) m *= .8;
   if (b && has('torch') && hyp(b.vx, b.vy) < 500) m *= .75;
   if (tgt && hit && has('lucky')) { if (Math.random() < T('lucky', .1, .15, .15)) { m *= 4; pop(...objPos(obj), 'LUCKY ×4', '#ff6b3d', true); } else m *= .9; }
   if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
   if (b) { const full = b.temp && syn('spiderverse');
     if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 2; if (phys && hellOn(b)) m *= syn('penance') ? 1.6 + .2 * (b.heat || 0) : 1.3;
-    if (!full) { if (b.ghost && !b.full) m *= syn('astral') ? Math.max(.5, b.gpay || .5) : b.gpay || .5; if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= syn('astral') ? .5 : .25; if (b.spectral) m *= .5; }
+    if (!full) { if (b.ghost && !b.full) m *= syn('astral') ? Math.max(.5, b.gpay || .25) : b.gpay || .25; /* ghost balls: 25% base */ if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= syn('astral') ? .5 : .25; if (b.spectral) m *= .5; }
   }
   if (cls === 'hit' && tgt) { // one-shot, per-hit effects are consumed only by clean hits
     if (S.punish) { add += S.punish; S.punish = 0; }
-    if (b && b.steerT > 0 && has('skyhawk')) { add += T('skyhawk', .25, .5, 1); b.steerT = 0; }
     if (S.adrenal) { m *= 3; S.adrenal = false; pop(...objPos(obj), 'OVERDRIVE ×3', '#7fe7ff', true); }
     if (S.focusN > 0) { m *= 3; S.focusN--; }
     if (b && b.venom === 'lucky' && Math.random() < .1) m *= 3;
@@ -2395,7 +2444,7 @@ function explode(x, y, pow, depth = 0, src = null) {
   fx.push({ type: 'boom', x, y, t: 0, life: .45 }); noise(.35, .12, 700, 80, 'lowpass'); S.shake = Math.max(S.shake || 0, .35);
   const hits = [];
   const RR = 95 * (syn('bigbang') ? 1.5 : 1); if (!depth) pow *= 1 + T('fuse', .2, .35, .5);
-  if (has('vigilante') && Math.random() < T('vigilante', .12, .2, .2)) { pow *= 4; pop(x, y - 40, 'CRITICAL!', '#ff3a3a', true); S.shake = 1; }
+  if (has('vigilante') && Math.random() < T('vigilante', .4, .6, .6)) { pow *= 4; pop(x, y - 40, 'CRITICAL!', '#ff3a3a', true); S.shake = 1; }
   const near = allTargets().map(o => [o, hyp(objPos(o)[0] - x, objPos(o)[1] - y)]).filter(([, d]) => d <= RR).sort((a, b) => a[1] - b[1]).slice(0, 5);
   for (const [o] of near) scorch(o, x, y);
   for (const [o, d] of near) { const [ox, oy] = objPos(o); o.flash = 1; award(pow * (1 - d / (RR * 2)), 'explosion', o, ox, oy - 20, true); hits.push([o, d]); if (syn('chaosboom')) o.mod = { m: rnd([.5, 1.5, 2, 2.5]), t: 6 }; }
@@ -2410,7 +2459,7 @@ function destroyed(o) { // a drop target knocked down, or ARCFORGE completed on 
 // ---- lightning ----
 function chain(from, n, pts, src, depth = 0) {
   if (!budget('chain', 1.5)) return [];
-  n += (syn('overcharge') ? 1 : 0) + T('cleaver', 1, 1, 2);
+  n += syn('overcharge') ? 1 : 0;
   const pool = allTargets().filter(o => o !== src).sort(() => Math.random() - .5).slice(0, n);
   let [x0, y0] = from;
   pool.forEach((o, i) => setTimeout(() => { if (!activePlay()) return; const [x, y] = objPos(o); fx.push({ type: 'bolt', x1: x0, y1: y0, x2: x, y2: y, t: 0, life: .4, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(pts, 'lightning', o, x, y - 26, true); if (o.kind === 'bumper' && syn('bringthanatos')) o.elec = 8; if (o.kind === 'bumper' && has('godthunder') && Math.random() < .25) countHit('bumper', o); x0 = x; y0 = y; }, i * 90));
@@ -2446,7 +2495,7 @@ function clutch(b) {
 // ---- hooks called from the core game ----
 function cardsLevel() {
   quantumReset(); S.snap2 = false;
-  Object.assign(S, { carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, comet: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, adrenal: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, soulblade: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {}, blue: null, herb: 0, legT: {}, ehS: [], strands: [], aim: null, legion: null, scrap: null, purgeFx: null, cheatFx: null, cheatO: null, cheatN: 0, capN: 0, hungB: 0, arcC: 0, aimN: 0, volN: 0, nanN: 0, slog: [], mark: null, resBoost: false, ockPush: 0, mantleFly: null, drone: null, drone2: null, cracks: [], fuse: 0, fieldT: 0, fieldN: 0, mstormT: 0, mirage: null, keg: false, kegN: 0, echoN: 0, polAcc: 0 });
+  Object.assign(S, { eye: null, eyeC: 0, bookP: 0, carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, comet: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, adrenal: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, soulblade: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {}, blue: null, herb: 0, legT: {}, ehS: [], strands: [], aim: null, legion: null, scrap: null, purgeFx: null, cheatFx: null, cheatO: null, cheatN: 0, capN: 0, hungB: 0, arcC: 0, aimN: 0, volN: 0, nanN: 0, slog: [], mark: null, resBoost: false, ockPush: 0, mantleFly: null, drone: null, drone2: null, cracks: [], fuse: 0, fieldT: 0, fieldN: 0, mstormT: 0, mirage: null, keg: false, kegN: 0, echoN: 0, polAcc: 0 });
   for (const o of [...bumpers, ...standups, ...drops, ...stars, enemy]) { o.web = false; o.sym = false; o.x2T = 0; o.mod = null; o.elec = 0; o.hitN = 0; }
   for (let i = bumpers.length - 1; i >= 0; i--) if (bumpers[i].temp) bumpers.splice(i, 1); TGC = null; PROJ.length = 0;
   bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } });
@@ -2478,7 +2527,6 @@ function cardsHit(kind, obj) {
   if (b && b.venom === 'explosive' && every('venomboom', 6)) explode(b.x, b.y, 300, 0);
   if (has('spiderleg') && every('spiderleg', T('spiderleg', 15, 12, 12)) && b) { const list = allTargets().filter(o => !o.web && !(o.kind === 'drop' && o.down)).sort((p, q) => hyp(objPos(p)[0] - b.x, objPos(p)[1] - b.y) - hyp(objPos(q)[0] - b.x, objPos(q)[1] - b.y)); const o = list[0]; if (o) { const [x, y] = objPos(o); fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: x, y2: y, t: 0, life: .25, c: '255,255,255' }); o.flash = 1; o.web = true; award(400, 'spiderleg', o, x, y - 24, true); pop(x, y - 44, 'WEBBED', '#ffffff'); part('spiderleg'); } }
   if (has('adrenal') && every('adrenal', 18)) { S.adrenal = true; msg('OVERDRIVE PRIMED · NEXT HIT 3×'); }
-  if (has('khonsu') && every('khonsu', T('khonsu', 30, 25, 20))) { S.khon = S.khon === 'score' ? 'force' : 'score'; msg(S.khon === 'score' ? 'MOON IDOL · +25% SCORING' : 'MOON IDOL · +25% FORCE'); }
   if (has('chaos') && every('chaos', 30)) {
     const opts = [['bumper', 'BUMPERS', 2], ['sling', 'SLINGSHOTS', 4], ['standup', 'STANDUPS', 3], ['drop', 'DROP TARGETS', 3], ['spinner', 'SPINNERS', 5], ['ramp', 'RAMP', 3], ['orbit', 'WARP', 3], ['star', 'STARS', 5]];
     const [k, nm, m] = rnd(opts); S.chaosMods[k] = (S.chaosMods[k] || 1) * m; msg('CHAOS MAGIC: ' + nm + ' ×' + S.chaosMods[k], 2.5); fx.push({ type: 'ring', x: 280, y: 400, t: 0, life: .6, c: '255,90,209', big: true });
@@ -2493,7 +2541,7 @@ function cardsHit(kind, obj) {
   }
 }
 function cardsBumper(c, b) {
-  if (has('gburst') && b && every('gburst', 5)) { const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.15) / sp; b.vx *= k; b.vy *= k; award(T('gburst', 300, 450, 450), 'gamma', c, c.x, c.y - 44, true); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .35, c: '108,255,90' }); }
+  if (has('gburst') && b && every('gburst', 4)) { const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.15) / sp; b.vx *= k; b.vy *= k; award(T('gburst', 300, 450, 450), 'gamma', c, c.x, c.y - 44, true); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .35, c: '108,255,90' }); }
   if (syn('brutesmash') && b && every('brutesmash', 5)) { b.rad = Math.min(12.5, (b.rad || 10) + .5); b.baseR = b.rad; b.smash = Math.min(1.5, (b.smash || 1) + .1); pop(b.x, b.y - 30, 'BRUTE SMASH', '#6cff5a', true); }
   if (has('mjolR') && every('mjolR', 5)) mjolnirStrike();
   if (has('widow') && S.slingT > 0) { S.slingT = 0; const r = 170; allTargets().forEach(o => { const [x, y] = objPos(o); if (o !== c && hyp(x - c.x, y - c.y) < r) { fx.push({ type: 'bolt', x1: c.x, y1: c.y, x2: x, y2: y, t: 0, life: .3, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(T('widow', 150, 250, 250), 'lightning', o, x, y - 20, true); } }); msg("SHOCKWIRE BITE"); }
@@ -2536,7 +2584,7 @@ Bus.on('hit', e => { // counters for the balance-pass cards
       if (has('herald') && (S.bugN = (S.bugN || 0) + 1) % 10 === 0) { award(T('herald', 1000, 1500, 1500), 'herald', o, 270, 640, true); msg('CITY GAZETTE: FRONT PAGE!'); fx.push({ type: 'flash', t: 0, life: .15 }); }
       if (has('baton') && (S.snareN = (S.snareN || 0) + 1) >= 3) { S.snareN = 0; const [x, y] = objPos(o); award(T('baton', 1000, 1500, 1500), 'web', o, x, y - 40, true); pop(x, y - 60, 'WEB SNARE', '#ffffff', true); }
     } else if (has('baton')) S.snareN = 0;
-    if (has('winter') && (b.gHits = (b.gHits || 0) + 1) % 10 === 0 && (b.gg || 0) < 5) { b.gg = (b.gg || 0) + 1; b.rad = baseRad() * (1 + .03 * b.gg); pop(b.x, b.y - 30, 'GROWTH +' + (b.gg * 3) + '%', '#6cff5a'); }
+    if (has('winter') && (b.gHits = (b.gHits || 0) + 1) % 10 === 0 && (b.gg || 0) < 5) { b.gg = (b.gg || 0) + 1; b.rad = baseRad() * (1 + .03 * b.gg) * (1 + .03 * (b.mass || 0)); pop(b.x, b.y - 30, 'GROWTH +' + (b.gg * 3) + '%', '#6cff5a'); }
     if (has('claw')) b.surge = (b.surge || 0) + 1;
   }
   if (has('infernal') && isReal(b) && !(b.hellT > 0) && (S.infN = (S.infN || 0) + 1) >= T('infernal', 25, 20, 20)) { S.infN = 0; b.hellT = 3; S.credits = Math.max(0, S.credits - 5); renderInv(); msg('INFERNAL ENGINE · 2× · −5 CREDITS'); pop(b.x, b.y - 36, 'HELLFIRE', '#ff4a4a', true); tone(160, .3, 'sawtooth', .06, 80); }
@@ -2557,6 +2605,7 @@ const CHAN = { tunnel: '#ff5ad2', ramp: '#b58cff', rorbit: '#3ee0a0' };
 function channelCards(name, x, y) {
   const b = curBall && balls.includes(curBall) ? curBall : balls.find(isReal), now = performance.now(), c = CHAN[name];
   if (has('magrails')) { award(2000, 'rails', null, x, y - 60, true); (S.railFx ||= {})[name] = 1; }
+  if (name === 'tunnel' && has('visor')) { setTimeout(() => explode(262, 384, T('visor', 800, 1200, 1200)), 80); pop(262, 350, 'PRISM BLAST', '#ff5ad2', true); } // Prism Visor: the pink tunnel exit
   const boost = k => { if (!b) return; const sp = hyp(b.vx, b.vy) || 1, v = Math.min(S.maxv || MAXV, sp * k) / sp; b.vx *= v; b.vy *= v; };
   if (name === 'ramp') {
     if (syn('atlantis')) { S.credits++; pop(x, y - 124, '+1 CREDIT', '#f5c542'); renderInv(); }
@@ -2565,7 +2614,7 @@ function channelCards(name, x, y) {
   } else if (name === 'tunnel') {
     if (has('tailwind')) { award(T('tailwind', 300, 450, 700), 'tailwind', null, 262, 330, true); setTimeout(() => boost(1.2), 60); pop(262, 306, 'TAILWIND', c); }
   } else if (name === 'rorbit') {
-    if (has('gammawarp') && b) { b.gwT = 8; b.gwOn = true; b.rad = baseRad() * 1.12 * (1 + .03 * (b.gg || 0)); award(600, 'orbit', null, x, y - 40, true); pop(x, y - 144, 'GAMMA WARP', '#6cff5a', true); }
+    if (has('gammawarp') && b) { b.gwT = 8; b.gwOn = true; b.rad = baseRad() * 1.12 * (1 + .03 * (b.gg || 0)) * (1 + .03 * (b.mass || 0)); award(600, 'orbit', null, x, y - 40, true); pop(x, y - 144, 'GAMMA WARP', '#6cff5a', true); }
     if (has('starrider')) { const now = performance.now(); S.slip = { from: now + 500, to: now + 3500 }; pop(x, y - 104, 'SLIPSTREAM', '#c9d6ff'); }
     if (has('badge')) { S.warpN = (S.warpN || 0) + 1; award(500 * S.warpN, 'badge', null, x, y - 40, true); pop(x, y - 64, 'DIRECTORATE +' + fmt(500 * S.warpN), '#b58cff'); }
     if (has('decoy') && b && !b.ghost) spawnBall(b, { ghost: true, life: 4, gpay: .25, msg: 'HOLOGRAPHIC DECOY' });
@@ -2601,25 +2650,18 @@ function cardsFlip(b, f, impact, t, vy0 = 0) {
 function cardsShot(name) {
   const b = curBall && balls.includes(curBall) ? curBall : balls.find(isReal);
   if (LANESHOT.has(name)) {
-    if (has('keeperring') && every('templekeeper', 4)) { S.tempPortalT = T('keeperring', 10, 14, 14); msg("WARP RING · PORTALS OPEN"); tone(500, .4, 'sine', .06, 1500); }
-  }
-  if (has('alleye')) {
-    const h = S.shotHist; h.push(name);
-    for (const L of [3, 2]) if (h.length >= 2 * L && h.slice(-L).join() === h.slice(-2 * L, -L).join() && new Set(h.slice(-L)).size > 1) { S.eyeN++; S.shotHist = []; msg('TIME LOOP · +' + (S.eyeN * .25).toFixed(2) + '×', 2.5); fx.push({ type: 'ring', x: 280, y: 590, t: 0, life: .7, c: '90,255,140', big: true }); tone(700, .4, 'sine', .06, 350); break; }
-    if (S.shotHist.length > 12) S.shotHist.shift();
+    if (has('keeperring') && every('templekeeper', 3)) { S.tempPortalT = T('keeperring', 10, 14, 14); msg("WARP RING · PORTALS OPEN"); tone(500, .4, 'sine', .06, 1500); }
   }
 }
 function cardsRamp(b) {
   if (has('bpsuit') && S.bpKin >= 1) { bonus(S.bpKin, 60, 330, 'KINETIC RELEASE'); S.bpKin = 0; S.resBoost = true; msg('KINETIC RESERVOIR RELEASED', 2.5); tone(110, .5, 'sawtooth', .07, 440); fx.push({ type: 'ring', x: 60, y: 350, t: 0, life: .6, c: '180,110,255', big: true }); }
-  if (has('visor')) { setTimeout(() => explode(60, 330, T('visor', 800, 1200, 1200)), 80); pop(60, 300, 'PRISM BLAST', '#ff6b3d', true); }
   const small = b && (b.rad || 10) < 9.6;
   if (has('qtunnel') && b && Math.random() < .4) tempBall(b, { rad: b.rad, life: 6, msg: 'QUANTUM COPY' });
 }
 function cardsPortal(b, Q) {
   const [x, y] = Q, sub = false;
-  award((500 + (S.soulblade || 0)) * (sub ? 1.5 : 1), 'portal', null, x, y - 26, true);
+  award(500 * (sub ? 1.5 : 1), 'portal', null, x, y - 26, true);
   if (has('nzgate') && (S.tpN = (S.tpN || 0) + 1) % 5 === 0) voidBall(b);
-  if (has('soulblade')) { S.soulblade += 150; allTargets().forEach(o => { const [ox, oy] = objPos(o); if (hyp(ox - x, oy - y) < 110) { fx.push({ type: 'blade', x1: x, y1: y, x2: ox, y2: oy, t: 0, life: .35 }); o.flash = 1; award(300, 'soulcut', o, ox, oy - 20, true); } }); }
   if (syn('tempest')) setTimeout(() => chain([x, y], 2, 300, null), 120);
   if (syn('eventhorizon')) { const now = performance.now(); S.ehS = (S.ehS || []).filter(e => e > now); S.ehS.push(now + 8000); pop(x, y - 44, 'EVENT HORIZON +' + (S.ehS.length * .25).toFixed(2) + '×', '#b58cff', true); }
   if (syn('wormhole')) { const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, sp * 1.2) / sp; b.vx *= k; b.vy *= k; }
@@ -2627,19 +2669,18 @@ function cardsPortal(b, Q) {
   qcharge(b);
 }
 function qcharge(b) { if (has('qbattery') && ++S.qch >= T('qbattery', 8, 7, 6)) { S.qch = 0; tempBall(b, { msg: 'QUANTUM BATTERY' }); } }
-function skyhawk(b) {
-  if (!has('skyhawk')) return;
-  const live = [...standups.filter(s => !s.lit), ...drops.filter(d => !d.down), enemy]; const o = rnd(live); if (!o) return;
-  const [x, y] = objPos(o), dx = x - b.x, dy = y - b.y, d = hyp(dx, dy) || 1, sp = Math.max(900, hyp(b.vx, b.vy));
-  b.vx = b.vx * .4 + dx / d * sp * .6; b.vy = b.vy * .4 + dy / d * sp * .6; b.steerT = 1.5; pop(b.x, b.y - 30, 'SKYHUNTER', '#ffe08a');
+function skyhawk(b) { // Skyhunter Wings: out of a tunnel the ball surges and scores +0.5× Mult for 3 s
+  if (!has('skyhawk') || !b) return; const sp = hyp(b.vx, b.vy) || 1, k = Math.min(S.maxv || MAXV, Math.max(900, sp * 1.3)) / sp; b.vx *= k; b.vy *= k; b.skyT = 3;
+  pop(b.x, b.y - 30, 'SKYHUNTER +0.5×', '#ffe08a', true); fx.push({ type: 'ring', x: b.x, y: b.y, t: 0, life: .4, c: '255,224,138' }); tone(1100, .15, 'triangle', .05, 1700);
 }
-const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['gwT', 'hellT', 'blueCd', 'vibT', 'chg', 'radT', 'webT', 'hardT', 'steerT', 'clutchCd', 'directT'];
+const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['gwT', 'hellT', 'blueCd', 'vibT', 'chg', 'radT', 'webT', 'hardT', 'steerT', 'clutchCd', 'directT', 'furyT', 'skyT'];
 function cardsTick(dt) {
+  if (S.eye && (S.eye.t -= dt) <= 0) S.eye = null;
   const t = performance.now() / 1000;
   // global modifiers read by physics
-  S.gmul = (has('stonegiant') ? 1.08 : 1) * (S.mad === 'lowgrav' ? .6 : 1) * (S.bfx && S.bfx.gravity > 0 ? -.55 : 1);
+  S.gmul = (S.mad === 'lowgrav' ? .6 : 1) * (S.bfx && S.bfx.gravity > 0 ? -.55 : 1);
   S.maxv = (S.meltT > 0 ? 2400 : syn('lightspeed') ? 2300 : MAXV) * (has('blitz') ? 1.15 : 1);
-  S.kickMul = (S.bfx && S.bfx.overclock > 0 ? 1.6 : 1) * (has('skyfall') ? 1.15 : 1) * (evo('atlantis') ? 1.2 : 1) * (S.khon === 'force' ? 1.25 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
+  S.kickMul = (S.bfx && S.bfx.overclock > 0 ? 1.6 : 1) * (has('skyfall') ? 1.15 : 1) * (evo('atlantis') ? 1.2 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
   for (const k of TIMERS_S) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
   if (S.rodT > 0) S.rodT -= dt;
   if (!S.madT && S.mad) { S.mad = null; bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } }); }
@@ -2693,7 +2734,7 @@ const magMul = () => (has('mhelm') ? 1.5 : 1) * (syn('metalbones') ? 2 : 1) * (s
 function magPaid(b, dt) {
   magTrace(b);
   if (has('polarflip') && (S.polAcc = (S.polAcc || 0) + dt) >= .6) { S.polAcc = 0; let c = null, bd = 1e9; for (const q of mainBumpers()) { const d = hyp(q.x - b.x, q.y - b.y); if (d < bd) { bd = d; c = q; } }
-    if (c) { c.flash = 1; fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: c.x, y2: c.y, t: 0, life: .25, c: '226,91,255' }); const cb = curBall; curBall = b; award(c.pts, 'bumper', c, c.x, c.y - 36); curBall = cb; } } const v = ((has('mhelm') ? 80 : 0) + T('ferro', 80, 130, 200) + (syn('fieldmaster') ? 80 : 0)) * (syn('magnetar') ? 3 : 1); if (!v) return; if ((S.magAcc += dt) >= .4) { S.magAcc = 0; award(v, 'magnet', null, b.x, b.y - 22, true); } }
+    if (c) { c.flash = 1; fx.push({ type: 'beam', x1: b.x, y1: b.y, x2: c.x, y2: c.y, t: 0, life: .25, c: '226,91,255' }); const cb = curBall; curBall = b; award(c.pts, 'bumper', c, c.x, c.y - 36); curBall = cb; } } const v = ((has('mhelm') ? 80 : 0) + T('ferro', 200, 300, 300) + (syn('fieldmaster') ? 80 : 0)) * (syn('magnetar') ? 3 : 1); if (!v) return; if ((S.magAcc += dt) >= .4) { S.magAcc = 0; award(v, 'magnet', null, b.x, b.y - 22, true); } }
 
 // ---- card visuals on the table ----
 function drawCardsMid(dt) {
@@ -2756,7 +2797,7 @@ function pay(c) { if (S.credits < c) return false; S.credits -= c; return true; 
 const buildFull = () => slotsUsed() >= SLOTS;
 function gain(u, src, cb = () => {}) {
   owned[u.id] = has(u.id) + 1; markSeen(u.id);
-  if (src === 'shop') (S.bought ||= new Set()).add(u.id);
+  if (src === 'shop') { (S.bought ||= new Set()).add(u.id); S.boughtN = (S.boughtN || 0) + 1; }
   if (u.id === 'counterfeit') { S.credits += 75; S.counterfeit = 3; }
   refreshBuild();
   cb();
@@ -2913,7 +2954,6 @@ function renderMeters(dt) {
   if (has('arc')) M.push(['Aether Reactor ' + Math.round(S.arcC || 0) + '%', (S.arcC || 0) / 100, '#7fe7ff']);
   if (has('venom')) M.push(['Hunger +' + Math.round((S.hungB || 0) * 100) + '%', (S.hungB || 0) / .3, '#ff6b3d']);
   if (evo('atlantis')) M.push(['Kinetic pulse', (S.wpT || 0) / 10, '#c79bff']);
-  if (has('alleye')) M.push(['Time loops +' + (S.eyeN * .25).toFixed(2) + '×', Math.min(1, S.eyeN / 8), '#5aff8c']);
   if (syn('undying')) M.push(['Immortal +' + (S.imm || 0).toFixed(2) + '×', Math.min(1, (S.imm || 0) / 2), '#5ee07a']);
   const html = M.map(([l, v, c]) => `<div class="mrow"><span>${l}</span><i><b style="width:${Math.round(clamp(v || 0, 0, 1) * 100)}%;background:${c}"></b></i></div>`).join('');
   const el = $('meters'); if (el.hidden !== !M.length) el.hidden = !M.length;
@@ -2940,7 +2980,7 @@ function countHit(kind, obj) {
   S.hits++;
   const b = curBall;
   if (kind !== 'bumper') S.bumpStreak = 0;
-  if (has('loki') && S.hits % 25 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
+  if (has('loki') && S.hits % 30 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
   if (has('spare') && every('spare', 18)) { allTargets().filter(o => !(o.kind === 'drop' && o.down)).sort(() => Math.random() - .5).slice(0, 2).forEach(o => { o.mod = { t: 6, m: 2, oc: true }; const [x, y] = objPos(o); pop(x, y - 36, 'OVERCLOCKED 2×', '#ffb347', true); }); tone(520, .15, 'square', .05, 1040); }
   if (has('magnet') && every('scrap', 16) && !S.scrap) spawnScrap();
   if (has('scepter') && S.hits % 18 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
@@ -3201,7 +3241,7 @@ function coreHit(obj, b, auto) {
 function lightLetter(x, y) {
   S.letters++;
   if (has('spellcaster')) { const pos = S.letters; award(pos * T('spellcaster', 60, 90, 150), 'spell', null, x, y - 40, true); pop(x, y - 62, WORD[pos - 1] + ' ×' + pos, '#ff9a2e'); }
-  if (S.letters >= WORD.length) { S.letters = 0; award(3000, 'word', WORD, 270, 700); msg('ARCFORGE COMPLETE!', 3); if (!S.wordSaved) { S.wordSaved = true; S.saveT = Math.max(S.saveT, 5); } tone(440, .4, 'square', .07, 1760); destroyed(enemy); shot('enemy', 280, 400); }
+  if (S.letters >= WORD.length) { S.letters = 0; S.mult += 1; S.saveT = Math.max(S.saveT, 2); if (has('mead')) { const fb = curBall && isReal(curBall) ? curBall : balls.find(isReal); if (fb) { fb.furyT = 8; msg('BATTLE-FURY!', 2); fx.push({ type: 'ring', x: fb.x, y: fb.y, t: 0, life: .5, c: '255,210,90', big: true }); } } msg('ARCFORGE COMPLETE! +1× MULT · BALL SAVE 2s', 3); popups.push({ x: 270, y: 700, text: '+1× MULT', t: 0, big: true, tier: 3, life: 1.3, c: '#ff5a5a' }); fx.push({ type: 'ring', x: 270, y: 760, t: 0, life: .6, c: '255,90,90', big: true }); tone(440, .4, 'square', .07, 1760); destroyed(enemy); shot('enemy', 280, 400); }
   else msg('ARC CORE · ' + WORD.slice(0, S.letters) + '_'.repeat(WORD.length - S.letters));
 }
 // the boss is beaten by reaching the level's target
@@ -3275,7 +3315,7 @@ function serveBall(launched = false) { const b = { x: 535, y: 894, vx: 0, vy: 0,
 function startLevel() {
   S.score = 0; S.balls = S.maxBalls = clamp(3 + has('director') + has('titan') - has('grimoire') + (S.nextBalls || 0), 1, 5); S.nextBalls = 0; cardsLevel(); S.snapT = 0; S.snapped = false; S.polT = 0; S.polCd = 0; bumpers.forEach(c => c.hitsL = 0); S.droneT = 0; S.bossHits = 0; S.ballNo = 1; balls = []; popups = []; fx = [];
   Object.assign(S, { gambit: false, freeze: null, awake: null, odT: 0, bifT: 0, mystic: 0, kin: 0, spins: 0, evoN: {}, droneT: 0 });
-  Object.assign(S, { hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: 0, guardN: 0, phoenixUsed: false, bpSaved: false });
+  Object.assign(S, { hits: 0, bumpHits: 0, bumpStreak: 0, flipHits: 0, bolt: 0, hexed: {}, lost: has('grimoire') ? 1 : 0, guardN: 0, phoenixUsed: false, bpSaved: false });
   const bd = bossFor(S.level);
   HALL.clear(); SCORCH = []; AFTER = []; FLAMEP.length = 0; S.hfN = 0; S.hfCd = 0; S.burstUsed = false; allTargets().forEach(o => o.burnT = 0);
   S.boss = bd ? { ...bd, t: 0, t2: 0, streak: 0, exposedT: 0, illusions: new Set(), hacked: new Set(), dusted: new Set(), pol: 1, rampNeed: 0, defeated: false } : null;
@@ -3298,8 +3338,11 @@ function resetMachine() { // a new run starts from a clean table, whatever the l
   PBASE.forEach(([x, y], i) => { PORTALS[i][0] = x; PORTALS[i][1] = y; });
   flippers.forEach(f => { f.frozen = 0; if (f.L0) f.L = f.L0; }); TGC = null;
   const d = document.querySelector('.dmd'); if (d) d.classList.remove('cursed');
+  // undo every build-dependent change to the table's geometry, then drop any cached tinted copies of the machine
+  setWarpWide(false); setRampWide(false); PITLID.forEach(q => q.layer = 0); flipScale();
+  S.tintTgt = [0, 0, 0, 0]; Object.assign(TL, { a: null, b: null, cur: null, prev: null, key: '', fade: 1 });
 }
-function newRun() { resetMachine(); S.hunger = 0; S.artN = 0; S.locked = null; S.phT = 0; S.level = 1; S.target = targetFor(1); S.endless = false; S.syn = new Set(); S.evos = new Set(); S.newSyn = []; S.portalT = 0; for (const k in owned) delete owned[k]; Object.assign(S, { credits: 50, sinceRare: 0, debt: 0, bought: new Set(), counterfeit: 0, nextBalls: 0, freeReroll: 0, locked: null, taskId: null, fires: {} }); SH = null; card.classList.remove('shop'); refreshBuild(); startLevel(); }
+function newRun() { for (const k in owned) delete owned[k]; S.syn = new Set(); S.evos = new Set(); S.newSyn = []; /* drop the old build first, then restore the machine */ resetMachine(); S.hunger = 0; S.artN = 0; S.locked = null; S.phT = 0; S.level = 1; S.target = targetFor(1); S.endless = false; S.portalT = 0; Object.assign(S, { credits: 50, sinceRare: 0, debt: 0, bought: new Set(), boughtN: 0, counterfeit: 0, nextBalls: 0, freeReroll: 0, locked: null, taskId: null, fires: {} }); SH = null; card.classList.remove('shop'); refreshBuild(); startLevel(); }
 // target curve: level 1 asks 10,000; growth itself speeds up through the run (×1.23 → ×1.30 by level 20),
 // the last act climbs ×1.16 per level on top of that, endless ×1.4. Boss levels go from ×0.8 (Loki) to ×1.1 (the Sovereign).
 const growth = i => i > 30 ? 1.4 : i > 20 ? 1.18 : 1.23 + .004 * (i - 2) + (i >= 7 ? .03 : 0); // a little steeper from level 7 on
@@ -3372,7 +3415,8 @@ function award(base, kind, obj, x, y, generated = false) {
     if (x != null && tier > 0) popups.push({ x, y, text: fmt(pts), t: 0, tier, life: tier >= 3 ? 1.3 : tier === 2 ? .8 : .45, small: tier === 1 && pts < 1000, big: tier >= 2, c: tier >= 3 ? '#ffd86a' : undefined }); }
   Bus.emit('score', { pts, kind, generated, cls });
   if (cls === 'hit') { const pk = PARTK[kind]; if (pk && has(pk) && (kind !== 'spinner' || S.spins % 10 === 0)) part(pk); }
-  if (cls === 'hit' && PHYS.has(kind)) { countHit(kind, obj); hellHit(obj); cleanHit(kind, obj); }
+  if (has('cleaver') && LIGHT_KINDS.has(kind) && isTarget(obj)) obj.elec = Math.max(obj.elec || 0, 5); // Tempest Fragment: lightning electrifies
+  if (cls === 'hit' && PHYS.has(kind)) { if (has('cleaver') && isTarget(obj) && obj.elec > 0) tempestStrike(obj); if (curBall && curBall.furyT > 0 && isTarget(obj)) furyThunder(obj); countHit(kind, obj); hellHit(obj); cleanHit(kind, obj); }
   else if (generated && WEAP_KINDS.has(kind) && isTarget(obj) && has('trickarrow') && obj === S.mark && x != null) { pop(x, y - 48, 'MARKED ×' + T('trickarrow', 4, 5, 5), '#7fe7ff', true); tone(1500, .1, 'square', .05, 2200); moveMark(obj); } // drones, bots and weapons hit the mark too
   else if (!generated && PHYS.has(kind)) weakHit();
   if (has('gauntlet') && !S.snapped && S.score >= S.target / 2) { S.snapped = true; S.snapT = 10; S.forgeFx = 1.5; msg('THE STARFORGE FLARES · 5× FOR 10 SECONDS', 3); sfx.snap(); fx.push({ type: 'flash', t: 0, life: .4 }); }
@@ -3670,21 +3714,24 @@ function tick(dt) {
   fxMark = fx.length; shakeMark = S.shake || 0;
   for (const b of balls) { if (b.captured || b.lift) continue; const P = b.layer === 1 ? [...rampL, ...rampR.slice().reverse().flatMap((v, i, A) => i % 2 ? [] : [A[i + 1], v])] : b.layer === 2 ? tunnelPoly : null;
     const off = P ? !inPoly(P, b.x, b.y) : b.layer === 3 && b.y < 680; if (off && !inLane(b)) { if ((b.offT = (b.offT || 0) + dt) > .2) { b.layer = 0; b.offT = 0; } } else b.offT = 0; }
-  curBall = null; TGC = null; cardsTick(dt);
-  if (S.portalT > 0) S.portalT -= dt;
+  // no ball on the table yet (or all of them waiting in the plunger lane): every time-based effect is frozen and nothing fires
+  const idle = !balls.some(b => !inLane(b)), gdt = idle ? 0 : dt; S.idle = idle;
+  curBall = null; TGC = null; cardsTick(gdt);
+  if (S.portalT > 0) S.portalT -= gdt;
   for (const b of balls) if (b.portCd > 0) b.portCd -= dt;
-  bossTick(dt); evoTick(dt); legTick(dt); serveTick(dt);
-  for (const f of flippers) if (f.frozen > 0) f.frozen -= dt;
-  if (S.snapT > 0) S.snapT = Math.max(0, S.snapT - dt);
-  if (S.polT > 0) S.polT -= dt;
-  if (has('polarity') && S.phase === 'play' && (S.polCd = (S.polCd || 0) + dt) >= 15) { S.polCd = 0; S.polT = Math.max(S.polT, 2); msg('POLARITY CORE'); sfx.hum(); } // Polarity Core: every 15 s
-  if (has('forgeworks')) { const t = performance.now() / 1000, D = FORGED; D.x = 280 + 190 * Math.sin(t * .45); D.y = 150 + 30 * Math.sin(t * 1.3);
-    if ((D.zap = (D.zap || 0) + dt) >= T('forgeworks', 6, 5, 5) / OC()) { D.zap = 0; const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: D.x, y1: D.y + 6, x2: x, y2: y, t: 0, life: .3, c: '255,200,120' }); o.flash = 1; award(T('forgeworks', 200, 300, 300) * OC(), 'drone', o, x, y - 28, true); tone(1500, .08, 'square', .04, 800); } }
+  bossTick(gdt); evoTick(gdt); legTick(gdt); serveTick(dt);
+  for (const f of flippers) if (f.frozen > 0) f.frozen -= gdt;
+  if (S.snapT > 0) S.snapT = Math.max(0, S.snapT - gdt);
+  if (S.polT > 0) S.polT -= gdt;
+  if (has('polarity') && S.phase === 'play' && (S.polCd = (S.polCd || 0) + gdt) >= 15) { S.polCd = 0; S.polT = Math.max(S.polT, 2); msg('POLARITY CORE'); sfx.hum(); } // Polarity Core: every 15 s
+  if (has('forgeworks')) { const t = performance.now() / 1000; // Aetherworks Drone (+: a second drone on the opposite patrol)
+    [FORGED, FORGED2].slice(0, has('forgeworks') >= 2 ? 2 : 1).forEach((D, i) => { const ph = i * Math.PI; D.x = 280 + 190 * Math.sin(t * .45 + ph); D.y = 150 + 30 * Math.sin(t * 1.3 + ph) + i * 40;
+      if ((D.zap = (D.zap || 0) + gdt) >= 6 / OC()) { D.zap = 0; const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: D.x, y1: D.y + 6, x2: x, y2: y, t: 0, life: .3, c: '255,200,120' }); o.flash = 1; droneStrike(o, 350 * OC(), x, y - 28); tone(1500 + i * 200, .08, 'square', .04, 800); } }); }
   if (has('drones')) { const t = performance.now() / 1000; // two patrolling sentry bots
     for (const q of SENTRIES) q.r = 12 * OC(); // Overclock Protocol: bots are 50% larger
     SENTRIES[0].x = 335 + 75 * Math.sin(t * .7); SENTRIES[0].y = 468 + 10 * Math.sin(t * 1.9);
     SENTRIES[1].x = 270 + 70 * Math.sin(t * .6 + 2); SENTRIES[1].y = 690 + 8 * Math.sin(t * 2.3);
-    for (const q of SENTRIES) { if (q.flash > 0) q.flash = Math.max(0, q.flash - dt * 4); if ((q.zap = (q.zap || 0) + dt) >= 6 / OC()) { q.zap = Math.random(); const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: q.x, y1: q.y - 4, x2: x, y2: y, t: 0, life: .3, c: '255,74,74' }); o.flash = 1; award(200 * OC(), 'drone', o, x, y - 28, true); tone(1300, .08, 'square', .04, 700); } } }
+    for (const q of SENTRIES) { if (q.flash > 0) q.flash = Math.max(0, q.flash - dt * 4); if ((q.zap = (q.zap || 0) + gdt) >= 6 / OC()) { q.zap = Math.random(); const o = rnd(allTargets()), [x, y] = objPos(o); fx.push({ type: 'beam', x1: q.x, y1: q.y - 4, x2: x, y2: y, t: 0, life: .3, c: '255,74,74' }); o.flash = 1; droneStrike(o, 200 * OC(), x, y - 28); tone(1300, .08, 'square', .04, 700); } } }
   for (const b of balls) {
     // Voidsteel Drain Guard
     if (has('guard') && S.guardN < T('guard', 1, 2, 2) && prot() && isReal(b) && b.layer === 0 && b.y > 872 && b.y < 900 && b.x > 205 && b.x < 335 && b.vy > 0) {
@@ -3693,7 +3740,7 @@ function tick(dt) {
     }
     if (b.ghost) { b.life -= dt; if (b.life <= 0) { if (balls.some(q => q !== b && !q.ghost)) b.vanish = true; else { b.ghost = false; } } }
   }
-  if (S.comboT > 0) { S.comboT -= dt; if (S.comboT <= 0) { S.combo = 0; S.lastHit = null; } }
+  if (S.comboT > 0) { S.comboT -= gdt; if (S.comboT <= 0) { S.combo = 0; S.lastHit = null; } }
   if (S.charging) S.charge = Math.min(1, S.charge + dt * 1.1);
   if (S.saveT > 0 && !balls.some(inLane)) S.saveT -= dt;
   for (const sp of has('bifrost') ? [spinner, tunSpin, ...XSPIN] : [spinner, tunSpin]) {
@@ -3742,7 +3789,7 @@ function tick(dt) {
 function ballLost() {
   if (S.phase === 'clearing') return; // the level is already won
   if (S.saveT > 0 && S.phase === 'play' && prot()) { S.saveT = 0; rescue('save'); msg('BALL SAVED · ARCFORGE BONUS', 2.5); popups.push({ x: 270, y: 800, text: 'BALL SAVED', t: 0, big: true, c: '#ff8a8a' }); tone(700, .2, 'triangle', .07, 1100); queueServe(true, 0.6); return; }
-  if (has('phoenix') && S.balls === 1 && !S.phoenixUsed && S.phase === 'play' && prot()) { S.phoenixUsed = true; rescue('phoenix'); if (syn('immortal')) S.guardN = 0; msg('ASHBORN FORCE RISES', 3); tone(220, .6, 'sawtooth', .07, 880); queueServe(true, 0.7); return; }
+  if (has('phoenix') && S.balls === 1 && !S.phoenixUsed && S.phase === 'play' && prot()) { S.phoenixUsed = true; rescue('phoenix'); if (syn('immortal')) S.guardN = 0; msg('PHOENIX ENGINE · REBORN', 3); phoenixBurst(); tone(220, .6, 'sawtooth', .07, 880); queueServe(true, 0.7); return; }
   S.balls--; S.lost++; Bus.emit('drain', {}); cardsDrain();
   tone(300, .35, 'sawtooth', .06, 80);
   S.mult = 1; S.combo = 0;
@@ -3927,7 +3974,7 @@ function lightning(g, rnd, x, y, ang, len, w) {
 }
 
 function buildTable() {
-  SPR.clear(); TL.a = TL.b = null; TL.key = '';
+  SPR.clear(); TL.a = TL.b = TL.cur = TL.prev = null; TL.key = '\u0000'; TL.fade = 1; // drop every stale tinted copy of the old table (it kept boss colours and old geometry on screen)
   let g, gr; [table, g] = layer();
   g.fillStyle = '#0d0f16'; g.fillRect(0, 0, W, H);
   g.save(); playfieldPath(g); g.clip();
@@ -4504,8 +4551,8 @@ function render(dt) {
     else if (e.type === 'ring') { ctx.strokeStyle = `rgba(${e.c},${a})`; ctx.lineWidth = e.big ? 6 : 3; ctx.shadowColor = `rgba(${e.c},1)`; ctx.shadowBlur = 16; ctx.beginPath(); ctx.arc(e.x, e.y, (e.big ? 40 : 12) + (e.big ? 420 : 50) * (e.t / e.life), 0, TAU); ctx.stroke(); }
     else if (e.type === 'blade') { // Soul Blade: a red blade slashes from the portal through the target
       const k = Math.min(1, e.t / (e.life * .45)), dx = e.x2 - e.x1, dy = e.y2 - e.y1, L = hyp(dx, dy) || 1, ux = dx / L, uy = dy / L, hx = e.x1 + dx * k + ux * 18, hy = e.y1 + dy * k + uy * 18, tx = e.x1 + dx * Math.max(0, k - .45), ty = e.y1 + dy * Math.max(0, k - .45);
-      ctx.save(); ctx.globalAlpha = a; ctx.shadowColor = '#ff1a2e'; ctx.shadowBlur = 16; ctx.lineCap = 'round';
-      ctx.fillStyle = 'rgba(255,40,60,.85)'; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(hx - uy * 5, hy + ux * 5); ctx.lineTo(hx + ux * 10, hy + uy * 10); ctx.lineTo(hx + uy * 2, hy - ux * 2); ctx.closePath(); ctx.fill();
+      ctx.save(); ctx.globalAlpha = a; ctx.shadowColor = e.spec ? '#9fd8ff' : '#ff1a2e'; ctx.shadowBlur = 16; ctx.lineCap = 'round';
+      ctx.fillStyle = e.spec ? 'rgba(150,210,255,.8)' : 'rgba(255,40,60,.85)'; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(hx - uy * 5, hy + ux * 5); ctx.lineTo(hx + ux * 10, hy + uy * 10); ctx.lineTo(hx + uy * 2, hy - ux * 2); ctx.closePath(); ctx.fill();
       ctx.strokeStyle = 'rgba(255,230,230,.95)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(hx + ux * 9, hy + uy * 9); ctx.stroke();
       if (k >= 1) { ctx.strokeStyle = `rgba(255,50,70,${a})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(e.x2 - uy * 16 - ux * 6, e.y2 + ux * 16 - uy * 6); ctx.lineTo(e.x2 + uy * 16 + ux * 6, e.y2 - ux * 16 + uy * 6); ctx.stroke(); }
       ctx.restore(); }
@@ -4665,18 +4712,19 @@ function endGambit(F) {
 function hudBall() { return balls.find(q => isReal(q) && !q.captured) || null; }
 function hudMult() {
   const b = hudBall(); let m = globalMult();
-  if (S.crownT > 0) m *= 1.5; if (S.cres > 0) m *= 1 + S.cres; if (has('grimoire')) m *= 1.5 + .5 * (S.lost || 0);
+  if (S.crownT > 0) m *= 1.5; if (S.cres > 0) m *= 1 + S.cres; if (has('grimoire')) m *= 1.5 + .5 * Math.max(0, (S.lost || 0) - 1);
   if (b && has('hellrider') && !(S.comboT > 0)) m *= .8;
   if (b && has('torch') && hyp(b.vx, b.vy) < 500) m *= .75;
   if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
   if (b) { if (b.giantT > 0) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 2; if (hellOn(b)) m *= syn('penance') ? 1.6 + .2 * (b.heat || 0) : 1.3; if (b.capM) m *= b.capM; if (b.carUntil > performance.now()) m *= 2; }
+  if (b && has('khonsu') && b.y < 470) m += .5;
+  if (b && b.skyT > 0) m += .5;
   if (S.adrenal) m *= 3; if (S.focusN > 0) m *= 3;
   return damp(m);
 }
 function hudBonus() {
-  const b = hudBall(); let a = globalBonus() + T('stonegiant', .3, .4, .55) + (syn('worldbreaker') ? 1 : 0);
+  const b = hudBall(); let a = globalBonus() + (syn('worldbreaker') ? 1 : 0);
   if (b) { a += (b.rage || 0) + (has('venom') ? S.hungB || 0 : 0) + (b.eh || 0) + (b.wiz || 0) + (b.orb || 0) + (has('rampage') ? (b.rampage || 0) * T('rampage', .1, .15, .2) : 0);
-    if (has('mead') && (b.col || 0) < T('mead', 15, 20, 25)) a += T('mead', .2, .25, .3);
     if (has('radiation') && b.radT > 0) a += T('radiation', .3, .5, .75);
     if (has('winter')) a += (b.gg || 0) * T('winter', .08, .12, .12);
     if (has('chi')) a += T('chi', .2, .3, .3);
@@ -4837,7 +4885,7 @@ function hideOverlay() { ov.hidden = true; }
 function showStart() {
   showCard(`<h2>Arcforge Pinball</h2>
     <p class="eyebrow" style="text-transform:none;letter-spacing:.04em">Forge the machine. Break reality.</p>
-    <p>The Arcforge has awakened. Reach the target score before your 3 balls drain. After each level, draft 1 of 3 Rift upgrades and rebuild the machine. Hit the Arc Core in the middle to spell ARCFORGE, shoot the purple ramp and the wormhole to fill the 12-light ring for a jackpot. Loop the orbits, clear the drop bank and standups, and chase the blinking pink hot-shot arrow for bonus points. Six entities rule the fractured realms: defeat them all. Every few levels the Curator’s Vault opens.</p>
+    <p>The Arcforge has awakened. Reach the target score before your 3 balls drain. After each level, draft 1 of 3 Rift upgrades and rebuild the machine. Hit the Arc Core in the middle to spell ARCFORGE (+1× Mult and a 2-second ball save), shoot the purple ramp and the wormhole to fill the 12-light ring for a jackpot. Loop the orbits, clear the drop bank and standups, and chase the blinking pink hot-shot arrow for bonus points. Six entities rule the fractured realms: defeat them all. Every few levels the Curator’s Vault opens.</p>
     <p class="fanote" style="display:block">Cards belong to 12 families. Taking cards raises your family affinity, which unlocks family tiers, hybrids and, at V, the family's Legendary (see the Codex). On a phone, use the Flip and Launch buttons under the table (or tap either half of the table). </p>
     <div class="stat"><span>Level 1 target</span><span>${fmt(S.target)}</span></div>`, 'Start run', newRun);
 }
@@ -5019,7 +5067,7 @@ function simulate(sec, o = {}) {
   } finally { performance.now = realNow; window.setTimeout = realST; muted = wasMuted; flippers.forEach(f => f.on = false); }
   return { t: +(n * STEP).toFixed(1), pts: S.score - s0, ballsUsed: b0 - S.balls + (activePlay() ? 0 : 0), phase: S.phase, hits: S.hits };
 }
-window.MP.debug = { S, openShop, refreshBuild, showSynergyBanner, targetReached, EVOS, coreHit, onHit, FAMS, unlocked, preview, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, physics, STEP, Bus, shot, RW: rarityWeights, segs, AST, inPoly, tunnelPoly, get RAMPPOLY() { return RAMPPOLY; }, setDraft: d => { draft = d; }, showClear: e => showClear(e), award, scoreFactor, globalMult, moveMark, randCost };
+window.MP.debug = { S, openShop, refreshBuild, showSynergyBanner, targetReached, EVOS, coreHit, onHit, FAMS, unlocked, preview, showCodex, completesSynergy, simulate, owned, RANK, needsSlot, slotsUsed, shopAfter, priceOf, bossFor, startLevel, setSH: v => { SH = v; ov.classList.remove('full'); }, newRunQuiet: () => { newRun(); }, nextTargetStep: () => { S.target = targetFor(S.level + 1); }, UP: UPGRADES, CARD, gain, openShop, get SH() { return SH; }, buy, doAct, confirmPick, refreshBuild, T, allTargets, explode, chain, part, afterDraft, tagN, checkEvos, EVOS, take, balls: () => balls, serveBall, flippers, bumpers, stars, enemy, decoys, gens, rollDraft, checkSynergies, showSynergyBanner, renderInv, physics, STEP, Bus, shot, RW: rarityWeights, segs, AST, inPoly, tunnelPoly, get RAMPPOLY() { return RAMPPOLY; }, setDraft: d => { draft = d; }, showClear: e => showClear(e), award, scoreFactor, globalMult, moveMark, randCost, tick, FORGED, get FORGED2() { return FORGED2; } };
 resize();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildTable);
 renderInv();
