@@ -195,7 +195,7 @@ em.tg{font:600 11px/1.3 "Barlow Condensed",sans-serif;font-style:normal;letter-s
   body{padding-inline:8px}
   .app{flex-direction:column;gap:6px;padding-block:6px}
   .side{width:auto;overflow:visible;gap:6px}
-  .plaque,.keys-panel,#mute,.lamps,.fanote{display:none}
+  .plaque,.keys-panel,#mute,.fanote{display:none}
   .dmd{padding:4px 10px;gap:0;border-width:2px}
   .dmd .meter{height:4px;margin:2px 0}
   .dmd .big{font-size:22px;line-height:1.1}
@@ -402,6 +402,30 @@ header.plaque::before{background:linear-gradient(115deg,transparent 35%,rgba(255
 .draft .cht{display:contents}.draft .cicon{grid-area:i}.draft .csub{grid-area:s;line-height:1.3}.draft .chead .nm{grid-area:n;word-break:normal;overflow-wrap:normal;hyphens:manual}
 .draft .csub .sr{display:none}.draft .csub{overflow-wrap:anywhere}.csub .sf{color:color-mix(in srgb,var(--sc) 55%,#fff)}
 @media (max-width:600px){.draft .chead{grid-template-areas:"i i" "n n" "s s";row-gap:4px}.draft .csub{overflow-wrap:normal;letter-spacing:.04em}}
+/* ---- phone layout: score panel on top, then Balls beside Bonus × Mult, then the table, then the flipper buttons ---- */
+@media (max-width:780px){
+  .app{gap:5px;padding-block:5px max(5px,env(safe-area-inset-bottom))}
+  .side{gap:5px}
+  .dmd{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;column-gap:8px;row-gap:1px;padding:5px 10px 4px}
+  .dmd .top{display:contents}
+  #dBall{grid-area:1/1}#dLvl{grid-area:1/3}
+  .dmd .big{grid-area:1/2;text-align:center;font-size:24px;line-height:1}
+  .dmd .meter{grid-area:2/1/3/4;height:4px;margin:2px 0}
+  .dmd .top>span:first-child:not(#dBall){grid-area:3/1}#dTarget{grid-area:3/3}
+  .dmd .msg{grid-area:3/2;min-height:1.2em;font-size:11px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dmd .top>span{font-size:11px}
+  .lamps{display:grid;grid-template-columns:76px 1fr;gap:5px}
+  .lamp{padding:3px 6px;gap:2px;justify-content:center}
+  .lamp span{font-size:9px;letter-spacing:.14em}
+  .balls{height:12px;gap:4px}.balls i{width:10px;height:10px}
+  .lamp.calc{padding:3px}
+  .cbox{flex-direction:row;gap:6px;padding:3px 4px}
+  .cbox b{font-size:19px!important}
+  .cbox span{font-size:8px!important;padding:1px 4px 0}
+  .lamp.calc .cx{width:16px;font-size:16px}
+  .tb{height:50px}
+}
+@media (max-width:600px){.draft .upg{padding:8px 7px}.draft .upg .nm{font-size:clamp(14px,4.3vw,19px);overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}.draft .upg .ds{overflow-wrap:break-word}}
 </style>
 
 <div class="app">
@@ -716,7 +740,7 @@ const UPGRADES = [
   { id: 'scepter', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: "Mirage Scepter", desc: "Every 18th hit spawns a ghost ball (8 s) that scores full points. Stacks with Trickster's Illusion." },
   { id: 'hypercube', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: 'Rune of Passage', desc: 'The blue quantum pit bumpers turn green, grow 20% larger and pay 50% more.' },
   { id: 'dagger', r: 'artifact', boss: 'loki', cat: 'Artifact · The Trickster', name: "Trickster's Dagger", desc: 'Every 3rd Arc Core hit lights two letters and pays +1,000.' },
-  { id: 'ucore', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: "Architect Core", desc: 'A red bumper hit 5 times in a level overclocks: it scores 4× and kicks 20% harder for the rest of the level.' },
+  { id: 'ucore', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: "Override Node", desc: 'Every 20 hits, one machine part is selected and overclocked for 10 s at 3× scoring.' },
   { id: 'vbody', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Rewired Laser', desc: 'Every 12 s a blue laser sweeps up the table from the flippers. Any ball it touches is pushed upward and pays 300.' },
   { id: 'drones', r: 'artifact', boss: 'omnicron', cat: 'Artifact · The Architect', name: 'Clockwork Sentries', desc: 'Two small rewired clockwork bots patrol the table. Balls pass through them from below, but a ball falling onto one bounces off and pays 150. Every 6 s each one zaps a random target for 200.' },
   { id: 'magflip', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: 'Magnetic Wave', desc: 'Every 8 s three magnetic waves sweep in from the edges of the table. While they run, every ball is pulled toward the middle.' },
@@ -1038,7 +1062,7 @@ UPGRADES.push(
   { id: 'comet', r: U_, cat: TR, up: true, tags: ['SPEED', 'COSMIC'], name: 'Starfire Helm', desc: 'Keeping the ball fast slowly builds a scoring bonus, up to +{1|1.5|2}×. It fades when the ball slows.' },
   { id: 'widow', r: U_, cat: TR, up: true, tags: ['LIGHTNING', 'COMBO'], name: "Shockwire Bite", desc: 'A slingshot followed by a bumper within 2 s shocks every target near that bumper for {200|300|450}.' },
   { id: 'skyhawk', r: 'epic', cat: TR, up: false, tags: ['SPEED', 'RAMP'], name: "Skyhunter Wings", desc: 'Whenever the ball leaves the pink tunnel or the quantum pit, it speeds up and scores +0.5× Mult for 3 s.' },
-  { id: 'khonsu', r: C_, cat: TR, up: false, tags: ['MYSTIC'], hero: 'arcanists', name: "Moon Idol", desc: 'While the ball is in the upper half of the machine, it scores +0.5× Mult.' },
+  { id: 'khonsu', r: C_, cat: TR, up: false, tags: ['MYSTIC'], hero: 'arcanists', name: "Moon Idol", desc: 'While the ball is in the upper third of the machine, it scores +0.5× Mult.' },
   { id: 'deck', r: U_, cat: TR, up: true, tags: ['EXPLOSIVE', 'GIFTED'], hero: 'outlaws', name: "Volatile Deck", desc: 'Every 4th different target you hit explodes for {400|600|900}.' },
   { id: 'chi', r: U_, cat: TR, up: true, tags: ['FLIPPER', 'COMBO'], name: "Iron Fist's Chi", desc: 'Flipper hits in a row charge your next target hit, up to {4|5|6}×.' },
   { id: 'keeperring', r: U_, cat: TR, up: true, tags: ['PORTAL', 'MYSTIC', 'RAMP'], hero: 'arcanists', name: "Astral Ring", desc: 'Every 3rd ramp, orbit or tunnel shot opens a pair of portals for {10|14} s.' },
@@ -1110,7 +1134,7 @@ SYNERGIES.push(
   { id: 'livingstorm', kind: 'tag', test: G('LIGHTNING', 5), req: '5 LIGHTNING', name: 'Living Storm', desc: 'Every lightning chain has a 20% chance to call down another bolt.' },
   { id: 'wizard', kind: 'tag', test: G('FLIPPER', 3), req: '3 FLIPPER', name: 'Pinball Wizard', desc: 'Perfectly timed flipper hits (near the tip, mid-swing) add +0.1× to that ball, stacking until it drains.' },
   { id: 'bumpercar', kind: 'tag', test: G('BUMPER', 4), req: '4 BUMPER', name: 'Bumper Car', desc: 'Each bumper hit in a row scores +10% more (1.1×, 1.2×, 1.3×…) until anything else is hit.' },
-  { id: 'lightspeed', kind: 'tag', test: G('SPEED', 3), req: '3 SPEED', name: 'Lightspeed', desc: 'At high speed all scoring is 2×, at extreme speed 3×. The ball also moves faster and gets harder to control.' },
+  { id: 'lightspeed', kind: 'tag', test: G('SPEED', 3), req: '3 SPEED', name: 'Lightspeed', desc: 'While the ball is moving fast, it scores +0.5× Mult.' },
   { id: 'chainreaction', kind: 'tag', test: G('EXPLOSIVE', 3), req: '3 EXPLOSIVE', name: 'Chain Reaction', desc: 'Targets caught in an explosion can explode themselves at 30% strength.' },
   { id: 'eventhorizon', kind: 'tag', test: () => tagN('PORTAL') >= 3 && tagN('COSMIC') >= 1, req: '3 PORTAL + 1 COSMIC', name: 'Event Horizon', desc: 'Each portal jump adds +0.25× Mult for 8 seconds. Jumps stack.' },
   { id: 'clonesaga', kind: 'tag', test: () => tagN('MULTIBALL') >= 3 && tagN('WEB') >= 1, req: '3 MULTIBALL + 1 WEB', name: 'Clone Chorus', desc: 'Temporary balls occasionally split into another temporary ball (up to 2 generations). Each generation scores less: 100% → 50% → 25%.' },
@@ -1396,7 +1420,7 @@ famSyn('chainreaction', 'EXPLOSIVE', 3); famSyn('bigbang', 'EXPLOSIVE', 5, 'Big 
 famSyn('qpartners', 'QUANTUM', 3, 'Quantum Gate', 'The quantum pit opens its mouth (balls coming down the left side fall straight in) and the purple ramp\'s entrance opens 75% wider.'); famSyn('clonesaga', 'QUANTUM', 5, 'Quantum Conduit', 'The quantum pit becomes a true tunnel: balls glide through it, and every pass pays 2,500.');
 famSyn('rage', 'HELLFIRE', 3, 'Hellfire Ball', 'Every 16 clean hits, or an 8-hit combo, ignites your ball for 5 s. While it burns, physical hits score ×1.3 Mult and every target it hits burns for 2 s. Hit a burning target again to detonate it for +400.'); famSyn('penance', 'HELLFIRE', 5, 'Inferno Core', 'Your last ball burns forever, and flaming hits score ×1.6 Mult (every 5th clean hit stokes the flame, up to ×2). Burning targets detonate in chain explosions, and draining your last ball at full heat sets off a final burst worth 6% of the target (once per level).');
 famSyn('undying', 'VOIDSTEEL', 3); famSyn('vibcore', 'VOIDSTEEL', 5, 'Voidsteel Core', 'Once per ball, the drain itself bounces the ball back into play.');
-famSyn('lightspeed', 'SPEED', 3); famSyn('ftl', 'SPEED', 5);
+famSyn('lightspeed', 'SPEED', 3, 'Lightspeed', 'While the ball is moving fast, it scores +0.5× Mult.'); famSyn('ftl', 'SPEED', 5);
 famSyn('astral', 'ILLUSION', 3); famSyn('masterill', 'ILLUSION', 5, 'Grand Illusion', 'Whenever a ghost ball hits a bumper, there is a 25% chance an illusion of that bumper appears right next to it for 6 seconds. Illusions are solid and score in full.');
 hybSyn('arcoverload', 'THUNDER', 'TECH', 'Storm Circuit'); hybSyn('webbomb', 'WEB', 'EXPLOSIVE'); hybSyn('chaosboom', 'MYSTIC', 'EXPLOSIVE');
 hybSyn('wormhole', 'MYSTIC', 'SPEED'); hybSyn('swarm', 'TECH', 'ILLUSION', 'Automaton Swarm'); hybSyn('nuclear', 'TECH', 'GAMMA', 'Titanbreaker Reactor');
@@ -1794,9 +1818,8 @@ function v189Tick(dt) {
 }
 // ---- overlay drawing ----
 function v189Draw(dt) {
-  drawEye(dt); drawBook();
-  for (const b of balls) if (b.mass > 0) { const t = performance.now() / 1000, r = (b.rad || 10) + 5; ctx.fillStyle = b.mass >= 5 ? '#ffe2a8' : '#c9b28a'; if (b.mass >= 5) { ctx.shadowColor = '#ffcf7a'; ctx.shadowBlur = 10; } // Living Stone: Mass stones orbit the ball
-    for (let i = 0; i < b.mass; i++) { const q = t * 2.2 + i * TAU / 5; ctx.beginPath(); ctx.arc(b.x + Math.cos(q) * r, b.y + Math.sin(q) * r, 2.2, 0, TAU); ctx.fill(); } ctx.shadowBlur = 0; }
+  drawEye(dt); drawBook(); drawOverride();
+  for (const b of balls) if (b.mass > 0) drawMass(b); // Living Stone: the ball is slowly plated in stone
   for (const b of balls) if (b.furyT > 0) { const t = performance.now() / 1000, r = (b.rad || 10) + 6 + 2 * Math.sin(t * 14), a = Math.min(1, b.furyT); // Battle-Fury aura
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = `rgba(255,${190 + 40 * Math.sin(t * 9) | 0},90,${.75 * a})`; ctx.shadowColor = '#ffd25a'; ctx.shadowBlur = 14; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(b.x, b.y, r, 0, TAU); ctx.stroke();
     for (let i = 0; i < 3; i++) { const q = t * 5 + i * 2.1; ctx.beginPath(); ctx.moveTo(b.x + Math.cos(q) * r, b.y + Math.sin(q) * r); ctx.lineTo(b.x + Math.cos(q + .3) * (r + 7), b.y + Math.sin(q + .3) * (r + 7)); ctx.stroke(); } ctx.restore(); }
@@ -2206,7 +2229,18 @@ function tempestStrike(src) { // Tempest Fragment: a ball hit on an Electrified 
   const [o, x, y] = rnd(near); fx.push({ type: 'bolt', x1: sx, y1: sy, x2: x, y2: y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); o.flash = 1; award(300, 'lightning', o, x, y - 26, true); tone(1600, .08, 'sawtooth', .04, 400); }
 function furyThunder(o) { // Warrior's Toast: Battle-Fury hits call thunder down on the target
   if (!budget('fury', 8)) return; const [x, y] = objPos(o); fx.push({ type: 'bolt', x1: x + (Math.random() - .5) * 50, y1: y - 180, x2: x, y2: y, t: 0, life: .35, seed: Math.random() * 1e6 | 0 }); award(500, 'lightning', o, x, y - 40, true); tone(140, .25, 'sawtooth', .06, 60); }
-function setMass(b, n) { const k0 = 1 + .03 * (b.mass || 0); b.mass = n; b.rad = (b.rad || 10) / k0 * (1 + .03 * n); if (n) pop(b.x, b.y - 30, 'MASS ' + n, '#c9b28a'); }
+function drawMass(b) { // stone plates grow over the ball, one per Mass; at 5 the seams glow, ready to break
+  const R = b.rad || 10, n = Math.min(5, b.mass), t = performance.now() / 1000, full = n >= 5, sd = b.mSeed ??= Math.random() * TAU;
+  ctx.save(); ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.clip();
+  for (let i = 0; i < n; i++) { const a0 = sd + i * TAU / 5, cx = b.x + Math.cos(a0) * R * .62, cy = b.y + Math.sin(a0) * R * .62, rr = R * .62;
+    ctx.beginPath(); for (let k = 0; k < 6; k++) { const q = a0 + k * TAU / 6 + .3, w = rr * (.78 + .22 * Math.sin(i * 3.1 + k * 1.7)); k ? ctx.lineTo(cx + Math.cos(q) * w, cy + Math.sin(q) * w) : ctx.moveTo(cx + Math.cos(q) * w, cy + Math.sin(q) * w); } ctx.closePath();
+    const g = ctx.createLinearGradient(cx - rr, cy - rr, cx + rr, cy + rr); g.addColorStop(0, 'rgba(176,164,146,.92)'); g.addColorStop(.55, 'rgba(110,100,90,.92)'); g.addColorStop(1, 'rgba(58,52,48,.95)'); ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = full ? `rgba(255,${150 + 60 * Math.sin(t * 8 + i) | 0},60,.95)` : 'rgba(30,26,24,.7)'; ctx.lineWidth = full ? 1.3 : .9; ctx.stroke(); }
+  ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; const sh = ctx.createRadialGradient(b.x - R * .35, b.y - R * .4, 0, b.x - R * .35, b.y - R * .4, R * .7); sh.addColorStop(0, 'rgba(255,255,255,.35)'); sh.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = sh; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, TAU); ctx.fill();
+  if (full) { const k = .5 + .5 * Math.sin(t * 6); ctx.strokeStyle = `rgba(255,170,70,${.35 + .35 * k})`; ctx.shadowColor = '#ff9a3a'; ctx.shadowBlur = 12; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(b.x, b.y, R + 2.5, 0, TAU); ctx.stroke(); }
+  ctx.restore(); }
+function setMass(b, n) { const k0 = 1 + .03 * (b.mass || 0); b.mass = n; b.rad = (b.rad || 10) / k0 * (1 + .03 * n); if (n >= 5) pop(b.x, b.y - 30, 'STONE READY', '#ffb15a'); }
 function stonebreak(b, src) { // Living Stone: at full Mass the next bumper hit blasts everything nearby
   const x0 = b.x, y0 = b.y; setMass(b, 0); msg('STONEBREAK!', 2); S.shake = Math.max(S.shake || 0, .8); noise(.45, .1, 600, 80, 'lowpass'); tone(90, .35, 'sawtooth', .07, 50);
   fx.push({ type: 'ring', x: x0, y: y0, t: 0, life: .6, c: '201,178,138', big: true }); fragsAt(x0, y0, '201,178,138', 16);
@@ -2242,6 +2276,16 @@ function soulSlash(y0) { // Soul Blade: a spectral slash sweeps across the table
 function phoenixBurst() { // Phoenix Engine: a table-wide fireburst as the last ball is reborn
   S.shake = Math.max(S.shake || 0, 1); S.pulse = 1; sfx.boom(); fx.push({ type: 'flash', t: 0, life: .3 }, { type: 'ring', x: 270, y: 860, t: 0, life: .8, c: '255,140,40', big: true });
   allTargets().forEach((o, i) => setTimeout(() => { if (!activePlay()) return; const [x, y] = objPos(o); o.flash = 1; o.burnT = 2; o.burnC = null; fx.push({ type: 'boom', x, y, t: 0, life: .35 }); award(300, 'explosion', o, x, y - 24, true); }, 40 + i * 25)); }
+const OVR_CH = [['ramp', 'RAMP', 199, 518], ['orbit', 'WARP', 432, 596], ['tunnel', 'TUNNEL', 262, 372], ['wormhole', 'WORMHOLE', 280, 668]];
+function overrideNode() { // Override Node (the Architect): overclock one machine part, 3× for 10 s
+  const pool = [...allTargets().filter(o => !(o.kind === 'drop' && o.down)).map(o => ({ o })), ...OVR_CH.map(([k, label, x, y]) => ({ k, label, x, y }))].filter(q => !S.ovr || q.o !== S.ovr.o || q.k !== S.ovr.k), P = rnd(pool);
+  S.ovr = { ...P, t: 10 }; const [x, y] = P.o ? objPos(P.o) : [P.x, P.y]; msg('OVERRIDE NODE · ' + (P.label || (P.o === enemy ? 'ARC CORE' : P.o.kind === 'bumper' ? 'BUMPER' : P.o.kind.toUpperCase())) + ' 3×', 2.2);
+  fx.push({ type: 'beam', x1: 280, y1: 462, x2: x, y2: y, t: 0, life: .35, c: '255,74,74' }, { type: 'ring', x, y, t: 0, life: .5, c: '255,74,74' }); tone(1400, .1, 'square', .05, 700); setTimeout(() => tone(1800, .08, 'square', .04, 900), 90); }
+function drawOverride() { const O = S.ovr; if (!O || !has('ucore')) return; const [x, y] = O.o ? objPos(O.o) : [O.x, O.y], t = performance.now() / 1000, r = O.o ? (O.o.r ? O.o.r + 9 : O.o === enemy ? 30 : 18) : 24, a = Math.min(1, O.t / .5);
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); ctx.strokeStyle = '#ff4a4a'; ctx.shadowColor = '#ff3a3a'; ctx.shadowBlur = 12; ctx.lineWidth = 2;
+  ctx.save(); ctx.rotate(t * 1.5); ctx.beginPath(); for (let i = 0; i < 6; i++) { const q = i / 6 * TAU; ctx.moveTo(Math.cos(q) * r, Math.sin(q) * r); ctx.lineTo(Math.cos(q) * (r + 5), Math.sin(q) * (r + 5)); } ctx.stroke(); ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.stroke(); ctx.restore();
+  ctx.setLineDash([]); ctx.lineWidth = 2.5; ctx.strokeStyle = '#ffb15a'; ctx.beginPath(); ctx.arc(0, 0, r + 9, -Math.PI / 2, -Math.PI / 2 + TAU * O.t / 10); ctx.stroke();
+  ctx.shadowBlur = 6; ctx.font = '13px ' + FONT_D; ctx.fillStyle = '#ffd0c0'; ctx.textAlign = 'center'; ctx.fillText('3×', 0, -r - 13); ctx.restore(); }
 function droneStrike(o, pts, x, y) { award(pts, 'drone', o, x, y, true); if (o === enemy) coreHit(enemy, null, true); } // drone shots on the Arc Core light letters like a real core hit
 function allTargets() { return TGC || (TGC = [...bumpers, ...standups, ...drops.filter(d => !d.down), ...stars, enemy]); }
 function objPos(o) {
@@ -2310,7 +2354,6 @@ function scoreFactor(kind, obj, cls) {
     if (b && b.kin && cls === 'hit') { src *= 2.5; b.kin = false; }
     if (obj && obj.pit && has('hypercube')) src *= 1.5;
     src *= 1 + T('gamma', .15, .25, .4) + .3 * has('skyfall');
-    if (has('ucore') && obj && obj.hitsL >= 5) src *= 4;
     if (syn('bumpercar')) src *= 1 + Math.min(1, .1 * Math.max(0, S.bumpStreak));
     if (S.mad === 'triple') src *= 3;
   }
@@ -2350,14 +2393,15 @@ function scoreFactor(kind, obj, cls) {
   if (tgt) { if (obj.x2T > 0) m *= 2; if (obj.mod && obj.mod.t > 0) m *= obj.mod.m; if (obj.web) m += .4 + T('webmaster', .4, .6, .6); /* webbed: +0.4× Mult, Web of Fate adds +0.4 / +0.6 */ if (obj === S.mark && hit && has('trickarrow')) m *= T('trickarrow', 4, 5, 5); if (b && b.capM && cls === 'hit') m *= b.capM; if (obj.growT > 0) m *= 2; }
   if (S.crownT > 0) m *= 1.5;
   if (S.cres > 0) m *= 1 + S.cres;
-  if (b && has('khonsu') && b.y < 470) m += .5; // Moon Idol: upper half of the table
+  { const O = S.ovr; if (O && O.t > 0 && (O.o ? obj === O.o : kind === O.k)) m *= 3; } // Override Node
+  if (b && has('khonsu') && b.y < 313) m += .5; // Moon Idol: upper half of the table
   if (b && b.skyT > 0) m += .5; // Skyhunter Wings
   if (tgt && S.eye && S.eye.o === obj && cls === 'hit') m *= 3; // The All-Seeing Eye: the revealed target
   if (has('grimoire')) m *= 1.5 + .5 * Math.max(0, (S.lost || 0) - 1); // the Grimoire's own drained ball does not count for itself
   if (b && has('hellrider') && !(S.comboT > 0)) m *= .8;
   if (b && has('torch') && hyp(b.vx, b.vy) < 500) m *= .75;
   if (tgt && hit && has('lucky')) { if (Math.random() < T('lucky', .1, .15, .15)) { m *= 4; pop(...objPos(obj), 'LUCKY ×4', '#ff6b3d', true); } else m *= .9; }
-  if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
+  if (syn('lightspeed') && b && hyp(b.vx, b.vy) > 1250) m += .5; // Lightspeed: fast ball +0.5× Mult
   if (b) { const full = b.temp && syn('spiderverse');
     if (b.giantT > 0 && phys) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 2; if (phys && hellOn(b)) m *= syn('penance') ? 1.6 + .2 * (b.heat || 0) : 1.3;
     if (!full) { if (b.ghost && !b.full) m *= syn('astral') ? Math.max(.5, b.gpay || .25) : b.gpay || .25; /* ghost balls: 25% base */ if (b.gen) m *= [1, .5, .25, .1][Math.min(3, b.gen)]; if (b.illu) m *= syn('astral') ? .5 : .25; if (b.spectral) m *= .5; }
@@ -2495,7 +2539,7 @@ function clutch(b) {
 // ---- hooks called from the core game ----
 function cardsLevel() {
   quantumReset(); S.snap2 = false;
-  Object.assign(S, { eye: null, eyeC: 0, bookP: 0, carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, comet: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, adrenal: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, soulblade: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {}, blue: null, herb: 0, legT: {}, ehS: [], strands: [], aim: null, legion: null, scrap: null, purgeFx: null, cheatFx: null, cheatO: null, cheatN: 0, capN: 0, hungB: 0, arcC: 0, aimN: 0, volN: 0, nanN: 0, slog: [], mark: null, resBoost: false, ockPush: 0, mantleFly: null, drone: null, drone2: null, cracks: [], fuse: 0, fieldT: 0, fieldN: 0, mstormT: 0, mirage: null, keg: false, kegN: 0, echoN: 0, polAcc: 0 });
+  Object.assign(S, { ovr: null, eye: null, eyeC: 0, bookP: 0, carUsed: false, rodT: 0, dbT: 0, cnt: {}, fires: S.fires || {}, partN: 0, arc2: 0, rad: 0, meltT: 0, heat: 0, heatOn: false, heatLow: 0, cosmic: 0, comet: 0, ftl: 0, qch: 0, focus: 0, focusN: 0, eyeN: 0, shotHist: [], chain: [], chaosMods: {}, imm: 0, bpKin: 0, deckSet: new Set(), punish: 0, adrenal: false, chi: 1, chiN: 0, lastFlip: -1, cres: 0, khon: '', nanoT: 0, nanoId: null, nanoCd: 10, suitT: 0, suitFire: 0, suit: null, ockT: 0, mad: null, madT: 0, tempPortalT: 0, mystT: 20, fake: null, coin: null, coinT: 25, clawObj: null, claw: 0, slingT: 0, lastPts: 0, comboHold: 0, magAcc: 0, soulblade: 0, guardN: 0, fastPending: false, swarmT: 0, slowT: 0, tcN: 0, antN: 0, wtS: null, volT: 0, trick: null, loopN: null, loopT: 0, cst: [], capN: 0, warpN: 0, decoyN: 0, chanSeen: {}, blue: null, herb: 0, legT: {}, ehS: [], strands: [], aim: null, legion: null, scrap: null, purgeFx: null, cheatFx: null, cheatO: null, cheatN: 0, capN: 0, hungB: 0, arcC: 0, aimN: 0, volN: 0, nanN: 0, slog: [], mark: null, resBoost: false, ockPush: 0, mantleFly: null, drone: null, drone2: null, cracks: [], fuse: 0, fieldT: 0, fieldN: 0, mstormT: 0, mirage: null, keg: false, kegN: 0, echoN: 0, polAcc: 0 });
   for (const o of [...bumpers, ...standups, ...drops, ...stars, enemy]) { o.web = false; o.sym = false; o.x2T = 0; o.mod = null; o.elec = 0; o.hitN = 0; }
   for (let i = bumpers.length - 1; i >= 0; i--) if (bumpers[i].temp) bumpers.splice(i, 1); TGC = null; PROJ.length = 0;
   bumpers.forEach(c => { if (c.bx != null) { c.x = c.bx; c.y = c.by; } });
@@ -2675,11 +2719,12 @@ function skyhawk(b) { // Skyhunter Wings: out of a tunnel the ball surges and sc
 }
 const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['gwT', 'hellT', 'blueCd', 'vibT', 'chg', 'radT', 'webT', 'hardT', 'steerT', 'clutchCd', 'directT', 'furyT', 'skyT'];
 function cardsTick(dt) {
+  if (S.ovr && (S.ovr.t -= dt) <= 0) S.ovr = null;
   if (S.eye && (S.eye.t -= dt) <= 0) S.eye = null;
   const t = performance.now() / 1000;
   // global modifiers read by physics
   S.gmul = (S.mad === 'lowgrav' ? .6 : 1) * (S.bfx && S.bfx.gravity > 0 ? -.55 : 1);
-  S.maxv = (S.meltT > 0 ? 2400 : syn('lightspeed') ? 2300 : MAXV) * (has('blitz') ? 1.15 : 1);
+  S.maxv = (S.meltT > 0 ? 2400 : MAXV) * (has('blitz') ? 1.15 : 1);
   S.kickMul = (S.bfx && S.bfx.overclock > 0 ? 1.6 : 1) * (has('skyfall') ? 1.15 : 1) * (evo('atlantis') ? 1.2 : 1) * (S.meltT > 0 ? 1.5 : 1) * (syn('worldbreaker') ? 1.2 : 1) * (has('gammaform') ? 1.3 : 1);
   for (const k of TIMERS_S) if (S[k] > 0) S[k] = Math.max(0, S[k] - dt);
   if (S.rodT > 0) S.rodT -= dt;
@@ -2980,6 +3025,7 @@ function countHit(kind, obj) {
   S.hits++;
   const b = curBall;
   if (kind !== 'bumper') S.bumpStreak = 0;
+  if (has('ucore') && S.hits % 20 === 0) overrideNode();
   if (has('loki') && S.hits % 30 === 0 && b) spawnBall(b, { ghost: true, life: 8 });
   if (has('spare') && every('spare', 18)) { allTargets().filter(o => !(o.kind === 'drop' && o.down)).sort(() => Math.random() - .5).slice(0, 2).forEach(o => { o.mod = { t: 6, m: 2, oc: true }; const [x, y] = objPos(o); pop(x, y - 36, 'OVERCLOCKED 2×', '#ffb347', true); }); tone(520, .15, 'square', .05, 1040); }
   if (has('magnet') && every('scrap', 16) && !S.scrap) spawnScrap();
@@ -3000,7 +3046,7 @@ function countHit(kind, obj) {
 }
 function bumperExtras(c, b) {
   S.bumpHits++; S.bumpStreak++; evoBumper(c, b); cardsBumper(c, b);
-  c.hitsL = (c.hitsL || 0) + 1; if (has('ucore') && c.hitsL === 5 && !c.pit) { msg('BUMPER OVERCLOCKED'); fx.push({ type: 'ring', x: c.x, y: c.y, t: 0, life: .5, c: '255,74,74' }); }
+  c.hitsL = (c.hitsL || 0) + 1;
   if (syn('forgeworks') && S.bumpHits % 10 === 0) { msg('AETHER PROTOCOL: MISSILES'); missiles(5, [c.x, c.y]); }
   if (has('rocket') && S.bumpStreak % 3 === 0) {
     const sp = hyp(b.vx, b.vy) || 1, boost = Math.min(MAXV, sp * 1.3) / sp; b.vx *= boost; b.vy *= boost;
@@ -3051,7 +3097,7 @@ const BFX = () => S.bfx || (S.bfx = {});
 let SEAL = null;
 function bossAttackTick(dt) {
   const B = S.boss, F = BFX();
-  for (const k in ATTACKS) if (F[k] > 0) { F[k] -= dt; if (F[k] <= 0) { F[k] = 0; endAttack(k); } }
+  for (const k in ATTACKS) if (F[k] > 0) { F[k] -= k === 'laser' ? S.rdt ?? dt : dt; /* the laser sweep always finishes its pass, even while the table is paused */ if (F[k] <= 0) { F[k] = 0; endAttack(k); } }
   if (F.laser > 0) F.laserY = 260 + 560 * (1 - F.laser / ATTACKS.laser.dur);
   if (!B || B.defeated) return;
   if (B.warn) { // telegraph
@@ -3220,10 +3266,10 @@ function bossTick(dt) {
     for (const d of ARCHD) {
       const tgt = balls.filter(q => isReal(q) && !q.captured && q.layer === 0 && !inLane(q)).sort((p, q) => hyp(p.x - d.x, p.y - d.y) - hyp(q.x - d.x, q.y - d.y))[0];
       if (d.lock > 0) { d.lock -= dt; d.tx = tgt ? tgt.x : d.tx; d.ty = tgt ? tgt.y : d.ty;
-        if (d.lock <= 0) { d.cd = (fast ? 2.6 : 3.6) + Math.random(); if (tgt) { const sp = hyp(tgt.vx, tgt.vy), a = Math.atan2(tgt.vy, tgt.vx) + (Math.random() < .5 ? -1 : 1) * (.25 + Math.random() * .2);
+        if (d.lock <= 0) { d.cd = (fast ? 3.6 : 4.9) + Math.random() * 1.5; /* shoot a bit less often */ if (tgt) { const sp = hyp(tgt.vx, tgt.vy), a = Math.atan2(tgt.vy, tgt.vx) + (Math.random() < .5 ? -1 : 1) * (.25 + Math.random() * .2);
             if (sp > 30) { tgt.vx = Math.cos(a) * sp; tgt.vy = Math.sin(a) * sp; } else { tgt.vx += (Math.random() - .5) * 300; }
             fx.push({ type: 'beam', x1: d.x, y1: d.y + 6, x2: tgt.x, y2: tgt.y, t: 0, life: .25, c: '255,74,74' }); fx.push({ type: 'ring', x: tgt.x, y: tgt.y, t: 0, life: .25, c: '255,74,74' }); tone(900, .06, 'square', .04, 500); } } }
-      else if ((d.cd = (d.cd ?? 1.5 + Math.random() * 2) - dt) <= 0 && tgt) d.lock = .45;
+      else if ((d.cd = (d.cd ?? 2.5 + Math.random() * 2) - dt) <= 0 && tgt) d.lock = .45;
     }
   }
 }
@@ -3571,7 +3617,7 @@ function collideBumper(b, c) {
   if (nx > m || nx < -m || ny > m || ny < -m) return; const d2 = nx * nx + ny * ny; if (d2 >= m * m || d2 === 0) return; const d = Math.sqrt(d2);
   nx /= d; ny /= d; b.x = c.x + nx * m; b.y = c.y + ny * m;
   const vn = b.vx * nx + b.vy * ny;
-  if (vn < 0) { const e = c.e || 1.4, kk = c.kind === 'bumper' ? c.kick * (S.kickMul || 1) * (b.kickM || 1) * (b.smash || 1) * (has('ucore') && c.hitsL >= 5 && !c.pit ? 1.2 : 1) : c.kick; b.vx -= e * vn * nx; b.vy -= e * vn * ny; b.vx += nx * kk; b.vy += ny * kk;
+  if (vn < 0) { const e = c.e || 1.4, kk = c.kind === 'bumper' ? c.kick * (S.kickMul || 1) * (b.kickM || 1) * (b.smash || 1) : c.kick; b.vx -= e * vn * nx; b.vy -= e * vn * ny; b.vx += nx * kk; b.vy += ny * kk;
     if (c.pit) { const now = performance.now(); // never let a ball bounce on top of a pit bumper: the 2nd quick hit rolls it off the side
       if (b.pitB === c && now - b.pitT < 1200) b.pitN = (b.pitN || 1) + 1; else b.pitN = 1; b.pitB = c; b.pitT = now;
       if (b.pitN >= 2 && ny < -.3) { const side = c.x < 55 ? 1 : -1; b.vx = side * Math.max(330, Math.abs(b.vx)); b.vy = Math.max(b.vy, 60); b.pitN = 0; } } // roll off toward the open side of the pit
@@ -3715,7 +3761,7 @@ function tick(dt) {
   for (const b of balls) { if (b.captured || b.lift) continue; const P = b.layer === 1 ? [...rampL, ...rampR.slice().reverse().flatMap((v, i, A) => i % 2 ? [] : [A[i + 1], v])] : b.layer === 2 ? tunnelPoly : null;
     const off = P ? !inPoly(P, b.x, b.y) : b.layer === 3 && b.y < 680; if (off && !inLane(b)) { if ((b.offT = (b.offT || 0) + dt) > .2) { b.layer = 0; b.offT = 0; } } else b.offT = 0; }
   // no ball on the table yet (or all of them waiting in the plunger lane): every time-based effect is frozen and nothing fires
-  const idle = !balls.some(b => !inLane(b)), gdt = idle ? 0 : dt; S.idle = idle;
+  const idle = !balls.some(b => !inLane(b)), gdt = idle ? 0 : dt; S.idle = idle; S.rdt = dt;
   curBall = null; TGC = null; cardsTick(gdt);
   if (S.portalT > 0) S.portalT -= gdt;
   for (const b of balls) if (b.portCd > 0) b.portCd -= dt;
@@ -4580,7 +4626,7 @@ function render(dt) {
     if (B.t >= B.life) S.banner = null; else {
       ctx.save(); ctx.globalAlpha = Math.max(0, a); const x = 30, y = 44; // small, borderless, top-left
       ctx.textAlign = 'left'; ctx.shadowColor = 'rgba(0,0,0,.95)'; ctx.shadowBlur = 4; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1;
-      ctx.fillStyle = B.c || '#f5c542'; ctx.font = '27px ' + FONT_D; ctx.fillText(B.title.toUpperCase(), x, y + 10);
+      ctx.fillStyle = B.c || '#f5c542'; fitFont(ctx, B.title.toUpperCase(), Math.round(27 * txtScale()), W - 150); ctx.fillText(B.title.toUpperCase(), x, y + 10);
       ctx.restore();
     }
   }
@@ -4606,17 +4652,23 @@ function drawAwake(dt) { // "THUNDER III AWAKENED": a huge flash in the family c
   ctx.globalAlpha = Math.max(0, a);
   const oy = S.freeze && S.freeze.kind === 'evo' ? 280 : 0, g = ctx.createLinearGradient(0, 270 + oy, 0, 500 + oy); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.5, 'rgba(6,6,16,.72)'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 270 + oy, W, 230);
   if (A.cap) { ctx.save(); ctx.translate(W / 2, 360); ctx.rotate(t * .4); ctx.fillStyle = `rgba(${rgb},.12)`; for (let i = 0; i < 12; i++) { ctx.rotate(TAU / 12); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-30, -420); ctx.lineTo(30, -420); ctx.fill(); } ctx.restore(); }
-  const sc = t < .3 ? .7 + .3 * (t / .3) + .1 * Math.sin(t / .3 * Math.PI) : 1;
+  const sc = t < .3 ? .7 + .3 * (t / .3) + .1 * Math.sin(t / .3 * Math.PI) : 1, ts = txtScale();
   ctx.translate(W / 2, S.freeze && S.freeze.kind === 'evo' ? 280 : 0); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.save(); ctx.translate(0, 340); ctx.scale(sc, sc);
-  const size = fitFont(ctx, A.title, A.cap ? 74 : 64, W - 80 - (A.cap ? 74 : 64)), tw = ctx.measureText(A.title).width, im = FAMIMG[A.fam];
-  ctx.shadowColor = A.c; ctx.shadowBlur = 24; if (im && im.complete) ctx.drawImage(im, size * .3 - tw / 2 - size * 1.1, -size * .5, size, size); ctx.save(); ctx.translate(size * .3, 0); ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(0,0,0,.85)'; ctx.strokeText(A.title, 0, 0); ctx.fillStyle = '#fff'; ctx.fillText(A.title, 0, 0); ctx.restore();
-  ctx.font = Math.round(size * .55) + 'px ' + FONT_D; ctx.fillStyle = A.c; ctx.strokeText('AWAKENED', 0, size * .72); ctx.fillText('AWAKENED', 0, size * .72);
+  // a solid plate behind the text so it reads over the busy table (and bigger type on small screens)
+  const PW = W - 36, size = fitFont(ctx, A.title, Math.round((A.cap ? 70 : 60) * Math.min(ts, 1.15)), PW - 40 - 64 * Math.min(ts, 1.15)), fs = Math.round(17 * ts), nfs = Math.round(19 * ts);
+  ctx.font = fs + 'px ' + FONT_B; const lines = wrapText(ctx, A.sub, PW - 36).slice(0, 4), PH = size * 1.72 + nfs + 30 + lines.length * fs * 1.22 + 26, top = 372 - PH / 2;
+  ctx.save(); ctx.shadowColor = A.c; ctx.shadowBlur = 22; ctx.fillStyle = 'rgba(7,8,18,.9)'; ctx.beginPath(); ctx.roundRect(-PW / 2, top, PW, PH, 14); ctx.fill(); ctx.shadowBlur = 0; ctx.strokeStyle = `rgba(${rgb},.85)`; ctx.lineWidth = 2; ctx.stroke(); ctx.restore();
+  ctx.save(); ctx.translate(0, top + 16 + size * .55); ctx.scale(sc, sc); ctx.font = size + 'px ' + FONT_D;
+  const tw = ctx.measureText(A.title).width, im = FAMIMG[A.fam], isz = size * .95, gap = size * .18, x0 = -(tw + (im ? isz + gap : 0)) / 2;
+  ctx.shadowColor = A.c; ctx.shadowBlur = 20; if (im && im.complete) ctx.drawImage(im, x0, -isz / 2, isz, isz);
+  ctx.textAlign = 'left'; ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(0,0,0,.85)'; const tx = x0 + (im ? isz + gap : 0); ctx.strokeText(A.title, tx, 0); ctx.fillStyle = '#fff'; ctx.fillText(A.title, tx, 0);
+  ctx.textAlign = 'center'; ctx.font = Math.round(size * .55) + 'px ' + FONT_D; ctx.fillStyle = A.c; ctx.strokeText('AWAKENED', 0, size * .78); ctx.fillText('AWAKENED', 0, size * .78);
   ctx.restore();
-  ctx.shadowBlur = 0; ctx.font = '600 20px ' + FONT_B; ctx.fillStyle = A.c; ctx.fillText(A.name.toUpperCase(), 0, 428);
-  ctx.font = '17px ' + FONT_B; ctx.fillStyle = '#e9ecf5'; wrapText(ctx, A.sub, W - 110).slice(0, 2).forEach((l, i) => ctx.fillText(l, 0, 454 + i * 21));
+  let y = top + 16 + size * 1.72 + nfs * .5 + 8; ctx.shadowBlur = 0; ctx.font = '600 ' + nfs + 'px ' + FONT_B; ctx.fillStyle = A.c; ctx.fillText(A.name.toUpperCase(), 0, y); y += nfs * .6 + 14;
+  ctx.font = fs + 'px ' + FONT_B; ctx.fillStyle = '#e9ecf5'; lines.forEach((l, i) => ctx.fillText(l, 0, y + i * fs * 1.22 + fs * .5));
   ctx.restore();
 }
+const txtScale = () => Math.min(1.45, Math.max(1, .82 / (k || 1))); // canvas text grows on small screens so it stays readable
 function hexRgb(h) { h = h.replace('#', ''); if (h.length === 3) h = h.replace(/./g, c => c + c); const n = parseInt(h, 16); return `${n >> 16 & 255},${n >> 8 & 255},${n & 255}`; }
 const EVO_T = 5, EVO_AT = { forgeworks: [280, 590], atlantis: [270, 880], sanctum: [298, 289], asgard: [270, 700] };
 function startEvoMarquee(E) {
@@ -4715,9 +4767,9 @@ function hudMult() {
   if (S.crownT > 0) m *= 1.5; if (S.cres > 0) m *= 1 + S.cres; if (has('grimoire')) m *= 1.5 + .5 * Math.max(0, (S.lost || 0) - 1);
   if (b && has('hellrider') && !(S.comboT > 0)) m *= .8;
   if (b && has('torch') && hyp(b.vx, b.vy) < 500) m *= .75;
-  if (syn('lightspeed') && b) { const sp = hyp(b.vx, b.vy); if (sp > 1650) m *= 3; else if (sp > 1250) m *= 2; }
+  if (syn('lightspeed') && b && hyp(b.vx, b.vy) > 1250) m += .5; // Lightspeed: fast ball +0.5× Mult
   if (b) { if (b.giantT > 0) m *= 3; if (b.tk) m *= 2; if (b.flameT > 0) m *= 2.5; if (b.hellT > 0) m *= 2; if (hellOn(b)) m *= syn('penance') ? 1.6 + .2 * (b.heat || 0) : 1.3; if (b.capM) m *= b.capM; if (b.carUntil > performance.now()) m *= 2; }
-  if (b && has('khonsu') && b.y < 470) m += .5;
+  if (b && has('khonsu') && b.y < 313) m += .5;
   if (b && b.skyT > 0) m += .5;
   if (S.adrenal) m *= 3; if (S.focusN > 0) m *= 3;
   return damp(m);
