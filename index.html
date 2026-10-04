@@ -753,7 +753,7 @@ const UPGRADES = [
   { id: 'helmet', r: 'artifact', boss: 'lodestar', cat: 'Artifact · The Polarity King', name: "Polarity Crown", desc: 'Boss levels need 10% fewer points.' },
   { id: 'gauntlet', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Starforge', desc: 'When you reach half the target, the forge flares: +1x mult for 10 seconds.' },
   { id: 'obsidianblade', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: 'Void Blade', desc: 'Every 15th clean hit releases a void slash across the table, striking every target in its path for 500.' },
-  { id: 'titan', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: "Tyrant's Resolve", desc: '+1 ball every level and +20% points from everything.' },
+  { id: 'titan', r: 'artifact', boss: 'thanatos', cat: 'Artifact · The Tyrant', name: "Tyrant's Resolve", desc: '+1 ball every level and +0.3 mult permanently' },
   { id: 'controlrod', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Control Rod', desc: 'Every 20 hits the rod pulses: everything scores 1.5× for 5 seconds.' },
   { id: 'carapace', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: "Emperor's Carapace", desc: 'One free Ball Save per level. Every Ball Save, from any source, makes the ball spiky for 5 s: ×1.5 Mult.' },
   { id: 'nzgate', r: 'artifact', boss: 'nyx', cat: 'Artifact · The Void Emperor', name: 'Void Gate', desc: 'Two void portals appear on the table. Every 3rd teleport spawns a ghost ball for 8 seconds.' },
@@ -1749,8 +1749,10 @@ function freeSpot(minD = 46) { // the spot farthest from every part, ball-sized 
   let best = null, bd = -1; for (const [x, y] of COPYSPOTS) { const d = Math.min(...obs.map(([ox, oy]) => hyp(ox - x, oy - y))); if (d > bd) { bd = d; best = [x, y]; } }
   return bd >= minD ? best : null;
 }
+const NANSPOTS = [[436, 168], [262, 70], [330, 70], [172, 214]]; // Nanite Replication builds its copies along the top of the table
+function nanSpot() { const obs = [...bumpers.map(c => [c.x, c.y]), ...balls.map(b => [b.x, b.y])]; const free = NANSPOTS.filter(([x, y]) => obs.every(([ox, oy]) => hyp(ox - x, oy - y) > 40)); return free.length ? rnd(free) : null; }
 function naniteCopy(src) { // Nanite Replication: a temporary working copy of the last target hit
-  const sp = freeSpot(); if (!sp || bumpers.filter(c => c.nanite).length >= 2) return; const [x, y] = sp, r = src.r ? Math.min(src.r, 22) : 15;
+  const sp = nanSpot(); if (!sp || bumpers.filter(c => c.nanite).length >= 2) return; const [x, y] = sp, r = src.r ? Math.min(src.r, 22) : 15;
   bumpers.push({ x, y, bx: x, by: y, r, kick: 430, kind: 'bumper', pts: tgtValue(src), flash: 1, temp: true, life: 1e9, nanite: true, hp: 4, build: 0 }); TGC = null;
   pop(x, y - r - 18, 'NANITE COPY', '#7fe7ff', true); tone(700, .25, 'square', .04, 1400); fx.push({ type: 'ring', x, y, t: 0, life: .5, c: '127,231,255' });
 }
@@ -1832,7 +1834,7 @@ function v189Tick(dt) {
   if (has('trickarrow') && (!S.mark || (S.mark.kind === 'drop' && S.mark.down) || !allTargets().includes(S.mark))) moveMark(null);
   if (S.aim) { const A = S.aim; A.t += dt; if (A.t >= .4) { S.aim = null; const o = A.o, [x, y] = objPos(o); fx.push({ type: 'beam', x1: 280, y1: 36, x2: x, y2: y, t: 0, life: .35, c: '120,240,255', w: 13 }, { type: 'ring', x, y, t: 0, life: .45, c: '120,240,255', big: true }); o.flash = 1; award(T('smart', 1000, 1500, 1500), 'autoaim', o, x, y - 34, true); tone(2200, .18, 'sawtooth', .05, 400); } }
   if (has('clockbots') && legEvery('legion', 12 / OC(), dt)) { S.legion = { t: 0, n: 0 }; msg('CLOCKWORK LEGION · FIRE!'); }
-  if (S.legion) { const L = S.legion; L.t += dt; while (L.n < 3 && L.t >= L.n * .25) { const [sx, sy] = SOLDIERS[L.n], [px, py] = plateXY(enemy); fx.push({ type: 'beam', x1: sx + 10, y1: sy + 16, x2: px, y2: py, t: 0, life: .3, c: '255,230,140' }); tone(900 - L.n * 120, .08, 'square', .05, 300); coreHit(enemy, null, true); L.n++; } if (L.t > 1.1) S.legion = null; }
+  if (S.legion) { const L = S.legion; L.t += dt; while (L.n < 3 && L.t >= L.n * .25) { const [sx, sy] = SOLDIERS[L.n], [px, py] = plateXY(enemy); fx.push({ type: 'beam', x1: sx + 10, y1: sy + 16, x2: px, y2: py, t: 0, life: .3, c: '255,230,140' }); tone(900 - L.n * 120, .08, 'square', .05, 300); coreHit(enemy, null, true); if (syn('forgelegacy')) award(250, 'legacy', enemy, px, py - 30, true); L.n++; } if (L.t > 1.1) S.legion = null; }
   if (has('reckoning') && legEvery('purge', 12, dt)) { S.purgeFx = { t: 0 }; msg('THE PURGE'); noise(.4, .08, 3000, 400); liveTargets().forEach(o => { const [x, y] = objPos(o); o.flash = 1; award(tgtValue(o) * .5, 'purge', o, x, y - 22, true); }); }
   if (has('ironmask') && legEvery('visor', 10, dt)) { const L = S.slog || [], now = performance.now(); let sum = 0; for (let i = 0; i < L.length; i += 2) if (now - L[i] <= 2000) sum += L[i + 1]; if (sum > 0) { bonus(sum, 280, 300, 'VISOR REPLAY'); msg("SOVEREIGN'S VISOR · REPLAY +" + fmt(Math.round(sum)), 2.5); fx.push({ type: 'ring', x: 280, y: 300, t: 0, life: .6, c: '53,196,107', big: true }); tone(660, .2, 'triangle', .05, 1320); } }
 }
@@ -1913,7 +1915,7 @@ function v189Draw(dt) {
   if (has('cradle')) { const n = S.capN || 0, armed = balls.some(q => q.capM); for (const f of flippers) for (let i = 0; i < 3; i++) { const u = .3 + i * .22, x = f.px + f.s * Math.cos(f.a) * f.L * u, y = f.py + Math.sin(f.a) * f.L * u, on = armed || i < n; ctx.fillStyle = on ? '#ffe04a' : 'rgba(80,70,20,.8)'; ctx.shadowColor = '#ffd23a'; ctx.shadowBlur = on ? 10 : 0; ctx.beginPath(); ctx.arc(x, y, 3, 0, TAU); ctx.fill(); } ctx.shadowBlur = 0;
     for (const q of balls) if (q.capM) { const k = performance.now() / 45 | 0; ctx.strokeStyle = 'rgba(255,230,90,.95)'; ctx.lineWidth = 1.5; ctx.beginPath(); for (let i = 0; i <= 10; i++) { const a = i / 10 * TAU, j = ((i * 7919 + k * 31) % 11) / 11; ctx.lineTo(q.x + Math.cos(a) * ((q.rad || 10) + 3 + j * 6), q.y + Math.sin(a) * ((q.rad || 10) + 3 + j * 6)); } ctx.stroke(); } }
   if (S.slips && S.slips.length) { const now = performance.now(); S.slips.filter(q => q.until > now).forEach((sl, k) => { const d = (0.5 + 0.2 * k) * 1000; for (const q of balls) { const H2 = q.slipH; if (!H2 || H2.length < 6 || now - H2[2] < d - 40) continue; // slipstream balls chase the real one, each 0.2 s behind the previous
-      let n = 0; while (n + 3 < H2.length && now - H2[n + 3] >= d) n += 3; const x = H2[n], y = H2[n + 1], r = q.rad || 10, strong = sl.pct >= 1, a = Math.min(1, (sl.until - now) / 400, (now - sl.born) / 300);
+      let n = 0; while (n + 5 < H2.length && now - H2[n + 5] >= d) n += 3; const x = H2[n], y = H2[n + 1], r = q.rad || 10, strong = sl.pct >= 1, a = Math.min(1, (sl.until - now) / 400, (now - sl.born) / 300);
       ctx.save(); ctx.globalAlpha = (strong ? .95 : .8) * a; ctx.shadowColor = strong ? '#9fd0ff' : '#5aa8ff'; ctx.shadowBlur = strong ? 24 : 14;
       const gr = ctx.createRadialGradient(x - r * .35, y - r * .4, r * .1, x, y, r); gr.addColorStop(0, '#e6f2ff'); gr.addColorStop(.35, strong ? '#a6d6ff' : '#7cc0ff'); gr.addColorStop(.8, strong ? '#3f86f0' : '#2f6fd6'); gr.addColorStop(1, '#173a80'); ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill(); ctx.restore(); } }); }
   if (S.qbFx && S.qbFx.length) for (const f of S.qbFx) { const [gx, gy] = objPos(f.o), k = Math.min(1, f.t), yy = gy - 120 * (1 - k * k), a = f.t < .15 ? f.t / .15 : f.t > 1 ? Math.max(0, 1 - (f.t - 1) / .25) : 1; // Quantum Battery: a blue ball drops onto the target and vanishes
@@ -2473,7 +2475,7 @@ function drawLegStep() { for (const L of LEGSTEP) { const [x, y] = objPos(L.o), 
     ctx.restore(); } }
 function magnetEffects(b, dt) { // Ferro Fluid: pays continuously while a magnet works on the ball
   const v = (T('ferro', 200, 300, 300) + (syn('fieldmaster') ? 80 : 0)) * (syn('magnetar') ? 3 : 1); if (v && (S.magAcc = (S.magAcc || 0) + dt) >= .4) { S.magAcc = 0; award(v, 'magnet', null, b.x, b.y - 22, true); } }
-function droneStrike(o, pts, x, y) { award(pts, 'drone', o, x, y, true); if (syn('forgelegacy')) award(250, 'legacy', o, x, y - 20, true); if (o === enemy) coreHit(enemy, null, true); } // drone shots on the Arc Core light letters like a real core hit
+function droneStrike(o, pts, x, y) { award(pts, 'drone', o, x, y, true); if (o === enemy) coreHit(enemy, null, true); } // drone shots on the Arc Core light letters like a real core hit
 function allTargets() { return TGC || (TGC = [...bumpers, ...standups, ...drops.filter(d => !d.down), ...stars, enemy]); }
 function objPos(o) {
   if (o === enemy) { const p = plateXY(enemy); return [p[0], p[1] - 2]; }
@@ -2514,7 +2516,6 @@ function globalBonus() {
   let a = S.combo * .1;
   a += .15 * has('blackorder') * Math.floor((S.level - 1) / 5);
   a += .3 * has('crimelord');
-  a += .2 * has('titan');
   a += (S.mystic || 0) + (S.comet || 0);
   if (has('malachar')) a += .1 * Math.floor(S.credits / 100);
   if (has('helmet') && S.boss && !S.boss.defeated) a += .3; // Polarity Crown
@@ -2523,6 +2524,7 @@ function globalBonus() {
 function globalMult() {
   let m = S.mult;
   if (S.qcM > 0 && syn('clonesaga')) m += S.qcM; // Quantum Conduit
+  if (has('titan')) m += .3; // Tyrant's Resolve
   if (has('hunger')) m += S.hunger || 0; // Endless Hunger: permanent Mult for the run
   if (S.odT > 0) m *= 2; if (S.bifT > 0) m *= 3; if (S.snapT > 0) m += 1; if (S.heatOn) m *= has('torch') ? 3 : 2; if (S.meltT > 0) m *= 2;
   if (S.apS && S.apS.length) { const now = performance.now(), n = S.apS.filter(e => e > now).length; if (n) m *= 1 + T('portals', .5, .75, .75) * n; } // Astral Portals: stacking Mult per portal jump
@@ -3636,8 +3638,10 @@ function bossFor(lv) {
 //  · Mult:   the table multiplier and a few big moments MULTIPLY. Above ×20 it is damped (Overload).
 // Collision classes: HIT (clean contact, triggers everything) · GLANCE (weak contact, 50%, no triggers)
 //  · RATTLE (same target again within 0.25 s, 25%, no triggers) · EFFECT (points made by cards, never trigger counters)
+const LEGACY_SHOTS = new Set(['drone', 'missile', 'reactor', 'arcburst', 'autoaim', 'orbital']); // beam shots from bots, drones, sentries, the reactor and satellites (projectiles are counted where they land)
 function award(base, kind, obj, x, y, generated = false) {
   if (S.freeze && S.freeze.kind === 'gambit') return;
+  if (generated && LEGACY_SHOTS.has(kind) && syn('forgelegacy')) award(250, 'legacy', obj, x, y != null ? y - 20 : y, true); // Aetherworks Legacy: +250 per fired shot
   let cls = generated ? 'effect' : 'hit';
   if (!generated && isTarget(obj) && curBall) {
     const now = performance.now();
