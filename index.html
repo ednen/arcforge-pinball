@@ -1523,7 +1523,7 @@ const EVOS = [
   { id: 'forgeworks', need: ['smart', 'ubump', 'arc'], name: 'Aetherworks Spire', c: [255, 170, 60], hex: '#ffb347',
     desc: 'Two pulse drones patrol the playfield and each blasts a target for 300 every 4 seconds. Every 25 hits the Aether Reactor overloads for 8 seconds: everything scores 2×, flippers swing harder and the drones fire every second.' },
   { id: 'atlantis', need: ['sense', 'vibrail', 'guard'], name: 'Voidsteel Citadel', c: [170, 90, 255], hex: '#b58cff',
-    desc: 'The flippers are rebuilt in voidsteel. Every 10 seconds they release a violet kinetic pulse that rolls up the table: it shoves every ball it passes (harder up close) and each ball it catches pays 300. Bumpers kick 20% harder.' },
+    desc: 'The bumpers, slingshots and flippers are rebuilt in voidsteel, and two citadel towers rise over the inlanes. Every 10 seconds the flippers release a violet kinetic pulse that rolls up the table: it shoves every ball it passes (harder up close) and each ball it catches pays 300. Bumpers kick 20% harder.' },
   { id: 'sanctum', need: ['portals', 'warpring', 'constellation'], name: 'Astral Sanctum', c: [255, 140, 40], hex: '#ff9a2e',
     desc: 'Reality bends: the three red bumpers leave their posts and orbit each other in a slow rune circle, spinning faster while a portal ×2 is active. The portals come loose and drift. Every portal jump adds +0.25× to all scoring for the rest of the level, up to +3×.' },
   { id: 'asgard', need: ['mjolnir', 'cleaver', 'bifrost'], name: 'Asgardian Forge', c: [90, 180, 255], hex: '#6fc3ff',
@@ -1531,6 +1531,18 @@ const EVOS = [
 ];
 const evo = id => S.evos && S.evos.has(id);
 const evoTheme = () => { let e = null; for (const E of EVOS) if (evo(E.id)) e = E.id === S.evoLast ? E : e || E; return e; };
+function drawCitadel(t) { // Voidsteel Citadel: two crenellated voidsteel towers crown the inlane guides, and armoured wall plates line the lower sides
+  ctx.save();
+  const tower = (x, y, sd) => { const w = 20, h = 46, x0 = x - w / 2, y0 = y - h; const g = ctx.createLinearGradient(x0, 0, x0 + w, 0); g.addColorStop(0, '#5a5470'); g.addColorStop(.5, '#2d2740'); g.addColorStop(1, '#120e1e');
+    ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillRect(x0 + 4, y0 + 6, w, h);
+    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x0, y0 + 6); for (let i = 0; i < 4; i++) { const bx = x0 + i * w / 3.5; ctx.lineTo(bx, y0); ctx.lineTo(bx + w / 7, y0); ctx.lineTo(bx + w / 7, y0 + 6); ctx.lineTo(bx + w / 3.5, y0 + 6); } ctx.lineTo(x0 + w, y0); ctx.lineTo(x0 + w, y); ctx.closePath();
+    ctx.fillStyle = g; ctx.fill(); ctx.strokeStyle = '#b58cff'; ctx.lineWidth = 1.5; ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 8; ctx.stroke(); ctx.shadowBlur = 0;
+    const k = .6 + .4 * Math.sin(t * 2.4 + sd), pk = (S.wpT || 0) / 10; ctx.fillStyle = `rgba(200,150,255,${.5 + .5 * Math.max(k * .6, pk)})`; ctx.shadowColor = '#c79bff'; ctx.shadowBlur = 10;
+    ctx.beginPath(); ctx.roundRect(x - 3, y0 + 14, 6, 12, [3, 3, 0, 0]); ctx.fill(); ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(0,0,0,.5)'; ctx.lineWidth = 1; for (const yy of [y0 + 34, y0 + 41]) { ctx.beginPath(); ctx.moveTo(x0 + 2, yy); ctx.lineTo(x0 + w - 2, yy); ctx.stroke(); } };
+  tower(48, 618, 0); tower(492, 672, 1.7);
+  ctx.restore();
+}
 function checkEvos() {
   for (const E of EVOS) if (S.evos.has(E.id) && !E.need.every(has)) S.evos.delete(E.id);
   for (const E of EVOS) if (!S.evos.has(E.id) && E.need.every(has)) { S.evos.add(E.id); S.evoLast = E.id; S.newSyn.push({ ...E, evo: true }); }
@@ -1617,6 +1629,7 @@ function drawEvoUnder(dt) {
     for (const [x1, x2] of [[230, 172], [330, 368]]) { ctx.beginPath(); ctx.moveTo(x1, 640); ctx.lineTo(x1, 700); ctx.lineTo(x2, 790); ctx.stroke(); }
     ctx.setLineDash([]);
   }
+  if (evo('atlantis')) drawCitadel(t);
   if (evo('atlantis')) { // voidsteel circuitry along the guides + kinetic meter
     ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 12; ctx.lineWidth = 3; ctx.lineCap = 'round';
     const k = (S.wpT || 0) / 10;
@@ -1761,6 +1774,7 @@ function drawScrapShape(k) { ctx.fillStyle = '#8d93a6'; ctx.strokeStyle = '#3b40
 // per-ball extras inside the physics step (layer 0 only)
 const GYROPTS = () => [[(rampMouth[0] + rampMouth[1]) / 2, 492], [tunCenter[0], tunCenter[1]], [490, 572]];
 function physExtra(b, dt) {
+  if (has('tailwind') && isReal(b)) { const sp = hyp(b.vx, b.vy), f = b.twF ?? sp; if (!inLane(b) && sp > 800 && sp - f > 450) tailGust(b); b.twF = f + (sp - f) * Math.min(1, dt * 6); } // Tailwind: any sudden speed-up (flipper, bumper, sling, boosts) blows a gust
   if (has('skyhawk') && isReal(b) && !inLane(b)) { if (b.y < H / 3 && !b.skyTop) { b.skyTop = true; if (!(b.skyT > 0)) skyhawk(b); } else if (b.y > H / 3 + 60) b.skyTop = false; }
   if (b.velT > 0 && !inLane(b)) { b.velT -= dt; const sp = hyp(b.vx, b.vy) || 1, tg = (S.maxv || MAXV) * .95; if (!b.velGo) { b.velGo = true; tailGust(b); msg('VELOCITY TUNNEL'); } if (sp < tg) { const ns = sp + (tg - sp) * Math.min(1, dt * 2.2); b.vx *= ns / sp; b.vy *= ns / sp; } }
   if (isReal(b) && performance.now() - (b.magFx ?? -1e9) < 60) magnetEffects(b, dt); // a magnet bent the ball on the last step
@@ -1863,6 +1877,28 @@ function drawVelTrail(b) { // Velocity Tunnels: speed lines stream off the accel
   for (let i = -2; i <= 2; i++) { const ox = -uy * i * r * .45, oy = ux * i * r * .45, L = (26 + 30 * k) * (1 - Math.abs(i) * .18); ctx.strokeStyle = `rgba(${i ? '120,200,255' : '220,245,255'},${(.55 - Math.abs(i) * .1) * a})`; ctx.lineWidth = i ? 1.6 : 2.6; ctx.beginPath(); ctx.moveTo(b.x + ox - ux * r, b.y + oy - uy * r); ctx.lineTo(b.x + ox - ux * (r + L), b.y + oy - uy * (r + L)); ctx.stroke(); }
   ctx.restore();
 }
+function slipIdx(H2, now, d) { let n = 0; while (n + 5 < H2.length && now - H2[n + 5] >= d) n += 3; return n; }
+function drawSlipstreams() { // slipstream balls: holographic after-images riding a light current that streams off the real ball
+  const now = performance.now(), t = now / 1000, act = S.slips.filter(q => q.until > now);
+  act.forEach((sl, k) => { const d = (0.5 + 0.2 * k) * 1000, strong = sl.pct >= 1, a = Math.min(1, (sl.until - now) / 400, (now - sl.born) / 300), col = strong ? '200,240,255' : '110,180,255';
+    for (const q of balls) { const H2 = q.slipH; if (!isReal(q) || !H2 || H2.length < 6 || now - H2[2] < d - 40) continue;
+      const n = slipIdx(H2, now, d), x = H2[n], y = H2[n + 1], r = q.rad || 10;
+      ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.globalCompositeOperation = 'lighter';
+      // the current: the ball's own path from the after-image up to the ball, brightest near the ball
+      { const seg = []; for (let i = n; i + 1 < H2.length; i += 6) seg.push(H2[i], H2[i + 1]); seg.push(q.x, q.y); const ribbon = k === act.length - 1; /* one current per ball (the longest); every echo rides it */
+        if (ribbon) for (let i = 2; i < seg.length; i += 2) { const u = i / seg.length; ctx.strokeStyle = `rgba(110,180,255,${.13 * (.3 + .7 * u) * a})`; ctx.lineWidth = r * (.35 + .55 * u); ctx.beginPath(); ctx.moveTo(seg[i - 2], seg[i - 1]); ctx.lineTo(seg[i], seg[i + 1]); ctx.stroke(); }
+        const L = seg.length / 2; for (let p = 0; p < 5; p++) { const u = 1 - ((t * 1.6 + p / 5 + k * .13) % 1), fi = Math.min(L - 1, Math.floor(u * (L - 1))) * 2; ctx.fillStyle = `rgba(${col},${.8 * a * (1 - u * .6)})`; ctx.beginPath(); ctx.arc(seg[fi], seg[fi + 1], 1.6 + u, 0, TAU); ctx.fill(); } }
+      // fading echoes just behind the after-image
+      for (let e = 3; e >= 1; e--) { const m = slipIdx(H2, now, d + e * 45), ex = H2[m], ey = H2[m + 1]; ctx.strokeStyle = `rgba(${col},${(.28 - e * .07) * a})`; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(ex, ey, r * (1 - e * .08), 0, TAU); ctx.stroke(); }
+      // the after-image itself: a see-through hologram of the ball (hollow, scanlined, flickering)
+      const fl = .85 + .15 * Math.sin(t * 31 + k * 2);
+      const gr = ctx.createRadialGradient(x - r * .3, y - r * .35, r * .1, x, y, r); gr.addColorStop(0, `rgba(235,248,255,${.35 * a * fl})`); gr.addColorStop(.6, `rgba(${col},${.16 * a * fl})`); gr.addColorStop(1, `rgba(${col},${.05 * a})`);
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+      ctx.globalCompositeOperation = 'source-over'; ctx.shadowColor = `rgb(${col})`; ctx.shadowBlur = strong ? 16 : 10; ctx.strokeStyle = `rgba(${col},${.9 * a * fl})`; ctx.lineWidth = strong ? 2.2 : 1.6; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke(); ctx.shadowBlur = 0;
+      ctx.save(); ctx.beginPath(); ctx.arc(x, y, r - 1, 0, TAU); ctx.clip(); ctx.strokeStyle = `rgba(${col},${.3 * a})`; ctx.lineWidth = 1; const off = (t * 18) % 4; for (let yy = y - r + off; yy < y + r; yy += 4) { ctx.beginPath(); ctx.moveTo(x - r, yy); ctx.lineTo(x + r, yy); ctx.stroke(); } ctx.restore();
+      if (strong) { const sa = t * 3; ctx.fillStyle = `rgba(255,255,255,${.9 * a})`; for (let i = 0; i < 2; i++) { const ang = sa + i * Math.PI; ctx.beginPath(); ctx.arc(x + Math.cos(ang) * (r + 3), y + Math.sin(ang) * (r + 3), 1.6, 0, TAU); ctx.fill(); } }
+      ctx.restore(); } });
+}
 function v189Draw(dt) {
   if (S.ehW && S.ehW.length) for (const W of S.ehW) { const k = Math.min(1, W.t / .55), r = 12 + 98 * k, a = Math.max(0, 1 - W.t / .7); ctx.save(); ctx.strokeStyle = `rgba(190,140,255,${.85 * a})`; ctx.shadowColor = '#9b5cff'; ctx.shadowBlur = 12; ctx.lineWidth = 3 * (1 - k * .6); ctx.beginPath(); ctx.arc(W.x, W.y, r, 0, TAU); ctx.stroke(); ctx.lineWidth = 1; ctx.strokeStyle = `rgba(235,220,255,${.6 * a})`; ctx.beginPath(); ctx.arc(W.x, W.y, r * .8, 0, TAU); ctx.stroke(); ctx.restore(); } // Event Horizon waves
   drawGusts(dt); drawVoidSlash(dt); if (has('mgauntlet')) drawRunes(); for (const b of balls) if (b.velT > 0) drawVelTrail(b); for (const b of balls) if (b.skyT > 0) drawSkyWings(b);
@@ -1914,10 +1950,7 @@ function v189Draw(dt) {
   if (S.scrap) { const Sc = S.scrap, p = .5 + .5 * Math.sin(t * 8); ctx.strokeStyle = `rgba(226,91,255,${.25 + .25 * p})`; ctx.lineWidth = 1.5; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(Sc.x, Sc.y, 18 + ((t * 40 + i * 20) % 60), 0, TAU); ctx.stroke(); } ctx.save(); ctx.translate(Sc.x, Sc.y + Math.sin(t * 3) * 2); ctx.rotate(Math.sin(t * 2) * .4); drawScrapShape(1.15); ctx.restore(); }
   if (has('cradle')) { const n = S.capN || 0, armed = balls.some(q => q.capM); for (const f of flippers) for (let i = 0; i < 3; i++) { const u = .3 + i * .22, x = f.px + f.s * Math.cos(f.a) * f.L * u, y = f.py + Math.sin(f.a) * f.L * u, on = armed || i < n; ctx.fillStyle = on ? '#ffe04a' : 'rgba(80,70,20,.8)'; ctx.shadowColor = '#ffd23a'; ctx.shadowBlur = on ? 10 : 0; ctx.beginPath(); ctx.arc(x, y, 3, 0, TAU); ctx.fill(); } ctx.shadowBlur = 0;
     for (const q of balls) if (q.capM) { const k = performance.now() / 45 | 0; ctx.strokeStyle = 'rgba(255,230,90,.95)'; ctx.lineWidth = 1.5; ctx.beginPath(); for (let i = 0; i <= 10; i++) { const a = i / 10 * TAU, j = ((i * 7919 + k * 31) % 11) / 11; ctx.lineTo(q.x + Math.cos(a) * ((q.rad || 10) + 3 + j * 6), q.y + Math.sin(a) * ((q.rad || 10) + 3 + j * 6)); } ctx.stroke(); } }
-  if (S.slips && S.slips.length) { const now = performance.now(); S.slips.filter(q => q.until > now).forEach((sl, k) => { const d = (0.5 + 0.2 * k) * 1000; for (const q of balls) { const H2 = q.slipH; if (!H2 || H2.length < 6 || now - H2[2] < d - 40) continue; // slipstream balls chase the real one, each 0.2 s behind the previous
-      let n = 0; while (n + 5 < H2.length && now - H2[n + 5] >= d) n += 3; const x = H2[n], y = H2[n + 1], r = q.rad || 10, strong = sl.pct >= 1, a = Math.min(1, (sl.until - now) / 400, (now - sl.born) / 300);
-      ctx.save(); ctx.globalAlpha = (strong ? .95 : .8) * a; ctx.shadowColor = strong ? '#9fd0ff' : '#5aa8ff'; ctx.shadowBlur = strong ? 24 : 14;
-      const gr = ctx.createRadialGradient(x - r * .35, y - r * .4, r * .1, x, y, r); gr.addColorStop(0, '#e6f2ff'); gr.addColorStop(.35, strong ? '#a6d6ff' : '#7cc0ff'); gr.addColorStop(.8, strong ? '#3f86f0' : '#2f6fd6'); gr.addColorStop(1, '#173a80'); ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill(); ctx.restore(); } }); }
+  if (S.slips && S.slips.length) drawSlipstreams();
   if (S.qbFx && S.qbFx.length) for (const f of S.qbFx) { const [gx, gy] = objPos(f.o), k = Math.min(1, f.t), yy = gy - 120 * (1 - k * k), a = f.t < .15 ? f.t / .15 : f.t > 1 ? Math.max(0, 1 - (f.t - 1) / .25) : 1; // Quantum Battery: a blue ball drops onto the target and vanishes
     ctx.save(); ctx.globalAlpha = a; ctx.shadowColor = '#5ad1ff'; ctx.shadowBlur = 18; const r = 8 * (f.t > 1 ? 1 + (f.t - 1) * 2 : 1); const gr = ctx.createRadialGradient(gx - 3, yy - 3, 1, gx, yy, r); gr.addColorStop(0, '#e8fbff'); gr.addColorStop(.5, '#5ad1ff'); gr.addColorStop(1, '#1a5fa8'); ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(gx, yy, r, 0, TAU); ctx.fill(); ctx.restore(); }
   for (const q of balls) if (q.gyroFx > 0) { ctx.strokeStyle = `rgba(255,224,138,${q.gyroFx * 3})`; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(q.x, q.y, (q.rad || 10) + 5, t * 9, t * 9 + 2.2); ctx.stroke(); }
@@ -2901,8 +2934,9 @@ function qcharge() { /* Quantum Battery now charges from hits (see cleanHit) */ 
 function addSlip(dur, pct) { const now = performance.now(); (S.slips ||= []).push({ born: now, until: now + dur * 1000, pct }); msg(pct >= 1 ? 'STRONG SLIPSTREAM BALL' : 'SLIPSTREAM BALL'); tone(520, .2, 'sine', .05, 900); }
 function speedUp(b, k) { if (!b) return; const sp = hyp(b.vx, b.vy) || 1, v = Math.min(S.maxv || MAXV, sp * k) / sp; b.vx *= v; b.vy *= v; tailGust(b); }
 function tailGust(b) { // Tailwind: every speed-up blows a gust of wind into nearby targets
-  if (!has('tailwind') || !b || !isReal(b) || performance.now() - (S.twAt ?? -1e9) < 3000) return; S.twAt = performance.now(); /* 3 s cooldown */
-  const near = allTargets().map(o => [o, ...objPos(o)]).filter(([, x, y]) => hyp(x - b.x, y - b.y) < 170).sort((p, q) => hyp(p[1] - b.x, p[2] - b.y) - hyp(q[1] - b.x, q[2] - b.y)).slice(0, 3);
+  if (!has('tailwind') || !b || !isReal(b) || S.twCd > 0) return; /* 3 s cooldown (game time) */
+  const sp0 = hyp(b.vx, b.vy) || 1, ux0 = b.vx / sp0, uy0 = b.vy / sp0; /* the gust blows the way the ball is heading: targets ahead count as closer */
+  const near = allTargets().filter(o => !(o.kind === 'drop' && o.down)).map(o => { const [x, y] = objPos(o), d = hyp(x - b.x, y - b.y), ahead = ((x - b.x) * ux0 + (y - b.y) * uy0) / (d || 1); return [o, x, y, d * (1.4 - .6 * ahead)]; }).filter(q => q[3] < 340).sort((p, q) => p[3] - q[3]).slice(0, 3); if (!near.length) return; S.twCd = 3;
   const sp = hyp(b.vx, b.vy) || 1, g = { x: b.x, y: b.y, ux: b.vx / sp, uy: b.vy / sp, to: near.map(([, x, y]) => [x, y]), t: 0 }; (S.gusts ||= []).push(g);
   near.forEach(([o, x, y], i) => setTimeout(() => { if (activePlay()) award(T('tailwind', 250, 400, 400), 'tailwind', o, x, y - 30, true); }, 120 + i * 60));
   tone(300, .35, 'sine', .04, 900); noise(.35, .04, 1800, 600, 'bandpass', .05);
@@ -2913,6 +2947,7 @@ function skyhawk(b) { // Skyhunter Wings: reaching the top third, the ball runs 
 }
 const TIMERS_S = ['meltT', 'suitT', 'ockT', 'tempPortalT', 'madT', 'nanoT', 'comboHold', 'slingT'], TIMERS_B = ['gwT', 'hellT', 'blueCd', 'vibT', 'chg', 'radT', 'hardT', 'steerT', 'clutchCd', 'directT', 'furyT', 'skyT', 'spikeT'];
 function cardsTick(dt) {
+  if (S.twCd > 0) S.twCd -= dt;
   if (S.ehW && S.ehW.length) { for (const W of S.ehW) { W.t += dt; const r = 12 + 98 * Math.min(1, W.t / .55); for (const o of allTargets()) { if (W.hit.has(o) || (o.kind === 'drop' && o.down)) continue; const [ox, oy] = objPos(o); if (hyp(ox - W.x, oy - W.y) <= r + (o.r || 10)) { W.hit.add(o); o.flash = 1; award(1000, 'horizon', o, ox, oy - 24, true); } } } S.ehW = S.ehW.filter(W => W.t < .7); } // Event Horizon waves
   if (S.qbFx && S.qbFx.length) { for (const f of S.qbFx) f.t += S.rdt || dt; S.qbFx = S.qbFx.filter(f => f.t < 1.25); }
   if (S.slips && S.slips.length) S.slips = S.slips.filter(q => q.until > performance.now());
@@ -4449,7 +4484,7 @@ const blink = (ms = 250) => (performance.now() / ms | 0) % 2 === 0;
 function drawSling(s) {
   if (s.k.flash <= .1) {
     const x0 = Math.min(s.ax, s.bx, s.cx) - 26, y0 = Math.min(s.ay, s.by, s.cy) - 26, w = Math.max(s.ax, s.bx, s.cx) + 30 - x0, h = Math.max(s.ay, s.by, s.cy) + 32 - y0;
-    const sp = sprite('sl' + slings.indexOf(s) + (has('web') ? 'w' : ''), w, h, () => { ctx.translate(-x0, -y0); drawSling0(s, 0); });
+    const sp = sprite('sl' + slings.indexOf(s) + (has('web') ? 'w' : '') + (evo('atlantis') ? 'v' : ''), w, h, () => { ctx.translate(-x0, -y0); drawSling0(s, 0); });
     ctx.drawImage(sp.c, x0, y0, w, h); return;
   }
   drawSling0(s, s.k.flash);
@@ -4464,7 +4499,7 @@ function drawSling0(s, f) {
   // drop shadow
   ctx.save(); ctx.filter = 'blur(3px)'; tri(8, 11); ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fill(); ctx.lineWidth = 14; ctx.strokeStyle = 'rgba(0,0,0,.45)'; ctx.stroke(); ctx.restore();
   // heavy base: extruded side wall gives the piece thickness
-  for (let d = 7; d > 0; d--) { tri(0, d); ctx.fillStyle = d > 4 ? '#0b1a4a' : '#12275e'; ctx.fill(); ctx.strokeStyle = '#050608'; ctx.lineWidth = 13; ctx.stroke(); }
+  for (let d = 7; d > 0; d--) { tri(0, d); ctx.fillStyle = evo('atlantis') ? (d > 4 ? '#1a0838' : '#2a0f52') : d > 4 ? '#0b1a4a' : '#12275e'; ctx.fill(); ctx.strokeStyle = '#050608'; ctx.lineWidth = 13; ctx.stroke(); }
   // top plate
   tri(); ctx.fillStyle = '#d9dde6'; ctx.fill();
   // thick black rubber ring around the posts
@@ -4479,8 +4514,10 @@ function drawSling0(s, f) {
   let pg = ctx.createLinearGradient(s.ax, s.ay, s.cx, s.cy);
   pg.addColorStop(0, f > .1 ? '#eafcff' : '#4cc0ff'); pg.addColorStop(.55, f > .1 ? '#9fefff' : '#2466d6'); pg.addColorStop(1, f > .1 ? '#62d8ff' : '#132f86');
   if (has('web')) { pg = ctx.createLinearGradient(s.ax, s.ay, s.cx, s.cy); pg.addColorStop(0, f > .1 ? '#ffffff' : '#e9ecf5'); pg.addColorStop(1, f > .1 ? '#ffd6d6' : '#9aa3bd'); }
-  ctx.fillStyle = pg; if (f > .1) { ctx.shadowColor = has('web') ? '#ff6b6b' : '#7fe7ff'; ctx.shadowBlur = 28; } ctx.fill(); ctx.shadowBlur = 0;
-  ctx.strokeStyle = has('web') ? '#b3202a' : '#0a1c52'; ctx.lineWidth = 3; ctx.stroke();
+  const vsl = evo('atlantis') && !has('web'); if (vsl) { pg = ctx.createLinearGradient(s.ax, s.ay, s.cx, s.cy); pg.addColorStop(0, f > .1 ? '#f4e8ff' : '#c79bff'); pg.addColorStop(.55, f > .1 ? '#d2a8ff' : '#6a2fc0'); pg.addColorStop(1, f > .1 ? '#a070ff' : '#2a0c5e'); } // Voidsteel Citadel: violet voidsteel crystal
+  ctx.fillStyle = pg; if (f > .1) { ctx.shadowColor = has('web') ? '#ff6b6b' : vsl ? '#c79bff' : '#7fe7ff'; ctx.shadowBlur = 28; } ctx.fill(); ctx.shadowBlur = 0;
+  ctx.strokeStyle = has('web') ? '#b3202a' : vsl ? '#1a0638' : '#0a1c52'; ctx.lineWidth = 3; ctx.stroke();
+  if (vsl) { const ix = (s.ax + s.bx + s.cx) / 3, iy = (s.ay + s.by + s.cy) / 3; ctx.save(); tri(0, 0, .22); ctx.clip(); ctx.strokeStyle = 'rgba(230,200,255,.45)'; ctx.lineWidth = 1; for (const [x, y] of [[s.ax, s.ay], [s.bx, s.by], [s.cx, s.cy]]) { ctx.beginPath(); ctx.moveTo(ix, iy); ctx.lineTo(x, y); ctx.stroke(); } tri(0, 0, .6); ctx.stroke(); ctx.restore(); } // crystal facets
   if (has('web')) { // spider-web strands over the plastic
     const ix = (s.ax + s.bx + s.cx) / 3, iy = (s.ay + s.by + s.cy) / 3;
     ctx.save(); tri(0, 0, .22); ctx.clip(); ctx.strokeStyle = 'rgba(60,20,30,.55)'; ctx.lineWidth = 1;
@@ -4504,7 +4541,7 @@ function drawBumper(c) {
     ctx.save(); ctx.strokeStyle = `rgba(150,230,255,${.35 + .5 * charge})`; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 10 + 10 * charge; ctx.lineWidth = 1.6;
     ctx.beginPath(); for (let i = 0; i <= 24; i++) { const a = i / 24 * TAU, j = ((i * 7919 + t * 31) % 17) / 17; ctx.lineTo(c.x + Math.cos(a) * (r + 9 + j * 6), c.y + Math.sin(a) * (r + 9 + j * 6)); } ctx.stroke(); ctx.restore();
   }
-  if (!(f > .01)) { const p = r + 24, sp = sprite('bu' + (c.big ? 'B' : c.pit ? (has('hypercube') ? 'PG' : 'P') : c.temp ? 'T' : HG() ? 'G' : c.goldT > 0 ? 'Y' : has('skyfall') ? 'R' : 'N') + r, p * 2, p * 2, () => drawBumperBody({ ...c, x: p, y: p, flash: 0 })); ctx.drawImage(sp.c, c.x - p, c.y - p, p * 2, p * 2); return; }
+  if (!(f > .01)) { const p = r + 24, sp = sprite('bu' + (c.big ? 'B' : c.pit ? (has('hypercube') ? 'PG' : 'P') : c.temp ? 'T' : HG() ? 'G' : c.goldT > 0 ? 'Y' : evo('atlantis') ? 'V' : has('skyfall') ? 'R' : 'N') + r, p * 2, p * 2, () => drawBumperBody({ ...c, x: p, y: p, flash: 0 })); ctx.drawImage(sp.c, c.x - p, c.y - p, p * 2, p * 2); return; }
   drawBumperBody(c);
 }
 function drawBumperBody(c) {
@@ -4515,7 +4552,7 @@ function drawBumperBody(c) {
   if (f > 0) { g = ctx.createRadialGradient(c.x, c.y, r, c.x, c.y, r + 40); g.addColorStop(0, `rgba(255,190,80,${.5 * f})`); g.addColorStop(1, 'rgba(255,190,80,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c.x, c.y, r + 40, 0, TAU); ctx.fill(); }
   g = ctx.createLinearGradient(c.x - r, c.y - r, c.x + r, c.y + r); g.addColorStop(0, '#e5e9f2'); g.addColorStop(.5, '#7b8296'); g.addColorStop(1, '#2d313d');
   ctx.beginPath(); ctx.arc(c.x, c.y, r + (c.pit ? 2 : r > 12 ? 6 : 3) - f * 2, 0, TAU); ctx.fillStyle = g; ctx.fill();
-  const hg = HG() && !c.pit && !c.big; ctx.beginPath(); ctx.arc(c.x, c.y + 3, r - 2, 0, TAU); ctx.fillStyle = c.big ? '#2e0650' : hg ? '#0b3a1e' : c.goldT > 0 ? '#5a3a00' : '#5a0c12'; ctx.fill();
+  const hg = HG() && !c.pit && !c.big; ctx.beginPath(); ctx.arc(c.x, c.y + 3, r - 2, 0, TAU); ctx.fillStyle = c.big ? '#2e0650' : hg ? '#0b3a1e' : c.goldT > 0 ? '#5a3a00' : evo('atlantis') && !c.pit && !c.temp ? '#24104a' : '#5a0c12'; ctx.fill();
   const cx = c.x - 1, cy = c.y - 4, cr = r - 4;
   g = ctx.createRadialGradient(cx - cr * .35, cy - cr * .4, 1, cx, cy, cr);
   if (f > .15) { g.addColorStop(0, '#fffbe6'); g.addColorStop(.45, '#ffd35a'); g.addColorStop(1, '#d9661c'); }
@@ -4529,8 +4566,16 @@ function drawBumperBody(c) {
   ctx.beginPath(); ctx.arc(cx, cy, cr, 0, TAU); ctx.fillStyle = g;
   if (f > .15) { ctx.shadowColor = c.big ? '#e28cff' : '#ffc75a'; ctx.shadowBlur = c.big ? 40 : 26; } else if (c.big) { ctx.shadowColor = '#b24dff'; ctx.shadowBlur = 14; } ctx.fill(); ctx.shadowBlur = 0;
   ctx.strokeStyle = 'rgba(0,0,0,.35)'; ctx.lineWidth = 1.5; ctx.stroke();
-  const robo = has('skyfall') && !c.pit && !c.big && !c.temp && !hg && !(c.goldT > 0);
-  if (robo) { // Overdrive Engine: armoured robot heads with a glowing visor and rivets
+  const vsb = evo('atlantis') && !c.pit && !c.big && !c.temp && !hg && !(c.goldT > 0);
+  const robo = !vsb && has('skyfall') && !c.pit && !c.big && !c.temp && !hg && !(c.goldT > 0);
+  if (vsb) { // Voidsteel Citadel: the bumpers become voidsteel domes with a violet crystal core and riveted plating
+    const gm = ctx.createLinearGradient(cx - cr, cy - cr, cx + cr, cy + cr); gm.addColorStop(0, '#8a86a0'); gm.addColorStop(.45, '#3b3550'); gm.addColorStop(1, '#120e1e');
+    ctx.beginPath(); ctx.arc(cx, cy, cr, 0, TAU); ctx.fillStyle = gm; ctx.fill(); ctx.strokeStyle = '#b58cff'; ctx.lineWidth = 2; ctx.shadowColor = '#b58cff'; ctx.shadowBlur = f > .15 ? 24 : 10; ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(0,0,0,.55)'; ctx.lineWidth = 1.2; for (let k = 0; k < 6; k++) { const aa = k / 6 * TAU; ctx.beginPath(); ctx.moveTo(cx + Math.cos(aa) * cr * .48, cy + Math.sin(aa) * cr * .48); ctx.lineTo(cx + Math.cos(aa) * cr, cy + Math.sin(aa) * cr); ctx.stroke(); }
+    ctx.beginPath(); for (let k = 0; k < 6; k++) { const aa = k / 6 * TAU + Math.PI / 6; ctx.lineTo(cx + Math.cos(aa) * cr * .5, cy + Math.sin(aa) * cr * .5); } ctx.closePath();
+    const cg = ctx.createRadialGradient(cx - cr * .15, cy - cr * .2, 1, cx, cy, cr * .5); cg.addColorStop(0, f > .15 ? '#ffffff' : '#f2e2ff'); cg.addColorStop(.5, f > .15 ? '#e3c6ff' : '#b06cff'); cg.addColorStop(1, '#4a1590'); ctx.fillStyle = cg; ctx.shadowColor = '#c79bff'; ctx.shadowBlur = 12; ctx.fill(); ctx.shadowBlur = 0;
+    ctx.fillStyle = '#cfc8e6'; for (let k = 0; k < 6; k++) { const aa = k / 6 * TAU + Math.PI / 6; ctx.beginPath(); ctx.arc(cx + Math.cos(aa) * cr * .78, cy + Math.sin(aa) * cr * .78, 1.3, 0, TAU); ctx.fill(); }
+  } else if (robo) { // Overdrive Engine: armoured robot heads with a glowing visor and rivets
     const gm = ctx.createLinearGradient(cx - cr, cy - cr, cx + cr, cy + cr); gm.addColorStop(0, '#d7dce6'); gm.addColorStop(.5, '#6d7486'); gm.addColorStop(1, '#262a35');
     ctx.beginPath(); ctx.arc(cx, cy, cr, 0, TAU); ctx.fillStyle = gm; ctx.fill(); ctx.strokeStyle = '#1a1d26'; ctx.lineWidth = 1.5; ctx.stroke();
     ctx.fillStyle = '#121418'; ctx.beginPath(); ctx.roundRect(cx - cr * .72, cy - cr * .22, cr * 1.44, cr * .42, cr * .2); ctx.fill();
@@ -4548,8 +4593,9 @@ function drawFlipper(f) {
   flipperShape(f);
   const rep = has('repulsor'), cursed = S.bfx && S.bfx.mirror > 0 && !(S.bfx.mirror < 1 && Math.floor(performance.now() / 110) % 2); // flickers on/off in its last second
   const g = ctx.createLinearGradient(0, -13, 0, 13);
-  if (cursed) { g.addColorStop(0, '#b9ffd0'); g.addColorStop(.5, '#2fbf62'); g.addColorStop(1, '#0d5a2a'); } else if (rep) { g.addColorStop(0, '#ff6b5a'); g.addColorStop(.5, '#c21d25'); g.addColorStop(1, '#6e0c12'); } else { g.addColorStop(0, '#ffffff'); g.addColorStop(.5, '#e6e4dc'); g.addColorStop(1, '#a9a69c'); }
-  ctx.fillStyle = g; ctx.fill(); ctx.strokeStyle = cursed ? '#d6b23c' : rep ? '#f5c542' : '#c8202b'; ctx.lineWidth = 4; ctx.stroke(); if (cursed) { ctx.shadowColor = '#46e08a'; ctx.shadowBlur = 14; ctx.stroke(); ctx.shadowBlur = 0; }
+  const vfl = evo('atlantis') && !cursed && !rep; if (cursed) { g.addColorStop(0, '#b9ffd0'); g.addColorStop(.5, '#2fbf62'); g.addColorStop(1, '#0d5a2a'); } else if (vfl) { g.addColorStop(0, '#a49cc0'); g.addColorStop(.45, '#3b3354'); g.addColorStop(1, '#140e22'); } else if (rep) { g.addColorStop(0, '#ff6b5a'); g.addColorStop(.5, '#c21d25'); g.addColorStop(1, '#6e0c12'); } else { g.addColorStop(0, '#ffffff'); g.addColorStop(.5, '#e6e4dc'); g.addColorStop(1, '#a9a69c'); }
+  ctx.fillStyle = g; ctx.fill(); ctx.strokeStyle = cursed ? '#d6b23c' : vfl ? '#b58cff' : rep ? '#f5c542' : '#c8202b'; ctx.lineWidth = 4; if (vfl) { ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 12; } ctx.stroke(); ctx.shadowBlur = 0;
+  if (vfl) { ctx.strokeStyle = `rgba(210,170,255,${.55 + .35 * Math.sin(performance.now() / 260)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(10, 2); ctx.lineTo(f.L - 8, 1); ctx.stroke(); ctx.fillStyle = '#cfc8e6'; for (const u of [.3, .55, .8]) { ctx.beginPath(); ctx.arc(f.L * u, -5 + u * 2, 1.4, 0, TAU); ctx.fill(); } } // voidsteel plating with a glowing seam if (cursed) { ctx.shadowColor = '#46e08a'; ctx.shadowBlur = 14; ctx.stroke(); ctx.shadowBlur = 0; }
   if (f.frozen > 0) { flipperShape(f); ctx.fillStyle = `rgba(255,40,40,${.35 + .25 * Math.sin(performance.now() / 40)})`; ctx.fill(); ctx.font = '11px ' + FONT_D; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText('OFFLINE', f.L / 2, 4); }
   if (has('sense')) { const k = .55 + .25 * Math.sin(performance.now() / 300) + (S.dampFx || 0); flipperShape(f); ctx.fillStyle = `rgba(150,90,255,${.32 * Math.min(1, k)})`; ctx.fill(); ctx.shadowColor = '#b58cff'; ctx.shadowBlur = 14 + 10 * Math.min(1, k); ctx.strokeStyle = `rgba(200,160,255,${.75 * Math.min(1, k)})`; ctx.lineWidth = 2; ctx.stroke(); ctx.shadowBlur = 0; } // Voidsteel Dampener: the flippers glow purple
   if (rep) { ctx.beginPath(); ctx.arc(f.L - 12, 0, 4.5, 0, TAU); ctx.fillStyle = '#dffcff'; ctx.shadowColor = '#7fe7ff'; ctx.shadowBlur = 14; ctx.fill(); ctx.shadowBlur = 0; }
